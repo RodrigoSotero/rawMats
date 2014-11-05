@@ -22,6 +22,7 @@ public class newProducto extends javax.swing.JFrame {
     public newProducto() {
            initComponents();
         Fondo fondo = new Fondo();
+        this.setLocationRelativeTo(null);
         Dimension size = this.getSize();
         fondo.setSize(size);
         add(fondo);
@@ -60,14 +61,12 @@ public class newProducto extends javax.swing.JFrame {
         __SALIR = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         jLabel10.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Area:");
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 85, 37, 30);
 
         __cmbArea.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona....." }));
         __cmbArea.addActionListener(new java.awt.event.ActionListener() {
@@ -75,20 +74,14 @@ public class newProducto extends javax.swing.JFrame {
                 __cmbAreaActionPerformed(evt);
             }
         });
-        getContentPane().add(__cmbArea);
-        __cmbArea.setBounds(75, 85, 360, 32);
 
         __etqNewArea.setFont(new java.awt.Font("Papyrus", 0, 12)); // NOI18N
         __etqNewArea.setForeground(new java.awt.Color(255, 255, 255));
         __etqNewArea.setText("Nueva Area...");
-        getContentPane().add(__etqNewArea);
-        __etqNewArea.setBounds(60, 130, 150, 20);
 
         jLabel11.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Maquina:");
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(10, 160, 56, 30);
 
         __cmbMaquina.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona....." }));
         __cmbMaquina.addActionListener(new java.awt.event.ActionListener() {
@@ -96,63 +89,133 @@ public class newProducto extends javax.swing.JFrame {
                 __cmbMaquinaActionPerformed(evt);
             }
         });
-        getContentPane().add(__cmbMaquina);
-        __cmbMaquina.setBounds(80, 160, 350, 32);
 
         __etqNewMaquina.setFont(new java.awt.Font("Papyrus", 0, 12)); // NOI18N
         __etqNewMaquina.setForeground(new java.awt.Color(255, 255, 255));
         __etqNewMaquina.setText("Nuevo Area...");
-        getContentPane().add(__etqNewMaquina);
-        __etqNewMaquina.setBounds(50, 200, 150, 20);
 
         __etqAlto_.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __etqAlto_.setForeground(new java.awt.Color(255, 255, 255));
         __etqAlto_.setText("Descripcion del Producto:");
-        getContentPane().add(__etqAlto_);
-        __etqAlto_.setBounds(10, 234, 165, 30);
 
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 260, 420, 96);
-
         jLabel2.setFont(new java.awt.Font("Papyrus", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 0));
         jLabel2.setText("Alta del Producto");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 10, 204, 39);
 
         __etqFech.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         __etqFech.setForeground(new java.awt.Color(255, 255, 255));
         __etqFech.setText("DD/MM/AAAA");
-        getContentPane().add(__etqFech);
-        __etqFech.setBounds(320, 20, 110, 22);
 
         __GUARDAR.setText("Guardar");
-        getContentPane().add(__GUARDAR);
-        __GUARDAR.setBounds(20, 450, 120, 30);
 
-        __etqClave.setBackground(new java.awt.Color(0, 0, 0));
+        __etqClave.setBackground(new java.awt.Color(255, 255, 0));
+        __etqClave.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        __etqClave.setForeground(new java.awt.Color(255, 255, 255));
         __etqClave.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        getContentPane().add(__etqClave);
-        __etqClave.setBounds(20, 407, 400, 30);
+        __etqClave.setEnabled(false);
 
         __NUEVO.setText("Nuevo");
-        getContentPane().add(__NUEVO);
-        __NUEVO.setBounds(160, 450, 110, 30);
 
         __SALIR.setText("Regresar");
-        getContentPane().add(__SALIR);
-        __SALIR.setBounds(310, 450, 110, 30);
 
         jLabel16.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Clave de Producto:");
-        getContentPane().add(jLabel16);
-        jLabel16.setBounds(180, 370, 78, 23);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(28, 28, 28)
+                        .addComponent(__cmbArea, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(__cmbMaquina, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(__etqFech)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(__etqClave, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(__etqNewArea, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(__etqNewMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(__etqAlto_))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(__GUARDAR, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(__NUEVO, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(__etqFech))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(__cmbArea, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addComponent(__etqNewArea)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(__cmbMaquina, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(__etqNewMaquina)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(__etqAlto_, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(__etqClave, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(__GUARDAR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(__NUEVO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
