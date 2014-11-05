@@ -160,4 +160,27 @@ public class database {
            }
         
    }
+    public static void backupbd(String fecha){
+   Process runtimeProcess;
+        try {
+            String sFichero = "C:\\iexsa\\backups\\dump"+fecha+".sql";
+            File fichero = new File(sFichero);
+            if(fichero.exists()){
+                return;
+            }
+            String executeCmd="mysqldump -u"+user+" -p"+password+" -h "+cadena+" --routines dis_paper --result-file=C:\\iexsa\\backups\\dump"+fecha+".sql";
+            System.out.println(executeCmd);
+            runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+            runtimeProcess.getErrorStream();
+            int processComplete = runtimeProcess.waitFor();
+            if (processComplete == 0) {
+                System.out.println("Backup created successfully");
+            } else {
+                System.out.println(processComplete);
+                System.out.println("Could not create the backup");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+   }
 }

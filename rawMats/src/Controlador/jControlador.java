@@ -18,6 +18,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
@@ -25,6 +26,19 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -42,7 +56,7 @@ public class jControlador implements ActionListener {
     private final  Fecha fecha = new Fecha(); 
     private final  MenuMaster menumaster = new MenuMaster();
     int a=1,id_responsable,cargo,pedirfecha,confir;
-    String fec,user="",contra,pswd,fech,horaentrada;
+    String fec,user="",contra,pswd,fech,horaentrada,horasalida;
     public jControlador( JFrame padre ){
         //this.frmprincipal = (frmPrincipal) padre;
         this.splash = (Splash) padre;
@@ -153,12 +167,45 @@ public class jControlador implements ActionListener {
     }
     public enum Accion{
         __INICIA_SESION,
+        __SALIR,
+        __CANCELAR_FECHA,
+        __ACEPTAR_FECHA,
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         switch(Accion.valueOf(e.getActionCommand())){
+            case __ACEPTAR_FECHA:
+                fechaini();
+                break;
             case __INICIA_SESION:
                 break;
+            case __SALIR:
+                confir = mensajeConfirmacion("¿Desea Salir?","Salida");
+                if (confir==JOptionPane.OK_OPTION){
+                    this.SalirSistema();
+                }
+                break;
+                case __CANCELAR_FECHA:
+                confir = this.mensajeConfirmacion("¿Estas seguro que deseas salir?","ALERTA");
+                if (confir==JOptionPane.OK_OPTION){
+                    login.setEnabled(true);
+                    fecha.setVisible(false);
+                     Calendar Cal= Calendar.getInstance();                                                  
+                               String hora=Cal.get(Cal.HOUR_OF_DAY)<10 ? "0"+Cal.get(Cal.HOUR_OF_DAY) : ""+Cal.get(Cal.HOUR_OF_DAY);
+                               String minute=Cal.get(Cal.MINUTE)<10 ? "0"+Cal.get(Cal.MINUTE) : ""+Cal.get(Cal.MINUTE);
+                               horasalida = hora+":"+minute;                
+                    boolean registrasalida=mimodelo.horasalida(horasalida,user);
+                    if(!user.equals("ROOT")){
+                                try {
+                                    mimodelo.cerrarsesion(user);
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                    }
+                            login.__Usuario.requestFocus();
+                        }
+                break;
+                    
         }
     }
     public void iniciasesion() {
@@ -455,5 +502,81 @@ public class jControlador implements ActionListener {
         panel.add(label);
         panel.setBackground(Color.yellow);
         return JOptionPane.showConfirmDialog(null,panel,titulo,JOptionPane.OK_CANCEL_OPTION);
+    }
+    public void SalirSistema(){
+        try {
+            //meter un update 
+            if(cargo==1){
+                mimodelo.bp(fech);
+                this.enviaarchivo("C:\\iexsa\\backups\\dump"+fech+".sql","rawmats2014@gmail.com" ,"Backup de la base de datos");
+                File fichero = new File("C:\\iexsa\\backups\\dump"+fech+".sql");
+                fichero.delete();
+            }
+             Toolkit.getDefaultToolkit().setLockingKeyState(KeyEvent.VK_CAPS_LOCK, false);
+              Calendar Cal= Calendar.getInstance();                                                  
+                               String hora=Cal.get(Cal.HOUR_OF_DAY)<10 ? "0"+Cal.get(Cal.HOUR_OF_DAY) : ""+Cal.get(Cal.HOUR_OF_DAY);
+                               String minute=Cal.get(Cal.MINUTE)<10 ? "0"+Cal.get(Cal.MINUTE) : ""+Cal.get(Cal.MINUTE);
+                               horasalida = hora+":"+minute;                
+            boolean registrasalida=mimodelo.horasalida(horasalida,user);
+            if(!user.equals("ROOT")){
+                mimodelo.cerrarsesion(user);
+            }
+            System.exit(0);
+        } catch (SQLException ex) {
+            mensaje(3,ex.getMessage());
+        }
+    }
+    public boolean enviaarchivo(String urlarchivo, String destinatario,String msg){
+        try{
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.setProperty("mail.smtp.starttls.enable", "true");
+            props.setProperty("mail.smtp.port", "587");
+            props.setProperty("mail.smtp.user", "dispaper.iexsa@gmail.com");
+            props.setProperty("mail.smtp.auth", "true");
+
+            Session session = Session.getDefaultInstance(props, null);
+            // session.setDebug(true);
+
+            // Se compone la parte del texto
+            BodyPart texto = new MimeBodyPart();
+            texto.setText(msg);
+
+            
+               
+                   //Se compone el adjunto con la imagen
+            BodyPart adjunto = new MimeBodyPart();
+            adjunto.setDataHandler(new DataHandler(new FileDataSource(urlarchivo)));
+           adjunto.setFileName(urlarchivo);       
+            
+            // Una MultiParte para agrupar texto e imagen.
+            MimeMultipart multiParte = new MimeMultipart();
+            multiParte.addBodyPart(texto);
+            multiParte.addBodyPart(adjunto);
+
+            // Se compone el correo, dando to, from, subject y el
+            // contenido.
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("prueba@prueba.com"));
+            message.addRecipient(
+            Message.RecipientType.TO,
+            new InternetAddress(destinatario));
+            message.setSubject("Correo de Dis-Paper "+ fec);
+            message.setContent(multiParte);
+
+            // Se envia el correo.
+            Transport t = session.getTransport("smtp");
+            String micorreo="rawmats2014@gmail.com";
+            String mipswd="2014rawmats";
+            t.connect(micorreo, mipswd);
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
+            return true;
+        }
+        catch (Exception e){
+            mensaje(3,e.getMessage());
+            return false;
+        }
+        
     }
 }
