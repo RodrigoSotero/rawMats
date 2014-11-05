@@ -60,6 +60,24 @@ public class newProducto extends javax.swing.JFrame {
         __NUEVO = new javax.swing.JButton();
         __SALIR = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        __Archivo = new javax.swing.JMenu();
+        __menuMovimientos = new javax.swing.JMenuItem();
+        __menuAnterior = new javax.swing.JMenuItem();
+        __menuConsultas = new javax.swing.JMenuItem();
+        __menuReportes = new javax.swing.JMenuItem();
+        __MenuAbrirArchivo = new javax.swing.JMenuItem();
+        __menuCerrarSesion = new javax.swing.JMenuItem();
+        __menuSalir = new javax.swing.JMenuItem();
+        __Edicion = new javax.swing.JMenu();
+        __menuCambiarFecha = new javax.swing.JMenuItem();
+        __menuNuevoUsuario = new javax.swing.JMenuItem();
+        __menuCambiarContraseña = new javax.swing.JMenuItem();
+        __menuReporte = new javax.swing.JMenuItem();
+        __menucerrarsesiones = new javax.swing.JMenuItem();
+        __menuBajaProducto = new javax.swing.JMenuItem();
+        __menuAcerca = new javax.swing.JMenuItem();
+        __menuBackup = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -126,6 +144,106 @@ public class newProducto extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Clave de Producto:");
+
+        __Archivo.setText("Archivo");
+
+        __menuMovimientos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        __menuMovimientos.setText("Movimientos");
+        __menuMovimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __menuMovimientosActionPerformed(evt);
+            }
+        });
+        __Archivo.add(__menuMovimientos);
+
+        __menuAnterior.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
+        __menuAnterior.setText("Regresar al Menú Anterior");
+        __menuAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __menuAnteriorActionPerformed(evt);
+            }
+        });
+        __Archivo.add(__menuAnterior);
+
+        __menuConsultas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        __menuConsultas.setText("Consultas");
+        __Archivo.add(__menuConsultas);
+
+        __menuReportes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        __menuReportes.setText("Generar un reporte...");
+        __menuReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __menuReportesActionPerformed(evt);
+            }
+        });
+        __Archivo.add(__menuReportes);
+
+        __MenuAbrirArchivo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        __MenuAbrirArchivo.setText("Abrir Archivo...");
+        __MenuAbrirArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __MenuAbrirArchivoActionPerformed(evt);
+            }
+        });
+        __Archivo.add(__MenuAbrirArchivo);
+
+        __menuCerrarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        __menuCerrarSesion.setText("Cerrar Sesion");
+        __Archivo.add(__menuCerrarSesion);
+
+        __menuSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        __menuSalir.setText("Salir del Sistema");
+        __menuSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __menuSalirActionPerformed(evt);
+            }
+        });
+        __Archivo.add(__menuSalir);
+
+        jMenuBar1.add(__Archivo);
+
+        __Edicion.setText("Edición");
+
+        __menuCambiarFecha.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        __menuCambiarFecha.setText("Cambiar Fecha del Sistema");
+        __menuCambiarFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __menuCambiarFechaActionPerformed(evt);
+            }
+        });
+        __Edicion.add(__menuCambiarFecha);
+
+        __menuNuevoUsuario.setText("Nuevo Usuario...");
+        __Edicion.add(__menuNuevoUsuario);
+
+        __menuCambiarContraseña.setText("Cambiar mi Contraseña");
+        __Edicion.add(__menuCambiarContraseña);
+
+        __menuReporte.setText("Reporte de Usuarios");
+        __Edicion.add(__menuReporte);
+
+        __menucerrarsesiones.setText("Cerrar Todas las Sesiones");
+        __Edicion.add(__menucerrarsesiones);
+
+        __menuBajaProducto.setText("Baja de Producto");
+        __Edicion.add(__menuBajaProducto);
+
+        __menuAcerca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, java.awt.event.InputEvent.CTRL_MASK));
+        __menuAcerca.setText("Acerca de...");
+        __Edicion.add(__menuAcerca);
+
+        __menuBackup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
+        __menuBackup.setText("Backup");
+        __menuBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __menuBackupActionPerformed(evt);
+            }
+        });
+        __Edicion.add(__menuBackup);
+
+        jMenuBar1.add(__Edicion);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -214,7 +332,7 @@ public class newProducto extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(__NUEVO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -227,6 +345,34 @@ public class newProducto extends javax.swing.JFrame {
     private void __cmbMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___cmbMaquinaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event___cmbMaquinaActionPerformed
+
+    private void __menuAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuAnteriorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___menuAnteriorActionPerformed
+
+    private void __menuReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuReportesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___menuReportesActionPerformed
+
+    private void __MenuAbrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___MenuAbrirArchivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___MenuAbrirArchivoActionPerformed
+
+    private void __menuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___menuSalirActionPerformed
+
+    private void __menuCambiarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuCambiarFechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___menuCambiarFechaActionPerformed
+
+    private void __menuBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuBackupActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___menuBackupActionPerformed
+
+    private void __menuMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuMovimientosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___menuMovimientosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,7 +410,10 @@ public class newProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JMenu __Archivo;
+    public javax.swing.JMenu __Edicion;
     public javax.swing.JButton __GUARDAR;
+    public javax.swing.JMenuItem __MenuAbrirArchivo;
     public javax.swing.JButton __NUEVO;
     public javax.swing.JButton __SALIR;
     public javax.swing.JComboBox __cmbArea;
@@ -274,10 +423,25 @@ public class newProducto extends javax.swing.JFrame {
     public javax.swing.JLabel __etqFech;
     public javax.swing.JLabel __etqNewArea;
     public javax.swing.JLabel __etqNewMaquina;
+    public javax.swing.JMenuItem __menuAcerca;
+    public javax.swing.JMenuItem __menuAnterior;
+    public javax.swing.JMenuItem __menuBackup;
+    public javax.swing.JMenuItem __menuBajaProducto;
+    public javax.swing.JMenuItem __menuCambiarContraseña;
+    public javax.swing.JMenuItem __menuCambiarFecha;
+    public javax.swing.JMenuItem __menuCerrarSesion;
+    public javax.swing.JMenuItem __menuConsultas;
+    public javax.swing.JMenuItem __menuMovimientos;
+    public javax.swing.JMenuItem __menuNuevoUsuario;
+    public javax.swing.JMenuItem __menuReporte;
+    public javax.swing.JMenuItem __menuReportes;
+    public javax.swing.JMenuItem __menuSalir;
+    public javax.swing.JMenuItem __menucerrarsesiones;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables

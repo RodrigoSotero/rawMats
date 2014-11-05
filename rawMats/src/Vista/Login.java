@@ -81,7 +81,12 @@ public class Login extends javax.swing.JFrame {
         __INICIA_SESION.setText("ACEPTAR");
 
         __SALIR_SISTEMA.setFont(new java.awt.Font("Elephant", 0, 12)); // NOI18N
-        __SALIR_SISTEMA.setText("CANCELAR");
+        __SALIR_SISTEMA.setText("SALIR");
+        __SALIR_SISTEMA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __SALIR_SISTEMAActionPerformed(evt);
+            }
+        });
 
         __etqBloqMayus.setFont(new java.awt.Font("Papyrus", 0, 18)); // NOI18N
         __etqBloqMayus.setForeground(new java.awt.Color(255, 255, 0));
@@ -96,6 +101,15 @@ public class Login extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(__INICIA_SESION)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(__SALIR_SISTEMA)
+                        .addGap(19, 19, 19))))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
@@ -105,18 +119,9 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(__Pswd, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(__Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(__INICIA_SESION)
-                                .addGap(204, 204, 204)
-                                .addComponent(__SALIR_SISTEMA)
-                                .addGap(8, 8, 8))
-                            .addComponent(jLabel5)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(171, 171, 171)
                         .addComponent(jLabel2)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(__etqBloqMayus)
@@ -157,6 +162,10 @@ public class Login extends javax.swing.JFrame {
     private void __UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___UsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event___UsuarioActionPerformed
+
+    private void __SALIR_SISTEMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___SALIR_SISTEMAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___SALIR_SISTEMAActionPerformed
 
     /**
      * @param args the command line arguments
