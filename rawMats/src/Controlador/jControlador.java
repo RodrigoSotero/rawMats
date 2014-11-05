@@ -10,7 +10,9 @@ import Modelo.modelo;
 import Vista.Fecha;
 import Vista.HiloProgreso;
 import Vista.Login;
+import Vista.MenuMaster;
 import Vista.Splash;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -20,7 +22,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,9 +39,10 @@ public class jControlador implements ActionListener {
     private static  Vista.Splash splash = new Splash();  
     private final  Login login = new Login();
     private final  modelo mimodelo = new modelo();
-    private final  Fecha fecha = new Fecha();  
-    int a=1,id_responsable,cargo;
-    String user="",contra,pswd,fech,horaentrada;
+    private final  Fecha fecha = new Fecha(); 
+    private final  MenuMaster menumaster = new MenuMaster();
+    int a=1,id_responsable,cargo,pedirfecha,confir;
+    String fec,user="",contra,pswd,fech,horaentrada;
     public jControlador( JFrame padre ){
         //this.frmprincipal = (frmPrincipal) padre;
         this.splash = (Splash) padre;
@@ -122,8 +127,30 @@ public class jControlador implements ActionListener {
                 login.__Pswd.setToolTipText("<html><body bgcolor=\"red\"><font color=\"white\">"+contra+"</font></body></html>");
             }
         });
-    }
+        this.fecha.__ACEPTAR.setActionCommand("__ACEPTAR_FECHA");
+        this.fecha.__ACEPTAR.addActionListener(this);
+        fecha.date.getDateEditor().getUiComponent().addKeyListener(new java.awt.event.KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {
+                
+            }
 
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    fechaini();
+                } 
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                
+            }
+        
+        });       
+        this.fecha.__CANCELAR.setActionCommand("__CANCELAR_FECHA");
+        this.fecha.__CANCELAR.addActionListener(this);
+    }
     public enum Accion{
         __INICIA_SESION,
     }
@@ -134,7 +161,6 @@ public class jControlador implements ActionListener {
                 break;
         }
     }
-    
     public void iniciasesion() {
         user=this.login.__Usuario.getText();
         contra=this.login.__Pswd.getText();
@@ -239,5 +265,195 @@ public class jControlador implements ActionListener {
     }
     public void mayusculas(){
         Toolkit.getDefaultToolkit().setLockingKeyState(KeyEvent.VK_CAPS_LOCK, true);
+    }
+    public void fechaini() {
+        if (aceptarfecha()==true){
+            if(pedirfecha==0){
+                    switch(cargo){
+                        case 1:
+                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
+                            menumaster.__ALTA_PAPEL.setEnabled(true);
+                            menumaster.setLocationRelativeTo(null);
+                            menumaster.show();
+                            break;
+                        case 2:
+                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
+                            menumaster.__ALTA_PAPEL.setEnabled(false);
+                            menumaster.setLocationRelativeTo(null);
+                            menumaster.show();
+                            break;
+                        case 3:
+                            /*this.addItems("consultas");
+                            consultas.setLocationRelativeTo(null);
+                            consultas.show();*/
+                            mensaje(3,"formulario consultas");
+                            break;
+                    }
+                }
+                ponerfecha();
+                fecha.date.setDate(null);
+                login.dispose();
+                login.setEnabled(true);
+                /*movimientos.setEnabled(true);
+                ap.setEnabled(true);                   
+                reportes.setEnabled(true);                    
+                consultas.setEnabled(true);*/
+                fecha.dispose();
+            }
+    }
+    public boolean aceptarfecha() {
+        fec = this.aceptarFecha(fecha.date,0);
+                if(fec==null){
+                    //mensaje="Ingresa la fecha a capturar";
+                    fecha.date.getDateEditor().getUiComponent().requestFocus();
+                    return false;
+                }
+                confir = this.mensajeConfirmacion("La fecha es: "+fec+"\n¿Esta correcta?", "FECHA");
+                if (confir==JOptionPane.OK_OPTION){
+                    if(this.compara(fec)==true){
+                        return true;
+                    }else{
+                        mensaje(3,"No Puedes Capturar la Fecha: "+fec);
+                        return false;
+                    }
+                }
+        return false;
+    }
+    public boolean compara(String fecha){
+        fecha = fecha +" 00:00:00";
+        Calendar Cal= Calendar.getInstance();
+        String anio=Cal.get(Cal.YEAR)+"";
+        String mes=(Cal.get(Cal.MONTH)+1)<10?"0"+(Cal.get(Cal.MONTH)+1):(Cal.get(Cal.MONTH)+1)+"";
+        String dia=Cal.get(Cal.DATE)<10?"0"+Cal.get(Cal.DATE):(Cal.get(Cal.DATE))+"";
+        String fechaactual=anio+"-"+mes+"-"+dia+ " 00:00:00";
+        int max = Integer.parseInt(calcularHoras(fecha, fechaactual,2));
+        if(max<16&&max>-1){
+               return true;                                     
+        }
+        return false;
+    }
+    public String calcularHoras(String fechaInicial, String fechaFinal, int parametro ) {
+        java.util.GregorianCalendar jCal = new java.util.GregorianCalendar();
+        java.util.GregorianCalendar jCal2 = new java.util.GregorianCalendar();
+                //2014-07-20 00:00:00:00
+            //jCal.set(year, month, date, hourOfDay, minute)
+        jCal.set(Integer.parseInt(fechaInicial.substring(0,4)), 
+                Integer.parseInt(fechaInicial.substring(5,7))-1, 
+                Integer.parseInt(fechaInicial.substring(8,10)), 
+                Integer.parseInt(fechaInicial.substring(11,13)),
+                Integer.parseInt(fechaInicial.substring(14,16)), 
+                Integer.parseInt(fechaInicial.substring(17,19)));
+        jCal2.set(Integer.parseInt(fechaFinal.substring(0,4)), 
+                Integer.parseInt(fechaFinal.substring(5,7))-1, 
+                Integer.parseInt(fechaFinal.substring(8,10)), 
+                Integer.parseInt(fechaFinal.substring(11,13)),
+                Integer.parseInt(fechaFinal.substring(14,16)), 
+                Integer.parseInt(fechaFinal.substring(17,19)));     
+        long diferencia = jCal2.getTime().getTime()-jCal.getTime().getTime();
+        
+        double minutos = diferencia / (1000 * 60);
+        long horas = (long) (minutos / 60);
+        long minuto = (long) (minutos%60);
+        long dias = horas/24;
+        
+        //Calcular meses...
+        //Crear vector para almacenar los diferentes dias maximos segun correponda
+        String[] mesesAnio = new String[12];
+        mesesAnio[0] = "31";
+        //validacion de los años bisiestos
+        if (jCal.isLeapYear(jCal.YEAR)){mesesAnio[1] = "29";}else{mesesAnio[1] = "28";}
+        mesesAnio[2] = "31";
+        mesesAnio[3] = "30";
+        mesesAnio[4] = "31";
+        mesesAnio[5] = "30";
+        mesesAnio[6] = "31";
+        mesesAnio[7] = "31";
+        mesesAnio[8] = "30";
+        mesesAnio[9] = "31";
+        mesesAnio[10] = "30";
+        mesesAnio[11] = "31";
+        int diasRestantes = (int) dias;
+        //variable almacenará el total de meses que hay en esos dias
+        int totalMeses = 0;
+        int mesActual = jCal.MONTH;
+        //Restar los dias de cada mes desde la fecha de ingreso hasta que ya no queden sufcientes dias para 
+        // completar un mes.
+        for (int i=0; i<=11; i++ ){
+            //Validar año, si sumando 1 al mes actual supera el fin de año, 
+            // setea la variable a principio de año 
+            if ((mesActual+1)>=12){
+                mesActual = i;
+            }
+            //Validar que el numero de dias resultantes de la resta de las 2 fechas, menos los dias
+            //del mes correspondiente sea mayor a cero, de ser asi totalMeses aumenta,continuar hasta 
+            //que ya nos se cumpla.
+            if ((diasRestantes -Integer.parseInt(mesesAnio[mesActual]))>=0){
+                totalMeses ++;
+                diasRestantes = diasRestantes- Integer.parseInt(mesesAnio[mesActual]);
+                mesActual ++;
+            }else{
+                break;
+            }
+        }
+        //Resto de horas despues de sacar los dias
+        horas = horas % 24;
+        if(horas<0){
+            mensaje(3,"La Hora Final es Incorrecta");
+            return null;
+        }
+        String salida ="";
+        if (totalMeses > 0){
+            if (totalMeses > 1)
+                salida = salida+  String.valueOf(totalMeses)+" Meses,  ";
+            else
+                salida = salida+  String.valueOf(totalMeses)+" Mes, ";
+        }
+        if (diasRestantes > 0){
+            if (diasRestantes > 1)
+                salida = salida+  String.valueOf(diasRestantes)+" Dias, ";
+            else
+                salida = salida+  String.valueOf(diasRestantes)+" Dia, ";
+        }               
+         salida = salida + String.valueOf(horas)+":"+String.valueOf(minuto);
+         if(parametro==1){
+             return salida;
+         }
+         if(parametro ==2){
+             return dias+"";
+         }
+        return null;
+         
+    }
+    public String aceptarFecha(JDateChooser fech,int a){
+        //metodo para extraer la fecha del jdatechooser
+        try{
+            Date fechaa = fech.getCalendar().getTime();
+            SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
+            return formatoDeFecha.format(fechaa); 
+        }catch(Exception ex){
+             if(ex.getMessage()==null){
+                 if(a ==1){
+                     
+                 }else{
+                     fech.requestFocus();
+                     this.mensaje(2,"Ingresa la fecha a capturar");
+                 }
+             }
+        }
+        return null;
+    }
+    private void ponerfecha() {
+        //metodo para poner la fecha en todos los formularios
+        menumaster.__etqFechaMenuMaster.setText(fec);
+        
+    }
+    private int mensajeConfirmacion(String mensaje, String titulo) {
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel();
+        label.setText(mensaje);
+        label.setVisible(true);
+        panel.add(label);
+        panel.setBackground(Color.yellow);
+        return JOptionPane.showConfirmDialog(null,panel,titulo,JOptionPane.OK_CANCEL_OPTION);
     }
 }
