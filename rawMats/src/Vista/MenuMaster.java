@@ -54,7 +54,7 @@ public class MenuMaster extends javax.swing.JFrame {
         setResizable(false);
 
         __ALTA_PAPEL.setFont(new java.awt.Font("Elephant", 0, 12)); // NOI18N
-        __ALTA_PAPEL.setText("NUEVA ALTA DE PAPEL");
+        __ALTA_PAPEL.setText("NUEVO PRODUCTO");
 
         __CONSULTAS.setFont(new java.awt.Font("Elephant", 0, 12)); // NOI18N
         __CONSULTAS.setText("CONSULTAS");
@@ -100,11 +100,10 @@ public class MenuMaster extends javax.swing.JFrame {
                                 .addComponent(__etqFechaMenuMaster))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(__REPORTES, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                                 .addComponent(__CONSULTAS, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(__ALTA_PAPEL)
+                                .addComponent(__ALTA_PAPEL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(__MOVIMIENTOS, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
