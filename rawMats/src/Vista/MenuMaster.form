@@ -46,12 +46,11 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="__REPORTES" min="-2" pref="199" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="10" max="32767" attributes="0"/>
                               <Component id="__CONSULTAS" min="-2" pref="199" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="__ALTA_PAPEL" min="-2" max="-2" attributes="0"/>
+                              <Component id="__ALTA_PAPEL" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="__MOVIMIENTOS" min="-2" pref="199" max="-2" attributes="0"/>
                           </Group>
@@ -93,7 +92,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Elephant" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="NUEVA ALTA DE PAPEL"/>
+        <Property name="text" type="java.lang.String" value="NUEVO PRODUCTO"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
