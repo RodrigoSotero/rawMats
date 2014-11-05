@@ -39,7 +39,7 @@ public class MenuMaster extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        __ALTA_PAPEL = new javax.swing.JButton();
+        __ALTAPRODUCTO = new javax.swing.JButton();
         __CONSULTAS = new javax.swing.JButton();
         __MOVIMIENTOS = new javax.swing.JButton();
         __REPORTES = new javax.swing.JButton();
@@ -53,8 +53,8 @@ public class MenuMaster extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        __ALTA_PAPEL.setFont(new java.awt.Font("Elephant", 0, 12)); // NOI18N
-        __ALTA_PAPEL.setText("NUEVO PRODUCTO");
+        __ALTAPRODUCTO.setFont(new java.awt.Font("Elephant", 0, 12)); // NOI18N
+        __ALTAPRODUCTO.setText("NUEVO PRODUCTO");
 
         __CONSULTAS.setFont(new java.awt.Font("Elephant", 0, 12)); // NOI18N
         __CONSULTAS.setText("CONSULTAS");
@@ -103,7 +103,7 @@ public class MenuMaster extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                                 .addComponent(__CONSULTAS, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(__ALTA_PAPEL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(__ALTAPRODUCTO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(__MOVIMIENTOS, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
@@ -117,7 +117,7 @@ public class MenuMaster extends javax.swing.JFrame {
                     .addComponent(__etqUsuarioMenuMaster))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(__ALTA_PAPEL, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(__ALTAPRODUCTO, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(__MOVIMIENTOS, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -170,7 +170,7 @@ public class MenuMaster extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton __ALTA_PAPEL;
+    public javax.swing.JButton __ALTAPRODUCTO;
     public javax.swing.JButton __CANCELAR;
     public javax.swing.JButton __CONSULTAS;
     public javax.swing.JButton __MOVIMIENTOS;
