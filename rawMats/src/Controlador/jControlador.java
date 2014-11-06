@@ -167,10 +167,10 @@ public class jControlador implements ActionListener {
         });       
         this.fecha.__CANCELAR.setActionCommand("__CANCELAR_FECHA");
         this.fecha.__CANCELAR.addActionListener(this);
-        //FORMULARIO MENU MASRTER
-        this.menumaster.__ALTA_PAPEL.setActionCommand("__MENU_MASTER_ALTAPRODUCTO");
-        this.menumaster.__ALTA_PAPEL.setMnemonic('N');
-        this.menumaster.__ALTA_PAPEL.addActionListener(this);
+        //FORMULARIO MENU MASTER
+        this.menumaster.__ALTAPRODUCTO.setActionCommand("__MENU_MASTER_ALTAPRODUCTO");
+        this.menumaster.__ALTAPRODUCTO.setMnemonic('N');
+        this.menumaster.__ALTAPRODUCTO.addActionListener(this);
         this.menumaster.__MOVIMIENTOS.setActionCommand("__MENU_MASTER_MOVIMIENTOS");
         this.menumaster.__MOVIMIENTOS.setMnemonic('M');
         this.menumaster.__MOVIMIENTOS.addActionListener(this);
@@ -187,6 +187,17 @@ public class jControlador implements ActionListener {
         this.newP.__etqNewArea.addMouseListener(new java.awt.event.MouseAdapter(){
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 nuevaArea(newP.__cmbArea);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+               newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }
+        });
+        this.newP.__etqNewMaquina.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                nuevaMaquina(newP.__cmbMaquina);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt){
                newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 3, 12));
@@ -247,7 +258,7 @@ public class jControlador implements ActionListener {
                 newP.setVisible(true);
                 ponerfecha();
                 newP.setName("Alta de Producto");
-                addItems("ap");
+                addItems("newP");
                 break;
                     
         }
@@ -363,13 +374,13 @@ public class jControlador implements ActionListener {
                     switch(cargo){
                         case 1:
                             menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
-                            menumaster.__ALTA_PAPEL.setEnabled(true);
+                            menumaster.__ALTAPRODUCTO.setEnabled(true);
                             menumaster.setLocationRelativeTo(null);
                             menumaster.show();
                             break;
                         case 2:
                             menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
-                            menumaster.__ALTA_PAPEL.setEnabled(false);
+                            menumaster.__ALTAPRODUCTO.setEnabled(false);
                             menumaster.setLocationRelativeTo(null);
                             menumaster.show();
                             break;
@@ -633,7 +644,7 @@ public class jControlador implements ActionListener {
                         if (conf==JOptionPane.OK_OPTION){
                             boolean altaNombre=mimodelo.newArea(Nombre);
                             if(altaNombre==true){
-                                JOptionPane.showMessageDialog(null,"Nombre de Papel "+Nombre+" Agregado Correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null,"Area "+Nombre+" Agregada Correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);
                             }
                         }
                         ResultSet buscarNombrePapel = mimodelo.buscarArea();
@@ -647,17 +658,54 @@ public class jControlador implements ActionListener {
                         mensaje(3,ex.getMessage());
                     }
                 }
-                mensaje(3,"No agregaste Nombre de Papel.");
+                mensaje(3,"No agregaste Area.");
             }
+    public void nuevaMaquina(JComboBox combo){
+        int idarea = this.busquedaid("area");
+        if(idarea!=0){
+            String Nombre = (String)JOptionPane.showInputDialog(null,"Escribe la nueva Maquina: ","NUEVO NOMBRE",JOptionPane.PLAIN_MESSAGE);
+                if ((Nombre != null) && (Nombre.length() > 0)) {
+                    try {
+                        Nombre=Nombre.toUpperCase();
+                        int conf=JOptionPane.showConfirmDialog(null,"Se agregara la Maquina:, " +Nombre + ".",Nombre,JOptionPane.OK_CANCEL_OPTION);
+                        if (conf==JOptionPane.OK_OPTION){
+                            boolean altaNombre=mimodelo.newMaquina(Nombre,idarea);
+                            if(altaNombre==true){
+                                JOptionPane.showMessageDialog(null,"Maquina "+Nombre+" Agregada Correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        }
+                        ResultSet buscarNombrePapel = mimodelo.buscarArea();
+                            combo.removeAllItems();
+                            combo.addItem("Selecciona...");
+                            while(buscarNombrePapel.next()){
+                                    combo.addItem(buscarNombrePapel.getString(1));
+                            }
+                        return;
+                    } catch (SQLException ex) {
+                        mensaje(3,ex.getMessage());
+                    }
+                }
+                mensaje(3,"No agregaste Maquina.");
+        }else{
+            mensaje(3,"Selecciona el Area.");
+        }
+    }
     public void addItems(String formulario){
         try {
             ResultSet buscarArea = mimodelo.buscarArea();
-            
             if(formulario.equals("newP")){
                 newP.__cmbArea.removeAllItems();
                 newP.__cmbArea.addItem("Selecciona...");
                 while(buscarArea.next()){
                     newP.__cmbArea.addItem(buscarArea.getString(1));
+                }
+            }
+            ResultSet buscarMaquina = mimodelo.buscarMaquina();
+            if(formulario.equals("newP")){
+                newP.__cmbMaquina.removeAllItems();
+                newP.__cmbMaquina.addItem("Selecciona...");
+                while(buscarArea.next()){
+                    newP.__cmbMaquina.addItem(buscarMaquina.getString(1));
                 }
             }
             /*
@@ -703,5 +751,30 @@ public class jControlador implements ActionListener {
         } catch (SQLException ex) {
                     mensaje(3,ex.getMessage());
         }
+    }
+    public int busquedaid(String nombre){
+        String texto="";
+        if(nombre.isEmpty()){
+            return 0;
+        }else{
+            ResultSet id = null;
+            switch (nombre){
+                case "area":
+                    texto = newP.__cmbArea.getSelectedItem().toString();
+                    id=mimodelo.buscaridArea(texto);
+                    break;
+                case "maquina":
+                    id=mimodelo.buscaridMaquina(nombre);
+                    break;
+            }
+            try{
+                while(id.next()){
+                    return id.getInt("id");
+                }
+            }catch(Exception a){
+                return 0;
+            }
+        }
+        return 0;
     }
 }

@@ -92,8 +92,19 @@ public class modelo extends database{
     }
     
     public boolean newArea(String Nombre) {
-        String q = "INSERT INTO `Area` (id_area,`descripcion`) VALUES (null,'"+Nombre+"');";
-        //          INSERT INTO `dis_paper`.`nombre_papel` (`nombre`, `id_clase_papel`, `id_tipo_papel`) VALUES (        'PROBANDO','1','0');
+        String q = "INSERT INTO `Area` (idarea,`descripcion`) VALUES (null,'"+Nombre+"');";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean newMaquina(String Nombre, int idarea) {
+        String q = "INSERT INTO `Maquina` (idmaquina,idarea,descripcion,) VALUES (null,'"+Nombre+"','"+idarea+"');";
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
@@ -105,7 +116,7 @@ public class modelo extends database{
         }
     }
     public ResultSet buscarArea() throws java.sql.SQLException{       
-        String q = "SELECT descripcion FROM  area order by id_area ;";
+        String q = "SELECT descripcion FROM area order by idarea ;";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
@@ -115,5 +126,39 @@ public class modelo extends database{
                 return null;
             }
     }
+    public ResultSet buscaridArea(String nombre){       
+        String q = "SELECT idarea as id FROM area where descripcion='"+nombre+"';";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    public ResultSet buscaridMaquina(String nombre){       
+        String q = "SELECT idmaquina as id FROM maquina where descripcion='"+nombre+"';";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    public ResultSet buscarMaquina() throws java.sql.SQLException{       
+        String q = "SELECT descripcion FROM maquina order by idmaquina ;";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    
     
 }
