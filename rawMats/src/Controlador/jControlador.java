@@ -237,7 +237,9 @@ public class jControlador implements ActionListener {
         });
         this.newP.__SMax_.addKeyListener(new java.awt.event.KeyListener() {
             public void keyTyped(KeyEvent e) {
-                
+                ///
+                ///
+                ///
             }
             public void keyPressed(KeyEvent e) {}
             public void keyReleased(KeyEvent e) {}
