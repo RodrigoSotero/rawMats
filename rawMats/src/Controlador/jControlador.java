@@ -272,13 +272,13 @@ public class jControlador implements ActionListener {
                     switch(cargo){
                         case 1:
                             menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
-                            menumaster.__ALTA_PAPEL.setEnabled(true);
+                            menumaster.__ALTAPRODUCTO.setEnabled(true);
                             menumaster.setLocationRelativeTo(null);
                             menumaster.show();
                             break;
                         case 2:
                             menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
-                            menumaster.__ALTA_PAPEL.setEnabled(false);
+                            menumaster.__ALTAPRODUCTO.setEnabled(false);
                             menumaster.setLocationRelativeTo(null);
                             menumaster.show();
                             break;
