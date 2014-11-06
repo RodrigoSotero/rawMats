@@ -12,12 +12,14 @@ import Vista.HiloProgreso;
 import Vista.Login;
 import Vista.MenuMaster;
 import Vista.Splash;
+import Vista.newProducto;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
@@ -25,6 +27,20 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -41,8 +57,9 @@ public class jControlador implements ActionListener {
     private final  modelo mimodelo = new modelo();
     private final  Fecha fecha = new Fecha(); 
     private final  MenuMaster menumaster = new MenuMaster();
+    private final  newProducto newP = new newProducto();
     int a=1,id_responsable,cargo,pedirfecha,confir;
-    String fec,user="",contra,pswd,fech,horaentrada;
+    String fec,user="",contra,pswd,fech,horaentrada,horasalida;
     public jControlador( JFrame padre ){
         //this.frmprincipal = (frmPrincipal) padre;
         this.splash = (Splash) padre;
@@ -150,15 +167,89 @@ public class jControlador implements ActionListener {
         });       
         this.fecha.__CANCELAR.setActionCommand("__CANCELAR_FECHA");
         this.fecha.__CANCELAR.addActionListener(this);
+        //FORMULARIO MENU MASRTER
+        this.menumaster.__ALTA_PAPEL.setActionCommand("__MENU_MASTER_ALTAPRODUCTO");
+        this.menumaster.__ALTA_PAPEL.setMnemonic('N');
+        this.menumaster.__ALTA_PAPEL.addActionListener(this);
+        this.menumaster.__MOVIMIENTOS.setActionCommand("__MENU_MASTER_MOVIMIENTOS");
+        this.menumaster.__MOVIMIENTOS.setMnemonic('M');
+        this.menumaster.__MOVIMIENTOS.addActionListener(this);
+        this.menumaster.__REPORTES.setActionCommand("__MENU_MASTER_REPORTES");
+        this.menumaster.__REPORTES.setMnemonic('R');
+        this.menumaster.__REPORTES.addActionListener(this);
+        this.menumaster.__CONSULTAS.setActionCommand("__MENU_MASTER_CONSULTAS");
+        this.menumaster.__CONSULTAS.setMnemonic('C');
+        this.menumaster.__CONSULTAS.addActionListener(this);
+        this.menumaster.__CANCELAR.setActionCommand("__MENU_MASTER_CANCELAR");
+        this.menumaster.__CANCELAR.setMnemonic('A');
+        this.menumaster.__CANCELAR.addActionListener(this);
+        //FORMULARIO NEW PRODUCTO
+        this.newP.__etqNewArea.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                nuevaArea(newP.__cmbArea);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+               newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }
+        });
     }
+    
     public enum Accion{
         __INICIA_SESION,
+        __SALIR,
+        __CANCELAR_FECHA,
+        __ACEPTAR_FECHA,
+        __MENU_MASTER_ALTAPRODUCTO,
+        __MENU_MASTER_MOVIMIENTOS,
+        __MENU_MASTER_REPORTES,
+        __MENU_MASTER_CONSULTAS,
+        __MENU_MASTER_CANCELAR,
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         switch(Accion.valueOf(e.getActionCommand())){
+            case __ACEPTAR_FECHA:
+                fechaini();
+                break;
             case __INICIA_SESION:
                 break;
+            case __SALIR:
+                confir = mensajeConfirmacion("¿Desea Salir?","Salida");
+                if (confir==JOptionPane.OK_OPTION){
+                    this.SalirSistema();
+                }
+                break;
+                case __CANCELAR_FECHA:
+                confir = this.mensajeConfirmacion("¿Estas seguro que deseas salir?","ALERTA");
+                if (confir==JOptionPane.OK_OPTION){
+                    login.setEnabled(true);
+                    fecha.setVisible(false);
+                     Calendar Cal= Calendar.getInstance();                                                  
+                               String hora=Cal.get(Cal.HOUR_OF_DAY)<10 ? "0"+Cal.get(Cal.HOUR_OF_DAY) : ""+Cal.get(Cal.HOUR_OF_DAY);
+                               String minute=Cal.get(Cal.MINUTE)<10 ? "0"+Cal.get(Cal.MINUTE) : ""+Cal.get(Cal.MINUTE);
+                               horasalida = hora+":"+minute;                
+                    boolean registrasalida=mimodelo.horasalida(horasalida,user);
+                    if(!user.equals("ROOT")){
+                                try {
+                                    mimodelo.cerrarsesion(user);
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                    }
+                            login.__Usuario.requestFocus();
+                        }
+                break;
+                case __MENU_MASTER_ALTAPRODUCTO:
+                menumaster.dispose();
+                newP.setVisible(true);
+                ponerfecha();
+                newP.setName("Alta de Producto");
+                addItems("ap");
+                break;
+                    
         }
     }
     public void iniciasesion() {
@@ -455,5 +546,162 @@ public class jControlador implements ActionListener {
         panel.add(label);
         panel.setBackground(Color.yellow);
         return JOptionPane.showConfirmDialog(null,panel,titulo,JOptionPane.OK_CANCEL_OPTION);
+    }
+    public void SalirSistema(){
+        try {
+            //meter un update 
+            if(cargo==1){
+                mimodelo.bp(fech);
+                this.enviaarchivo("C:\\iexsa\\backups\\dump"+fech+".sql","rawmats2014@gmail.com" ,"Backup de la base de datos");
+                File fichero = new File("C:\\iexsa\\backups\\dump"+fech+".sql");
+                fichero.delete();
+            }
+             Toolkit.getDefaultToolkit().setLockingKeyState(KeyEvent.VK_CAPS_LOCK, false);
+              Calendar Cal= Calendar.getInstance();                                                  
+                               String hora=Cal.get(Cal.HOUR_OF_DAY)<10 ? "0"+Cal.get(Cal.HOUR_OF_DAY) : ""+Cal.get(Cal.HOUR_OF_DAY);
+                               String minute=Cal.get(Cal.MINUTE)<10 ? "0"+Cal.get(Cal.MINUTE) : ""+Cal.get(Cal.MINUTE);
+                               horasalida = hora+":"+minute;                
+            boolean registrasalida=mimodelo.horasalida(horasalida,user);
+            if(!user.equals("ROOT")){
+                mimodelo.cerrarsesion(user);
+            }
+            System.exit(0);
+        } catch (SQLException ex) {
+            mensaje(3,ex.getMessage());
+        }
+    }
+    public boolean enviaarchivo(String urlarchivo, String destinatario,String msg){
+        try{
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.setProperty("mail.smtp.starttls.enable", "true");
+            props.setProperty("mail.smtp.port", "587");
+            props.setProperty("mail.smtp.user", "dispaper.iexsa@gmail.com");
+            props.setProperty("mail.smtp.auth", "true");
+
+            Session session = Session.getDefaultInstance(props, null);
+            // session.setDebug(true);
+
+            // Se compone la parte del texto
+            BodyPart texto = new MimeBodyPart();
+            texto.setText(msg);
+
+            
+               
+                   //Se compone el adjunto con la imagen
+            BodyPart adjunto = new MimeBodyPart();
+            adjunto.setDataHandler(new DataHandler(new FileDataSource(urlarchivo)));
+           adjunto.setFileName(urlarchivo);       
+            
+            // Una MultiParte para agrupar texto e imagen.
+            MimeMultipart multiParte = new MimeMultipart();
+            multiParte.addBodyPart(texto);
+            multiParte.addBodyPart(adjunto);
+
+            // Se compone el correo, dando to, from, subject y el
+            // contenido.
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("prueba@prueba.com"));
+            message.addRecipient(
+            Message.RecipientType.TO,
+            new InternetAddress(destinatario));
+            message.setSubject("Correo de Dis-Paper "+ fec);
+            message.setContent(multiParte);
+
+            // Se envia el correo.
+            Transport t = session.getTransport("smtp");
+            String micorreo="rawmats2014@gmail.com";
+            String mipswd="2014rawmats";
+            t.connect(micorreo, mipswd);
+            t.sendMessage(message, message.getAllRecipients());
+            t.close();
+            return true;
+        }
+        catch (Exception e){
+            mensaje(3,e.getMessage());
+            return false;
+        }
+        
+    }
+    
+    public void nuevaArea(JComboBox combo){
+        String Nombre = (String)JOptionPane.showInputDialog(null,"Escribe la nueva Area: ","NUEVO NOMBRE",JOptionPane.PLAIN_MESSAGE);
+                if ((Nombre != null) && (Nombre.length() > 0)) {
+                    try {
+                        Nombre=Nombre.toUpperCase();
+                        int conf=JOptionPane.showConfirmDialog(null,"Se agregara el Area:, " +Nombre + ".",Nombre,JOptionPane.OK_CANCEL_OPTION);
+                        if (conf==JOptionPane.OK_OPTION){
+                            boolean altaNombre=mimodelo.newArea(Nombre);
+                            if(altaNombre==true){
+                                JOptionPane.showMessageDialog(null,"Nombre de Papel "+Nombre+" Agregado Correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        }
+                        ResultSet buscarNombrePapel = mimodelo.buscarArea();
+                            combo.removeAllItems();
+                            combo.addItem("Selecciona...");
+                            while(buscarNombrePapel.next()){
+                                    combo.addItem(buscarNombrePapel.getString(1));
+                            }
+                        return;
+                    } catch (SQLException ex) {
+                        mensaje(3,ex.getMessage());
+                    }
+                }
+                mensaje(3,"No agregaste Nombre de Papel.");
+            }
+    public void addItems(String formulario){
+        try {
+            ResultSet buscarArea = mimodelo.buscarArea();
+            
+            if(formulario.equals("newP")){
+                newP.__cmbArea.removeAllItems();
+                newP.__cmbArea.addItem("Selecciona...");
+                while(buscarArea.next()){
+                    newP.__cmbArea.addItem(buscarArea.getString(1));
+                }
+            }
+            /*
+            
+            if(formulario.equals("consultas")){
+                consultas.__cmbColor.removeAllItems();
+                consultas.__cmbColor.addItem("");
+                consultas.__cmbMarca.removeAllItems();
+                consultas.__cmbMarca.addItem("");
+                consultas.__cmbPropi.removeAllItems();
+                consultas.__cmbPropi.addItem("");
+                consultas.__cmbProveedor.removeAllItems();
+                consultas.__cmbProveedor.addItem("");          
+                consultas.__cmbNombrePapel.removeAllItems();
+                consultas.__cmbNombrePapel.addItem("");
+                consultas.__cmbTipoEntrada.removeAllItems();
+                consultas.__cmbTipoEntrada.addItem("");
+                consultas.__cmbTipoSalida.removeAllItems();
+                consultas.__cmbTipoSalida.addItem("");
+                while(buscarPropiedad.next()){
+                    consultas.__cmbPropi.addItem(buscarPropiedad.getString(2));
+                }
+                while(buscarTipoEntrada.next()){
+                    consultas.__cmbTipoEntrada.addItem(buscarTipoEntrada.getString(2));
+                }   
+                while(buscarTipoSalida.next()){
+                    consultas.__cmbTipoSalida.addItem(buscarTipoSalida.getString(2));
+                }
+                while(buscarProveedores.next()){
+                    consultas.__cmbProveedor.addItem(buscarProveedores.getString(2));
+                }
+                while(buscarMarca.next()){
+                    consultas.__cmbMarca.addItem(buscarMarca.getString(2));
+                }
+                while(buscarColor.next()){
+                    consultas.__cmbColor.addItem(buscarColor.getString(1));
+                }
+                while(buscarNombrePapel.next()){
+                    consultas.__cmbNombrePapel.addItem(buscarNombrePapel.getString(1));
+                }
+            }
+            */
+        } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+        }
     }
 }

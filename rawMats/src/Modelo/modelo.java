@@ -56,5 +56,64 @@ public class modelo extends database{
             return false;
         }
     }
+    public void bp(String fecha){
+        database.backupbd(fecha);
+    }
+    public boolean cerrarsesion(String nombre) throws java.sql.SQLException{       
+        String q = "update responsable set sesion=0 where usuario ='"+nombre+"';" ;
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                pstm.execute();
+                pstm.close();
+                return true;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return true;
+            }
+    }
+    public boolean horasalida(String horasalida, String user) {
+       try{
+           String q1 ="SELECT MAX(id_reporusuario) from reporusuario where nombreempleado='"+user+"';";
+            PreparedStatement pstm = this.getConexion().prepareStatement(q1);
+            ResultSet res = pstm.executeQuery();
+            String id="";
+            while(res.next()){
+                id=res.getString(1);
+            }
+            String q=" UPDATE  `dis_paper`.`reporusuario` SET  `HoraSalida` =  '"+horasalida+"' WHERE `reporusuario`.`id_reporusuario` =  '"+id+"';";
+            PreparedStatement pstm2 = this.getConexion().prepareStatement(q);
+            pstm2.execute();
+            pstm2.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean newArea(String Nombre) {
+        String q = "INSERT INTO `Area` (id_area,`descripcion`) VALUES (null,'"+Nombre+"');";
+        //          INSERT INTO `dis_paper`.`nombre_papel` (`nombre`, `id_clase_papel`, `id_tipo_papel`) VALUES (        'PROBANDO','1','0');
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+    public ResultSet buscarArea() throws java.sql.SQLException{       
+        String q = "SELECT descripcion FROM  area order by id_area ;";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
     
 }
