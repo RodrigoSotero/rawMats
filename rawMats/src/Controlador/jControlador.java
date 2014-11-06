@@ -18,7 +18,9 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -200,12 +202,34 @@ public class jControlador implements ActionListener {
                 nuevaMaquina(newP.__cmbMaquina);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt){
-               newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 3, 12));
+               newP.__etqNewMaquina.setFont(new java.awt.Font("Papyrus", 3, 12));
             }
             public void mouseExited(java.awt.event.MouseEvent evt){
-                newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 0, 12));
+                newP.__etqNewMaquina.setFont(new java.awt.Font("Papyrus", 0, 12));
             }
         });
+        this.newP.__cmbArea.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if(newP.__cmbArea.getSelectedIndex()<=0){
+                    return;
+                }else{
+                    int idarea = busquedaid("area");
+                    System.out.println(newP.__cmbArea.getSelectedIndex());
+                    try {
+                        ResultSet buscarMaquina = mimodelo.buscarMaquina(idarea);
+                        newP.__cmbMaquina.removeAllItems();
+                        newP.__cmbMaquina.addItem("Selecciona...");
+                        while(buscarMaquina.next()){
+                            newP.__cmbMaquina.addItem(buscarMaquina.getString(1)); 
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+        
+        
     }
     
     public enum Accion{
@@ -233,7 +257,7 @@ public class jControlador implements ActionListener {
                     this.SalirSistema();
                 }
                 break;
-                case __CANCELAR_FECHA:
+            case __CANCELAR_FECHA:
                 confir = this.mensajeConfirmacion("¿Estas seguro que deseas salir?","ALERTA");
                 if (confir==JOptionPane.OK_OPTION){
                     login.setEnabled(true);
@@ -253,12 +277,12 @@ public class jControlador implements ActionListener {
                             login.__Usuario.requestFocus();
                         }
                 break;
-                case __MENU_MASTER_ALTAPRODUCTO:
+            case __MENU_MASTER_ALTAPRODUCTO:
+                addItems("newP");
                 menumaster.dispose();
                 newP.setVisible(true);
                 ponerfecha();
                 newP.setName("Alta de Producto");
-                addItems("newP");
                 break;
                     
         }
@@ -362,6 +386,13 @@ public class jControlador implements ActionListener {
         mayusculas();
         char caracter = evt.getKeyChar();
         if(((caracter < 'A') || (caracter > 'Z'))  && ((caracter < '0') || (caracter > '9')) && caracter !=' ' && caracter != 'Ñ' ){
+            evt.consume();
+        }
+    }
+    private void KeyTipedLetrasNumCar(KeyEvent evt) {
+        mayusculas();
+        char caracter = evt.getKeyChar();
+        if(((caracter < 'A') || (caracter > 'Z'))  && ((caracter < '0') || (caracter > '9')) && caracter != '-' && caracter != ',' && caracter != '/'  && caracter != ' ' && caracter != '.' && caracter != 'Ñ' ){
             evt.consume();
         }
     }
@@ -547,6 +578,7 @@ public class jControlador implements ActionListener {
     private void ponerfecha() {
         //metodo para poner la fecha en todos los formularios
         menumaster.__etqFechaMenuMaster.setText(fec);
+        newP.__etqFech.setText(fec);
         
     }
     private int mensajeConfirmacion(String mensaje, String titulo) {
@@ -674,7 +706,7 @@ public class jControlador implements ActionListener {
                                 JOptionPane.showMessageDialog(null,"Maquina "+Nombre+" Agregada Correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);
                             }
                         }
-                        ResultSet buscarNombrePapel = mimodelo.buscarArea();
+                        ResultSet buscarNombrePapel = mimodelo.buscarMaquina(idarea);
                             combo.removeAllItems();
                             combo.addItem("Selecciona...");
                             while(buscarNombrePapel.next()){
@@ -700,16 +732,10 @@ public class jControlador implements ActionListener {
                     newP.__cmbArea.addItem(buscarArea.getString(1));
                 }
             }
-            ResultSet buscarMaquina = mimodelo.buscarMaquina();
-            if(formulario.equals("newP")){
-                newP.__cmbMaquina.removeAllItems();
-                newP.__cmbMaquina.addItem("Selecciona...");
-                while(buscarArea.next()){
-                    newP.__cmbMaquina.addItem(buscarMaquina.getString(1));
-                }
-            }
-            /*
+        }catch(Exception e){
+        }
             
+            /*
             if(formulario.equals("consultas")){
                 consultas.__cmbColor.removeAllItems();
                 consultas.__cmbColor.addItem("");
@@ -748,9 +774,9 @@ public class jControlador implements ActionListener {
                 }
             }
             */
-        } catch (SQLException ex) {
-                    mensaje(3,ex.getMessage());
-        }
+        //} catch (SQLException ex) {
+         //           mensaje(3,ex.getMessage());
+       // }//
     }
     public int busquedaid(String nombre){
         String texto="";

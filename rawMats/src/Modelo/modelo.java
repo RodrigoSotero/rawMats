@@ -104,7 +104,7 @@ public class modelo extends database{
         }
     }
     public boolean newMaquina(String Nombre, int idarea) {
-        String q = "INSERT INTO `Maquina` (idmaquina,idarea,descripcion,) VALUES (null,'"+Nombre+"','"+idarea+"');";
+        String q = "INSERT INTO `Maquina` (idmaquina,idarea,descripcion) VALUES (null,'"+idarea+"','"+Nombre+"');";
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
@@ -116,7 +116,7 @@ public class modelo extends database{
         }
     }
     public ResultSet buscarArea() throws java.sql.SQLException{       
-        String q = "SELECT descripcion FROM area order by idarea ;";
+        String q = "SELECT descripcion FROM area order by descripcion ;";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
@@ -126,7 +126,7 @@ public class modelo extends database{
                 return null;
             }
     }
-    public ResultSet buscaridArea(String nombre){       
+    public ResultSet buscaridArea(String nombre){ 
         String q = "SELECT idarea as id FROM area where descripcion='"+nombre+"';";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
@@ -148,8 +148,9 @@ public class modelo extends database{
                 return null;
             }
     }
-    public ResultSet buscarMaquina() throws java.sql.SQLException{       
-        String q = "SELECT descripcion FROM maquina order by idmaquina ;";
+    public ResultSet buscarMaquina(int idarea) throws java.sql.SQLException{       
+        String q = "SELECT descripcion FROM maquina where idarea ='"+idarea+"' order by descripcion ;";
+        System.out.println(q);
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
