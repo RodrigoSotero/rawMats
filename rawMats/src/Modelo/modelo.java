@@ -9,6 +9,7 @@ package Modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +22,7 @@ public class modelo extends database{
         return this.getConexion().isClosed();
     }
     public ResultSet buscarUser1(String nombre) throws java.sql.SQLException{       
-        String q = "SELECT pswd,id_responsable,cargo_id_cargo,nombre,usuario,Activo FROM responsable where usuario='"+nombre+"' and Activo=1 and sesion<>1 " ;
+        String q = "SELECT pswd,id_responsable,cargo_id_cargo,nombre,usuario,Activo,Sesion FROM responsable where usuario='"+nombre+"'" ;
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
@@ -31,7 +32,7 @@ public class modelo extends database{
                 System.out.println(q);
                 return null;
             }
-    }
+    }   
     public boolean abrirsesion(String nombre) throws java.sql.SQLException{       
         String q = "update responsable set sesion=1 where usuario ='"+nombre+"';" ;
         try {
@@ -160,6 +161,160 @@ public class modelo extends database{
                 return null;
             }
     }
+
+    public boolean cerrarsesiones(int SesionCerrada) {
+            String q=" UPDATE  `dis_paper`.`responsable` SET Sesion ='"+SesionCerrada+"';";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean newaltausuario(String nombreus, String usuario, String contraseña, int nivel, int bloqueo) {
+        String q = "INSERT INTO  `responsable` (`id_responsable` ,`CARGO_id_cargo` ,`nombre` ,`usuario` ,`pswd`,`Activo`,Sesion,_cntr)"
+                                                              + "VALUES (NULL,'"+nivel+"','"+nombreus+"','"+usuario+"',MD5('"+contraseña+"'),'"+bloqueo+"','0','"+contraseña+"');";         
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            if(e.getMessage().equals("Duplicate entry '"+usuario+"' for key 'usuario'")){
+                JOptionPane.showMessageDialog(null, "Ya existe el usuario " + usuario);
+            }else{
+               System.err.println(e.getMessage()); 
+            }
+            return false;
+        }
+    }
+
+    public ResultSet buscarUser(String nombre) throws java.sql.SQLException{       
+        String q = "SELECT pswd,id_responsable,cargo_id_cargo,nombre,usuario,Activo,_cntr FROM responsable where usuario='"+nombre+"' and usuario <>'root'" ;
+        String pswd="";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+
+    public boolean bloquearusuario(String bloquearuser) {
+        String q ="UPDATE  `responsable` SET  `Activo` =  '0' WHERE  `responsable`.`usuario` ='"+bloquearuser+"'";
+        //UPDATE  `dis_paper`.`responsable` SET  `Activo` =  '0' WHERE  `responsable`.`id_responsable` =6;
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean modificaruser(String nombreus, String usuario, String contraseña, int nivel, int bloqueo,String modificaruser) {
+        String q=" UPDATE  `responsable` SET  `CARGO_id_cargo` =  '"+nivel+"',`nombre` =  '"+nombreus+"',`usuario` = '"+usuario+"',`pswd` =  MD5('"+contraseña+"'),`Activo` =  '"+bloqueo+"',_cntr='"+contraseña+"' WHERE  `responsable`.`usuario` ='"+modificaruser+"';";                
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean cambiocontrasena(String newpswd1,String newpswd2, int id_responsable) {
+        String q ="UPDATE  `responsable` SET  `pswd` =  '"+newpswd1+"', `_cntr` = '"+newpswd2+"'  WHERE  `responsable`.`id_responsable` ="+id_responsable;
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public ResultSet buscartodoreporte(){  
+        
+        String q = "SELECT nombreempleado as Nombre_de_Empleado, CONCAT( fecha,' - ',horaentrada) AS Fecha_y_Hora_de_Ingreso, CONCAT( fecha,' - ',horasalida) AS Fecha_y_Hora_de_Salida FROM `reporusuario`;";
+        //          SELECT nombreempleado, CONCAT( fecha,horaentrada) AS ingreso, CONCAT( fecha,horasalida) AS salida FROM `reporusuario` WHERE nombreempleado =  'jhafet' LIMIT 0 , 30
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    public ResultSet buscarReporteUser(String uusuario){  
+        
+        String q = "SELECT nombreempleado as Nombre_de_Empleado, CONCAT( fecha,' - ',horaentrada) AS Fecha_y_Hora_de_Ingreso, CONCAT( fecha,' - ',horasalida) AS Fecha_y_Hora_de_Salida FROM `reporusuario` WHERE nombreempleado='"+uusuario+"'";
+        //          SELECT nombreempleado, CONCAT( fecha,horaentrada) AS ingreso, CONCAT( fecha,horasalida) AS salida FROM `reporusuario` WHERE nombreempleado =  'jhafet' LIMIT 0 , 30
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    public ResultSet buscarReporteDate(String datee) {
+        String q = "SELECT nombreempleado as Nombre_de_Empleado, CONCAT( fecha,' - ',horaentrada) AS Fecha_y_Hora_de_Ingreso, CONCAT( fecha,' - ',horasalida) AS Fecha_y_Hora_de_Salida FROM `reporusuario` WHERE fecha='"+datee+"'";
+        //          SELECT nombreempleado, CONCAT( fecha,horaentrada) AS ingreso, CONCAT( fecha,horasalida) AS salida FROM `reporusuario` WHERE nombreempleado =  'jhafet' LIMIT 0 , 30
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    public ResultSet buscarReporteUserDate(String uusuario,String datee){  
+        
+        String q = "SELECT nombreempleado as Nombre_de_Empleado, CONCAT( fecha,' - ',horaentrada) AS Fecha_y_Hora_de_Ingreso, CONCAT( fecha,' - ',horasalida) AS Fecha_y_Hora_de_Salida FROM `reporusuario` WHERE nombreempleado='"+uusuario+"' and fecha ='"+datee+"'";
+        //          SELECT nombreempleado, CONCAT( fecha,horaentrada) AS ingreso, CONCAT( fecha,horasalida) AS salida FROM `reporusuario` WHERE nombreempleado =  'jhafet' LIMIT 0 , 30        
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                System.err.println( e.getMessage() );                
+                return null;
+                
+            }
+    }
+
+    public ResultSet buscardor(String des) {
+        String q = "Select clave, descripcion from productos where descripcion like '%"+des+"%';";
+        //          Select clave, descripcion from productos where descripcion like '% %'
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+
+    
+
+    
     
     
 }

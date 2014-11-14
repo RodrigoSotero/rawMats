@@ -20,7 +20,7 @@ public class newProducto extends javax.swing.JFrame {
      * Creates new form newProducto
      */
     public newProducto() {
-           initComponents();
+        initComponents();
         Fondo fondo = new Fondo();
         this.setLocationRelativeTo(null);
         Dimension size = this.getSize();
@@ -57,7 +57,7 @@ public class newProducto extends javax.swing.JFrame {
         __etqFech = new javax.swing.JLabel();
         __GUARDAR = new javax.swing.JButton();
         __etqClave = new javax.swing.JLabel();
-        __NUEVO = new javax.swing.JButton();
+        __BORRAR = new javax.swing.JButton();
         __SALIR = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -142,7 +142,7 @@ public class newProducto extends javax.swing.JFrame {
         __etqClave.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         __etqClave.setEnabled(false);
 
-        __NUEVO.setText("Nuevo");
+        __BORRAR.setText("Borrar Formulario");
 
         __SALIR.setText("Regresar");
 
@@ -298,13 +298,6 @@ public class newProducto extends javax.swing.JFrame {
                         .addGap(155, 155, 155)
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(__GUARDAR, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(__NUEVO, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,11 +318,19 @@ public class newProducto extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(__etqAlto_)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(__etqClave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(__GUARDAR, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(__BORRAR)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,7 +372,7 @@ public class newProducto extends javax.swing.JFrame {
                     .addComponent(__GUARDAR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(__NUEVO, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(__BORRAR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -451,10 +452,10 @@ public class newProducto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenu __Archivo;
+    public javax.swing.JButton __BORRAR;
     public javax.swing.JMenu __Edicion;
     public javax.swing.JButton __GUARDAR;
     public javax.swing.JMenuItem __MenuAbrirArchivo;
-    public javax.swing.JButton __NUEVO;
     public javax.swing.JButton __SALIR;
     public javax.swing.JTextField __SMax_;
     public javax.swing.JTextField __SMin_;

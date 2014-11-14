@@ -6,6 +6,9 @@
 
 package Vista;
 
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JTextField;
 
 /**
@@ -25,9 +28,19 @@ public class Movimientos extends javax.swing.JFrame {
         _UnidadMedida.addItem("Lts");
         _UnidadMedida.addItem("Kgs");
         _UnidadMedida.addItem("Mts");
-        
+        Fondo fondo = new Fondo();
+        this.setLocationRelativeTo(null);
+        Dimension size = this.getSize();
+        fondo.setSize(size);
+        add(fondo);
     }
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("imagenes/logo.png"));
 
+
+        return retValue;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -117,7 +130,6 @@ public class Movimientos extends javax.swing.JFrame {
         __menuCambiarContraseña = new javax.swing.JMenuItem();
         __menuReporte = new javax.swing.JMenuItem();
         __menucerrarsesiones = new javax.swing.JMenuItem();
-        __menuBajaProducto = new javax.swing.JMenuItem();
         __menuAcerca = new javax.swing.JMenuItem();
         __menuBackup = new javax.swing.JMenuItem();
 
@@ -205,24 +217,24 @@ public class Movimientos extends javax.swing.JFrame {
         __tablaEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         __tablaEntrada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Clave del Producto", "Descripcion", "Cantidad", "Unidad de Medida", "Costo", "Total de Costo"
+                "Clave del Producto", "Descripcion", "Ubicacion", "Cantidad", "Unidad de Medida", "Costo", "Total de Costo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true, true, true, false
+                true, false, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -240,11 +252,12 @@ public class Movimientos extends javax.swing.JFrame {
         if (__tablaEntrada.getColumnModel().getColumnCount() > 0) {
             __tablaEntrada.getColumnModel().getColumn(0).setPreferredWidth(180);
             __tablaEntrada.getColumnModel().getColumn(0).setCellEditor(new javax.swing.DefaultCellEditor(_claveProducto));
-            __tablaEntrada.getColumnModel().getColumn(1).setPreferredWidth(352);
-            __tablaEntrada.getColumnModel().getColumn(2).setPreferredWidth(120);
-            __tablaEntrada.getColumnModel().getColumn(3).setPreferredWidth(110);
-            __tablaEntrada.getColumnModel().getColumn(3).setCellEditor(new javax.swing.DefaultCellEditor(_UnidadMedida));
-            __tablaEntrada.getColumnModel().getColumn(5).setPreferredWidth(130);
+            __tablaEntrada.getColumnModel().getColumn(1).setPreferredWidth(242);
+            __tablaEntrada.getColumnModel().getColumn(2).setPreferredWidth(110);
+            __tablaEntrada.getColumnModel().getColumn(3).setPreferredWidth(120);
+            __tablaEntrada.getColumnModel().getColumn(4).setPreferredWidth(110);
+            __tablaEntrada.getColumnModel().getColumn(4).setCellEditor(new javax.swing.DefaultCellEditor(_UnidadMedida));
+            __tablaEntrada.getColumnModel().getColumn(6).setPreferredWidth(130);
         }
 
         __ACEPTARENTRADA.setText("Aceptar");
@@ -664,24 +677,24 @@ public class Movimientos extends javax.swing.JFrame {
         __tablaSalida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         __tablaSalida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Clave del Producto", "Descripcion", "Cantidad ", "Unidad de Medida", "Costo", "Costo Total"
+                "Clave del Producto", "Descripcion", "Ubicacion", "Cantidad ", "Unidad de Medida", "Costo", "Costo Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true, false, true, false
+                true, false, true, true, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -698,10 +711,11 @@ public class Movimientos extends javax.swing.JFrame {
         jScrollPane2.setViewportView(__tablaSalida);
         if (__tablaSalida.getColumnModel().getColumnCount() > 0) {
             __tablaSalida.getColumnModel().getColumn(0).setPreferredWidth(180);
-            __tablaSalida.getColumnModel().getColumn(1).setPreferredWidth(352);
-            __tablaSalida.getColumnModel().getColumn(2).setPreferredWidth(120);
-            __tablaSalida.getColumnModel().getColumn(3).setPreferredWidth(110);
-            __tablaSalida.getColumnModel().getColumn(5).setPreferredWidth(130);
+            __tablaSalida.getColumnModel().getColumn(1).setPreferredWidth(242);
+            __tablaSalida.getColumnModel().getColumn(2).setPreferredWidth(110);
+            __tablaSalida.getColumnModel().getColumn(3).setPreferredWidth(120);
+            __tablaSalida.getColumnModel().getColumn(4).setPreferredWidth(110);
+            __tablaSalida.getColumnModel().getColumn(6).setPreferredWidth(130);
         }
 
         __OrdenProduccionSalida.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -994,9 +1008,6 @@ public class Movimientos extends javax.swing.JFrame {
         __menucerrarsesiones.setText("Cerrar Todas las Sesiones");
         __Edicion.add(__menucerrarsesiones);
 
-        __menuBajaProducto.setText("Baja de Producto");
-        __Edicion.add(__menuBajaProducto);
-
         __menuAcerca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, java.awt.event.InputEvent.CTRL_MASK));
         __menuAcerca.setText("Acerca de...");
         __Edicion.add(__menuAcerca);
@@ -1158,48 +1169,47 @@ public class Movimientos extends javax.swing.JFrame {
     public javax.swing.JTextField _claveProducto;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane JPanel;
-    private javax.swing.JButton __ACEPTARENTRADA;
-    private javax.swing.JButton __ACEPTARSALIDA;
+    public javax.swing.JTabbedPane JPanel;
+    public javax.swing.JButton __ACEPTARENTRADA;
+    public javax.swing.JButton __ACEPTARSALIDA;
     public javax.swing.JMenu __Archivo;
-    private javax.swing.JTextField __ClientEntr;
+    public javax.swing.JTextField __ClientEntr;
     public javax.swing.JMenu __Edicion;
-    private javax.swing.JTextField __FolioEntrada;
-    private javax.swing.JTextField __FolioSalida;
-    private javax.swing.JButton __MODIFICACIONENTRADA;
-    private javax.swing.JButton __MODIFICACIONSALIDA;
+    public javax.swing.JTextField __FolioEntrada;
+    public javax.swing.JTextField __FolioSalida;
+    public javax.swing.JButton __MODIFICACIONENTRADA;
+    public javax.swing.JButton __MODIFICACIONSALIDA;
     public javax.swing.JMenuItem __MenuAbrirArchivo;
-    private javax.swing.JTextField __OrdenCompraEntr;
-    private javax.swing.JTextField __OrdenCompraSalida;
-    private javax.swing.JTextField __OrdenProduccionEntr;
-    private javax.swing.JTextField __OrdenProduccionSalida;
-    private javax.swing.JTextField __PropietarioEntr;
-    private javax.swing.JTextField __ProvEntr;
-    private javax.swing.JTextField __ProvSalida;
-    private javax.swing.JTextField __TipoEntrada;
-    private javax.swing.JTextField __TipoSalida;
-    private javax.swing.JCheckBox __chkTurno1Entr;
-    private javax.swing.JCheckBox __chkTurno1Salida;
-    private javax.swing.JCheckBox __chkTurno2Entr;
-    private javax.swing.JCheckBox __chkTurno2Salida;
-    private javax.swing.JCheckBox __chkTurno3Entr;
-    private javax.swing.JCheckBox __chkTurno3Salida;
-    private javax.swing.JTextField __documentoEntr;
-    private javax.swing.JTextField __documentoSalida;
-    private javax.swing.JLabel __etqFechaEnt;
-    private javax.swing.JLabel __etqFechaSalida;
-    private javax.swing.JLabel __etqLimpiarTablaEntrada;
-    private javax.swing.JLabel __etqLimpiarTablaSalida;
-    private javax.swing.JLabel __etqNewClienteE;
-    private javax.swing.JLabel __etqNewPropietarioEntrada;
-    private javax.swing.JLabel __etqNewProveedorEntr;
-    private javax.swing.JLabel __etqNewProveedorSalida;
-    private javax.swing.JLabel __etqNewTipoEntr;
-    private javax.swing.JLabel __etqNewTipoSalida;
+    public javax.swing.JTextField __OrdenCompraEntr;
+    public javax.swing.JTextField __OrdenCompraSalida;
+    public javax.swing.JTextField __OrdenProduccionEntr;
+    public javax.swing.JTextField __OrdenProduccionSalida;
+    public javax.swing.JTextField __PropietarioEntr;
+    public javax.swing.JTextField __ProvEntr;
+    public javax.swing.JTextField __ProvSalida;
+    public javax.swing.JTextField __TipoEntrada;
+    public javax.swing.JTextField __TipoSalida;
+    public javax.swing.JCheckBox __chkTurno1Entr;
+    public javax.swing.JCheckBox __chkTurno1Salida;
+    public javax.swing.JCheckBox __chkTurno2Entr;
+    public javax.swing.JCheckBox __chkTurno2Salida;
+    public javax.swing.JCheckBox __chkTurno3Entr;
+    public javax.swing.JCheckBox __chkTurno3Salida;
+    public javax.swing.JTextField __documentoEntr;
+    public javax.swing.JTextField __documentoSalida;
+    public javax.swing.JLabel __etqFechaEnt;
+    public javax.swing.JLabel __etqFechaSalida;
+    public javax.swing.JLabel __etqLimpiarTablaEntrada;
+    public javax.swing.JLabel __etqLimpiarTablaSalida;
+    public javax.swing.JLabel __etqNewClienteE;
+    public javax.swing.JLabel __etqNewPropietarioEntrada;
+    public javax.swing.JLabel __etqNewProveedorEntr;
+    public javax.swing.JLabel __etqNewProveedorSalida;
+    public javax.swing.JLabel __etqNewTipoEntr;
+    public javax.swing.JLabel __etqNewTipoSalida;
     public javax.swing.JMenuItem __menuAcerca;
     public javax.swing.JMenuItem __menuAnterior;
     public javax.swing.JMenuItem __menuBackup;
-    public javax.swing.JMenuItem __menuBajaProducto;
     public javax.swing.JMenuItem __menuCambiarContraseña;
     public javax.swing.JMenuItem __menuCambiarFecha;
     public javax.swing.JMenuItem __menuCerrarSesion;
@@ -1210,10 +1220,10 @@ public class Movimientos extends javax.swing.JFrame {
     public javax.swing.JMenuItem __menuReportes;
     public javax.swing.JMenuItem __menuSalir;
     public javax.swing.JMenuItem __menucerrarsesiones;
-    private javax.swing.JPanel __pnlEntrada;
-    private javax.swing.JPanel __pnlSalidasG;
-    private javax.swing.JTable __tablaEntrada;
-    private javax.swing.JTable __tablaSalida;
+    public javax.swing.JPanel __pnlEntrada;
+    public javax.swing.JPanel __pnlSalidasG;
+    public javax.swing.JTable __tablaEntrada;
+    public javax.swing.JTable __tablaSalida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
