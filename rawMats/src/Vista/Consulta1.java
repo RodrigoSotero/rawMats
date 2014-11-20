@@ -62,7 +62,7 @@ public class Consulta1 extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Descripcion del Producto:");
+        jLabel8.setText("Descripcion del Producto o Clave de Producto: ");
 
         __descripcionP.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
@@ -132,15 +132,14 @@ public class Consulta1 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(__descripcionP)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(__REGRESAR)
@@ -152,9 +151,8 @@ public class Consulta1 extends javax.swing.JFrame {
                                     .addComponent(__ACEPTARNP))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel2)
-                                    .addGap(282, 282, 282)))
-                            .addComponent(jLabel8))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addGap(282, 282, 282))))
+                        .addGap(0, 30, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

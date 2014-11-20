@@ -1078,7 +1078,7 @@ public class jControlador implements ActionListener {
                             this.newP.setVisible(true);
                             this.newP.setLocationRelativeTo(null);
                             movimientos.dispose();
-//                            consultas.dispose();
+                            consulta.dispose();
 //                            reportes.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
@@ -1099,7 +1099,7 @@ public class jControlador implements ActionListener {
                         if (confir == JOptionPane.OK_OPTION){
                             movimientos.setVisible(true);
                             movimientos.setLocationRelativeTo(null);
-//                            consultas.dispose();                        
+                            consulta.dispose();                        
                             this.newP.dispose();
 //                            reportes.dispose();
                             ponerfecha();
@@ -1121,8 +1121,8 @@ public class jControlador implements ActionListener {
                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Consultas?","Salida");
                         if (confir == JOptionPane.OK_OPTION){
                             this.addItems("consultas");
-//                            consultas.setVisible(true);
-//                            consultas.setLocationRelativeTo(null);
+                            consulta.setVisible(true);
+                            consulta.setLocationRelativeTo(null);
                             this.newP.dispose();
 //                            reportes.dispose();
                             movimientos.dispose();
@@ -1134,8 +1134,8 @@ public class jControlador implements ActionListener {
                          confir = mensajeConfirmacion("¿Realmente Deseas ir a Consultas?","Salida");
                         if (confir == JOptionPane.OK_OPTION){
                             this.addItems("consultas");
-//                            consultas.setVisible(true);
-//                            consultas.setLocationRelativeTo(null);
+                            consulta.setVisible(true);
+                            consulta.setLocationRelativeTo(null);
                             this.newP.dispose();
 //                            reportes.dispose();
                             movimientos.dispose();
@@ -1157,7 +1157,7 @@ public class jControlador implements ActionListener {
 //                            reortes.setLocationRelativeTo(null);
                             movimientos.dispose();
                             this.newP.dispose();
-//                            consultas.dispose();
+                            consulta.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
                             }
@@ -1169,7 +1169,7 @@ public class jControlador implements ActionListener {
 //                            reportes.setLocationRelativeTo(null);
                             movimientos.dispose();
                             this.newP.dispose();
-//                            consultas.dispose();
+                            consulta.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
                             }
@@ -1187,7 +1187,7 @@ public class jControlador implements ActionListener {
                             login.setLocationRelativeTo(null);
                             this.newP.dispose();
                             movimientos.dispose();
-//                            consultas.dispose();
+                            consulta.dispose();
 //                            reportes.dispose();
                             reporteu.dispose();
                             mimodelo.cerrarsesion(user);
@@ -1213,7 +1213,7 @@ public class jControlador implements ActionListener {
                     newP.setEnabled(false);
                     movimientos.setEnabled(false);
 //                    reportes.setEnabled(false);
-//                    consultas.setEnabled(false);
+                    consulta.setEnabled(false);
                     fecha.setVisible(true);
                     fecha.setLocationRelativeTo(null);
                 break;
@@ -1224,7 +1224,7 @@ public class jControlador implements ActionListener {
                             newP.setEnabled(false);
                             movimientos.setEnabled(false);
 //                            reportes.setEnabled(false);
-//                            consultas.setEnabled(false);
+                            consulta.setEnabled(false);
                             newU.setVisible(true);
                             newU.setLocationRelativeTo(null);
                          }else{
@@ -1239,7 +1239,7 @@ public class jControlador implements ActionListener {
                     newP.setEnabled(false);
                     movimientos.setEnabled(false);
 //                    reportes.setEnabled(false);
-//                    consultas.setEnabled(false);
+                    consulta.setEnabled(false);
                     pass.__etqBloqMayus.setVisible(true);
                     pass.show();
                     pass.setLocationRelativeTo(null);
@@ -1254,7 +1254,7 @@ public class jControlador implements ActionListener {
                                 newP.setEnabled(false);
                                 movimientos.setEnabled(false);
 //                                reportes.setEnabled(false);
-//                                consultas.setEnabled(false);
+                                consulta.setEnabled(false);
                             break;
                         case 2:
                             mensaje(2,"No Hay Acceso a esta Información");
@@ -1429,7 +1429,7 @@ public class jControlador implements ActionListener {
                 newP.setEnabled(true);
                 movimientos.setEnabled(true);
 //                reportes.setEnabled(true);
-//                consultas.setEnabled(true);
+                consulta.setEnabled(true);
                 pass.__Pswd.setText("");
                 pass.__NewPswd1.setText("");
                 pass.__NewPswd.setText("");
@@ -1448,7 +1448,7 @@ public class jControlador implements ActionListener {
                     newP.setEnabled(true);
                     movimientos.setEnabled(true);
 //                    reportes.setEnabled(true);
-//                    consultas.setEnabled(true);
+                    consulta.setEnabled(true);
                     reporteu.setVisible(false);
                 }else{
                 confir = mensajeConfirmacion("¿Realmente Deseas Salir Y Borrar?","Salida");
@@ -1459,7 +1459,7 @@ public class jControlador implements ActionListener {
                                     newP.setEnabled(true);
                                     movimientos.setEnabled(true);
 //                                    reportes.setEnabled(true);
-//                                    consultas.setEnabled(true);
+                                    consulta.setEnabled(true);
                                     reporteu.setVisible(false);
                                 }
                 }
@@ -1732,7 +1732,7 @@ public class jControlador implements ActionListener {
                 newP.setEnabled(true);                   
                 movimientos.setEnabled(true);                
 //                reportes.setEnabled(true);                    
-//                consultas.setEnabled(true);
+                consulta.setEnabled(true);
                 fecha.dispose();
             }
     }
@@ -2112,7 +2112,7 @@ public class jControlador implements ActionListener {
                                  if (confir == JOptionPane.OK_OPTION){
                                     menumaster.setVisible(true);
                                     menumaster.setLocationRelativeTo(null);
-                                    //consultas.dispose();
+                                    consulta.dispose();
                                     movimientos.dispose();
                                     this.newP.dispose();
                                     conEP.dispose();
@@ -2131,7 +2131,7 @@ public class jControlador implements ActionListener {
                                 if (confir == JOptionPane.OK_OPTION){
                                 menumaster.setVisible(true);
                                 menumaster.setLocationRelativeTo(null);
-//                                consultas.dispose();
+                                consulta.dispose();
                                 movimientos.dispose();
                                 this.newP.dispose();
                                 conEP.dispose();
@@ -2240,7 +2240,7 @@ public class jControlador implements ActionListener {
                                     movimientos.setEnabled(true);
                                     newP.setEnabled(true);                   
                                     //reportes.setEnabled(true);                    
-                                    //consultas.setEnabled(true);
+                                    consulta.setEnabled(true);
                                     newU.setVisible(false);
                                 } 
                                 break;
@@ -2260,7 +2260,7 @@ public class jControlador implements ActionListener {
                                     movimientos.setEnabled(true);
                                     newP.setEnabled(true);                   
                                     //reportes.setEnabled(true);                    
-                                    //consultas.setEnabled(true);
+                                    consulta.setEnabled(true);
                                     newU.setVisible(true);
                                 }
                         break;
@@ -2273,7 +2273,7 @@ public class jControlador implements ActionListener {
                     movimientos.setEnabled(true);
                     newP.setEnabled(true);                   
                     //reportes.setEnabled(true);                    
-                    //consultas.setEnabled(true);
+                    consulta.setEnabled(true);
                      newU.setVisible(false); 
                      return;
         }
@@ -2285,7 +2285,7 @@ public class jControlador implements ActionListener {
                         newP.setEnabled(true);
                         movimientos.setEnabled(true);
                         //reportes.setEnabled(true);                    
-                        //consultas.setEnabled(true);
+                        consulta.setEnabled(true);
                         newU.setVisible(false);
                     }
                 break;
@@ -2296,7 +2296,7 @@ public class jControlador implements ActionListener {
                         newP.setEnabled(true);
                         movimientos.setEnabled(true);
                         //reportes.setEnabled(true);                    
-                        //consultas.setEnabled(true);
+                        consulta.setEnabled(true);
                         newU.setVisible(false);
                     }
                 break;
@@ -2362,7 +2362,7 @@ public class jControlador implements ActionListener {
                                 newP.setEnabled(true);
                                 movimientos.setEnabled(true);
                                 //reportes.setEnabled(true);
-                                //consultas.setEnabled(true);
+                                consulta.setEnabled(true);
                                 return;
                             }
                         }
