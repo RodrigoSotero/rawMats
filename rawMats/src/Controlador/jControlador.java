@@ -287,6 +287,7 @@ public class jControlador implements ActionListener {
                             String poneridclave= "";
                             String[] partido = clave.getString("clave").split("-");
                             int idclave = Integer.parseInt(partido[2]);
+                            idclave++;
                             if(idclave<10) poneridclave = "000"+idclave;
                             else if(idclave<100) poneridclave = "00"+idclave;
                             else if(idclave<1000) poneridclave = "0"+idclave;
