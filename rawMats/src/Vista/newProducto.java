@@ -141,6 +141,7 @@ public class newProducto extends javax.swing.JFrame {
         __etqClave.setForeground(new java.awt.Color(255, 255, 255));
         __etqClave.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         __etqClave.setEnabled(false);
+        __etqClave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         __BORRAR.setText("Borrar Formulario");
 

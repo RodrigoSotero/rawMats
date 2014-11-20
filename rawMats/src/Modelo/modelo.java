@@ -151,7 +151,6 @@ public class modelo extends database{
     }
     public ResultSet buscarMaquina(int idarea) throws java.sql.SQLException{       
         String q = "SELECT descripcion FROM maquina where idarea ='"+idarea+"' order by descripcion ;";
-        System.out.println(q);
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
@@ -300,7 +299,7 @@ public class modelo extends database{
     }
 
     public ResultSet buscardor(String des) {
-        String q = "Select clave, descripcion from productos where descripcion like '%"+des+"%';";
+        String q = "Select clave, descripcion from productos where descripcion like '%"+des+"%' or clave like '%"+des+"%';";
         //          Select clave, descripcion from productos where descripcion like '% %'
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
@@ -376,6 +375,17 @@ public class modelo extends database{
             }
             return false;
         }   
-    }  
+    } 
+    public ResultSet buscarProductos(String likeproductos) throws java.sql.SQLException{       
+        String q = "select clave from productos where clave like  '"+likeproductos+"%' order by clave desc limit 1 ";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
 }
 
