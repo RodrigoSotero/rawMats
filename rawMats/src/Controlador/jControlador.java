@@ -9,11 +9,13 @@ package Controlador;
 import Modelo.modelo;
 import Vista.CambioP;
 import Vista.Consulta1;
+import Vista.Consultas;
 import Vista.Fecha;
 import Vista.HiloProgreso;
 import Vista.Login;
 import Vista.MenuMaster;
 import Vista.Movimientos;
+import Vista.NuevoPC;
 import Vista.NuevoUsu;
 import Vista.ReporteU;
 import Vista.Splash;
@@ -83,8 +85,10 @@ public class jControlador implements ActionListener {
     private final Movimientos movimientos = new Movimientos();
     private final Consulta1 conEP = new Consulta1();
     private final  ReporteU reporteu = new ReporteU();
-    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max;
-    String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser;
+    private final NuevoPC NewPC = new NuevoPC();
+    private final Consultas consulta = new Consultas();
+    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0;
+    String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="";
     private int tipoalta;
     public jControlador( JFrame padre ){
         //this.frmprincipal = (frmPrincipal) padre;
@@ -610,7 +614,264 @@ public class jControlador implements ActionListener {
              public void keyReleased(java.awt.event.KeyEvent evt){
                  bucarPorducto();
              }                      
-        });        
+        });
+        //MOVIMIENTOS PAPEL         
+        this.movimientos.__ACEPTARENTRADA.setActionCommand("__ACEPTAR_ENTRADA");
+        this.movimientos.__ACEPTARENTRADA.setMnemonic('A');
+        this.movimientos.__ACEPTARENTRADA.addActionListener(this);
+        this.movimientos.__MODIFICACIONENTRADA.setActionCommand("__MODIFICACION_ENTRADA");
+        this.movimientos.__MODIFICACIONENTRADA.setMnemonic('M');
+        this.movimientos.__MODIFICACIONENTRADA.addActionListener(this);
+        this.movimientos.__ACEPTARSALIDA.setActionCommand("__ACEPTAR_SALIDA");
+        this.movimientos.__ACEPTARSALIDA.setMnemonic('C');
+        this.movimientos.__ACEPTARSALIDA.addActionListener(this);
+        this.movimientos.__MODIFICACIONSALIDA.setActionCommand("__MODIFICACION_SALIDA");
+        this.movimientos.__MODIFICACIONSALIDA.setMnemonic('O');
+        this.movimientos.__MODIFICACIONSALIDA.addActionListener(this);        
+        this.movimientos.__documentoEntr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNumCar(evt);
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                   movimientos.__TipoEntrada.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__TipoEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetras(evt);
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                                            
+                    movimientos.__PropietarioEntr.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__PropietarioEntr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNum(evt);                
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__ProvEntr.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__ProvEntr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNum(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__OrdenProduccionEntr.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__OrdenProduccionEntr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNumCar(evt);                 
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__OrdenCompraEntr.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__OrdenCompraEntr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNumCar(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__ClientEntr.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__ClientEntr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__chkTurno1Entr.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__chkTurno1Entr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetras(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__chkTurno2Entr.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__chkTurno2Entr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetras(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__chkTurno3Entr.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__chkTurno3Entr.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetras(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__tablaEntrada.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__etqLimpiarTablaEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                limpiarTabla(movimientos.__tablaEntrada);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+                movimientos.__etqLimpiarTablaEntrada.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                movimientos.__etqLimpiarTablaEntrada.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }
+        });
+        this.movimientos.__etqLimpiarTablaSalida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                limpiarTabla(movimientos.__tablaSalida);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+                movimientos.__etqLimpiarTablaSalida.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                movimientos.__etqLimpiarTablaSalida.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }
+        });
+        this.movimientos.__etqNewTipoEntr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewTipoEntr.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewTipoEntr.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nuevaTipoEntrada();
+            }
+        });
+        this.movimientos.__etqNewPropietarioEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
+            
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewPropietarioEntrada.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewPropietarioEntrada.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }   
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                nuevoPropietario();
+            }
+        });
+        this.movimientos.__etqNewProveedorEntr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clienteprovedor=1;
+                NewPC.ProveCli.setText("Nuevo Proveedor");
+                NewPC.setLocationRelativeTo(null);
+                NewPC.setVisible(true);
+                movimientos.setEnabled(false);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewProveedorEntr.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewProveedorEntr.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }
+        }); 
+        this.movimientos.__etqNewClienteE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clienteprovedor=0;
+                NewPC.ProveCli.setText("Nuevo Cliente");
+                NewPC.setVisible(true);
+                NewPC.setLocationRelativeTo(null);
+                movimientos.setEnabled(false);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewClienteE.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewClienteE.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }
+        });
+        
+        //NUEVO PROVEEDOR CLIENTE
+        this.NewPC.__ACEPTARPROVEEDOR.setActionCommand("__ACEPTAR_PROVEEDOR");
+        this.NewPC.__ACEPTARPROVEEDOR.setMnemonic('A');
+        this.NewPC.__ACEPTARPROVEEDOR.addActionListener(this);
+        this.NewPC.__CANCELARPROVEEDOR.setActionCommand("__CANCELAR_PROVEEDOR");
+        this.NewPC.__CANCELARPROVEEDOR.setMnemonic('C');
+        this.NewPC.__CANCELARPROVEEDOR.addActionListener(this);
+        this.NewPC.__NombreProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNumCar(evt);
+              }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                   if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    altaproveedor();
+                } 
+            }
+            });
+        this.NewPC.__DireccionProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNumCar(evt);
+              }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                   if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    altaproveedor();
+                } 
+            }
+            });
+        this.NewPC.__TelefonoNProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNumCar(evt);                
+              }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                   if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    altaproveedor();
+                } 
+            }
+            });
+        this.NewPC.__RFC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNum(evt);
+              }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                   if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    altaproveedor();
+                } 
+            }
+            });
+
         //MENUS
         //Menu New Producto 
         this.newP.__menuMovimientos.setActionCommand("__MENU_MOV_PAPEL");
@@ -654,9 +915,9 @@ public class jControlador implements ActionListener {
         this.newP.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
         this.newP.__menuBackup.addActionListener(this); 
         //MENUS MOVIMIENTOS
-        this.movimientos.__menuMovimientos.setActionCommand("__MENU_MOV_PAPEL");
-        this.movimientos.__menuMovimientos.addActionListener(this);
-        this.movimientos.__menuMovimientos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,InputEvent.CTRL_MASK));
+        this.movimientos.__menuAltaProducto.setActionCommand("__MENU_MOV_PAPEL");
+        this.movimientos.__menuAltaProducto.addActionListener(this);
+        this.movimientos.__menuAltaProducto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,InputEvent.CTRL_MASK));
         this.movimientos.__menuAnterior.setActionCommand("__MENU_ANTERIOR");
         this.movimientos.__menuAnterior.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0));
         this.movimientos.__menuAnterior.addActionListener(this);
@@ -746,7 +1007,15 @@ public class jControlador implements ActionListener {
         //NUEVO PRODUCTO
         __GUARDAR_PRODUCTO,                
         __BORRAR_PRODUCTO,                
-        __SALIR_PRODUCTO        
+        __SALIR_PRODUCTO,
+        //NUEVO PROVEEDOR CLIENTE
+        __ACEPTAR_PROVEEDOR,
+        __CANCELAR_PROVEEDOR,
+        //MOVIMIENTOS
+        __ACEPTAR_ENTRADA,                             
+        __MODIFICACION_ENTRADA,                
+        __ACEPTAR_SALIDA,                
+        __MODIFICACION_SALIDA                
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -834,7 +1103,7 @@ public class jControlador implements ActionListener {
                             this.newP.dispose();
 //                            reportes.dispose();
                             ponerfecha();
-//                            movimientos.__TipoEntrada.requestFocus();
+                            movimientos.__documentoEntr.requestFocus();
 //                            addItems("movimientos");
 //                            maximoentrada();
 //                            maximosalida();
@@ -920,10 +1189,10 @@ public class jControlador implements ActionListener {
                             movimientos.dispose();
 //                            consultas.dispose();
 //                            reportes.dispose();
-//                            reporteuser.dispose();
+                            reporteu.dispose();
                             mimodelo.cerrarsesion(user);
-//                            borrarFormularioNewUser();
-//                            borrarFormularioAltaPapel();
+                            borrarFormularioNewUser();
+                            borrarFormularioAltaProducto();
 //                            borrarFormularioMovimientosPapel();
 //                            borrarFormularioProveedor();
 //                            borrarFormularioConsultas();
@@ -1052,24 +1321,24 @@ public class jControlador implements ActionListener {
                             break;
                     }
                 break;
-            case __MENU_BAJA_PRODUCTO:
-                switch(cargo){
-                        case 1:  
-                                newP.setEnabled(false);
-                                movimientos.setEnabled(false);
+//            case __MENU_BAJA_PRODUCTO:
+//                switch(cargo){
+//                        case 1:  
+//                                newP.setEnabled(false);
+//                                movimientos.setEnabled(false);
 //                                reportes.setEnabled(false);
 //                                consultas.setEnabled(false);
 //                                bajaP.setVisible(true);
 //                                bajaP.setLocationRelativeTo(null);
-                            break;
-                        case 2:
-                            mensaje(2,"No Hay Acceso a esta Información");
-                            break;
-                        case 3:
-                            mensaje(2,"No Hay Acceso a esta Información");
-                            break;
-                    } 
-                break;
+//                            break;
+//                        case 2:
+//                            mensaje(2,"No Hay Acceso a esta Información");
+//                            break;
+//                        case 3:
+//                            mensaje(2,"No Hay Acceso a esta Información");
+//                            break;
+//                    } 
+//                break;
             //Casos de los botones del formulario de nuevo usuario           
             case __ACEPTARUSER:
                 altamodificacion();
@@ -1265,6 +1534,37 @@ public class jControlador implements ActionListener {
             case __SALIR_PRODUCTO:
                 regresar();
                 break;
+            case  __ACEPTAR_PROVEEDOR:
+                altaproveedor();                             
+                break;
+            case __CANCELAR_PROVEEDOR: 
+                if(NewPC.__NombreProveedor.getText().isEmpty()&&NewPC.__DireccionProveedor.getText().isEmpty()&&NewPC.__RFC.getText().isEmpty()&&NewPC.__TelefonoNProveedor.getText().isEmpty() ){
+                    borrarFormularioProveedor();
+                        movimientos.setEnabled(true);
+                        NewPC.dispose();
+                        movimientos.setEnabled(true);
+                }else
+                confir= mensajeConfirmacion("Realmente Desea Salir","Cancelar");
+                    if(confir==JOptionPane.OK_OPTION){
+                        borrarFormularioProveedor();
+                        movimientos.setEnabled(true);
+                        NewPC.dispose();
+                        movimientos.setEnabled(true);
+                    }
+                break;
+            case __ACEPTAR_ENTRADA:
+                AceptarModificar();
+                break;                
+            case __MODIFICACION_ENTRADA:
+                AceptarModificar();
+                break;
+            case __ACEPTAR_SALIDA:
+                AceptarModificarSalida();
+                break;
+            case __MODIFICACION_SALIDA:
+                AceptarModificarSalida();
+                break;
+
         }
     }
     public void iniciasesion() {
@@ -1430,9 +1730,9 @@ public class jControlador implements ActionListener {
                 login.dispose();
                 login.setEnabled(true);
                 newP.setEnabled(true);                   
-                /*movimientos.setEnabled(true);                
-                reportes.setEnabled(true);                    
-                consultas.setEnabled(true);*/
+                movimientos.setEnabled(true);                
+//                reportes.setEnabled(true);                    
+//                consultas.setEnabled(true);
                 fecha.dispose();
             }
     }
@@ -1821,7 +2121,7 @@ public class jControlador implements ActionListener {
                                     borrarFormularioConEP();
                                     borrarFormularioAltaProducto();
 //                                    borrarFormularioMovimientosPapel();
-//                                    borrarFormularioProveedor();
+                                    borrarFormularioProveedor();
 //                                    borrarFormularioConsultas();
 //                                    borrarFormularioEmergente();
                                 }
@@ -1839,7 +2139,7 @@ public class jControlador implements ActionListener {
                                 borrarFormularioNewUser();
                                 borrarFormularioAltaProducto();
 //                                borrarFormularioMovimientosPapel();
-//                                borrarFormularioProveedor();
+                                borrarFormularioProveedor();
 //                                borrarFormularioConsultas();
 //                                borrarFormularioEmergente();
                                 }
@@ -2165,5 +2465,152 @@ public class jControlador implements ActionListener {
             mensaje(3,ex.getMessage());
 
         }
+    }
+    public void altaproveedor(){
+            String Nombre=this.NewPC.__NombreProveedor.getText(),
+            Direccion=this.NewPC.__DireccionProveedor.getText(),
+            telefono=this.NewPC.__TelefonoNProveedor.getText(),
+            RfC=this.NewPC.__RFC.getText();
+            if(Nombre.isEmpty()){
+                mensaje(3,"Debe de Ingresar el Nombre");
+                this.NewPC.__NombreProveedor.requestFocus();
+                    return;
+            }
+            switch(clienteprovedor){//en el caso 0 se da de alta un proveedor en el caso de 1 se da de alta un nuevo cliente
+                case 1:
+                    confir= mensajeConfirmacion("Realmente Desea dar de Alta el Proveedor "+Nombre,"Alta");
+                    if(confir==JOptionPane.OK_OPTION){
+                        boolean altaprove=mimodelo.newaltaproveedor(Nombre,Direccion,telefono,RfC);                
+                            if(altaprove==true){                                       
+                                mensaje(1,"Alta Correcta de Nuevo Proveedor: "+Nombre+"");  
+                                borrarFormularioProveedor();
+                            }else{
+                                mensaje(3,"Ocurrio un Error al Dar de Alta el Nuevo Proveedor");                          
+                            }       
+                     break;
+                    }
+                    break;
+                case 0:
+                    confir= mensajeConfirmacion("Realmente Desea dar de Alta el Cliente: "+Nombre,"Alta");
+                    if(confir==JOptionPane.OK_OPTION){
+                        boolean altacli=mimodelo.newaltacliente(Nombre,Direccion,telefono,RfC);                
+                            if(altacli==true){                                       
+                                mensaje(1,"Alta Correcta de Nuevo Cliente: "+Nombre+"");   
+                                borrarFormularioProveedor();
+                            }else{
+                                mensaje(3,"Ocurrio un Error al Dar de Alta el Nuevo Cliente");                          
+                            }                        
+
+                        break;
+                    }
+                    break;
+            }
+            addItems("movimientos");
+    }
+    public void borrarFormularioProveedor(){
+        this.NewPC.__NombreProveedor.setText("");
+        this.NewPC.__DireccionProveedor.setText("");
+        this.NewPC.__TelefonoNProveedor.setText("");
+        this.NewPC.__RFC.setText("");
+    }
+    public void nuevoPropietario(){                                    
+               String PROPIEDAD = (String)JOptionPane.showInputDialog(null,"Escribe el Propietario a Registrar:\n","PROPIETARIO DE PAPEL",JOptionPane.PLAIN_MESSAGE);
+                if ((PROPIEDAD != null) && (PROPIEDAD.length() > 0)) {
+                    int conf=JOptionPane.showConfirmDialog(null,"Se agregara el propietario de papel:, " + PROPIEDAD + ".",PROPIEDAD,JOptionPane.OK_CANCEL_OPTION);
+                    if (conf==JOptionPane.OK_OPTION){
+                        boolean altapropiedad=mimodelo.nuevopropiedad(PROPIEDAD);
+                        if(altapropiedad==true){
+                            try {
+                                JOptionPane.showMessageDialog(null,"Propiedad de Papel "+PROPIEDAD+" agregado correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);                                
+                            } catch (Exception ex) {
+                                mensaje(3,ex.getMessage());
+                            }
+                        }
+                    }
+                    return; 
+                }
+                JOptionPane.showMessageDialog(null,"No agregaste propietario de papel.","Error",JOptionPane.ERROR_MESSAGE);
+            }
+    public void nuevaTipoEntrada(){
+        String tipoEntra = (String)JOptionPane.showInputDialog(null,"Escribe la Nueva Entrada:\n","NUEVO TIPO ENTRADA",JOptionPane.PLAIN_MESSAGE);
+        if ((tipoEntra  != null) && (tipoEntra.length() > 0)) {
+            int conf=JOptionPane.showConfirmDialog(null,"Se agregara la Entrada de Papel: " + tipoEntra  + ".",tipoEntra,JOptionPane.OK_CANCEL_OPTION);
+            if (conf==JOptionPane.OK_OPTION){
+                boolean altanuevoentrada=mimodelo.nuevatipoentrada(tipoEntra);
+                if(altanuevoentrada==true){
+                        JOptionPane.showMessageDialog(null,"Nuevo Tipo Entrada "+tipoEntra+" Agregado Correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);
+                        
+                }
+            }
+            return; 
+        }
+        JOptionPane.showMessageDialog(null,"No Agregaste Nuevo Tipo de Entrada.","Error",JOptionPane.ERROR_MESSAGE);            
+    }
+    public void AceptarModificar(){
+        String FolioE=movimientos.__FolioEntrada.getText();
+        String DocumentoE=movimientos.__documentoEntr.getText();
+        if(DocumentoE.isEmpty()){
+            mensaje(3,"Debe Especificar el Documento de Entrada");
+            return;
+        }
+        String TipoE=movimientos.__TipoEntrada.getText();
+        if(TipoE.isEmpty()){
+            mensaje(3,"Debe Especificar un Tipo de Entrada");
+            return;
+        }
+        String PropietarioE=movimientos.__PropietarioEntr.getText();        
+        String ProvedorE=movimientos.__ProvEntr.getText();                
+        String OrdenProducionE=movimientos.__OrdenProduccionEntr.getText();                        
+        String OrdenCompraE=movimientos.__OrdenCompraEntr.getText();                                
+        String ClienteE=movimientos.__ClientEntr.getText();
+        if(ClienteE.isEmpty()){
+            mensaje(3,"Debe Especificar un Cliente");
+            return;
+        }
+         if(movimientos.__chkTurno1Entr.isSelected()){
+           t1="t1";
+        }
+        if(movimientos.__chkTurno2Entr.isSelected()){
+           t2="t2";
+        }
+        if(movimientos.__chkTurno3Entr.isSelected()){
+           t3="t3";
+        }
+        if(movimientos.__tablaEntrada.getValueAt(0, 0)==null){
+            mensaje(3,"Ingresa Valores a la Tabla");
+            return;
+        }
+        
+    }
+    public void AceptarModificarSalida(){
+        String FolioS=movimientos.__FolioSalida.getText();
+        String DocumentoS=movimientos.__documentoSalida.getText();
+        if(DocumentoS.isEmpty()){
+            mensaje(3,"Debe Especificar el Documento de Salida");
+            return;
+        }
+        String TipoS=movimientos.__TipoSalida.getText();
+        if(TipoS.isEmpty()){
+            mensaje(3,"Debe Especificar un Tipo de Entrada");
+            return;
+        }                     
+        String AreaS=movimientos.__AreaSalida.getText();                
+        String OrdenProducionS=movimientos.__OrdenProduccionSalida.getText();                        
+        String SolicitanteS=movimientos.__SolicitanteSalida.getText();                                           
+         if(movimientos.__chkTurno1Entr.isSelected()){
+           t1="t1";
+        }
+        if(movimientos.__chkTurno2Entr.isSelected()){
+           t2="t2";
+        }
+        if(movimientos.__chkTurno3Entr.isSelected()){
+           t3="t3";
+        }
+        if(movimientos.__tablaEntrada.getValueAt(0, 0)==null){
+            mensaje(3,"Ingresa Valores a la Tabla");
+            return;
+        }
+        
+        
     }
 }

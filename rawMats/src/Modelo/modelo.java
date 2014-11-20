@@ -312,9 +312,70 @@ public class modelo extends database{
             }
     }
 
-    
+    public boolean newaltaproveedor(String Nombre, String Direccion, String telefono, String RfC) {
+         String q = "INSERT INTO `proveedores` (`idproveedores`, `Nombre`, `Direccion`, `Telefono`, `RFC`)"
+                  + "VALUES (NULL,'"+Nombre+"','"+Direccion+"','"+telefono+"','"+RfC+"')";        
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){            
+               if(e.getMessage().equals("Duplicate entry '"+Nombre+"' for key 'Nombre'")){                   
+                JOptionPane.showMessageDialog(null, "Ya Existe Este Proveedor: " +Nombre);
+            }else{
+               System.err.println(e.getMessage()); 
+            }            
+            return false;
+        }
+    }
 
-    
-    
-    
+    public boolean newaltacliente(String Nombre, String Direccion, String telefono, String RfC) {
+        String q = "INSERT INTO `clientes` (`id_clientes`, `Nombre`, `Direccion`, `Telefono`, `RFC`)"
+                  +"VALUES (NULL,'"+Nombre+"','"+Direccion+"','"+telefono+"','"+RfC+"')";         
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){            
+               if(e.getMessage().equals("Duplicate entry '"+Nombre+"' for key 'Nombre'")){                   
+                JOptionPane.showMessageDialog(null, "Ya Existe Este Cliente: " +Nombre);
+            }else{
+               System.err.println(e.getMessage()); 
+            }            
+            return false;
+        }
+    }       
+
+    public boolean nuevopropiedad(String PROPIEDAD) {
+        String q ="INSERT INTO propietarios (nombre) values ('"+PROPIEDAD+"');";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                pstm.execute();
+                pstm.close();
+                return true;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+            }
+        return false;
+    }    
+
+    public boolean nuevatipoentrada(String tipoEntra) {
+        String q = "INSERT INTO  `tipo_entrada` (`id_tipo_en` ,`Tipo_Entrada`)VALUES (NULL, '"+tipoEntra+"')";                 
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            if(e.getMessage().equals("Duplicate entry '"+tipoEntra+"' for key 'Tipo_Entrada'")){
+                JOptionPane.showMessageDialog(null, "Ya Existe la Entrada: " +tipoEntra);
+            }else{
+               System.err.println(e.getMessage()); 
+            }
+            return false;
+        }   
+    }  
 }
+
