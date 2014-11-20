@@ -88,7 +88,7 @@ public class jControlador implements ActionListener {
     private final NuevoPC NewPC = new NuevoPC();
     private final Consultas consulta = new Consultas();
     int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0;
-    String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="";
+    String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta;
     private int tipoalta;
     public jControlador( JFrame padre ){
         //this.frmprincipal = (frmPrincipal) padre;
@@ -247,11 +247,11 @@ public class jControlador implements ActionListener {
         });
         this.newP.__cmbArea.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(ItemEvent e) {
+                int idarea;
                 if(newP.__cmbArea.getSelectedIndex()<=0){
                     return;
                 }else{
-                    int idarea = busquedaid("area");
-                    System.out.println(newP.__cmbArea.getSelectedIndex());
+                    idarea = busquedaid("area");
                     try {
                         ResultSet buscarMaquina = mimodelo.buscarMaquina(idarea);
                         newP.__cmbMaquina.removeAllItems();
@@ -259,10 +259,48 @@ public class jControlador implements ActionListener {
                         while(buscarMaquina.next()){
                             newP.__cmbMaquina.addItem(buscarMaquina.getString(1)); 
                         }
+                        newP.__etqClave.setText("");
+                        etiqueta = idarea < 10 ? "0"+idarea+"-": idarea+"-";
+                        newP.__etqClave.setText(etiqueta);
                     } catch (SQLException ex) {
                         Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                
+            }
+        });
+        this.newP.__cmbMaquina.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                int idmaquina;
+                if(newP.__cmbMaquina.getSelectedIndex()<=0){
+                    return;
+                }else{
+                    newP.__etqClave.setText(etiqueta);
+                    idmaquina = busquedaid("maquina");
+                    String traia= newP.__etqClave.getText();
+                    String ponerid = idmaquina <10 ? "0"+idmaquina:idmaquina+"";
+                    newP.__etqClave.setText(traia+ponerid);
+                    String likeclave = newP.__etqClave.getText();
+                    try{
+                        ResultSet clave = mimodelo.buscarProductos(likeclave);
+                        if(clave.next()){
+                            String poneridclave= "";
+                            String[] partido = clave.getString("clave").split("-");
+                            int idclave = Integer.parseInt(partido[2]);
+                            if(idclave<10) poneridclave = "000"+idclave;
+                            else if(idclave<100) poneridclave = "00"+idclave;
+                            else if(idclave<1000) poneridclave = "0"+idclave;
+                            else if(idclave<10000) poneridclave = ""+idclave;
+                            newP.__etqClave.setText(traia+ponerid+"-"+poneridclave);
+                        }else{
+                            System.out.println(likeclave+"-0001");
+                            newP.__etqClave.setText(likeclave+"-0001");
+                        }
+                    }catch(Exception ex){
+                    
+                    }
+                }
+                
             }
         });
         this.newP.__descripcion.addKeyListener(new java.awt.event.KeyListener() {
@@ -2452,6 +2490,14 @@ public class jControlador implements ActionListener {
                 for(int i=0;i<numcolumnas;i++){
                     modelo.addColumn(datosT[i]);
                 }
+                TableColumnModel columnModel = conEP.__tablaProductos.getColumnModel();
+                TableColumn columnaTabla = columnModel.getColumn(0);
+                String nombreColumna = columnaTabla.getIdentifier().toString();
+                System.out.println(nombreColumna);
+                if (nombreColumna.equals("CLAVE")){
+                    columnaTabla.setPreferredWidth(10);
+                }
+                columnModel.getColumn(0).setWidth(10);
                 while(resp.next()){
                     for(int i=0;i<numcolumnas;i++){
                         datosC[i]=resp.getString(i+1);
