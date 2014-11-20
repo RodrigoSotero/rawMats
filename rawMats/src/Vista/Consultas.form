@@ -284,12 +284,6 @@
                                       <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                              <Component id="__chkOrdenC" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                                              <Component id="__OrdenC" min="-2" pref="133" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
@@ -303,40 +297,53 @@
                                                   <Component id="__documento" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="__chkUbicacion" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                                                      <Component id="__Ubicacion" min="-2" pref="133" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="__chkOrdenC" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                                                      <Component id="__OrdenC" min="-2" pref="133" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="__chkTipoEntrada" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="__chkArea" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="__chkMaquina" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="__chkTipoEntrada" min="-2" max="-2" attributes="0"/>
+                                              <Component id="__chkArea" alignment="1" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="__Area" min="-2" pref="243" max="-2" attributes="0"/>
-                                              <Component id="__TipoEntrada1" min="-2" pref="243" max="-2" attributes="0"/>
-                                              <Component id="__Maquina" min="-2" pref="243" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="__chkMaquina" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                          <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="__Area" min="-2" pref="243" max="-2" attributes="0"/>
+                                          <Component id="__TipoEntrada1" min="-2" pref="243" max="-2" attributes="0"/>
+                                          <Component id="__Maquina" min="-2" pref="243" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                                      <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="__SALIRCONSULTA" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="119" pref="119" max="-2" attributes="0"/>
                                       <Component id="__ACEPTARCONSULTA" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -377,14 +384,14 @@
                       <Component id="__chkMaquina" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="__Maquina" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="__chkProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="__proveedor" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="__chkPropietario" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="__Propietario" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
@@ -395,7 +402,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="__TipoSalida" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="__chkTipoSalida" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -406,7 +413,7 @@
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="__chkFolio" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
@@ -428,26 +435,27 @@
                               <Component id="__OrdenP" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="__chkOrdenC" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="__OrdenC" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
+                          <Component id="__chkUbicacion" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="__Ubicacion" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="__SALIRCONSULTA" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
-                          <Component id="__ACEPTARCONSULTA" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="__SALIRCONSULTA" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="__ACEPTARCONSULTA" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -1177,6 +1185,33 @@
     <Component class="javax.swing.JButton" name="__ACEPTARCONSULTA">
       <Properties>
         <Property name="text" type="java.lang.String" value="ACEPTAR"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="__chkUbicacion">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Papyrus" size="14" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Ubicacion:"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="__Ubicacion">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="12" style="0"/>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

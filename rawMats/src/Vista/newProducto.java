@@ -139,6 +139,7 @@ public class newProducto extends javax.swing.JFrame {
         __etqClave.setBackground(new java.awt.Color(255, 255, 0));
         __etqClave.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         __etqClave.setForeground(new java.awt.Color(255, 255, 255));
+        __etqClave.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         __etqClave.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         __etqClave.setEnabled(false);
         __etqClave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
