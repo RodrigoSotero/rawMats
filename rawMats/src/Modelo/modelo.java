@@ -127,6 +127,17 @@ public class modelo extends database{
                 return null;
             }
     }
+    public ResultSet buscarMaquina() throws java.sql.SQLException{       
+        String q = "SELECT descripcion FROM maquina order by descripcion ;";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
     public ResultSet buscaridArea(String nombre){ 
         String q = "SELECT idarea as id FROM area where descripcion='"+nombre+"';";
         try {
@@ -299,7 +310,7 @@ public class modelo extends database{
     }
 
     public ResultSet buscardor(String des) {
-        String q = "Select clave, descripcion from productos where descripcion like '%"+des+"%' or clave like '%"+des+"%';";
+        String q = "Select clave, descripcion from productos where descripcion like '%"+des+"%' or clave like '%"+des+"%' order by clave;";
         //          Select clave, descripcion from productos where descripcion like '% %'
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
@@ -386,6 +397,31 @@ public class modelo extends database{
                 System.err.println( e.getMessage() );
                 return null;
             }
+    }
+    
+    public ResultSet buscarProducto(String clave) throws java.sql.SQLException{       
+        String q = "select * from vw_descripcionproductos where clave = '"+clave+"';";
+        System.out.println(q);
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    
+    public boolean nuevoProducto(int area, int maquina,String clave,String descripcion, int max, int min) {
+        String q = "INSERT INTO `rawmats`.`productos` (`idproductos`, `area`, `maquina`, `clave`, `descripcion`, `max`, `min`) VALUES (null, '"+area+"', '"+maquina+"', '"+clave+"', '"+descripcion+"', '"+max+"', '"+min+"');";                 
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            return false;
+        }   
     }
 }
 
