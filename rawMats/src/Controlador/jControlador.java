@@ -287,13 +287,13 @@ public class jControlador implements ActionListener {
                             String poneridclave= "";
                             String[] partido = clave.getString("clave").split("-");
                             int idclave = Integer.parseInt(partido[2]);
+                            idclave++;
                             if(idclave<10) poneridclave = "000"+idclave;
                             else if(idclave<100) poneridclave = "00"+idclave;
                             else if(idclave<1000) poneridclave = "0"+idclave;
                             else if(idclave<10000) poneridclave = ""+idclave;
                             newP.__etqClave.setText(traia+ponerid+"-"+poneridclave);
                         }else{
-                            System.out.println(likeclave+"-0001");
                             newP.__etqClave.setText(likeclave+"-0001");
                         }
                     }catch(Exception ex){
@@ -1094,6 +1094,7 @@ public class jControlador implements ActionListener {
                 menumaster.dispose();
                 conEP.setVisible(true);
                 conEP.setName("Consulta del Producto");
+                this.bucarPorducto();
                 break;
             case __MENU_MASTER_MOVIMIENTOS:
                 movimientos.setName("Consulta del Producto");
@@ -1504,11 +1505,11 @@ public class jControlador implements ActionListener {
                 break;
             case __NUEVABUSQUEDA_REPORTE_USUARIO:
                 confir = mensajeConfirmacion("¿Realmente Deseas Realizar una Nueva Busqueda?","Salida");
-                                if (confir == JOptionPane.OK_OPTION){ 
-                                    this.reporteu.__ReporteNombreUsuario.setText("");
-                                    this.reporteu.reportedate.setDate(null);
-                                    limpiarTabla(reporteu.__tablaReporteUsuario);
-                                }
+                    if (confir == JOptionPane.OK_OPTION){ 
+                        this.reporteu.__ReporteNombreUsuario.setText("");
+                        this.reporteu.reportedate.setDate(null);
+                        limpiarTabla(reporteu.__tablaReporteUsuario);
+                    }
                 break;
                 //BOTONES DE LA CONSULTA INICIAL DE LA EXISTENCIA DEL PRODUCTO
             case __ACEPTARNP:                
@@ -1520,6 +1521,43 @@ public class jControlador implements ActionListener {
                 newP.setName("Alta de Producto");
                 break;
             case __MODIFICARCONSULTAEP:
+                int fila = this.conEP.__tablaProductos.getSelectedRow();
+                if(fila<0){
+                    mensaje(2,"Selecciona un producto");
+                    return;
+                }
+                String clavemod = this.conEP.__tablaProductos.getValueAt(fila, 0).toString();
+                confir = mensajeConfirmacion("¿Realmente Deseas Modificar el Producto "+clavemod+"?","Modificar");
+                    if (confir == JOptionPane.OK_OPTION){
+                        
+                        try {
+                            ResultSet producto = mimodelo.buscarProducto(clavemod);
+                            ResultSet buscarArea = mimodelo.buscarArea();
+                            newP.__cmbArea.removeAllItems();
+                            newP.__cmbArea.addItem("Selecciona...");
+                            while(buscarArea.next()){
+                                newP.__cmbArea.addItem(buscarArea.getString(1));
+                            }
+                            ResultSet buscarMaquina = mimodelo.buscarMaquina();
+                            newP.__cmbMaquina.removeAllItems();
+                            newP.__cmbMaquina.addItem("Selecciona...");
+                            while(buscarMaquina.next()){
+                                newP.__cmbMaquina.addItem(buscarMaquina.getString(1));
+                            }
+                            while(producto.next()){
+                                newP.__cmbArea.setSelectedItem(producto.getString("area"));
+                                newP.__cmbMaquina.setSelectedItem(producto.getString("maquina"));
+                                newP.__descripcion.setText(producto.getString("descripcion"));
+                                newP.__SMin_.setText(producto.getString("min"));
+                                newP.__SMax_.setText(producto.getString("max"));
+                                newP.__etqClave.setText(producto.getString("clave"));
+                            }
+                            conEP.dispose();
+                            newP.setVisible(true);        
+                        } catch (SQLException ex) {
+                            Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 break;
             case __ELIMINARCONSULTAEP:
                 break;            
@@ -1564,6 +1602,13 @@ public class jControlador implements ActionListener {
                 if(Min>Max){
                     mensaje(3,"El Maximo No Puede ser Menor que el Minimo");
                      this.newP.__SMax_.requestFocus();
+                }
+                String clave = newP.__etqClave.getText();
+                confir= mensajeConfirmacion("La clave de producto " + clave+" es correcta?" ,"Aceptar");
+                if(confir==JOptionPane.OK_OPTION){
+                    if(mimodelo.nuevoProducto(areaid, maquinaid, clave,DesP, Max, Min)){
+                        mensaje(1,"Alta de producto correcta");
+                    }
                 }
                 break;
             case __BORRAR_PRODUCTO:
@@ -2494,7 +2539,6 @@ public class jControlador implements ActionListener {
                 TableColumnModel columnModel = conEP.__tablaProductos.getColumnModel();
                 TableColumn columnaTabla = columnModel.getColumn(0);
                 String nombreColumna = columnaTabla.getIdentifier().toString();
-                System.out.println(nombreColumna);
                 if (nombreColumna.equals("CLAVE")){
                     columnaTabla.setPreferredWidth(10);
                 }
