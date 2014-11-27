@@ -425,6 +425,7 @@ public class modelo extends database{
             pstm.close();
             return true;
         }catch(SQLException e){
+            
             return false;
         }   
     }
