@@ -387,5 +387,9 @@ public class modelo extends database{
                 return null;
             }
     }
+
+    public boolean NuevaEntrada(String FolioE, String DocumentoE, String TipoE, String PropietarioE, String ProvedorE, String OrdenProducionE, String OrdenCompraE, String ClienteE, String t1, String t2, String t3) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
 
