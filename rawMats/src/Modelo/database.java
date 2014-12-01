@@ -149,7 +149,7 @@ public class database {
               //conn.is
               
               if (conn!=null){
-                  System.out.println("exacto p");
+                  System.out.println("conexion a RawMats");
               }else{
                   JOptionPane.showMessageDialog(null,"Conexion no estaablecida con la base de datos.");
               }
