@@ -70,7 +70,7 @@ import javax.swing.table.TableColumnModel;
 
 /**
  *
- * @author Irving & Rodrigo
+ * @author Irving & Rodrigo  RAWMATS
  */
 public class jControlador implements ActionListener {
     HiloProgreso hilo;
