@@ -429,5 +429,134 @@ public class modelo extends database{
             return false;
         }   
     }
+    public ResultSet bucarMaxEntrada() {
+        String q = "SELECT MAX( identrada ) FROM entrada";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    
+    public ResultSet buscarExistenciaProducto(String claveProducto) {
+        String q = "SELECT * FROM inventario where claveProducto='"+claveProducto+"';";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    
+    public boolean nuevaexistencia(String clave) {
+      String q ="INSERT INTO  `inventario` (`id_inventario` ,`claveProducto` ,`cantidad`,costopromedio,ubicacion)VALUES (NULL ,  '"+clave+"', '0','0','');";
+    try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean altaDetalleEntrada(int id_entrada, String claveproducto, String descripcion, String unidad_m, int cantidadentrada, String ubicacion, String costo, String totalcosto) {
+        //INSERT INTO `rawmats`.`detalleentrada` (`iddetalleEntrada`, `idEntrada`, `claveProducto`, `descripcion`, `Ubicacion`, `cantidad`, `unidadMedida`, `costo`, `totalcosto`, `CantidadTemporal`, `costopromedio`) VALUES ('1', '1', 'clave', 'desc', 'ubic', '100', 'pz', '1.02', '102.0', '100', '1.02');
+        String q ="INSERT INTO `rawmats`.`detalleentrada` (`iddetalleEntrada`, `idEntrada`, `claveProducto`, `descripcion`, `Ubicacion`, `cantidad`, `unidadMedida`, `costo`, `totalcosto`, `CantidadTemporal`, `costopromedio`) VALUES"
+                + " (null, '"+id_entrada+"', '"+claveproducto+"', '"+descripcion+"', '"+ubicacion+"', '"+cantidadentrada+"', '"+unidad_m+"', '"+costo+"', '"+totalcosto+"', '"+cantidadentrada+"', '"+costo+"');";
+    try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean sumarexistencia(String claveproducto) {
+        String q1="CALL sumaexistencia('"+claveproducto+"')";//aqui es sumaexistenca ....
+         try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q1);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean ubicacion(String claveproducto, String ubicacion) {
+      String q=" UPDATE  inventario SET ubicacion='"+ubicacion+"' where claveproducto ='"+claveproducto+"';";
+        try{
+            System.out.println(q);
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean altaEntrada(String FolioE, String DocumentoE, String TipoE, String PropietarioE, String ProveedorE, String OrdenProducionE, String OrdenCompraE, String ClienteE, String t1, String t2, String t3, int id_responsable, String fechaentrada, String Obs) {
+        //INSERT INTO `rawmats`.`entrada` (`identrada`, `folioe`, `documentoE`, `tipoE`, `propietarioE`, `provedorE`, `OP`, `OC`, `responsable`, `t1`, `t2`, `t3`, `observaciones`, `fecha`) VALUES ('1', 'folio', 'docu', '1', '1', '1', 'op', 'oc', '1', 't1', 't2', 't3', 'obset', 'fech');
+        String q = "INSERT INTO `rawmats`.`entrada` (`identrada`, `folioe`, `documentoE`, `tipoE`, `propietarioE`, `provedorE`, `OP`, `OC`, `responsable`, `CleienteE`, `t1`, `t2`, `t3`, `observaciones`, `fecha`) VALUES "
+                + "('null', '"+FolioE+"', '"+DocumentoE+"', '"+TipoE+"', '"+PropietarioE+"', '"+ProveedorE+"', '"+OrdenProducionE+"', '"+OrdenCompraE+"', '"+id_responsable+"', '"+ClienteE+"', '"+t1+"', '"+t2+"', '"+t3+"', '"+Obs+"', '"+fechaentrada+"');";  
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }  
+    }
+    
+    public ResultSet buscaDocumentoEntrada(String eval) {
+        String q = "SELECT * FROM documento_entrada where documento='"+eval+"'";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    public boolean altaDocEntrada(String eval){
+         String q1 = "INSERT INTO `documento_entrada` (`Documento`) VALUES ('"+eval+"');";
+         try{
+             PreparedStatement pstm1 = this.getConexion().prepareStatement(q1);
+             pstm1.execute();
+             pstm1.close();
+             return true;
+         }
+         catch(SQLException e){
+             return false;
+         }
+     }
+    public boolean costopromedio(String clave) {
+        String q1="CALL preciopromedio('"+clave+"')";
+         try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q1);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
 }
 
