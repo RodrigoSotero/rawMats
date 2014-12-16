@@ -92,7 +92,9 @@ public class jControlador implements ActionListener {
     int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0;
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta;
     private int tipoalta;
+    String buscarfolio;
     TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,Com_TipoS,Com_AreaS;
+    int modificarentrada=0;
     public jControlador( JFrame padre ){
         //this.frmprincipal = (frmPrincipal) padre;
         this.splash = (Splash) padre;
@@ -717,7 +719,12 @@ public class jControlador implements ActionListener {
                         int fila =movimientos.__tablaEntrada.getSelectedRow();
                         while(prod.next()){
                             movimientos.__tablaEntrada.setValueAt(prod.getString("descripcion"), fila, 1);
+                            ResultSet costo = mimodelo.ultimocosto(parametro);
+                            while(costo.next()){
+                                movimientos.__tablaEntrada.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
+                            }
                         }
+                        
                     } catch (SQLException ex) {
                         Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -748,7 +755,13 @@ public class jControlador implements ActionListener {
                         int fila =movimientos.__tablaEntrada.getSelectedRow();
                         while(prod.next()){
                             movimientos.__tablaEntrada.setValueAt(prod.getString("clave"), fila, 0);
+                            ResultSet costo = mimodelo.ultimocosto(prod.getString("clave"));
+                            while(costo.next()){
+                                movimientos.__tablaEntrada.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
+                            }
                         }
+                        
+                        
                     } catch (SQLException ex) {
                         Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -1987,7 +2000,12 @@ public class jControlador implements ActionListener {
                 EntradaAceptarModificar();                
                 break;                
             case __MODIFICACION_ENTRADA:
-                EntradaAceptarModificar();
+                this.modificarentrada=1;
+                buscarfolio = JOptionPane.showInputDialog("Folio","Ingresa el Folio de la Entrada a Modificar");
+                if(buscarfolio==null || buscarfolio.length()<3){
+                    mensaje(2,"Intenta otra vez");
+                    break;
+                }
                 break;
             case __ACEPTAR_SALIDA:
                 SalidaAceptarModificar();
@@ -3238,6 +3256,10 @@ public class jControlador implements ActionListener {
         movimientos.__TipoSalida.setText("");
         movimientos.__documentoEntr.setText("");
         movimientos.__documentoSalida.setText("");
+        movimientos.__chkTurno1Entr.setSelected(false);
+        movimientos.__chkTurno2Entr.setSelected(false);
+        movimientos.__chkTurno3Entr.setSelected(false);
+        
     }
     private void maximoentrada() {
         try {
@@ -3324,6 +3346,7 @@ public class jControlador implements ActionListener {
     }
     
     //HUEVOS
+    
     
     
 }
