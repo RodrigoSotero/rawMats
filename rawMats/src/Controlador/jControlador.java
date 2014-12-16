@@ -92,7 +92,7 @@ public class jControlador implements ActionListener {
     int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0;
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta;
     private int tipoalta;
-    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion;
+    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,Com_TipoS,Com_AreaS;
     public jControlador( JFrame padre ){
         //this.frmprincipal = (frmPrincipal) padre;
         this.splash = (Splash) padre;
@@ -656,8 +656,7 @@ public class jControlador implements ActionListener {
                  bucarPorducto();
              }                      
         });
-        //MOVIMIENTOS PAPEL     
-       
+        //MOVIMIENTOS PAPEL            
         this.movimientos.__ACEPTARENTRADA.setActionCommand("__ACEPTAR_ENTRADA");
         this.movimientos.__ACEPTARENTRADA.setMnemonic('A');
         this.movimientos.__ACEPTARENTRADA.addActionListener(this);
@@ -669,8 +668,7 @@ public class jControlador implements ActionListener {
         this.movimientos.__ACEPTARSALIDA.addActionListener(this);
         this.movimientos.__MODIFICACIONSALIDA.setActionCommand("__MODIFICACION_SALIDA");
         this.movimientos.__MODIFICACIONSALIDA.setMnemonic('O');
-        this.movimientos.__MODIFICACIONSALIDA.addActionListener(this);  
-        
+        this.movimientos.__MODIFICACIONSALIDA.addActionListener(this);          
         //autocomplentables entrada 
         Com_propietarioE = new TextAutoCompleter(movimientos.__PropietarioEntr);
         Com_propietarioE.setMode(0);//infijo
@@ -683,8 +681,7 @@ public class jControlador implements ActionListener {
         com_prodcuto= new TextAutoCompleter(movimientos._claveProducto);
         com_prodcuto.setMode(0);//infijo
         com_descripcion= new TextAutoCompleter(movimientos._descripcionProducto);
-        com_descripcion.setMode(0);//infijo
-         
+        com_descripcion.setMode(0);//infijo         
         this.movimientos.__tablaEntrada.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 
@@ -769,8 +766,7 @@ public class jControlador implements ActionListener {
                     mensaje(3,ex.getMessage());
                 }
             }
-        });
-        
+        });        
         this.movimientos.__documentoEntr.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 KeyTipedLetrasNumCar(evt);
@@ -1035,7 +1031,103 @@ public class jControlador implements ActionListener {
                 movimientos.__etqNewClienteE.setFont(new java.awt.Font("Papyrus", 0, 12));
             }
         });
-        
+        //Salidas AutoCompletables        
+        Com_TipoS = new TextAutoCompleter(movimientos.__TipoSalida);
+        Com_TipoS.setMode(0);//infijo
+        Com_AreaS= new TextAutoCompleter(movimientos.__AreaSalida);
+        Com_AreaS.setMode(0);//infijo        
+//        this.movimientos.__tablaSalida
+//        this.movimientos._claveProductoSalida
+//        this.movimientos._descripcionProductoSalida
+        this.movimientos.__TipoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetras(evt);
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                                            
+                    movimientos.__documentoSalida.requestFocus();
+                } 
+            }
+             public void keyReleased(java.awt.event.KeyEvent evt){
+              try {
+                    String parametro = movimientos.__TipoSalida.getText();
+                    ResultSet buscarTipoSalida = mimodelo.buscaTipoSalida(parametro,true);
+                    Com_TipoS.removeAll();
+                    while(buscarTipoSalida.next()){
+                        Com_TipoS.addItem(buscarTipoSalida.getString(2));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }
+             
+            
+        });
+        this.movimientos.__documentoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNumCar(evt);
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                   movimientos.__OrdenProduccionSalida.requestFocus();
+                } 
+            }                         
+        });        
+        this.movimientos.__OrdenProduccionSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNumCar(evt);                 
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__SolicitanteSalida.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__SolicitanteSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNumCar(evt);                 
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__AreaSalida.requestFocus();
+                } 
+            }            
+        });
+        this.movimientos.__AreaSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetras(evt);
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                                            
+                    movimientos.__chkTurno1Salida.requestFocus();
+                } 
+            }
+             public void keyReleased(java.awt.event.KeyEvent evt){
+              try {
+                    String parametro = movimientos.__AreaSalida.getText();
+                    ResultSet buscarArea = mimodelo.buscaArea(parametro,true);
+                    Com_AreaS.removeAll();
+                    while(buscarArea.next()){
+                        Com_AreaS.addItem(buscarArea.getString(2));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }
+             
+            
+        });
+//        this.movimientos.__chkTurno1Salida
+//        this.movimientos.__chkTurno2Salida
+//        this.movimientos.__chkTurno3Salida
+//        this.movimientos.__etqNewTipoSalida
+//        this.movimientos.__etqNewProveedorSalida
         //NUEVO PROVEEDOR CLIENTE
         this.NewPC.__ACEPTARPROVEEDOR.setActionCommand("__ACEPTAR_PROVEEDOR");
         this.NewPC.__ACEPTARPROVEEDOR.setMnemonic('A');
@@ -3014,17 +3106,17 @@ public class jControlador implements ActionListener {
                         try{
                             ResultSet documento = mimodelo.buscaDocumentoEntrada(eval);
                             if(documento.next()){
-                                mensaje(3,"Esta documento ya fue capturado");
+                                mensaje(3,"Esta Documento ya Fue Capturado");
                                 movimientos.__documentoEntr.requestFocus();
                             }
                         }catch(Exception e){}
                         
                     }else{
-                        mensaje(2,"para capturar el documento de entrada es necesario hacerlo de la siguiente manera: TIPO DE DOCUMENTO - ######");
+                        mensaje(2,"Para Capturar el Documento de Entrada es Necesario Hacerlo de la Siguiente Manera: TIPO DE DOCUMENTO - ######");
                         movimientos.__documentoEntr.requestFocus();
                     }
                 }
-    }
+    }    
     public void borrarFormularioMovimientos() {
         this.limpiarTabla(movimientos.__tablaEntrada);
         this.limpiarTabla(movimientos.__tablaSalida);
@@ -3126,4 +3218,8 @@ public class jControlador implements ActionListener {
         }
     return 0;
     }
+    
+    //HUEVOS
+    
+    
 }

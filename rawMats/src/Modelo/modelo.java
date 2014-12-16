@@ -721,5 +721,30 @@ public class modelo extends database{
                 return null;
             }
     }
+   
+    public ResultSet buscaTipoSalida(String parametro,boolean like) {
+        String q = like ==true? "SELECT idtipo_salida as id, tipo_salida as descripcion FROM tipo_salida where tipo_salida like '%"+parametro+"%' ":"SELECT idtipo_salida as id, tipo_salida as descripcion FROM tipo_salida where tipo_salida = '"+parametro+"' ";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }    
+
+    public ResultSet buscaArea(String parametro, boolean like) {
+        String q = like ==true? "SELECT idarea as id, descripcion as descripcion FROM area where descripcion like '%"+parametro+"%' ":"SELECT idarea as id, descripcion as descripcion FROM area where descripcion = '"+parametro+"' ";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    //MAS HUEVOS
 }
 
