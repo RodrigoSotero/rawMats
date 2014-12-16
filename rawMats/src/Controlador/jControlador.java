@@ -677,7 +677,7 @@ public class jControlador implements ActionListener {
                 } 
             }
             
-        });
+        });        
         this.movimientos.__TipoEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 KeyTipedLetras(evt);
@@ -1064,6 +1064,7 @@ public class jControlador implements ActionListener {
                 fechaini();
                 break;
             case __INICIA_SESION:
+                iniciasesion();
                 break;
             case __SALIR:
                 confir = mensajeConfirmacion("¿Desea Salir?","Salida");
@@ -1565,6 +1566,7 @@ public class jControlador implements ActionListener {
                 break;            
             case __REGRESARCONSULTAEP:
                 regresar();
+                
                 break;
                 //FIN DE LOS BOTONES DE LA CONSULTA INICIAL DE LA EXISTENCIA DEL PRODUCTO
                 //ALTA DE PRODUCTOS
