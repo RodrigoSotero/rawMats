@@ -741,6 +741,38 @@ public class modelo extends database{
                 return null;
             }
     }
+     public boolean nuevatiposalida(String tipoSali) {
+        String q = "INSERT INTO  `tipo_salida` (`idtipo_salida` ,`tipo_salida`)VALUES (NULL, '"+tipoSali+"')";                 
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            if(e.getMessage().equals("Duplicate entry '"+tipoSali+"' for key 'tipo_salida_UNIQUE'")){
+                JOptionPane.showMessageDialog(null, "Ya Existe la Entrada: " +tipoSali);
+            }else{
+               System.err.println(e.getMessage()); 
+            }
+            return false;
+        } 
+     }
+      public boolean nuevaarea(String newArea) {
+        String q = "INSERT INTO  `area` (`idarea` ,`descripcion`)VALUES (NULL,'"+newArea+"')";                 
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            if(e.getMessage().equals("Duplicate entry '"+newArea+"' for key 'descripcion_UNIQUE'")){
+                JOptionPane.showMessageDialog(null, "Ya Existe la Entrada: " +newArea);                
+            }else{
+               System.err.println(e.getMessage()); 
+            }
+            return false;
+        } 
+     }
     //MAS HUEVOS
     public ResultSet buscarEntrada(String buscarfolio) {
         String q = "SELECT * FROM entrada where folioe = '"+buscarfolio+"'; ";
