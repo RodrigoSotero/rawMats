@@ -1052,7 +1052,29 @@ public class jControlador implements ActionListener {
         Com_TipoS.setMode(0);//infijo
         Com_AreaS= new TextAutoCompleter(movimientos.__AreaSalida);
         Com_AreaS.setMode(0);//infijo        
-//        this.movimientos.__tablaSalida
+        this.movimientos.__tablaSalida.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                int columna = movimientos.__tablaSalida.getSelectedColumn();
+                int fila = movimientos.__tablaSalida.getSelectedRow();
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    try{
+                        if(columna==3||columna==5){
+                            Double cant=Double.parseDouble(movimientos.__tablaSalida.getValueAt(fila, 3)+"");
+                            Double cos=Double.parseDouble(movimientos.__tablaSalida.getValueAt(fila, 5)+"");
+                            Double totcos= cant*cos;
+                            movimientos.__tablaSalida.setValueAt(totcos, fila, 6);
+                        }
+                    }catch(Exception e){
+                    }
+                }
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                
+            }
+        });  
 //        this.movimientos._claveProductoSalida
 //        this.movimientos._descripcionProductoSalida
         this.movimientos.__TipoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1139,11 +1161,64 @@ public class jControlador implements ActionListener {
              
             
         });
-//        this.movimientos.__chkTurno1Salida
-//        this.movimientos.__chkTurno2Salida
-//        this.movimientos.__chkTurno3Salida
-//        this.movimientos.__etqNewTipoSalida
-//        this.movimientos.__etqNewProveedorSalida
+        this.movimientos.__chkTurno1Salida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetras(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__chkTurno2Salida.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__chkTurno2Salida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetras(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__chkTurno3Salida.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__chkTurno3Salida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetras(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     movimientos.__tablaSalida.requestFocus();
+                } 
+            }
+            
+        });
+        this.movimientos.__etqNewTipoSalida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewTipoSalida.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewTipoSalida.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {                
+                nuevoTipoSalida();                
+            }
+        });
+        this.movimientos.__etqNewProveedorSalida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewProveedorSalida.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                movimientos.__etqNewProveedorSalida.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {                                
+                nuevaArea();                
+            }
+        });
         //NUEVO PROVEEDOR CLIENTE
         this.NewPC.__ACEPTARPROVEEDOR.setActionCommand("__ACEPTAR_PROVEEDOR");
         this.NewPC.__ACEPTARPROVEEDOR.setMnemonic('A');
@@ -2993,6 +3068,35 @@ public class jControlador implements ActionListener {
         }
         JOptionPane.showMessageDialog(null,"No Agregaste Nuevo Tipo de Entrada.","Error",JOptionPane.ERROR_MESSAGE);            
     }
+    public void nuevoTipoSalida(){
+        String tipoSali = (String)JOptionPane.showInputDialog(null,"Escribe la Nueva Salida:\n","NUEVO TIPO SALIDA",JOptionPane.PLAIN_MESSAGE);
+        if ((tipoSali  != null) && (tipoSali.length() > 0)) {
+            int conf=JOptionPane.showConfirmDialog(null,"Se agregara la Salida de Producto: " + tipoSali  + ".",tipoSali,JOptionPane.OK_CANCEL_OPTION);
+            if (conf==JOptionPane.OK_OPTION){
+                boolean altanuevasalida=mimodelo.nuevatiposalida(tipoSali);
+                if(altanuevasalida==true){
+                        JOptionPane.showMessageDialog(null,"Nuevo Tipo Salida "+tipoSali+" Agregado Correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);
+                        
+                }
+            }
+            return; 
+        }
+        JOptionPane.showMessageDialog(null,"No Agregaste Nuevo Tipo de Salida.","Error",JOptionPane.ERROR_MESSAGE);            
+    }            
+    public void nuevaArea(){
+        String newArea = (String)JOptionPane.showInputDialog(null,"Escribe la Nueva Area:\n","NUEVA AREA",JOptionPane.PLAIN_MESSAGE);
+        if ((newArea  != null) && (newArea.length() > 0)) {
+            int conf=JOptionPane.showConfirmDialog(null,"Se agregara el Area: " + newArea  + ".",newArea,JOptionPane.OK_CANCEL_OPTION);
+            if (conf==JOptionPane.OK_OPTION){
+                boolean altanuevaarea=mimodelo.nuevaarea(newArea);
+                if(altanuevaarea==true){
+                        JOptionPane.showMessageDialog(null,"Nueva Area "+newArea+" Agregada Correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);                        
+                }
+            }
+            return; 
+        }
+        JOptionPane.showMessageDialog(null,"No Agregaste Nueva Area.","Error",JOptionPane.ERROR_MESSAGE);            
+    }            
     String Obs; int tipoentrada,propietario,proveedor,cliente,tiposalida;
     public void EntradaAceptarModificar(){
         String FolioE=movimientos.__FolioEntrada.getText();
