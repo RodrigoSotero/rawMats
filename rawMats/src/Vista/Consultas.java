@@ -6,6 +6,10 @@
 
 package Vista;
 
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Rodrigo
@@ -15,8 +19,20 @@ public class Consultas extends javax.swing.JFrame {
     /**
      * Creates new form Consultas
      */
-    public Consultas() {
+    public Consultas() {       
         initComponents();
+        Fondo fondo = new Fondo();
+        this.setLocationRelativeTo(null);
+        Dimension size = this.getSize();
+        fondo.setSize(size);
+        add(fondo);
+    }
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("imagenes/logo.png"));
+
+
+        return retValue;
     }
 
     /**
@@ -635,7 +651,6 @@ public class Consultas extends javax.swing.JFrame {
                                         .addGap(44, 44, 44)
                                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(__SALIRCONSULTA)
                                         .addGap(119, 119, 119)
                                         .addComponent(__ACEPTARCONSULTA)
@@ -883,7 +898,7 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JMenuItem __menuCambiarContraseña;
     public javax.swing.JMenuItem __menuCambiarFecha;
     public javax.swing.JMenuItem __menuCerrarSesion;
-    private javax.swing.JMenuItem __menuMovimientos;
+    public javax.swing.JMenuItem __menuMovimientos;
     public javax.swing.JMenuItem __menuNuevoUsuario;
     public javax.swing.JMenuItem __menuReporte;
     public javax.swing.JMenuItem __menuReportes;

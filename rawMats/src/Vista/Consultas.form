@@ -47,6 +47,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Movimientos"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="__menuReportes">
               <Properties>
@@ -339,7 +342,6 @@
                                       <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace max="32767" attributes="0"/>
                                       <Component id="__SALIRCONSULTA" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="119" pref="119" max="-2" attributes="0"/>
                                       <Component id="__ACEPTARCONSULTA" min="-2" max="-2" attributes="0"/>
