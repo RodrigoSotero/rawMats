@@ -89,11 +89,11 @@ public class jControlador implements ActionListener {
     private final  ReporteU reporteu = new ReporteU();
     private final NuevoPC NewPC = new NuevoPC();
     private final Consultas consulta = new Consultas();
-    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0;
-    String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta;
+    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0;
+    String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
     String buscarfolio;
-    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,Com_TipoS,Com_AreaS;
+    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS;
     int modificarentrada=0;
     double restarcantidad,cantidadbd;
     String identradas[]=new String [1000];
@@ -686,7 +686,12 @@ public class jControlador implements ActionListener {
         com_prodcuto= new TextAutoCompleter(movimientos._claveProducto);
         com_prodcuto.setMode(0);//infijo
         com_descripcion= new TextAutoCompleter(movimientos._descripcionProducto);
-        com_descripcion.setMode(0);//infijo         
+        com_descripcion.setMode(0);//infijo    
+        com_prodcutoSalida= new TextAutoCompleter(movimientos._claveProductoSalida);
+        com_prodcuto.setMode(0);//infijo
+        com_descripcionSalida= new TextAutoCompleter(movimientos._descripcionProductoSalida);
+        com_descripcion.setMode(0);//infijo 
+        
         this.movimientos.__tablaEntrada.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 
@@ -782,7 +787,80 @@ public class jControlador implements ActionListener {
                     mensaje(3,ex.getMessage());
                 }
             }
-        });        
+        });    
+        this.movimientos._claveProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    try {
+                        String parametro = movimientos._claveProductoSalida.getText();
+                        ResultSet prod = mimodelo.buscarProducto(parametro);
+                        int fila =movimientos.__tablaSalida.getSelectedRow();
+                        while(prod.next()){
+                            movimientos.__tablaSalida.setValueAt(prod.getString("descripcion"), fila, 1);
+                            ResultSet costo = mimodelo.ultimocosto(parametro);
+                            while(costo.next()){
+                                movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
+                            }
+                        }
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+                try {
+                    String parametro = movimientos._claveProductoSalida.getText();
+                    ResultSet buscaClaveProducto = mimodelo.buscaClaveProducto(parametro);
+                    com_prodcutoSalida.removeAll();
+                    while(buscaClaveProducto.next()){
+                        com_prodcutoSalida.addItem(buscaClaveProducto.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+            }
+        });
+        this.movimientos._descripcionProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    try {
+                        String parametro = movimientos._descripcionProductoSalida.getText();
+                        ResultSet prod = mimodelo.buscarProductoByDescripcion(parametro);
+                        int fila =movimientos.__tablaSalida.getSelectedRow();
+                        while(prod.next()){
+                            movimientos.__tablaSalida.setValueAt(prod.getString("clave"), fila, 0);
+                            ResultSet costo = mimodelo.ultimocosto(prod.getString("clave"));
+                            while(costo.next()){
+                                movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
+                            }
+                        }
+                        
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+                try {
+                    String parametro = movimientos._descripcionProductoSalida.getText();
+                    ResultSet buscaDescripcionProducto = mimodelo.buscaDescripcionProducto(parametro);
+                    com_descripcionSalida.removeAll();
+                    while(buscaDescripcionProducto.next()){
+                        com_descripcionSalida.addItem(buscaDescripcionProducto.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+            }
+        });
         this.movimientos.__documentoEntr.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 KeyTipedLetrasNumCar(evt);
@@ -1077,6 +1155,7 @@ public class jControlador implements ActionListener {
         });  
 //        this.movimientos._claveProductoSalida
 //        this.movimientos._descripcionProductoSalida
+        
         this.movimientos.__TipoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 KeyTipedLetras(evt);
@@ -1351,7 +1430,44 @@ public class jControlador implements ActionListener {
         //FIN MENU
     }   
 
-    
+    public boolean PEPS2(String clave, int cantidad_salida) {
+        String fecpe="";
+        int cantidad=0;
+        String ID="";
+        try{
+            ResultSet PE = mimodelo.buscarPrimeraEntrada2(clave,fec);
+            while(PE.next()){
+                fecpe=PE.getString("fecha_entrada");
+                if(fecpe==null){
+                    mensaje(2,"no hay entradas de este papel");
+                    return false;
+                }else{
+                    cantidad=PE.getInt("cantidad");
+                    ID=PE.getString("id");
+                    identradas_+=ID;
+                }
+            }
+            identradas_+=",";
+            if(cantidad_salida==0){
+                mimodelo.nuevacantidadtemporal(ID,cantidad);
+                return true;
+            }
+            if(cantidad_salida<cantidad){
+                mimodelo.nuevacantidadtemporal(ID,cantidad-cantidad_salida);
+                return true;
+            }
+            if(cantidad_salida>cantidad){
+                mimodelo.nuevacantidadtemporal(ID,cantidad-cantidad);
+                PEPS2(clave,cantidad_salida-cantidad);
+            }
+            if(cantidad_salida==cantidad){
+                mimodelo.nuevacantidadtemporal(ID,cantidad_salida-cantidad_salida);
+                return true;
+            }
+        }catch(Exception e){
+        }
+        return false;
+    }
     
     public enum Accion{
         __INICIA_SESION,
@@ -1972,6 +2088,7 @@ public class jControlador implements ActionListener {
                     if(mimodelo.nuevoProducto(areaid, maquinaid, clave,DesP, Max, Min)){
                         if(mimodelo.nuevaexistencia(clave))
                             mensaje(1,"Alta de producto correcta");
+                            borrarFormularioAltaProducto();
                     }
                 }
                 break;
@@ -2130,6 +2247,13 @@ public class jControlador implements ActionListener {
                                     login.setEnabled(false);
                                     fecha.setLocationRelativeTo(null);
                                     fecha.setVisible(true);
+                                    if(id_responsable==3){
+                                        movimientos.__MODIFICACIONENTRADA.setEnabled(false);
+                                        movimientos.__MODIFICACIONSALIDA.setEnabled(false);
+                                    }else{
+                                        movimientos.__MODIFICACIONENTRADA.setEnabled(true);
+                                        movimientos.__MODIFICACIONSALIDA.setEnabled(true);
+                                    }
                                 }else{
                                     mensaje(3,"Error, La sesion esta activa");
                                     login.__Pswd.setText("");
@@ -3263,29 +3387,114 @@ public class jControlador implements ActionListener {
         String DocumentoS=movimientos.__documentoSalida.getText();
         if(DocumentoS.isEmpty()){
             mensaje(3,"Debe Especificar el Documento de Salida");
+            movimientos.__documentoSalida.requestFocus();
             return;
         }
         String TipoS=movimientos.__TipoSalida.getText();
         if(TipoS.isEmpty()){
             mensaje(3,"Debe Especificar un Tipo de Salida");
+            movimientos.__TipoSalida.requestFocus();
             return;
-        }                       
+        }
+        int idTipoSal = this.busquedaid(movimientos.__TipoSalida);
         String OrdenProducionS=movimientos.__OrdenProduccionSalida.getText();                        
-        String Solicitante=movimientos.__SolicitanteSalida.getText();                                
-        String AreaSalida=movimientos.__AreaSalida.getText();       
+        String Solicitante=movimientos.__SolicitanteSalida.getText();   
+        String AreaSalida=movimientos.__AreaSalida.getText();
+        int idAreaSal = this.busquedaid(movimientos.__AreaSalida);
          if(movimientos.__chkTurno1Salida.isSelected()){
            t1="t1";
-        }
+        }else
         if(movimientos.__chkTurno2Salida.isSelected()){
            t2="t2";
-        }
+        }else
         if(movimientos.__chkTurno3Salida.isSelected()){
            t3="t3";
+        }else{
+            mensaje(3,"Debes seleccionar almenos un turno");
+            return;
         }
-        if(movimientos.__tablaSalida.getValueAt(0, 0)==null){
+        //FolioS,DocumentoS,TipoS,OrdenProducionS,Solicitante,AreaSalida,t1,t2,t3,fechaentrada,Obs
+         //mimodelo.altaSalida(FolioS,t1, t2, t3, OrdenProduccionS, ordenCompra,documentoSalida, propietario, proveedor, id_responsable, fechaentrada, tiposalida,Obs,cliente);
+        if(movimientos.__tablaSalida.getValueAt(0, 0)==null||movimientos.__tablaSalida.getValueAt(0, 0).toString().isEmpty()){
             mensaje(3,"Ingresa Valores a la Tabla");
             return;
         }
+        for(int i =0;i< movimientos.__tablaSalida.getRowCount();i++){
+            try {
+                String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
+                int cantidad_salida =  Integer.parseInt(movimientos.__tablaSalida.getValueAt(i,3).toString());
+                ResultSet existencia = mimodelo.buscarExistenciaProductofecha(claveProducto, fec);
+                int cantidadbd=0;
+                if(existencia.next()){
+                    existencia.beforeFirst();
+                    while(existencia.next()){
+                        cantidadbd = existencia.getInt("cantidad");
+                    }
+                    if(cantidadbd<cantidad_salida){
+                        mensaje(3,"No hay suficiente existencia en la bd para realizar la salida #" +(i+1)+" hay "+cantidadbd);
+                        return;
+                    }
+                }else{
+                    mensaje(3,"Verifica la clave de la salida #" +(i+1));
+                    return;
+                }
+                Double costo =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,5).toString());
+                Double Totalcosto = cantidad_salida*costo;
+                movimientos.__tablaSalida.setValueAt(Totalcosto, i, 6);
+            } catch (Exception ex) {
+                //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+        switch(SalidaMovimientos){
+            case 0:
+                Obs=JOptionPane.showInputDialog(null, "Observaciones de la Salida");
+                confir=mensajeConfirmacion("Estas seguro de registrar la Salida","Aceptar");
+                if (confir==JOptionPane.OK_OPTION){
+                    ResultSet buscarMaxSalida=null;
+                    boolean detallesalida = false;
+                    int id_salida = 0;
+                    try{
+                        buscarMaxSalida = mimodelo.bucarMaxSalida();
+                        while(buscarMaxSalida.next()){
+                            id_salida = buscarMaxSalida.getInt(1);
+                        }
+                        buscarMaxSalida.close();
+                        id_salida++;
+                        for(int i =0;i< movimientos.__tablaSalida.getRowCount();i++){
+                            try {
+                                String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
+                                String Descripcion = movimientos.__tablaSalida.getValueAt(i,1).toString();
+                                String Ubicacion = movimientos.__tablaSalida.getValueAt(i,2).toString();
+                                int cantidad_salida =  Integer.parseInt(movimientos.__tablaSalida.getValueAt(i,3).toString());
+                                String Unidad = movimientos.__tablaSalida.getValueAt(i,4).toString();
+                                Double costo =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,5).toString());
+                                Double Totalcosto = cantidad_salida*costo;
+                                movimientos.__tablaSalida.setValueAt(Totalcosto, i, 6);
+                                identradas_="";
+                                PEPS2(claveProducto, cantidad_salida);
+                                mimodelo.sumarexistencia(claveProducto);
+                                detallesalida = mimodelo.altaDetalleSalida(id_salida,claveProducto,Descripcion,Ubicacion,cantidad_salida,Unidad,costo,Totalcosto,identradas_);
+                            } catch (Exception ex) {
+                                //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                            } 
+                        }
+                        String fechaentrada=fec.replaceAll("-", "");
+                        boolean altaSalida = mimodelo.altaSalida(FolioS,DocumentoS,idTipoSal,OrdenProducionS,Solicitante,idAreaSal,t1,t2,t3,fechaentrada,Obs,id_responsable);
+                        if(altaSalida==true && detallesalida==true){
+                            mensaje(1,"Salida agregada correctamente");
+                            this.borrarFormularioMovimientos();
+                        }else{
+                            mensaje(3,"Ocurrio un error al dar de alta la salida");
+                            break;
+                        }
+                    }catch(Exception e){
+                    }
+                }
+                break;
+            case 1:
+                break;
+        }
+        
         
     }    
     
@@ -3393,9 +3602,6 @@ public class jControlador implements ActionListener {
                 case "__ClientEntr":
                     p=mimodelo.buscarCliente(parametro,false);
                     break;
-                case "__TipodeSalidaH":
-                    //p=mimodelo.buscaTipoSalida(parametro, false);
-                    break;
                 case  "__ClienteSalidaH":
                     p=mimodelo.buscarCliente(parametro,false);
                     break;
@@ -3408,11 +3614,11 @@ public class jControlador implements ActionListener {
                 case "__PropietarioSalidaB":
                     p = mimodelo.buscarPropiedad(parametro,false);
                     break;
-                case "__TipodeSalidaB":
-                    //p=mimodelo.buscaTipoSalida(parametro, false);
+                case "__AreaSalida":
+                    p=mimodelo.buscaArea(parametro, false);
                     break;
                 case "__TipoSalida":
-                   // p = mimodelo.buscaTipoSalida(parametro,false);
+                    p = mimodelo.buscaTipoSalida(parametro,false);
                     break;
                 case "__PropietarioSalida":
                     p = mimodelo.buscarPropiedad(parametro,false);

@@ -584,6 +584,7 @@ public class Movimientos extends javax.swing.JFrame {
         __AreaSalida.setMaximumSize(new java.awt.Dimension(10, 30));
         __AreaSalida.setMinimumSize(new java.awt.Dimension(10, 30));
         __AreaSalida.setName("__AreaSalida"); // NOI18N
+        __AreaSalida.setNextFocusableComponent(__chkTurno1Salida);
         __AreaSalida.setPreferredSize(new java.awt.Dimension(10, 30));
         __AreaSalida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -595,6 +596,7 @@ public class Movimientos extends javax.swing.JFrame {
         __TipoSalida.setMaximumSize(new java.awt.Dimension(10, 30));
         __TipoSalida.setMinimumSize(new java.awt.Dimension(10, 30));
         __TipoSalida.setName("__TipoSalida"); // NOI18N
+        __TipoSalida.setNextFocusableComponent(__documentoSalida);
         __TipoSalida.setPreferredSize(new java.awt.Dimension(10, 30));
         __TipoSalida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -605,7 +607,8 @@ public class Movimientos extends javax.swing.JFrame {
         __SolicitanteSalida.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __SolicitanteSalida.setMaximumSize(new java.awt.Dimension(10, 30));
         __SolicitanteSalida.setMinimumSize(new java.awt.Dimension(10, 30));
-        __SolicitanteSalida.setName(""); // NOI18N
+        __SolicitanteSalida.setName("__SolicitanteSalida"); // NOI18N
+        __SolicitanteSalida.setNextFocusableComponent(__AreaSalida);
         __SolicitanteSalida.setPreferredSize(new java.awt.Dimension(10, 30));
 
         __FolioSalida.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -628,6 +631,7 @@ public class Movimientos extends javax.swing.JFrame {
         __documentoSalida.setMaximumSize(new java.awt.Dimension(10, 30));
         __documentoSalida.setMinimumSize(new java.awt.Dimension(10, 30));
         __documentoSalida.setName(""); // NOI18N
+        __documentoSalida.setNextFocusableComponent(__OrdenProduccionSalida);
         __documentoSalida.setPreferredSize(new java.awt.Dimension(10, 30));
 
         __etqNewProveedorSalida.setFont(new java.awt.Font("Papyrus", 0, 12)); // NOI18N
@@ -648,6 +652,7 @@ public class Movimientos extends javax.swing.JFrame {
 
         __chkTurno2Salida.setForeground(new java.awt.Color(255, 255, 255));
         __chkTurno2Salida.setText("Turno 2");
+        __chkTurno2Salida.setNextFocusableComponent(__chkTurno3Salida);
         __chkTurno2Salida.setOpaque(false);
         __chkTurno2Salida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -657,6 +662,7 @@ public class Movimientos extends javax.swing.JFrame {
 
         __chkTurno3Salida.setForeground(new java.awt.Color(255, 255, 255));
         __chkTurno3Salida.setText("Turno 3");
+        __chkTurno3Salida.setNextFocusableComponent(__tablaSalida);
         __chkTurno3Salida.setOpaque(false);
         __chkTurno3Salida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -708,7 +714,7 @@ public class Movimientos extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true, true, false, true, false
+                true, false, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -731,6 +737,7 @@ public class Movimientos extends javax.swing.JFrame {
             __tablaSalida.getColumnModel().getColumn(2).setPreferredWidth(110);
             __tablaSalida.getColumnModel().getColumn(3).setPreferredWidth(120);
             __tablaSalida.getColumnModel().getColumn(4).setPreferredWidth(110);
+            __tablaSalida.getColumnModel().getColumn(4).setCellEditor(new javax.swing.DefaultCellEditor(_UnidadMedida));
             __tablaSalida.getColumnModel().getColumn(6).setPreferredWidth(130);
         }
 
@@ -738,6 +745,7 @@ public class Movimientos extends javax.swing.JFrame {
         __OrdenProduccionSalida.setMaximumSize(new java.awt.Dimension(10, 30));
         __OrdenProduccionSalida.setMinimumSize(new java.awt.Dimension(10, 30));
         __OrdenProduccionSalida.setName(""); // NOI18N
+        __OrdenProduccionSalida.setNextFocusableComponent(__SolicitanteSalida);
         __OrdenProduccionSalida.setPreferredSize(new java.awt.Dimension(10, 30));
         __OrdenProduccionSalida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -567,6 +567,7 @@ public class modelo extends database{
             return false;
         }
     }
+    
     public ResultSet buscarPropiedad(String parametro,boolean like) {
         String q = like ==true? "SELECT id_propietarios as id, nombre as descripcion  FROM `propietarios` where nombre like '%"+parametro+"%';": "SELECT id_propietarios as id, nombre FROM `propietarios` where nombre = '"+parametro+"';";
         try {
@@ -611,42 +612,54 @@ public class modelo extends database{
                 return null;
             }
     }
-    public String buscarFolioEntrada() throws java.sql.SQLException{
+   
+     public String buscarFolioEntrada() throws java.sql.SQLException{
+         
         Calendar Cal= Calendar.getInstance();
         int anio=Integer.parseInt(Cal.get(Cal.YEAR)+"");
+        
         try {
-            String id = "SELECT folioe from entrada order by identrada desc limit 1  ";
+            String id = "SELECT folioE from entrada order by identrada desc limit 1 ";
             PreparedStatement pstm = this.getConexion().prepareStatement(id);
             ResultSet res = pstm.executeQuery();
             if(!res.next()){
                 return "ENT"+anio+"-1";
             }
-                res.beforeFirst();
-                while(res.next()){
-                String folio = res.getString("folioe");
+            res.beforeFirst();
+            while(res.next()){
+                String folio = res.getString("folioE");
                 if(folio==null||folio.isEmpty()){
                     folio= "ENT"+anio+"-1";
                 }else{
-                    int fol = Integer.parseInt(folio.replace("ENT"+anio+"-", ""));
-                    int ano = Integer.parseInt(folio.substring(3, 7));
-                    if(anio>ano) fol=1; else fol++;
-                    folio= "ENT"+anio+"-"+fol; 
-                }               
+                    
+                    String aniofolio = folio.substring(3);
+                    String[] aniof = aniofolio.split("-");
+                    if(Integer.parseInt(aniof[0])<anio){
+                        int fol = Integer.parseInt(folio.replace("ENT"+aniof[0]+"-", ""));
+                        int ano = Integer.parseInt(folio.substring(3, 7));
+                        if(anio>ano) fol=1; else fol++;
+                        folio= "ENT"+anio+"-"+fol; 
+                    }else
+                    if(Integer.parseInt(aniof[0])==anio){
+                        int fol = Integer.parseInt(folio.replace("ENT"+aniof[0]+"-", ""));
+                        int ano = Integer.parseInt(folio.substring(3, 7));
+                        if(anio>ano) fol=1; else fol++;
+                        folio= "ENT"+anio+"-"+fol; 
+                    }
+                }             
                 return folio;
-            
-               }
-            }catch(SQLException e){
-                if(e.getMessage().equals("Illegal operation on empty result set.")){
-                    return "ENT"+anio+"-1";
-                }else{
-                    //return "ENT"+anio+"-1";
-                    return null;
-                }
+           }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            if(e.getMessage().equals("Illegal operation on empty result set.")){
+                return "ENT"+anio+"-1";
+            }else{
+                return null;
             }
+        }
         return null;
     }
-    
-    public String buscarFolioSalida() throws java.sql.SQLException{
+     public String buscarFolioSalida() throws java.sql.SQLException{
         Calendar Cal= Calendar.getInstance();
         int anio=Integer.parseInt(Cal.get(Cal.YEAR)+"");
         try {
@@ -663,11 +676,23 @@ public class modelo extends database{
                 if(folio==null||folio.isEmpty()){
                     folio= "SAL"+anio+"-1";
                 }else{
-                    int fol = Integer.parseInt(folio.replace("SAL"+anio+"-", ""));
-                    System.err.println(fol);
-                    int ano = Integer.parseInt(folio.substring(3, 7));
-                    if(anio>ano) fol=1; else fol++;
-                    folio= "SAL"+anio+"-"+fol; 
+                    String aniofolio = folio.substring(3);
+                    String aniof[] = aniofolio.split("-");
+                    if(Integer.parseInt(aniof[0])<anio){
+                        int fol = Integer.parseInt(folio.replace("SAL"+aniof[0]+"-", ""));
+                        System.err.println(fol);
+                        int ano = Integer.parseInt(folio.substring(3, 7));
+                        if(anio>ano) fol=1; else fol++;
+                        folio= "SAL"+anio+"-"+fol;
+                    }else
+                     if(Integer.parseInt(aniof[0])==anio){
+                        int fol = Integer.parseInt(folio.replace("SAL"+aniof[0]+"-", ""));
+                        System.err.println(fol);
+                        int ano = Integer.parseInt(folio.substring(3, 7));
+                        if(anio>ano) fol=1; else fol++;
+                        folio= "SAL"+anio+"-"+fol;
+                    }                   
+                     
                 }               
                 return folio;
             
@@ -682,6 +707,7 @@ public class modelo extends database{
             }
         return null;
     }
+    
     
     public ResultSet buscaClaveProducto(String parametro) {
         String q = "select claveproducto from inventario where clavePRODUCTO like '%"+parametro+"%' ;";
@@ -921,6 +947,82 @@ public class modelo extends database{
             return true;
         }catch(SQLException e){
             
+            return false;
+        }
+    }
+    
+    public ResultSet buscarExistenciaProductofecha(String clavePapel,String fecha) {
+        String q = "call sumaxistencia_fecha('"+clavePapel+"','"+fecha+"');";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet bucarMaxSalida() {
+        String q = "SELECT MAX( id_salida ) FROM salida";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscarPrimeraEntrada2(String clave,String fec) {
+        String q = "select d.iddetalleentrada as id, claveproducto,cantidadtemporal as cantidad,min(fecha) as fecha_entrada from detalleentrada d, entrada e where claveproducto='"+clave+"' and e.identrada=d.identrada  and fecha<='"+fec+"' and(cantidadtemporal>0) ;";
+
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public boolean nuevacantidadtemporal(String id,int cantidad) {
+        String q1="UPDATE `detalleentrada` SET cantidadtemporal='"+cantidad+"' where iddetalleentrada='"+id+"'";
+         try{
+
+            PreparedStatement pstm = this.getConexion().prepareStatement(q1);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            
+            return false;
+        }
+    }
+
+    public boolean altaDetalleSalida(int id_salida, String claveProducto, String Descripcion, String Ubicacion, int cantidad_salida, String Unidad, Double costo, Double Totalcosto, String identradas_) {
+        String q ="INSERT INTO `detallesalida` (`id_salida`, `claveproduto`, `descripcion`, `ubicacion`, `cantidad_salida`, `unidad`, `costo`, `totalcosto`, `entradas`) VALUES"
+                + " ('"+id_salida+"', '"+claveProducto+"', '"+Descripcion+"', '"+Ubicacion+"', '"+cantidad_salida+"', '"+Unidad+"', '"+costo+"', '"+Totalcosto+"', '"+identradas_+"');";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage()+" ALTA DETALLE SALIDA");
+            return false;
+        }
+    }
+
+    public boolean altaSalida(String FolioS, String DocumentoS, int TipoS, String OrdenProducionS, String Solicitante, int AreaSalida, String t1, String t2, String t3, String fecha, String Obs, int id_responsable) {
+        String q = "INSERT INTO `rawmats`.`salida` (`folio`, `TURNO1`, `TURNO2`, `TURNO3`, `orden_produccion`, `Fecha`, `tipo_salida`, `documento_salida`, `solicitante`, `id_area`, `id_responsable`, `observaciones`) "
+                + "VALUES ('"+FolioS+"', '"+t1+"', '"+t2+"', '"+t3+"', '"+OrdenProducionS+"', '"+fecha+"', '"+TipoS+"', '"+DocumentoS+"', '"+Solicitante+"', '"+AreaSalida+"', '"+id_responsable+"', '"+Obs+"');";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage()+" ALTA SALIDA");
             return false;
         }
     }
