@@ -30,7 +30,6 @@ public class modelo extends database{
                 return res;
             }catch(SQLException e){
                 System.err.println( e.getMessage() );
-                System.out.println(q);
                 return null;
             }
     }   
@@ -407,7 +406,6 @@ public class modelo extends database{
         }
     public ResultSet buscarProducto(String clave) throws java.sql.SQLException{       
         String q = "select * from vw_descripcionproductos where clave = '"+clave+"';";
-        System.out.println(q);
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
@@ -419,7 +417,6 @@ public class modelo extends database{
     }
     public ResultSet buscarProductoByDescripcion(String descripcion) throws java.sql.SQLException{       
         String q = "select * from vw_descripcionproductos where descripcion = '"+descripcion+"';";
-        System.out.println(q);
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
@@ -510,7 +507,6 @@ public class modelo extends database{
     public boolean ubicacion(String claveproducto, String ubicacion) {
       String q=" UPDATE  inventario SET ubicacion='"+ubicacion+"' where claveproducto ='"+claveproducto+"';";
         try{
-            System.out.println(q);
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
             pstm.close();
@@ -522,7 +518,7 @@ public class modelo extends database{
     }
 
     public boolean altaEntrada(String FolioE, String DocumentoE, String TipoE, String PropietarioE, String ProveedorE, String OrdenProducionE, String OrdenCompraE, String ClienteE, String t1, String t2, String t3, int id_responsable, String fechaentrada, String Obs) {
-        //INSERT INTO `rawmats`.`entrada` (`identrada`, `folioe`, `documentoE`, `tipoE`, `propietarioE`, `provedorE`, `OP`, `OC`, `responsable`, `t1`, `t2`, `t3`, `observaciones`, `fecha`) VALUES ('1', 'folio', 'docu', '1', '1', '1', 'op', 'oc', '1', 't1', 't2', 't3', 'obset', 'fech');
+        //INSERT INTO `rawmats`.`entrada` (`identrada`, `folioe`, `documentoE`, `tipoE`, `propietarioE`, `provedorE`, `OP`, `OC`, `responsable`, `t`folioe`, `documentoE`, `tipoE`, `propietarioE`, `provedorE`, `OP`, `O1`, `t2`, `t3`, `observaciones`, `fecha`) VALUES ('1', 'folio', 'docu', '1', '1', '1', 'op', 'oc', '1', 't1', 't2', 't3', 'obset', 'fech');
         String q = "INSERT INTO `rawmats`.`entrada` ( `folioe`, `documentoE`, `tipoE`, `propietarioE`, `provedorE`, `OP`, `OC`, `responsable`, `Cliente`, `t1`, `t2`, `t3`, `observaciones`, `fecha`) VALUES "
                 + "( '"+FolioE+"', '"+DocumentoE+"', '"+TipoE+"', '"+PropietarioE+"', '"+ProveedorE+"', '"+OrdenProducionE+"', '"+OrdenCompraE+"', '"+id_responsable+"', '"+ClienteE+"', '"+t1+"', '"+t2+"', '"+t3+"', '"+Obs+"', '"+fechaentrada+"');";  
         try{
@@ -571,6 +567,7 @@ public class modelo extends database{
             return false;
         }
     }
+    
     public ResultSet buscarPropiedad(String parametro,boolean like) {
         String q = like ==true? "SELECT id_propietarios as id, nombre as descripcion  FROM `propietarios` where nombre like '%"+parametro+"%';": "SELECT id_propietarios as id, nombre FROM `propietarios` where nombre = '"+parametro+"';";
         try {
@@ -615,42 +612,54 @@ public class modelo extends database{
                 return null;
             }
     }
-    public String buscarFolioEntrada() throws java.sql.SQLException{
+   
+     public String buscarFolioEntrada() throws java.sql.SQLException{
+         
         Calendar Cal= Calendar.getInstance();
         int anio=Integer.parseInt(Cal.get(Cal.YEAR)+"");
+        
         try {
-            String id = "SELECT folioe from entrada order by identrada desc limit 1  ";
+            String id = "SELECT folioE from entrada order by identrada desc limit 1 ";
             PreparedStatement pstm = this.getConexion().prepareStatement(id);
             ResultSet res = pstm.executeQuery();
             if(!res.next()){
                 return "ENT"+anio+"-1";
             }
-                res.beforeFirst();
-                while(res.next()){
-                String folio = res.getString("folioe");
+            res.beforeFirst();
+            while(res.next()){
+                String folio = res.getString("folioE");
                 if(folio==null||folio.isEmpty()){
                     folio= "ENT"+anio+"-1";
                 }else{
-                    int fol = Integer.parseInt(folio.replace("ENT"+anio+"-", ""));
-                    int ano = Integer.parseInt(folio.substring(3, 7));
-                    if(anio>ano) fol=1; else fol++;
-                    folio= "ENT"+anio+"-"+fol; 
-                }               
+                    
+                    String aniofolio = folio.substring(3);
+                    String[] aniof = aniofolio.split("-");
+                    if(Integer.parseInt(aniof[0])<anio){
+                        int fol = Integer.parseInt(folio.replace("ENT"+aniof[0]+"-", ""));
+                        int ano = Integer.parseInt(folio.substring(3, 7));
+                        if(anio>ano) fol=1; else fol++;
+                        folio= "ENT"+anio+"-"+fol; 
+                    }else
+                    if(Integer.parseInt(aniof[0])==anio){
+                        int fol = Integer.parseInt(folio.replace("ENT"+aniof[0]+"-", ""));
+                        int ano = Integer.parseInt(folio.substring(3, 7));
+                        if(anio>ano) fol=1; else fol++;
+                        folio= "ENT"+anio+"-"+fol; 
+                    }
+                }             
                 return folio;
-            
-               }
-            }catch(SQLException e){
-                if(e.getMessage().equals("Illegal operation on empty result set.")){
-                    return "ENT"+anio+"-1";
-                }else{
-                    //return "ENT"+anio+"-1";
-                    return null;
-                }
+           }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            if(e.getMessage().equals("Illegal operation on empty result set.")){
+                return "ENT"+anio+"-1";
+            }else{
+                return null;
             }
+        }
         return null;
     }
-    
-    public String buscarFolioSalida() throws java.sql.SQLException{
+     public String buscarFolioSalida() throws java.sql.SQLException{
         Calendar Cal= Calendar.getInstance();
         int anio=Integer.parseInt(Cal.get(Cal.YEAR)+"");
         try {
@@ -667,11 +676,23 @@ public class modelo extends database{
                 if(folio==null||folio.isEmpty()){
                     folio= "SAL"+anio+"-1";
                 }else{
-                    int fol = Integer.parseInt(folio.replace("SAL"+anio+"-", ""));
-                    System.err.println(fol);
-                    int ano = Integer.parseInt(folio.substring(3, 7));
-                    if(anio>ano) fol=1; else fol++;
-                    folio= "SAL"+anio+"-"+fol; 
+                    String aniofolio = folio.substring(3);
+                    String aniof[] = aniofolio.split("-");
+                    if(Integer.parseInt(aniof[0])<anio){
+                        int fol = Integer.parseInt(folio.replace("SAL"+aniof[0]+"-", ""));
+                        System.err.println(fol);
+                        int ano = Integer.parseInt(folio.substring(3, 7));
+                        if(anio>ano) fol=1; else fol++;
+                        folio= "SAL"+anio+"-"+fol;
+                    }else
+                     if(Integer.parseInt(aniof[0])==anio){
+                        int fol = Integer.parseInt(folio.replace("SAL"+aniof[0]+"-", ""));
+                        System.err.println(fol);
+                        int ano = Integer.parseInt(folio.substring(3, 7));
+                        if(anio>ano) fol=1; else fol++;
+                        folio= "SAL"+anio+"-"+fol;
+                    }                   
+                     
                 }               
                 return folio;
             
@@ -686,6 +707,7 @@ public class modelo extends database{
             }
         return null;
     }
+    
     
     public ResultSet buscaClaveProducto(String parametro) {
         String q = "select claveproducto from inventario where clavePRODUCTO like '%"+parametro+"%' ;";
@@ -777,6 +799,232 @@ public class modelo extends database{
             return false;
         } 
      }
-    //MAS HUEVOS      
+    //MAS HUEVOS
+    public ResultSet buscarEntrada(String buscarfolio) {
+        String q = "SELECT * FROM entrada where folioe = '"+buscarfolio+"'; ";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscaTipoEntrada(int id) {
+        String q = "SELECT id_tipo_en as id, tipo_entrada as descripcion FROM TIPO_ENTRADA where id_tipo_en='"+id+"' ";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscarPropiedad(int id) {
+        String q = "SELECT id_propietarios as id, nombre as descripcion  FROM `propietarios` where id_propietarios='"+id+"';";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscaProveedor(int id) {
+        String q ="SELECT id_proveedores as id,nombre as descripcion  from proveedores where id_proveedores='"+id+"'";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscarCliente(int id) {
+        String q = "SELECT id_clientes as id,nombre as descripcion  FROM `clientes` where id_clientes = '"+id+"'" ;
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscaTipoSalida(int id) {
+        String q = "SELECT id_tipo_sal as id, tipo_salida as descripcion from tipo_salida where id_tipo_sal="+id+" ;";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscarDetalleEntrada(int idfolio) {
+        String q = "SELECT * FROM detalleentrada where identrada = '"+idfolio+"'; ";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscarExistenciaPapel(String clavePapel) {
+        String q = "SELECT * FROM inventario where claveProducto='"+clavePapel+"';";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+   
+    public boolean updateteporalde(int cantidadtemporal,String id) {
+        String q=" UPDATE  `detalleentrada` SET  `cantidadtemporal` =  '"+cantidadtemporal+"' WHERE `identrada` =  '"+id+"' ;";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage() + "nuevexis");
+            return false;
+        }
+    }
+
+    public void modifDetalleEntrada(int identrada, String claveproducto, String descripcion, String ubicacion, String cantidad, String unidad_m, String costo, String totalcosto) {
+        String q="UPDATE detalleentrada set "
+                + "Claveproducto='"+claveproducto+"',"
+                + "descripcion='"+descripcion+"',"
+                + "ubicacion='"+ubicacion+"',"
+                +"cantidad='"+cantidad+"', "
+                +"unidadmedida='"+unidad_m+"',"
+                +"costo='"+costo+"', "
+                +"totalcosto='"+totalcosto+"', "
+                +"cantidadtemporal='"+cantidad+"', "
+                +"costopromedio='"+costo+"' where iddetalleentrada='"+identrada+"';";
+        
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            
+            pstm.execute();
+            pstm.close();
+        }catch(SQLException e){
+        }
+    }
+    
+    public boolean modifEntrada(String folioentrada,String t1, String t2, String t3,String ordenProduccion,String ordenCompra,String documentoEntrada,String propietario,String proveedor, String responsable,String fecha,String tipoentrada,String Observaciones,String cliente){
+        System.out.println();
+        String q1="UPDATE `entrada` SET `T1`='"+t1+"', "
+                + "`T2`='"+t2+"', "
+                + "`T3`='"+t3+"', "
+                + "`op`='"+ordenProduccion+"', "
+                + "`oc`='"+ordenCompra+"', "
+                + "`documentoE`='"+documentoEntrada+"', "
+                + "`propietarioE`='"+propietario+"', "
+                + "`provedorE`='"+proveedor+"', "
+                + "`responsable`='"+responsable+"', "
+                + "`fecha`='"+fecha+"', "
+                + "`tipoE`='"+tipoentrada+"', "
+                + "`observaciones`='"+Observaciones+"', "
+                + "`cliente`='"+cliente+"' "
+                + "WHERE `folioe`='"+folioentrada+"';";
+        System.out.println(q1);
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q1);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            
+            return false;
+        }
+    }
+    
+    public ResultSet buscarExistenciaProductofecha(String clavePapel,String fecha) {
+        String q = "call sumaxistencia_fecha('"+clavePapel+"','"+fecha+"');";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet bucarMaxSalida() {
+        String q = "SELECT MAX( id_salida ) FROM salida";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscarPrimeraEntrada2(String clave,String fec) {
+        String q = "select d.iddetalleentrada as id, claveproducto,cantidadtemporal as cantidad,min(fecha) as fecha_entrada from detalleentrada d, entrada e where claveproducto='"+clave+"' and e.identrada=d.identrada  and fecha<='"+fec+"' and(cantidadtemporal>0) ;";
+
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public boolean nuevacantidadtemporal(String id,int cantidad) {
+        String q1="UPDATE `detalleentrada` SET cantidadtemporal='"+cantidad+"' where iddetalleentrada='"+id+"'";
+         try{
+
+            PreparedStatement pstm = this.getConexion().prepareStatement(q1);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            
+            return false;
+        }
+    }
+
+    public boolean altaDetalleSalida(int id_salida, String claveProducto, String Descripcion, String Ubicacion, int cantidad_salida, String Unidad, Double costo, Double Totalcosto, String identradas_) {
+        String q ="INSERT INTO `detallesalida` (`id_salida`, `claveproduto`, `descripcion`, `ubicacion`, `cantidad_salida`, `unidad`, `costo`, `totalcosto`, `entradas`) VALUES"
+                + " ('"+id_salida+"', '"+claveProducto+"', '"+Descripcion+"', '"+Ubicacion+"', '"+cantidad_salida+"', '"+Unidad+"', '"+costo+"', '"+Totalcosto+"', '"+identradas_+"');";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage()+" ALTA DETALLE SALIDA");
+            return false;
+        }
+    }
+
+    public boolean altaSalida(String FolioS, String DocumentoS, int TipoS, String OrdenProducionS, String Solicitante, int AreaSalida, String t1, String t2, String t3, String fecha, String Obs, int id_responsable) {
+        String q = "INSERT INTO `rawmats`.`salida` (`folio`, `TURNO1`, `TURNO2`, `TURNO3`, `orden_produccion`, `Fecha`, `tipo_salida`, `documento_salida`, `solicitante`, `id_area`, `id_responsable`, `observaciones`) "
+                + "VALUES ('"+FolioS+"', '"+t1+"', '"+t2+"', '"+t3+"', '"+OrdenProducionS+"', '"+fecha+"', '"+TipoS+"', '"+DocumentoS+"', '"+Solicitante+"', '"+AreaSalida+"', '"+id_responsable+"', '"+Obs+"');";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage()+" ALTA SALIDA");
+            return false;
+        }
+    }
 }
 

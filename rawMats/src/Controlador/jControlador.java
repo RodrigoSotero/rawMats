@@ -89,12 +89,15 @@ public class jControlador implements ActionListener {
     private final  ReporteU reporteu = new ReporteU();
     private final NuevoPC NewPC = new NuevoPC();
     private final Consultas consulta = new Consultas();
-    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0;
-    String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta;
+    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0;
+    String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
     String buscarfolio;
-    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,Com_TipoS,Com_AreaS;
+    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS;
     int modificarentrada=0;
+    double restarcantidad,cantidadbd;
+    String identradas[]=new String [1000];
+    String nombrecolumnas[];
     public jControlador( JFrame padre ){
         //this.frmprincipal = (frmPrincipal) padre;
         this.splash = (Splash) padre;
@@ -683,7 +686,12 @@ public class jControlador implements ActionListener {
         com_prodcuto= new TextAutoCompleter(movimientos._claveProducto);
         com_prodcuto.setMode(0);//infijo
         com_descripcion= new TextAutoCompleter(movimientos._descripcionProducto);
-        com_descripcion.setMode(0);//infijo         
+        com_descripcion.setMode(0);//infijo    
+        com_prodcutoSalida= new TextAutoCompleter(movimientos._claveProductoSalida);
+        com_prodcuto.setMode(0);//infijo
+        com_descripcionSalida= new TextAutoCompleter(movimientos._descripcionProductoSalida);
+        com_descripcion.setMode(0);//infijo 
+        
         this.movimientos.__tablaEntrada.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 
@@ -779,7 +787,80 @@ public class jControlador implements ActionListener {
                     mensaje(3,ex.getMessage());
                 }
             }
-        });        
+        });    
+        this.movimientos._claveProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    try {
+                        String parametro = movimientos._claveProductoSalida.getText();
+                        ResultSet prod = mimodelo.buscarProducto(parametro);
+                        int fila =movimientos.__tablaSalida.getSelectedRow();
+                        while(prod.next()){
+                            movimientos.__tablaSalida.setValueAt(prod.getString("descripcion"), fila, 1);
+                            ResultSet costo = mimodelo.ultimocosto(parametro);
+                            while(costo.next()){
+                                movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
+                            }
+                        }
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+                try {
+                    String parametro = movimientos._claveProductoSalida.getText();
+                    ResultSet buscaClaveProducto = mimodelo.buscaClaveProducto(parametro);
+                    com_prodcutoSalida.removeAll();
+                    while(buscaClaveProducto.next()){
+                        com_prodcutoSalida.addItem(buscaClaveProducto.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+            }
+        });
+        this.movimientos._descripcionProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    try {
+                        String parametro = movimientos._descripcionProductoSalida.getText();
+                        ResultSet prod = mimodelo.buscarProductoByDescripcion(parametro);
+                        int fila =movimientos.__tablaSalida.getSelectedRow();
+                        while(prod.next()){
+                            movimientos.__tablaSalida.setValueAt(prod.getString("clave"), fila, 0);
+                            ResultSet costo = mimodelo.ultimocosto(prod.getString("clave"));
+                            while(costo.next()){
+                                movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
+                            }
+                        }
+                        
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+                try {
+                    String parametro = movimientos._descripcionProductoSalida.getText();
+                    ResultSet buscaDescripcionProducto = mimodelo.buscaDescripcionProducto(parametro);
+                    com_descripcionSalida.removeAll();
+                    while(buscaDescripcionProducto.next()){
+                        com_descripcionSalida.addItem(buscaDescripcionProducto.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+            }
+        });
         this.movimientos.__documentoEntr.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 KeyTipedLetrasNumCar(evt);
@@ -1074,6 +1155,7 @@ public class jControlador implements ActionListener {
         });  
 //        this.movimientos._claveProductoSalida
 //        this.movimientos._descripcionProductoSalida
+        
         this.movimientos.__TipoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 KeyTipedLetras(evt);
@@ -1348,7 +1430,44 @@ public class jControlador implements ActionListener {
         //FIN MENU
     }   
 
-    
+    public boolean PEPS2(String clave, int cantidad_salida) {
+        String fecpe="";
+        int cantidad=0;
+        String ID="";
+        try{
+            ResultSet PE = mimodelo.buscarPrimeraEntrada2(clave,fec);
+            while(PE.next()){
+                fecpe=PE.getString("fecha_entrada");
+                if(fecpe==null){
+                    mensaje(2,"no hay entradas de este papel");
+                    return false;
+                }else{
+                    cantidad=PE.getInt("cantidad");
+                    ID=PE.getString("id");
+                    identradas_+=ID;
+                }
+            }
+            identradas_+=",";
+            if(cantidad_salida==0){
+                mimodelo.nuevacantidadtemporal(ID,cantidad);
+                return true;
+            }
+            if(cantidad_salida<cantidad){
+                mimodelo.nuevacantidadtemporal(ID,cantidad-cantidad_salida);
+                return true;
+            }
+            if(cantidad_salida>cantidad){
+                mimodelo.nuevacantidadtemporal(ID,cantidad-cantidad);
+                PEPS2(clave,cantidad_salida-cantidad);
+            }
+            if(cantidad_salida==cantidad){
+                mimodelo.nuevacantidadtemporal(ID,cantidad_salida-cantidad_salida);
+                return true;
+            }
+        }catch(Exception e){
+        }
+        return false;
+    }
     
     public enum Accion{
         __INICIA_SESION,
@@ -1969,6 +2088,7 @@ public class jControlador implements ActionListener {
                     if(mimodelo.nuevoProducto(areaid, maquinaid, clave,DesP, Max, Min)){
                         if(mimodelo.nuevaexistencia(clave))
                             mensaje(1,"Alta de producto correcta");
+                            borrarFormularioAltaProducto();
                     }
                 }
                 break;
@@ -2000,11 +2120,72 @@ public class jControlador implements ActionListener {
                 EntradaAceptarModificar();                
                 break;                
             case __MODIFICACION_ENTRADA:
-                this.modificarentrada=1;
                 buscarfolio = JOptionPane.showInputDialog("Folio","Ingresa el Folio de la Entrada a Modificar");
                 if(buscarfolio==null || buscarfolio.length()<3){
                     mensaje(2,"Intenta otra vez");
                     break;
+                }
+                ResultSet entrada = mimodelo.buscarEntrada(buscarfolio);
+                int idfolio=0;
+                try {
+                    if(entrada.next()){
+                        System.out.println(buscarfolio);
+                        movimientos.__FolioEntrada.setText(buscarfolio);
+                        entrada.beforeFirst();
+                        while(entrada.next()){  
+                            movimientos.__TipoEntrada.setText(this.busquedaNombre("tipo_entrada", entrada.getInt("tipoE")));
+                            movimientos.__PropietarioEntr.setText(this.busquedaNombre("id_propietario", entrada.getInt("propietarioe")));
+                            movimientos.__ClientEntr.setText(this.busquedaNombre("cliente", entrada.getInt("cliente")));
+                            movimientos.__ProvEntr.setText(this.busquedaNombre("id_proveedores", entrada.getInt("provedorE")));
+                            movimientos.__OrdenProduccionEntr.setText(entrada.getString("op"));
+                            movimientos.__OrdenCompraEntr.setText(entrada.getString("oc"));
+                            movimientos.__documentoEntr.setText(entrada.getString("documentoe"));
+                            if(entrada.getString("T1").equals("t1")){
+                                movimientos.__chkTurno1Entr.setSelected(true);
+                            }
+                            if(entrada.getString("T2").equals("t2")){
+                                movimientos.__chkTurno2Entr.setSelected(true);
+                            }
+                            if(entrada.getString("T3").equals("t3")){
+                                movimientos.__chkTurno3Entr.setSelected(true);
+                            }
+                            idfolio= entrada.getInt("identrada");
+                        }
+                        this.movimientos.__MODIFICACIONENTRADA.setEnabled(false);
+                        this.movimientos.__Archivo.setEnabled(false);
+                        this.movimientos.__Edicion.setEnabled(false);
+                        this.movimientos.JPanel.setEnabledAt(1, false);
+                        ResultSet detalleentrada = mimodelo.buscarDetalleEntrada(idfolio);
+                        if(detalleentrada.next()){
+                            detalleentrada.beforeFirst();
+                            int d =0;
+                            while(detalleentrada.next()){
+                                identradas[d]=detalleentrada.getString("iddetalleentrada");
+                                movimientos.__tablaEntrada.setValueAt(detalleentrada.getString("claveProducto"), d, 0);
+                                movimientos.__tablaEntrada.setValueAt(detalleentrada.getString("descripcion"), d, 1);
+                                movimientos.__tablaEntrada.setValueAt(detalleentrada.getString("ubicacion"), d, 2);
+                                movimientos.__tablaEntrada.setValueAt(detalleentrada.getInt("cantidad"), d, 3);
+                                movimientos.__tablaEntrada.setValueAt(detalleentrada.getString("unidadMedida"), d, 4);
+                                movimientos.__tablaEntrada.setValueAt(Double.parseDouble(detalleentrada.getString("costo")), d, 5);
+                                movimientos.__tablaEntrada.setValueAt(Double.parseDouble(detalleentrada.getString("totalcosto")), d, 6);
+                                mimodelo.updateteporalde(0,identradas[d]);
+                                mimodelo.sumarexistencia(detalleentrada.getString("claveproducto"));
+                                ResultSetMetaData metaData = detalleentrada.getMetaData();
+                                int numcol = metaData.getColumnCount();
+                                nombrecolumnas = new String[numcol];
+                                for(int i=2;i<numcol;i++){
+                                    this.nombrecolumnas[i]=metaData.getColumnLabel(i+1);
+                                }
+                                d++;
+                            }
+                        }
+                        this.modificarentrada=1;
+                    }else{
+                        mensaje(2,"La Entrada no Existe");
+                        break;
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
             case __ACEPTAR_SALIDA:
@@ -2066,6 +2247,13 @@ public class jControlador implements ActionListener {
                                     login.setEnabled(false);
                                     fecha.setLocationRelativeTo(null);
                                     fecha.setVisible(true);
+                                    if(id_responsable==3){
+                                        movimientos.__MODIFICACIONENTRADA.setEnabled(false);
+                                        movimientos.__MODIFICACIONSALIDA.setEnabled(false);
+                                    }else{
+                                        movimientos.__MODIFICACIONENTRADA.setEnabled(true);
+                                        movimientos.__MODIFICACIONSALIDA.setEnabled(true);
+                                    }
                                 }else{
                                     mensaje(3,"Error, La sesion esta activa");
                                     login.__Pswd.setText("");
@@ -2330,7 +2518,8 @@ public class jControlador implements ActionListener {
         //metodo para poner la fecha en todos los formularios
         menumaster.__etqFechaMenuMaster.setText(fec);
         newP.__etqFech.setText(fec);
-        
+        movimientos.__etqFechaEnt.setText(fec);
+        movimientos.__etqFechaSalida.setText(fec);
     }
     private int mensajeConfirmacion(String mensaje, String titulo) {
         JPanel panel = new JPanel();
@@ -3038,6 +3227,7 @@ public class jControlador implements ActionListener {
         String DocumentoE=movimientos.__documentoEntr.getText();
         if(DocumentoE.isEmpty()){
             mensaje(3,"Debe Especificar el Documento de Entrada");
+            movimientos.__documentoEntr.requestFocus();
             return;
         }
         String TipoE=movimientos.__TipoEntrada.getText();
@@ -3080,22 +3270,24 @@ public class jControlador implements ActionListener {
         String OrdenCompraE=movimientos.__OrdenCompraEntr.getText();                                
         
         
-         if(movimientos.__chkTurno1Entr.isSelected()){
+        if(movimientos.__chkTurno1Entr.isSelected()){
            t1="t1";
-        }
+        }else
         if(movimientos.__chkTurno2Entr.isSelected()){
            t2="t2";
-        }
+        }else
         if(movimientos.__chkTurno3Entr.isSelected()){
            t3="t3";
+        }else{
+            mensaje(3,"Selecciona al menos un turno");
+            return;
         }
-        
-        if(movimientos.__tablaEntrada.getValueAt(0, 0)==null){
+        if(movimientos.__tablaEntrada.getValueAt(0, 0)==null||movimientos.__tablaEntrada.getValueAt(0, 0).toString().isEmpty()){
             mensaje(3,"Ingresa Valores a la Tabla");
             return;
         }
         String claveproducto="";
-        switch(EntradaMovimientos){
+        switch(modificarentrada){
                 case 0:
                     Obs=JOptionPane.showInputDialog(null, "Observaciones de la Entrada");
                     confir = mensajeConfirmacion("Se Realizara la Entrada #: "+FolioE,"Nueva Entrada");
@@ -3103,15 +3295,15 @@ public class jControlador implements ActionListener {
                         ResultSet buscarMaxEntrada=null;
                         boolean detalleentrada = false;
                         int id_entrada = 0;
-                    try {
-                        buscarMaxEntrada = mimodelo.bucarMaxEntrada();
-                        while(buscarMaxEntrada.next()){
-                            id_entrada = buscarMaxEntrada.getInt(1);
-                        }
-                        buscarMaxEntrada.close();
-                        id_entrada++;
-                        for(int i=0;i<movimientos.__tablaEntrada.getRowCount();i++){
-                            try{
+                        try {
+                            buscarMaxEntrada = mimodelo.bucarMaxEntrada();
+                            while(buscarMaxEntrada.next()){
+                                id_entrada = buscarMaxEntrada.getInt(1);
+                            }
+                            buscarMaxEntrada.close();
+                            id_entrada++;
+                            for(int i=0;i<movimientos.__tablaEntrada.getRowCount();i++){
+                                try{
                                 claveproducto=movimientos.__tablaEntrada.getValueAt(i, 0).toString();
                                 String descripcion =movimientos.__tablaEntrada.getValueAt(i, 1).toString();
                                 String ubicacion = movimientos.__tablaEntrada.getValueAt(i, 2).toString();
@@ -3128,42 +3320,65 @@ public class jControlador implements ActionListener {
                                     mensaje(3,"EL PRODUCTO NO EXISTE");
                                     return;
                                 }
-                            }catch(Exception evt){
+                                }catch(Exception evt){
+                                    break;
+                                }
+                            }
+                            String fechaentrada=fec.replaceAll("-", "");
+                            boolean altaEntrada = mimodelo.altaEntrada(FolioE,DocumentoE,tipoentrada+"",propietario+"",proveedor+"",OrdenProducionE,OrdenCompraE,cliente+"",t1, t2, t3, id_responsable, fechaentrada,Obs);
+                            mimodelo.altaDocEntrada(eval);
+                            if(altaEntrada==true && detalleentrada==true){
+                                mensaje(1,"Entrada agregada correctamente");
+                                this.borrarFormularioMovimientos();
+                                mimodelo.costopromedio(claveproducto);
+                            }else{
+                                mensaje(3,"Ocurrio un error al dar de alta la entrada");
                                 break;
                             }
-                        }
+                            } catch (SQLException ex) {
+                                mensaje(3,ex.getMessage());
+                                break;
+                            }
+                        break;
+                    }
+                    break;
+                case 1:
+                    
+                    Obs=JOptionPane.showInputDialog(null, "Observaciones de la Modificación de la Entrada");
+                    confir=mensajeConfirmacion("Estas seguro de modificar la entrada","Aceptar");
+                    //String folioentrada,String t1, String t2, String t3,String ordenProduccion,String ordenCompra,String documentoEntrada,int propietario,int proveedor, int responsable,String fecha,int tipoentrada,String Observaciones,int cliente){
+                    if (confir==JOptionPane.OK_OPTION){
                         String fechaentrada=fec.replaceAll("-", "");
-                        boolean altaEntrada = mimodelo.altaEntrada(FolioE,DocumentoE,tipoentrada+"",propietario+"",proveedor+"",OrdenProducionE,OrdenCompraE,cliente+"",t1, t2, t3, id_responsable, fechaentrada,Obs);
-                        mimodelo.altaDocEntrada(eval);
-                        if(altaEntrada==true && detalleentrada==true){
-                            mensaje(1,"Entrada agregada correctamente");
-                            this.borrarFormularioMovimientos();
-                            mimodelo.costopromedio(claveproducto);
-                        }else{
-                            mensaje(3,"Ocurrio un error al dar de alta la entrada");
-                            break;
+                        mimodelo.modifEntrada(FolioE,t1,t2,t3,OrdenProducionE,OrdenCompraE,DocumentoE,propietario+"",proveedor+"",id_responsable+"", fechaentrada,tipoentrada+"",Obs,cliente+"" );
+                        for(int i=0;i<movimientos.__tablaEntrada.getRowCount();i++){
+                            try {                            
+                                claveproducto=movimientos.__tablaEntrada.getValueAt(i, 0).toString();
+                                String descripcion =movimientos.__tablaEntrada.getValueAt(i, 1).toString();
+                                String ubicacion = movimientos.__tablaEntrada.getValueAt(i, 2).toString();
+                                int cantidadentrada=Integer.parseInt(movimientos.__tablaEntrada.getValueAt(i, 3).toString());
+                                String unidad_m = movimientos.__tablaEntrada.getValueAt(i, 4).toString();
+                                String costo=movimientos.__tablaEntrada.getValueAt(i, 5).toString();
+                                String totalcosto=movimientos.__tablaEntrada.getValueAt(i, 6).toString();
+                                ResultSet existenciaPapel = mimodelo.buscarExistenciaProducto(claveproducto);
+                                if(existenciaPapel.next()){
+                                    mimodelo.modifDetalleEntrada(Integer.parseInt(identradas[i]),claveproducto,descripcion,ubicacion,cantidadentrada+"",unidad_m,costo,totalcosto);
+                                    mimodelo.costopromedio(claveproducto);
+                                    mimodelo.sumarexistencia(claveproducto);
+                                    mimodelo.ubicacion(claveproducto, ubicacion);
+                                    mensaje(1,"modificacion de entrada correcta");
+                                }else{
+                                    mensaje(3,"EL PRODUCTO NO EXISTE");
+                                    return;
+                                }
+                            } catch (Exception ex) {
+                                //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
                         }
-                        } catch (SQLException ex) {
-                            mensaje(3,ex.getMessage());
-                            break;
-                        }
+                    }else{
+                        return;
+                    }
                     break;
-                }
-                    break;
-//                case 1:
-//                    confir= mensajeConfirmacion("Realmente Desea dar de Alta el Cliente: Alta");
-//                    if(confir==JOptionPane.OK_OPTION){
-//                        boolean altacli=mimodelo.newaltacliente(Nombre,Direccion,telefono,RfC);                
-//                            if(altacli==true){                                       
-//                                mensaje(1,"Alta Correcta de Nuevo Cliente: "+Nombre+"");   
-//                                borrarFormularioProveedor();
-//                            }else{
-//                                mensaje(3,"Ocurrio un Error al Dar de Alta el Nuevo Cliente");                          
-//                            }                        
-//
-//                        break;
-//                    }
-//                    break;
             }
         this.borrarFormularioMovimientos();
     }
@@ -3172,29 +3387,114 @@ public class jControlador implements ActionListener {
         String DocumentoS=movimientos.__documentoSalida.getText();
         if(DocumentoS.isEmpty()){
             mensaje(3,"Debe Especificar el Documento de Salida");
+            movimientos.__documentoSalida.requestFocus();
             return;
         }
         String TipoS=movimientos.__TipoSalida.getText();
         if(TipoS.isEmpty()){
             mensaje(3,"Debe Especificar un Tipo de Salida");
+            movimientos.__TipoSalida.requestFocus();
             return;
-        }                       
+        }
+        int idTipoSal = this.busquedaid(movimientos.__TipoSalida);
         String OrdenProducionS=movimientos.__OrdenProduccionSalida.getText();                        
-        String Solicitante=movimientos.__SolicitanteSalida.getText();                                
-        String AreaSalida=movimientos.__AreaSalida.getText();       
+        String Solicitante=movimientos.__SolicitanteSalida.getText();   
+        String AreaSalida=movimientos.__AreaSalida.getText();
+        int idAreaSal = this.busquedaid(movimientos.__AreaSalida);
          if(movimientos.__chkTurno1Salida.isSelected()){
            t1="t1";
-        }
+        }else
         if(movimientos.__chkTurno2Salida.isSelected()){
            t2="t2";
-        }
+        }else
         if(movimientos.__chkTurno3Salida.isSelected()){
            t3="t3";
+        }else{
+            mensaje(3,"Debes seleccionar almenos un turno");
+            return;
         }
-        if(movimientos.__tablaSalida.getValueAt(0, 0)==null){
+        //FolioS,DocumentoS,TipoS,OrdenProducionS,Solicitante,AreaSalida,t1,t2,t3,fechaentrada,Obs
+         //mimodelo.altaSalida(FolioS,t1, t2, t3, OrdenProduccionS, ordenCompra,documentoSalida, propietario, proveedor, id_responsable, fechaentrada, tiposalida,Obs,cliente);
+        if(movimientos.__tablaSalida.getValueAt(0, 0)==null||movimientos.__tablaSalida.getValueAt(0, 0).toString().isEmpty()){
             mensaje(3,"Ingresa Valores a la Tabla");
             return;
         }
+        for(int i =0;i< movimientos.__tablaSalida.getRowCount();i++){
+            try {
+                String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
+                int cantidad_salida =  Integer.parseInt(movimientos.__tablaSalida.getValueAt(i,3).toString());
+                ResultSet existencia = mimodelo.buscarExistenciaProductofecha(claveProducto, fec);
+                int cantidadbd=0;
+                if(existencia.next()){
+                    existencia.beforeFirst();
+                    while(existencia.next()){
+                        cantidadbd = existencia.getInt("cantidad");
+                    }
+                    if(cantidadbd<cantidad_salida){
+                        mensaje(3,"No hay suficiente existencia en la bd para realizar la salida #" +(i+1)+" hay "+cantidadbd);
+                        return;
+                    }
+                }else{
+                    mensaje(3,"Verifica la clave de la salida #" +(i+1));
+                    return;
+                }
+                Double costo =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,5).toString());
+                Double Totalcosto = cantidad_salida*costo;
+                movimientos.__tablaSalida.setValueAt(Totalcosto, i, 6);
+            } catch (Exception ex) {
+                //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+        switch(SalidaMovimientos){
+            case 0:
+                Obs=JOptionPane.showInputDialog(null, "Observaciones de la Salida");
+                confir=mensajeConfirmacion("Estas seguro de registrar la Salida","Aceptar");
+                if (confir==JOptionPane.OK_OPTION){
+                    ResultSet buscarMaxSalida=null;
+                    boolean detallesalida = false;
+                    int id_salida = 0;
+                    try{
+                        buscarMaxSalida = mimodelo.bucarMaxSalida();
+                        while(buscarMaxSalida.next()){
+                            id_salida = buscarMaxSalida.getInt(1);
+                        }
+                        buscarMaxSalida.close();
+                        id_salida++;
+                        for(int i =0;i< movimientos.__tablaSalida.getRowCount();i++){
+                            try {
+                                String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
+                                String Descripcion = movimientos.__tablaSalida.getValueAt(i,1).toString();
+                                String Ubicacion = movimientos.__tablaSalida.getValueAt(i,2).toString();
+                                int cantidad_salida =  Integer.parseInt(movimientos.__tablaSalida.getValueAt(i,3).toString());
+                                String Unidad = movimientos.__tablaSalida.getValueAt(i,4).toString();
+                                Double costo =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,5).toString());
+                                Double Totalcosto = cantidad_salida*costo;
+                                movimientos.__tablaSalida.setValueAt(Totalcosto, i, 6);
+                                identradas_="";
+                                PEPS2(claveProducto, cantidad_salida);
+                                mimodelo.sumarexistencia(claveProducto);
+                                detallesalida = mimodelo.altaDetalleSalida(id_salida,claveProducto,Descripcion,Ubicacion,cantidad_salida,Unidad,costo,Totalcosto,identradas_);
+                            } catch (Exception ex) {
+                                //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                            } 
+                        }
+                        String fechaentrada=fec.replaceAll("-", "");
+                        boolean altaSalida = mimodelo.altaSalida(FolioS,DocumentoS,idTipoSal,OrdenProducionS,Solicitante,idAreaSal,t1,t2,t3,fechaentrada,Obs,id_responsable);
+                        if(altaSalida==true && detallesalida==true){
+                            mensaje(1,"Salida agregada correctamente");
+                            this.borrarFormularioMovimientos();
+                        }else{
+                            mensaje(3,"Ocurrio un error al dar de alta la salida");
+                            break;
+                        }
+                    }catch(Exception e){
+                    }
+                }
+                break;
+            case 1:
+                break;
+        }
+        
         
     }    
     
@@ -3259,7 +3559,12 @@ public class jControlador implements ActionListener {
         movimientos.__chkTurno1Entr.setSelected(false);
         movimientos.__chkTurno2Entr.setSelected(false);
         movimientos.__chkTurno3Entr.setSelected(false);
-        
+        modificarentrada=0;
+        this.movimientos.__MODIFICACIONENTRADA.setEnabled(true);
+        this.movimientos.__Archivo.setEnabled(true);
+        this.movimientos.__Edicion.setEnabled(true);
+        this.movimientos.JPanel.setEnabledAt(0, true);
+        this.movimientos.JPanel.setEnabledAt(1, true);
     }
     private void maximoentrada() {
         try {
@@ -3297,9 +3602,6 @@ public class jControlador implements ActionListener {
                 case "__ClientEntr":
                     p=mimodelo.buscarCliente(parametro,false);
                     break;
-                case "__TipodeSalidaH":
-                    //p=mimodelo.buscaTipoSalida(parametro, false);
-                    break;
                 case  "__ClienteSalidaH":
                     p=mimodelo.buscarCliente(parametro,false);
                     break;
@@ -3312,11 +3614,11 @@ public class jControlador implements ActionListener {
                 case "__PropietarioSalidaB":
                     p = mimodelo.buscarPropiedad(parametro,false);
                     break;
-                case "__TipodeSalidaB":
-                    //p=mimodelo.buscaTipoSalida(parametro, false);
+                case "__AreaSalida":
+                    p=mimodelo.buscaArea(parametro, false);
                     break;
                 case "__TipoSalida":
-                   // p = mimodelo.buscaTipoSalida(parametro,false);
+                    p = mimodelo.buscaTipoSalida(parametro,false);
                     break;
                 case "__PropietarioSalida":
                     p = mimodelo.buscarPropiedad(parametro,false);
@@ -3346,7 +3648,34 @@ public class jControlador implements ActionListener {
     }
     
     //HUEVOS
-    
+    public String busquedaNombre(String tabla, int id){
+        ResultSet p=null;
+        switch(tabla){
+            case "tipo_entrada":
+                p= mimodelo.buscaTipoEntrada(id);
+                break;
+            case "id_propietario":
+                p=mimodelo.buscarPropiedad(id);
+                break;
+            case "id_proveedores":
+                p=mimodelo.buscaProveedor(id);
+                break;
+            case "cliente":
+                p=mimodelo.buscarCliente(id);
+                break;
+            case "tipo_salida":
+                p= mimodelo.buscaTipoSalida(id);
+                break;
+        }
+        try {
+            while(p.next()){
+                return p.getString("descripcion");
+            }
+        } catch (SQLException ex) {
+           return null;
+        }
+    return null;
+    }
     
     
 }
