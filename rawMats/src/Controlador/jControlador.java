@@ -18,6 +18,7 @@ import Vista.Movimientos;
 import Vista.NuevoPC;
 import Vista.NuevoUsu;
 import Vista.ReporteU;
+import Vista.Reportes;
 import Vista.Splash;
 import Vista.newProducto;
 import com.mxrck.autocompleter.TextAutoCompleter;
@@ -89,6 +90,7 @@ public class jControlador implements ActionListener {
     private final  ReporteU reporteu = new ReporteU();
     private final NuevoPC NewPC = new NuevoPC();
     private final Consultas consulta = new Consultas();
+    private final Reportes reporte = new Reportes();
     int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0,SesionCerrada=0;
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
@@ -1358,7 +1360,7 @@ public class jControlador implements ActionListener {
         this.newP.__menuConsultas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,InputEvent.CTRL_MASK));
         this.newP.__menuConsultas.addActionListener(this);
         this.newP.__menuReportes.setActionCommand("__MENU_REPORTES");
-        this.newP.__menuConsultas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));
+        this.newP.__menuReportes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));
         this.newP.__menuReportes.addActionListener(this);
         this.newP.__MenuAbrirArchivo.setActionCommand("__MENU_ABRIR_ARCHIVO");
         this.newP.__MenuAbrirArchivo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,InputEvent.CTRL_MASK));
@@ -1389,9 +1391,9 @@ public class jControlador implements ActionListener {
         this.newP.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
         this.newP.__menuBackup.addActionListener(this); 
         //MENUS MOVIMIENTOS
-        this.movimientos.__menuAltaProducto.setActionCommand("__MENU_MOV_PAPEL");
+        this.movimientos.__menuAltaProducto.setActionCommand("__MENU_ALTA");
         this.movimientos.__menuAltaProducto.addActionListener(this);
-        this.movimientos.__menuAltaProducto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,InputEvent.CTRL_MASK));
+        this.movimientos.__menuAltaProducto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,InputEvent.CTRL_MASK));
         this.movimientos.__menuAnterior.setActionCommand("__MENU_ANTERIOR");
         this.movimientos.__menuAnterior.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0));
         this.movimientos.__menuAnterior.addActionListener(this);
@@ -1399,7 +1401,7 @@ public class jControlador implements ActionListener {
         this.movimientos.__menuConsultas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,InputEvent.CTRL_MASK));
         this.movimientos.__menuConsultas.addActionListener(this);
         this.movimientos.__menuReportes.setActionCommand("__MENU_REPORTES");
-        this.movimientos.__menuConsultas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));
+        this.movimientos.__menuReportes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));
         this.movimientos.__menuReportes.addActionListener(this);
         this.movimientos.__MenuAbrirArchivo.setActionCommand("__MENU_ABRIR_ARCHIVO");
         this.movimientos.__MenuAbrirArchivo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,InputEvent.CTRL_MASK));
@@ -1428,6 +1430,9 @@ public class jControlador implements ActionListener {
         this.movimientos.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
         this.movimientos.__menuBackup.addActionListener(this);
         //MENU CONSULTAS
+        this.consulta.__menuAltaProducto.setActionCommand("__MENU_ALTA");
+        this.consulta.__menuAltaProducto.addActionListener(this);
+        this.consulta.__menuAltaProducto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,InputEvent.CTRL_MASK));
         this.consulta.__menuMovimientos.setActionCommand("__MENU_MOV_PAPEL");
         this.consulta.__menuMovimientos.addActionListener(this);
         this.consulta.__menuMovimientos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,InputEvent.CTRL_MASK));
@@ -1463,6 +1468,45 @@ public class jControlador implements ActionListener {
         this.consulta.__menuBackup.setActionCommand("__MENU_BACKUP");
         this.consulta.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
         this.consulta.__menuBackup.addActionListener(this);
+        //MENU REPORTE
+        this.reporte.__menuAltaProducto.setActionCommand("__MENU_ALTA");
+        this.reporte.__menuAltaProducto.addActionListener(this);
+        this.reporte.__menuAltaProducto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,InputEvent.CTRL_MASK));
+        this.reporte.__menuConsultas.setActionCommand("__MENU_CONSULTAS");
+        this.reporte.__menuConsultas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,InputEvent.CTRL_MASK));
+        this.reporte.__menuConsultas.addActionListener(this);
+        this.reporte.__menuMovimientos.setActionCommand("__MENU_MOV_PAPEL");
+        this.reporte.__menuMovimientos.addActionListener(this);
+        this.reporte.__menuMovimientos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,InputEvent.CTRL_MASK));
+        this.reporte.__menuAnterior.setActionCommand("__MENU_ANTERIOR");
+        this.reporte.__menuAnterior.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0));
+        this.reporte.__menuAnterior.addActionListener(this);        
+        this.reporte.__MenuAbrirArchivo.setActionCommand("__MENU_ABRIR_ARCHIVO");
+        this.reporte.__MenuAbrirArchivo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,InputEvent.CTRL_MASK));
+        this.reporte.__MenuAbrirArchivo.addActionListener(this);
+        this.reporte.__menuCerrarSesion.setActionCommand("__MENU_CERRAR_SESION");
+        this.reporte.__menuCerrarSesion.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,InputEvent.CTRL_MASK));
+        this.reporte.__menuCerrarSesion.addActionListener(this);
+        this.reporte.__menuSalir.setActionCommand("__MENU_SALIR");
+        this.reporte.__menuSalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,InputEvent.SHIFT_MASK |InputEvent.CTRL_MASK));
+        this.reporte.__menuSalir.addActionListener(this);
+        this.reporte.__menuCambiarFecha.setActionCommand("__MENU_FECHA");
+        this.reporte.__menuCambiarFecha.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D,InputEvent.CTRL_MASK));
+        this.reporte.__menuCambiarFecha.addActionListener(this);
+        this.reporte.__menuNuevoUsuario.setActionCommand("__MENU_NEWUSER");
+        this.reporte.__menuNuevoUsuario.addActionListener(this);
+        this.reporte.__menuCambiarContraseña.setActionCommand("__MENU_CONTRASEÑA");
+        this.reporte.__menuCambiarContraseña.addActionListener(this);        
+        this.reporte.__menuReporte.setActionCommand("__MENU_REPORTE_USUARIOS");
+        this.reporte.__menuReporte.addActionListener(this);
+        this.reporte.__menucerrarsesiones.setActionCommand("__MENU_CERRAR_SESIONES");
+        this.reporte.__menucerrarsesiones.addActionListener(this);        
+        this.reporte.__menuAcerca.setActionCommand("__MENU_ACERCADE");
+        this.reporte.__menuAcerca.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,InputEvent.CTRL_MASK));
+        this.reporte.__menuAcerca.addActionListener(this);  
+        this.reporte.__menuBackup.setActionCommand("__MENU_BACKUP");
+        this.reporte.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
+        this.reporte.__menuBackup.addActionListener(this);
         //FIN MENU
     }   
 
@@ -1608,8 +1652,8 @@ public class jControlador implements ActionListener {
                 conEP.setName("Consulta del Producto");
                 this.bucarPorducto();
                 break;
-            case __MENU_MASTER_MOVIMIENTOS:
-                movimientos.setName("Consulta del Producto");
+            case __MENU_MASTER_MOVIMIENTOS:                
+                movimientos.setTitle("Movimientos del Producto");
                 menumaster.dispose();
                 if(cargo !=1 ){
                     this.movimientos.__MODIFICACIONENTRADA.setEnabled(false);
@@ -1630,16 +1674,18 @@ public class jControlador implements ActionListener {
                 ponerfecha();
                 addItems("movimientos");                
                 break;
-//            case __MENU_MASTER_REPORTES:
-//                menumaster.dispose();
-//                reportes.setVisible(true);
-//                reportes.setLocationRelativeTo(null);
-//                break;
+            case __MENU_MASTER_REPORTES:
+                menumaster.dispose();
+                reporte.setVisible(true);
+                reporte.setLocationRelativeTo(null);
+                reporte.setTitle("Reportes");
+                break;
             case __MENU_MASTER_CONSULTAS:
                 menumaster.dispose();
                 this.addItems("consultas");
                 consulta.setVisible(true);
                 consulta.setLocationRelativeTo(null);
+                consulta.setTitle("Consultas");
                 break;
             case __MENU_MASTER_CANCELAR:
                 confir = this.mensajeConfirmacion("¿Desea Salir?","Salida");
@@ -1675,16 +1721,29 @@ public class jControlador implements ActionListener {
                             this.newP.setLocationRelativeTo(null);
                             movimientos.dispose();
                             consulta.dispose();
-//                            reportes.dispose();
+                            reporte.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
                             this.addItems("newP");
                             }
                     break;                        
                     case 2:
-                        mensaje(2,"No Hay Acceso a esta Información");
+                        confir = mensajeConfirmacion("¿Realmente Deseas ir a Alta de Papel?","Salida");
+                            if (confir == JOptionPane.OK_OPTION){
+                            this.newP.setVisible(true);
+                            this.newP.setLocationRelativeTo(null);
+                            movimientos.dispose();
+                            consulta.dispose();
+                            reporte.dispose();
+//                            reporteuser.dispose();
+//                            verconsulta.dispose();
+                            this.addItems("newP");
+                            }
                     break;
                     case 3:
+                        mensaje(2,"No Hay Acceso a esta Información");
+                        break;
+                    case 4:
                         mensaje(2,"No Hay Acceso a esta Información");
                         break;
                 }
@@ -1704,7 +1763,7 @@ public class jControlador implements ActionListener {
                             movimientos.setLocationRelativeTo(null);
                             consulta.dispose();                        
                             this.newP.dispose();
-//                            reportes.dispose();
+                            reporte.dispose();
                             ponerfecha();
                             movimientos.__documentoEntr.requestFocus();
 //                            addItems("movimientos");
@@ -1727,7 +1786,7 @@ public class jControlador implements ActionListener {
                             consulta.setVisible(true);
                             consulta.setLocationRelativeTo(null);
                             this.newP.dispose();
-//                            reportes.dispose();
+                            reporte.dispose();
                             movimientos.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
@@ -1740,7 +1799,7 @@ public class jControlador implements ActionListener {
                             consulta.setVisible(true);
                             consulta.setLocationRelativeTo(null);
                             this.newP.dispose();
-//                            reportes.dispose();
+                            reporte.dispose();
                             movimientos.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
@@ -1753,7 +1812,7 @@ public class jControlador implements ActionListener {
                             consulta.setVisible(true);
                             consulta.setLocationRelativeTo(null);
                             this.newP.dispose();
-//                            reportes.dispose();
+                            reporte.dispose();
                             movimientos.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
@@ -1769,10 +1828,10 @@ public class jControlador implements ActionListener {
                     case 1:
                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
-//                            reportes.setVisible(true);
-//                            reortes.setLocationRelativeTo(null);
+                            reporte.setVisible(true);
+                            reporte.setLocationRelativeTo(null);
                             movimientos.dispose();
-                            this.newP.dispose();
+                            newP.dispose();
                             consulta.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
@@ -1781,8 +1840,8 @@ public class jControlador implements ActionListener {
                     case 2:
                          confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
-//                            reportes.setVisible(true);
-//                            reportes.setLocationRelativeTo(null);
+                            reporte.setVisible(true);
+                            reporte.setLocationRelativeTo(null);
                             movimientos.dispose();
                             this.newP.dispose();
                             consulta.dispose();
@@ -1793,8 +1852,8 @@ public class jControlador implements ActionListener {
                     case 3:
                          confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
-//                            reportes.setVisible(true);
-//                            reportes.setLocationRelativeTo(null);
+                            reporte.setVisible(true);
+                            reporte.setLocationRelativeTo(null);
                             movimientos.dispose();
                             this.newP.dispose();
                             consulta.dispose();
@@ -1803,7 +1862,16 @@ public class jControlador implements ActionListener {
                             }
                         break;
                      case 4:
-                        mensaje(2,"No Hay Acceso a esta Información");
+                        confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
+                            if (confir == JOptionPane.OK_OPTION){
+                            reporte.setVisible(true);
+                            reporte.setLocationRelativeTo(null);
+                            movimientos.dispose();
+                            this.newP.dispose();
+                            consulta.dispose();
+//                            reporteuser.dispose();
+//                            verconsulta.dispose();
+                            }
                         break; 
                 }                      
                 break;
@@ -2122,8 +2190,8 @@ public class jControlador implements ActionListener {
                 menumaster.dispose();
                 conEP.dispose();
                 newP.setVisible(true);
-                ponerfecha();                
-                newP.setName("Alta de Producto");
+                ponerfecha();                                
+                newP.setTitle("Alta de Producto");
                 break;
             case __MODIFICARCONSULTAEP:
                 int fila = this.conEP.__tablaProductos.getSelectedRow();
@@ -2880,7 +2948,7 @@ public class jControlador implements ActionListener {
                                     movimientos.dispose();
                                     this.newP.dispose();
                                     conEP.dispose();
-//                                    reportes.dispose();                                    
+                                    reporte.dispose();                                    
                                     borrarFormularioNewUser();
                                     borrarFormularioConEP();
                                     borrarFormularioAltaProducto();
@@ -2899,7 +2967,7 @@ public class jControlador implements ActionListener {
                                     movimientos.dispose();
                                     this.newP.dispose();
                                     conEP.dispose();
-//                                    reportes.dispose();                                    
+                                    reporte.dispose();                                    
                                     borrarFormularioNewUser();
                                     borrarFormularioConEP();
                                     borrarFormularioAltaProducto();
@@ -2918,7 +2986,7 @@ public class jControlador implements ActionListener {
                                 movimientos.dispose();
                                 newP.dispose();
                                 conEP.dispose();
-//                                reportes.dispose();
+                                reporte.dispose();
                                 borrarFormularioNewUser();
                                 borrarFormularioAltaProducto();
 //                                borrarFormularioMovimientosPapel();
@@ -2936,7 +3004,7 @@ public class jControlador implements ActionListener {
                                 movimientos.dispose();
                                 newP.dispose();
                                 conEP.dispose();
-//                                reportes.dispose();
+                                reporte.dispose();
                                 borrarFormularioNewUser();
                                 borrarFormularioAltaProducto();
 //                                borrarFormularioMovimientosPapel();

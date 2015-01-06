@@ -85,6 +85,7 @@ public class newProducto extends javax.swing.JFrame {
         __menuBackup = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setIconImage(getIconImage());
         setResizable(false);
 
         jLabel10.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
@@ -389,6 +390,10 @@ public class newProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event___cmbMaquinaActionPerformed
 
+    private void __menuMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuMovimientosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___menuMovimientosActionPerformed
+
     private void __menuAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuAnteriorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event___menuAnteriorActionPerformed
@@ -412,10 +417,6 @@ public class newProducto extends javax.swing.JFrame {
     private void __menuBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuBackupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event___menuBackupActionPerformed
-
-    private void __menuMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuMovimientosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event___menuMovimientosActionPerformed
 
     /**
      * @param args the command line arguments

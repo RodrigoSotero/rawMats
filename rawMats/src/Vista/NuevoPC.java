@@ -57,6 +57,7 @@ public class NuevoPC extends javax.swing.JFrame {
         __ACEPTARPROVEEDOR = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         __RFC.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __RFC.addActionListener(new java.awt.event.ActionListener() {
