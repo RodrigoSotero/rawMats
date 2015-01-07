@@ -689,34 +689,57 @@ public class jControlador implements ActionListener {
         com_prodcuto.setMode(0);//infijo
         com_descripcion= new TextAutoCompleter(movimientos._descripcionProducto);
         com_descripcion.setMode(0);//infijo    
-        com_prodcutoSalida= new TextAutoCompleter(movimientos._claveProductoSalida);
-        com_prodcuto.setMode(0);//infijo
-        com_descripcionSalida= new TextAutoCompleter(movimientos._descripcionProductoSalida);
-        com_descripcion.setMode(0);//infijo 
+       
+        /*com_prodcutoSalida= new TextAutoCompleter(movimientos._claveProductoSalida);
+        com_prodcuto.setMode(0);//infijo*/
         
-        this.movimientos.__tablaEntrada.addKeyListener(new java.awt.event.KeyAdapter(){
+        final TextAutoCompleter prodSalida = new TextAutoCompleter(movimientos.__claveProductoSalida);
+        prodSalida.setMode(0);
+        
+        /*com_descripcionSalida= new TextAutoCompleter(movimientos._descripcionProductoSalida);
+        com_descripcion.setMode(0);//infijo */
+        
+        this.movimientos.__claveProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 
             }
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                int columna = movimientos.__tablaEntrada.getSelectedColumn();
-                int fila = movimientos.__tablaEntrada.getSelectedRow();
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    try{
-                        if(columna==3||columna==5){
-                            Double cant=Double.parseDouble(movimientos.__tablaEntrada.getValueAt(fila, 3)+"");
-                            Double cos=Double.parseDouble(movimientos.__tablaEntrada.getValueAt(fila, 5)+"");
-                            Double totcos= cant*cos;
-                            movimientos.__tablaEntrada.setValueAt(totcos, fila, 6);
+                    try {
+                        String prod = movimientos.__claveProductoSalida.getText();
+                        ResultSet Producto = mimodelo.buscarProducto(prod);
+                        int fila =movimientos.__tablaSalida.getSelectedRow();
+                        while(Producto.next()){
+                            movimientos.__tablaSalida.setValueAt(Producto.getString("descripcion"), fila, 1);
+                            ResultSet costo = mimodelo.ultimocosto(prod);
+                            while(costo.next()){
+                                movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
+                                movimientos.__tablaSalida.setValueAt(costo.getString("ubicacion"), fila, 2);
+                                movimientos.__tablaSalida.setValueAt(costo.getString("unidadmedida"), fila, 4);
+                            }
                         }
-                    }catch(Exception e){
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                
+                try {
+                    String prod = movimientos.__claveProductoSalida.getText();
+                    System.out.println(prod);
+                    ResultSet bcP = mimodelo.buscaClaveProductoSalir(prod);
+                    prodSalida.removeAll();
+                    while(bcP.next()){
+                        prodSalida.addItem(bcP.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        });  
+        
+        });
+        
         this.movimientos._claveProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 
@@ -753,6 +776,30 @@ public class jControlador implements ActionListener {
                 }
             }
         });
+        this.movimientos.__tablaEntrada.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                int columna = movimientos.__tablaEntrada.getSelectedColumn();
+                int fila = movimientos.__tablaEntrada.getSelectedRow();
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    try{
+                        if(columna==3||columna==5){
+                            Double cant=Double.parseDouble(movimientos.__tablaEntrada.getValueAt(fila, 3)+"");
+                            Double cos=Double.parseDouble(movimientos.__tablaEntrada.getValueAt(fila, 5)+"");
+                            Double totcos= cant*cos;
+                            movimientos.__tablaEntrada.setValueAt(totcos, fila, 6);
+                        }
+                    }catch(Exception e){
+                    }
+                }
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                
+            }
+        });  
+        
         this.movimientos._descripcionProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 
@@ -790,79 +837,11 @@ public class jControlador implements ActionListener {
                 }
             }
         });    
-        this.movimientos._claveProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                
-            }
-             public void keyPressed(java.awt.event.KeyEvent evt){
-                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    try {
-                        String parametro = movimientos._claveProductoSalida.getText();
-                        ResultSet prod = mimodelo.buscarProducto(parametro);
-                        int fila =movimientos.__tablaSalida.getSelectedRow();
-                        while(prod.next()){
-                            movimientos.__tablaSalida.setValueAt(prod.getString("descripcion"), fila, 1);
-                            ResultSet costo = mimodelo.ultimocosto(parametro);
-                            while(costo.next()){
-                                movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
-                            }
-                        }
-                        
-                    } catch (SQLException ex) {
-                        Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt){
-                try {
-                    String parametro = movimientos._claveProductoSalida.getText();
-                    ResultSet buscaClaveProducto2 = mimodelo.buscaClaveProducto(parametro);
-                    com_prodcutoSalida.removeAll();
-                    while(buscaClaveProducto2.next()){
-                        com_prodcutoSalida.addItem(buscaClaveProducto2.getString(1));
-                    }
-                } catch (SQLException ex) {
-                    mensaje(3,ex.getMessage());
-                }
-            }
-        });
-        this.movimientos._descripcionProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                
-            }
-             public void keyPressed(java.awt.event.KeyEvent evt){
-                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    try {
-                        String parametro = movimientos._descripcionProductoSalida.getText();
-                        ResultSet prod = mimodelo.buscarProductoByDescripcion(parametro);
-                        int fila =movimientos.__tablaSalida.getSelectedRow();
-                        while(prod.next()){
-                            movimientos.__tablaSalida.setValueAt(prod.getString("clave"), fila, 0);
-                            ResultSet costo = mimodelo.ultimocosto(prod.getString("clave"));
-                            while(costo.next()){
-                                movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
-                            }
-                        }
-                        
-                        
-                    } catch (SQLException ex) {
-                        Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt){
-                try {
-                    String parametro = movimientos._descripcionProductoSalida.getText();
-                    ResultSet buscaDescripcionProducto = mimodelo.buscaDescripcionProducto(parametro);
-                    com_descripcionSalida.removeAll();
-                    while(buscaDescripcionProducto.next()){
-                        com_descripcionSalida.addItem(buscaDescripcionProducto.getString(1));
-                    }
-                } catch (SQLException ex) {
-                    mensaje(3,ex.getMessage());
-                }
-            }
-        });
+        
+        
+        
+        
+        
         this.movimientos.__documentoEntr.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 KeyTipedLetrasNumCar(evt);

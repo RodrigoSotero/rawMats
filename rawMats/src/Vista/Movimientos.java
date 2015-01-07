@@ -24,8 +24,8 @@ public class Movimientos extends javax.swing.JFrame {
         _UnidadMedida = new javax.swing.JComboBox();
         _claveProducto = new javax.swing.JTextField();
         _descripcionProducto = new javax.swing.JTextField();
-        _claveProductoSalida = new javax.swing.JTextField();
-        _descripcionProductoSalida = new javax.swing.JTextField();
+        __claveProductoSalida = new javax.swing.JTextField();
+        __descripcionProductoSalida = new javax.swing.JTextField();
         initComponents();
         _UnidadMedida.addItem("Pz");
         _UnidadMedida.addItem("Lts");
@@ -715,7 +715,7 @@ public class Movimientos extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true, true, true, true, false
+                true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -732,9 +732,9 @@ public class Movimientos extends javax.swing.JFrame {
         jScrollPane2.setViewportView(__tablaSalida);
         if (__tablaSalida.getColumnModel().getColumnCount() > 0) {
             __tablaSalida.getColumnModel().getColumn(0).setPreferredWidth(180);
-            __tablaSalida.getColumnModel().getColumn(0).setCellEditor(new javax.swing.DefaultCellEditor(_claveProductoSalida));
+            __tablaSalida.getColumnModel().getColumn(0).setCellEditor(new javax.swing.DefaultCellEditor(__claveProductoSalida));
             __tablaSalida.getColumnModel().getColumn(1).setPreferredWidth(242);
-            __tablaSalida.getColumnModel().getColumn(1).setCellEditor(new javax.swing.DefaultCellEditor(_descripcionProductoSalida));
+            __tablaSalida.getColumnModel().getColumn(1).setCellEditor(new javax.swing.DefaultCellEditor(__descripcionProductoSalida));
             __tablaSalida.getColumnModel().getColumn(2).setPreferredWidth(110);
             __tablaSalida.getColumnModel().getColumn(3).setPreferredWidth(120);
             __tablaSalida.getColumnModel().getColumn(4).setPreferredWidth(110);
@@ -1193,6 +1193,8 @@ public class Movimientos extends javax.swing.JFrame {
     public javax.swing.JTextField _descripcionProducto;
     public javax.swing.JTextField _claveProductoSalida;
     public javax.swing.JTextField _descripcionProductoSalida;
+ public javax.swing.JTextField __claveProductoSalida;
+    public javax.swing.JTextField __descripcionProductoSalida;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTabbedPane JPanel;

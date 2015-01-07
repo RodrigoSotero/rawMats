@@ -708,7 +708,19 @@ public class modelo extends database{
         return null;
     }
     
-    
+   
+     public ResultSet buscaClaveProductoSalir(String parametro) {
+        String q = "select claveproducto from inventario where claveproducto like '%"+parametro+"%' and cantidad >0;";
+        System.out.println(q);
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
     public ResultSet buscaClaveProducto(String parametro) {
         String q = "select claveproducto from inventario where clavePRODUCTO like '%"+parametro+"%' ;";
         System.out.println(q);
@@ -733,7 +745,7 @@ public class modelo extends database{
             }
     }
     public ResultSet ultimocosto(String clave) {
-        String q = "select costo from detalleentrada where claveproducto='"+clave+"' order by iddetalleentrada desc limit 1";
+        String q = "select costo,ubicacion,unidadmedida from detalleentrada where claveproducto='"+clave+"' order by iddetalleentrada desc limit 1";
         //          SELECT nombreempleado, CONCAT( fecha,horaentrada) AS ingreso, CONCAT( fecha,horasalida) AS salida FROM `reporusuario` WHERE nombreempleado =  'jhafet' LIMIT 0 , 30
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
