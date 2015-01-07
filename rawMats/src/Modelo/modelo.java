@@ -711,6 +711,7 @@ public class modelo extends database{
     
     public ResultSet buscaClaveProducto(String parametro) {
         String q = "select claveproducto from inventario where clavePRODUCTO like '%"+parametro+"%' ;";
+        System.out.println(q);
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
