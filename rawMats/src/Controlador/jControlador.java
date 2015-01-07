@@ -816,10 +816,10 @@ public class jControlador implements ActionListener {
             public void keyReleased(java.awt.event.KeyEvent evt){
                 try {
                     String parametro = movimientos._claveProductoSalida.getText();
-                    ResultSet buscaClaveProducto = mimodelo.buscaClaveProducto(parametro);
+                    ResultSet buscaClaveProducto2 = mimodelo.buscaClaveProducto(parametro);
                     com_prodcutoSalida.removeAll();
-                    while(buscaClaveProducto.next()){
-                        com_prodcutoSalida.addItem(buscaClaveProducto.getString(1));
+                    while(buscaClaveProducto2.next()){
+                        com_prodcutoSalida.addItem(buscaClaveProducto2.getString(1));
                     }
                 } catch (SQLException ex) {
                     mensaje(3,ex.getMessage());
