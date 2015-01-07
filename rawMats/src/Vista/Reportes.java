@@ -44,6 +44,15 @@ public class Reportes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        __etqTotal = new javax.swing.JLabel();
+        __RInventario = new javax.swing.JButton();
+        __SALIR = new javax.swing.JButton();
+        __etqFecha = new javax.swing.JLabel();
+        __etqTotal1 = new javax.swing.JLabel();
+        __Maximo = new javax.swing.JButton();
+        __etqTotal2 = new javax.swing.JLabel();
+        __Stock = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         __Archivo = new javax.swing.JMenu();
         __menuAltaProducto = new javax.swing.JMenuItem();
@@ -64,6 +73,49 @@ public class Reportes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setIconImage(getIconImage());
+
+        jLabel2.setFont(new java.awt.Font("Papyrus", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 0));
+        jLabel2.setText("Reportes Generales del Almacén ");
+
+        __etqTotal.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
+        __etqTotal.setForeground(new java.awt.Color(255, 255, 255));
+        __etqTotal.setText("Generar Reporte de Inventario");
+
+        __RInventario.setText("Inventario");
+        __RInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __RInventarioActionPerformed(evt);
+            }
+        });
+
+        __SALIR.setText("Salir");
+
+        __etqFecha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        __etqFecha.setForeground(new java.awt.Color(255, 255, 255));
+        __etqFecha.setText("DD/MM/AAAA");
+
+        __etqTotal1.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
+        __etqTotal1.setForeground(new java.awt.Color(255, 255, 255));
+        __etqTotal1.setText("Pasados De Su Maximo");
+
+        __Maximo.setText("Maximo");
+        __Maximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __MaximoActionPerformed(evt);
+            }
+        });
+
+        __etqTotal2.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
+        __etqTotal2.setForeground(new java.awt.Color(255, 255, 255));
+        __etqTotal2.setText("En Stock");
+
+        __Stock.setText("Stock");
+        __Stock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __StockActionPerformed(evt);
+            }
+        });
 
         __Archivo.setText("Archivo");
 
@@ -166,11 +218,67 @@ public class Reportes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 770, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(760, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(__SALIR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(__etqFecha, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(309, 309, 309)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(__Maximo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(__etqTotal1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(__Stock, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(__etqTotal2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(__etqTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(66, 66, 66)
+                            .addComponent(__RInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(487, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(__etqFecha)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(__etqTotal1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(__Maximo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(__etqTotal2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(__Stock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
+                .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(12, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addGap(10, 10, 10)
+                    .addComponent(__etqTotal)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(__RInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(427, 427, 427)))
         );
 
         pack();
@@ -203,6 +311,18 @@ public class Reportes extends javax.swing.JFrame {
     private void __menuConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___menuConsultasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event___menuConsultasActionPerformed
+
+    private void __RInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___RInventarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___RInventarioActionPerformed
+
+    private void __MaximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___MaximoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___MaximoActionPerformed
+
+    private void __StockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___StockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___StockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,7 +362,15 @@ public class Reportes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenu __Archivo;
     public javax.swing.JMenu __Edicion;
+    public javax.swing.JButton __Maximo;
     public javax.swing.JMenuItem __MenuAbrirArchivo;
+    public javax.swing.JButton __RInventario;
+    public javax.swing.JButton __SALIR;
+    public javax.swing.JButton __Stock;
+    public javax.swing.JLabel __etqFecha;
+    public javax.swing.JLabel __etqTotal;
+    public javax.swing.JLabel __etqTotal1;
+    public javax.swing.JLabel __etqTotal2;
     public javax.swing.JMenuItem __menuAcerca;
     public javax.swing.JMenuItem __menuAltaProducto;
     public javax.swing.JMenuItem __menuAnterior;
@@ -256,6 +384,7 @@ public class Reportes extends javax.swing.JFrame {
     public javax.swing.JMenuItem __menuReporte;
     public javax.swing.JMenuItem __menuSalir;
     public javax.swing.JMenuItem __menucerrarsesiones;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }
