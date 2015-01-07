@@ -6,6 +6,10 @@
 
 package Vista;
 
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Rodrigo
@@ -17,6 +21,18 @@ public class Reportes extends javax.swing.JFrame {
      */
     public Reportes() {
         initComponents();
+        Fondo fondo = new Fondo();
+        this.setLocationRelativeTo(null);
+        Dimension size = this.getSize();
+        fondo.setSize(size);
+        add(fondo);
+    }
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("imagenes/logo.png"));
+
+
+        return retValue;
     }
 
     /**
@@ -46,7 +62,8 @@ public class Reportes extends javax.swing.JFrame {
         __menuAcerca = new javax.swing.JMenuItem();
         __menuBackup = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setIconImage(getIconImage());
 
         __Archivo.setText("Archivo");
 
@@ -233,8 +250,8 @@ public class Reportes extends javax.swing.JFrame {
     public javax.swing.JMenuItem __menuCambiarContraseña;
     public javax.swing.JMenuItem __menuCambiarFecha;
     public javax.swing.JMenuItem __menuCerrarSesion;
-    private javax.swing.JMenuItem __menuConsultas;
-    private javax.swing.JMenuItem __menuMovimientos;
+    public javax.swing.JMenuItem __menuConsultas;
+    public javax.swing.JMenuItem __menuMovimientos;
     public javax.swing.JMenuItem __menuNuevoUsuario;
     public javax.swing.JMenuItem __menuReporte;
     public javax.swing.JMenuItem __menuSalir;

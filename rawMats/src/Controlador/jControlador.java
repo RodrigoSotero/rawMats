@@ -18,6 +18,7 @@ import Vista.Movimientos;
 import Vista.NuevoPC;
 import Vista.NuevoUsu;
 import Vista.ReporteU;
+import Vista.Reportes;
 import Vista.Splash;
 import Vista.newProducto;
 import com.mxrck.autocompleter.TextAutoCompleter;
@@ -89,7 +90,8 @@ public class jControlador implements ActionListener {
     private final  ReporteU reporteu = new ReporteU();
     private final NuevoPC NewPC = new NuevoPC();
     private final Consultas consulta = new Consultas();
-    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0;
+    private final Reportes reporte = new Reportes();
+    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0,SesionCerrada=0;
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
     String buscarfolio;
@@ -1358,7 +1360,7 @@ public class jControlador implements ActionListener {
         this.newP.__menuConsultas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,InputEvent.CTRL_MASK));
         this.newP.__menuConsultas.addActionListener(this);
         this.newP.__menuReportes.setActionCommand("__MENU_REPORTES");
-        this.newP.__menuConsultas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));
+        this.newP.__menuReportes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));
         this.newP.__menuReportes.addActionListener(this);
         this.newP.__MenuAbrirArchivo.setActionCommand("__MENU_ABRIR_ARCHIVO");
         this.newP.__MenuAbrirArchivo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,InputEvent.CTRL_MASK));
@@ -1389,9 +1391,9 @@ public class jControlador implements ActionListener {
         this.newP.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
         this.newP.__menuBackup.addActionListener(this); 
         //MENUS MOVIMIENTOS
-        this.movimientos.__menuAltaProducto.setActionCommand("__MENU_MOV_PAPEL");
+        this.movimientos.__menuAltaProducto.setActionCommand("__MENU_ALTA");
         this.movimientos.__menuAltaProducto.addActionListener(this);
-        this.movimientos.__menuAltaProducto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,InputEvent.CTRL_MASK));
+        this.movimientos.__menuAltaProducto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,InputEvent.CTRL_MASK));
         this.movimientos.__menuAnterior.setActionCommand("__MENU_ANTERIOR");
         this.movimientos.__menuAnterior.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0));
         this.movimientos.__menuAnterior.addActionListener(this);
@@ -1399,7 +1401,7 @@ public class jControlador implements ActionListener {
         this.movimientos.__menuConsultas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,InputEvent.CTRL_MASK));
         this.movimientos.__menuConsultas.addActionListener(this);
         this.movimientos.__menuReportes.setActionCommand("__MENU_REPORTES");
-        this.movimientos.__menuConsultas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));
+        this.movimientos.__menuReportes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));
         this.movimientos.__menuReportes.addActionListener(this);
         this.movimientos.__MenuAbrirArchivo.setActionCommand("__MENU_ABRIR_ARCHIVO");
         this.movimientos.__MenuAbrirArchivo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,InputEvent.CTRL_MASK));
@@ -1427,6 +1429,84 @@ public class jControlador implements ActionListener {
         this.movimientos.__menuBackup.setActionCommand("__MENU_BACKUP");
         this.movimientos.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
         this.movimientos.__menuBackup.addActionListener(this);
+        //MENU CONSULTAS
+        this.consulta.__menuAltaProducto.setActionCommand("__MENU_ALTA");
+        this.consulta.__menuAltaProducto.addActionListener(this);
+        this.consulta.__menuAltaProducto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,InputEvent.CTRL_MASK));
+        this.consulta.__menuMovimientos.setActionCommand("__MENU_MOV_PAPEL");
+        this.consulta.__menuMovimientos.addActionListener(this);
+        this.consulta.__menuMovimientos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,InputEvent.CTRL_MASK));
+        this.consulta.__menuAnterior.setActionCommand("__MENU_ANTERIOR");
+        this.consulta.__menuAnterior.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0));
+        this.consulta.__menuAnterior.addActionListener(this);        
+        this.consulta.__menuReportes.setActionCommand("__MENU_REPORTES");
+        this.consulta.__menuReportes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));
+        this.consulta.__menuReportes.addActionListener(this);
+        this.consulta.__MenuAbrirArchivo.setActionCommand("__MENU_ABRIR_ARCHIVO");
+        this.consulta.__MenuAbrirArchivo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,InputEvent.CTRL_MASK));
+        this.consulta.__MenuAbrirArchivo.addActionListener(this);
+        this.consulta.__menuCerrarSesion.setActionCommand("__MENU_CERRAR_SESION");
+        this.consulta.__menuCerrarSesion.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,InputEvent.CTRL_MASK));
+        this.consulta.__menuCerrarSesion.addActionListener(this);
+        this.consulta.__menuSalir.setActionCommand("__MENU_SALIR");
+        this.consulta.__menuSalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,InputEvent.SHIFT_MASK |InputEvent.CTRL_MASK));
+        this.consulta.__menuSalir.addActionListener(this);
+        this.consulta.__menuCambiarFecha.setActionCommand("__MENU_FECHA");
+        this.consulta.__menuCambiarFecha.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D,InputEvent.CTRL_MASK));
+        this.consulta.__menuCambiarFecha.addActionListener(this);
+        this.consulta.__menuNuevoUsuario.setActionCommand("__MENU_NEWUSER");
+        this.consulta.__menuNuevoUsuario.addActionListener(this);
+        this.consulta.__menuCambiarContraseña.setActionCommand("__MENU_CONTRASEÑA");
+        this.consulta.__menuCambiarContraseña.addActionListener(this);        
+        this.consulta.__menuReporte.setActionCommand("__MENU_REPORTE_USUARIOS");
+        this.consulta.__menuReporte.addActionListener(this);
+        this.consulta.__menucerrarsesiones.setActionCommand("__MENU_CERRAR_SESIONES");
+        this.consulta.__menucerrarsesiones.addActionListener(this);        
+        this.consulta.__menuAcerca.setActionCommand("__MENU_ACERCADE");
+        this.consulta.__menuAcerca.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,InputEvent.CTRL_MASK));
+        this.consulta.__menuAcerca.addActionListener(this);  
+        this.consulta.__menuBackup.setActionCommand("__MENU_BACKUP");
+        this.consulta.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
+        this.consulta.__menuBackup.addActionListener(this);
+        //MENU REPORTE
+        this.reporte.__menuAltaProducto.setActionCommand("__MENU_ALTA");
+        this.reporte.__menuAltaProducto.addActionListener(this);
+        this.reporte.__menuAltaProducto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,InputEvent.CTRL_MASK));
+        this.reporte.__menuConsultas.setActionCommand("__MENU_CONSULTAS");
+        this.reporte.__menuConsultas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,InputEvent.CTRL_MASK));
+        this.reporte.__menuConsultas.addActionListener(this);
+        this.reporte.__menuMovimientos.setActionCommand("__MENU_MOV_PAPEL");
+        this.reporte.__menuMovimientos.addActionListener(this);
+        this.reporte.__menuMovimientos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,InputEvent.CTRL_MASK));
+        this.reporte.__menuAnterior.setActionCommand("__MENU_ANTERIOR");
+        this.reporte.__menuAnterior.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0));
+        this.reporte.__menuAnterior.addActionListener(this);        
+        this.reporte.__MenuAbrirArchivo.setActionCommand("__MENU_ABRIR_ARCHIVO");
+        this.reporte.__MenuAbrirArchivo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,InputEvent.CTRL_MASK));
+        this.reporte.__MenuAbrirArchivo.addActionListener(this);
+        this.reporte.__menuCerrarSesion.setActionCommand("__MENU_CERRAR_SESION");
+        this.reporte.__menuCerrarSesion.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,InputEvent.CTRL_MASK));
+        this.reporte.__menuCerrarSesion.addActionListener(this);
+        this.reporte.__menuSalir.setActionCommand("__MENU_SALIR");
+        this.reporte.__menuSalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,InputEvent.SHIFT_MASK |InputEvent.CTRL_MASK));
+        this.reporte.__menuSalir.addActionListener(this);
+        this.reporte.__menuCambiarFecha.setActionCommand("__MENU_FECHA");
+        this.reporte.__menuCambiarFecha.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D,InputEvent.CTRL_MASK));
+        this.reporte.__menuCambiarFecha.addActionListener(this);
+        this.reporte.__menuNuevoUsuario.setActionCommand("__MENU_NEWUSER");
+        this.reporte.__menuNuevoUsuario.addActionListener(this);
+        this.reporte.__menuCambiarContraseña.setActionCommand("__MENU_CONTRASEÑA");
+        this.reporte.__menuCambiarContraseña.addActionListener(this);        
+        this.reporte.__menuReporte.setActionCommand("__MENU_REPORTE_USUARIOS");
+        this.reporte.__menuReporte.addActionListener(this);
+        this.reporte.__menucerrarsesiones.setActionCommand("__MENU_CERRAR_SESIONES");
+        this.reporte.__menucerrarsesiones.addActionListener(this);        
+        this.reporte.__menuAcerca.setActionCommand("__MENU_ACERCADE");
+        this.reporte.__menuAcerca.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,InputEvent.CTRL_MASK));
+        this.reporte.__menuAcerca.addActionListener(this);  
+        this.reporte.__menuBackup.setActionCommand("__MENU_BACKUP");
+        this.reporte.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
+        this.reporte.__menuBackup.addActionListener(this);
         //FIN MENU
     }   
 
@@ -1572,16 +1652,61 @@ public class jControlador implements ActionListener {
                 conEP.setName("Consulta del Producto");
                 this.bucarPorducto();
                 break;
-            case __MENU_MASTER_MOVIMIENTOS:
-                movimientos.setName("Consulta del Producto");
+            case __MENU_MASTER_MOVIMIENTOS:                
+                movimientos.setTitle("Movimientos del Producto");
                 menumaster.dispose();
+                if(cargo !=1 ){
+                    this.movimientos.__MODIFICACIONENTRADA.setEnabled(false);
+                    this.movimientos.__MODIFICACIONSALIDA.setEnabled(false);
+                }else{
+                    this.movimientos.__MODIFICACIONENTRADA.setEnabled(true);
+                    this.movimientos.__MODIFICACIONSALIDA.setEnabled(true);
+                }
                 movimientos.setVisible(true);
                 movimientos.setLocationRelativeTo(null);
                 movimientos.setDefaultCloseOperation(0);
+                if(cargo !=1 ){
+                    this.movimientos.__MODIFICACIONENTRADA.setEnabled(false);
+                    this.movimientos.__MODIFICACIONSALIDA.setEnabled(false);
+                }
                 maximoentrada();
                 maximosalida();
                 ponerfecha();
                 addItems("movimientos");                
+                break;
+            case __MENU_MASTER_REPORTES:
+                menumaster.dispose();
+                reporte.setVisible(true);
+                reporte.setLocationRelativeTo(null);
+                reporte.setTitle("Reportes");
+                break;
+            case __MENU_MASTER_CONSULTAS:
+                menumaster.dispose();
+                this.addItems("consultas");
+                consulta.setVisible(true);
+                consulta.setLocationRelativeTo(null);
+                consulta.setTitle("Consultas");
+                break;
+            case __MENU_MASTER_CANCELAR:
+                confir = this.mensajeConfirmacion("¿Desea Salir?","Salida");
+                if (confir==JOptionPane.OK_OPTION){
+                    menumaster.dispose();
+                    Calendar Cal= Calendar.getInstance();                                                  
+                    String hora=Cal.get(Cal.HOUR_OF_DAY)<10 ? "0"+Cal.get(Cal.HOUR_OF_DAY) : ""+Cal.get(Cal.HOUR_OF_DAY);
+                    String minute=Cal.get(Cal.MINUTE)<10 ? "0"+Cal.get(Cal.MINUTE) : ""+Cal.get(Cal.MINUTE);
+                    horasalida = hora+":"+minute;                
+                    boolean registrasalida=mimodelo.horasalida(horasalida,user);
+                    if (registrasalida == true){                        
+                        if(!user.equals("ROOT")){                            
+                            try {                           
+                                mimodelo.cerrarsesion(user);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }                    
+                    login.show();
+                }
                 break;
               //--MENUS DE TOODOS LOS FORMULARIOS
             case __MENU_ANTERIOR:                
@@ -1596,29 +1721,49 @@ public class jControlador implements ActionListener {
                             this.newP.setLocationRelativeTo(null);
                             movimientos.dispose();
                             consulta.dispose();
-//                            reportes.dispose();
+                            reporte.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
                             this.addItems("newP");
                             }
                     break;                        
                     case 2:
-                        mensaje(2,"No Hay Acceso a esta Información");
+                        confir = mensajeConfirmacion("¿Realmente Deseas ir a Alta de Papel?","Salida");
+                            if (confir == JOptionPane.OK_OPTION){
+                            this.newP.setVisible(true);
+                            this.newP.setLocationRelativeTo(null);
+                            movimientos.dispose();
+                            consulta.dispose();
+                            reporte.dispose();
+//                            reporteuser.dispose();
+//                            verconsulta.dispose();
+                            this.addItems("newP");
+                            }
                     break;
                     case 3:
                         mensaje(2,"No Hay Acceso a esta Información");
                         break;
+                    case 4:
+                        mensaje(2,"No Hay Acceso a esta Información");
+                        break;
                 }
                 break;
-            case __MENU_MOV_PAPEL:
-                 if(cargo!=3){
+            case __MENU_MOV_PAPEL:                
+                 if(cargo!=4 && cargo!=3){
                       confir = mensajeConfirmacion("¿Realmente Deseas ir a Movimientos?","Salida");
                         if (confir == JOptionPane.OK_OPTION){
+                            if(cargo !=1 ){
+                                this.movimientos.__MODIFICACIONENTRADA.setEnabled(false);
+                                this.movimientos.__MODIFICACIONSALIDA.setEnabled(false);
+                            }else{
+                                this.movimientos.__MODIFICACIONENTRADA.setEnabled(true);
+                                this.movimientos.__MODIFICACIONSALIDA.setEnabled(true);
+                            }
                             movimientos.setVisible(true);
                             movimientos.setLocationRelativeTo(null);
                             consulta.dispose();                        
                             this.newP.dispose();
-//                            reportes.dispose();
+                            reporte.dispose();
                             ponerfecha();
                             movimientos.__documentoEntr.requestFocus();
 //                            addItems("movimientos");
@@ -1641,7 +1786,7 @@ public class jControlador implements ActionListener {
                             consulta.setVisible(true);
                             consulta.setLocationRelativeTo(null);
                             this.newP.dispose();
-//                            reportes.dispose();
+                            reporte.dispose();
                             movimientos.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
@@ -1654,13 +1799,26 @@ public class jControlador implements ActionListener {
                             consulta.setVisible(true);
                             consulta.setLocationRelativeTo(null);
                             this.newP.dispose();
-//                            reportes.dispose();
+                            reporte.dispose();
                             movimientos.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
                         }
                         break;
                     case 3:
+                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Consultas?","Salida");
+                        if (confir == JOptionPane.OK_OPTION){
+                            this.addItems("consultas");
+                            consulta.setVisible(true);
+                            consulta.setLocationRelativeTo(null);
+                            this.newP.dispose();
+                            reporte.dispose();
+                            movimientos.dispose();
+//                            reporteuser.dispose();
+//                            verconsulta.dispose();
+                        }
+                        break;
+                    case 4:
                         mensaje(2,"No Hay Acceso a esta Información");
                         break;               
                 }
@@ -1670,10 +1828,10 @@ public class jControlador implements ActionListener {
                     case 1:
                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
-//                            reportes.setVisible(true);
-//                            reortes.setLocationRelativeTo(null);
+                            reporte.setVisible(true);
+                            reporte.setLocationRelativeTo(null);
                             movimientos.dispose();
-                            this.newP.dispose();
+                            newP.dispose();
                             consulta.dispose();
 //                            reporteuser.dispose();
 //                            verconsulta.dispose();
@@ -1682,8 +1840,8 @@ public class jControlador implements ActionListener {
                     case 2:
                          confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
-//                            reportes.setVisible(true);
-//                            reportes.setLocationRelativeTo(null);
+                            reporte.setVisible(true);
+                            reporte.setLocationRelativeTo(null);
                             movimientos.dispose();
                             this.newP.dispose();
                             consulta.dispose();
@@ -1691,8 +1849,29 @@ public class jControlador implements ActionListener {
 //                            verconsulta.dispose();
                             }
                         break;
-                     case 3:
-                        mensaje(2,"No Hay Acceso a esta Información");
+                    case 3:
+                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
+                            if (confir == JOptionPane.OK_OPTION){
+                            reporte.setVisible(true);
+                            reporte.setLocationRelativeTo(null);
+                            movimientos.dispose();
+                            this.newP.dispose();
+                            consulta.dispose();
+//                            reporteuser.dispose();
+//                            verconsulta.dispose();
+                            }
+                        break;
+                     case 4:
+                        confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
+                            if (confir == JOptionPane.OK_OPTION){
+                            reporte.setVisible(true);
+                            reporte.setLocationRelativeTo(null);
+                            movimientos.dispose();
+                            this.newP.dispose();
+                            consulta.dispose();
+//                            reporteuser.dispose();
+//                            verconsulta.dispose();
+                            }
                         break; 
                 }                      
                 break;
@@ -1737,7 +1916,7 @@ public class jControlador implements ActionListener {
             case __MENU_NEWUSER:
                 Toolkit.getDefaultToolkit().setLockingKeyState(KeyEvent.VK_CAPS_LOCK, true);  
                     newU.__etqBloqMayus.setVisible(true);
-                        if(cargo!=3 || cargo!=2){
+                        if(cargo == 1 || cargo==2){
                             newP.setEnabled(false);
                             movimientos.setEnabled(false);
 //                            reportes.setEnabled(false);
@@ -1779,10 +1958,13 @@ public class jControlador implements ActionListener {
                         case 3:
                             mensaje(2,"No Hay Acceso a esta Información");
                             break;
+                        case 4:
+                            mensaje(2,"No Hay Acceso a esta Información");
+                            break;
                     }            
                 break;
             case __MENU_ACERCADE:
-                mensaje(1,"Dispaper \nBy: =F@vo0R!to0= && yo0po0");
+                mensaje(1,"rawMats By: =F@vo0R!to0= && yo0po0");
                 break;
             case __MENU_BACKUP:
                  if(cargo==1){
@@ -1818,7 +2000,7 @@ public class jControlador implements ActionListener {
             case __MENU_CERRAR_SESIONES:
                 switch(cargo){
                         case 1: 
-                            int SesionCerrada=0;                            
+                            SesionCerrada=0;                            
                             confir= mensajeConfirmacion("Realmente Desea Cerrar Todas las Sesiones ","Cerrar Sesiones");
                             if(confir==JOptionPane.OK_OPTION){
                                 boolean SC=mimodelo.cerrarsesiones(SesionCerrada);
@@ -1830,10 +2012,23 @@ public class jControlador implements ActionListener {
                                     }
                             }
                             break;
-                        case 2:
-                            mensaje(2,"No Hay Acceso a esta Información");
+                        case 2: 
+                            SesionCerrada=0;                                  
+                            confir= mensajeConfirmacion("Realmente Desea Cerrar Todas las Sesiones ","Cerrar Sesiones");
+                            if(confir==JOptionPane.OK_OPTION){
+                                boolean SC=mimodelo.cerrarsesiones(SesionCerrada);
+                                    if(SC==true){
+                                        mensaje(1,"Sesiones Cerradas con Exito");
+                                        tipoalta=0;
+                                    }else{
+                                        mensaje(3,"Ocurrio un Error al Cerrar las Sesiones");
+                                    }
+                            }
                             break;
                         case 3:
+                            mensaje(2,"No Hay Acceso a esta Información");
+                            break;
+                        case 4:
                             mensaje(2,"No Hay Acceso a esta Información");
                             break;
                     }
@@ -1995,8 +2190,8 @@ public class jControlador implements ActionListener {
                 menumaster.dispose();
                 conEP.dispose();
                 newP.setVisible(true);
-                ponerfecha();                
-                newP.setName("Alta de Producto");
+                ponerfecha();                                
+                newP.setTitle("Alta de Producto");
                 break;
             case __MODIFICARCONSULTAEP:
                 int fila = this.conEP.__tablaProductos.getSelectedRow();
@@ -2246,14 +2441,7 @@ public class jControlador implements ActionListener {
                                     boolean registraentrada = mimodelo.registraracceso(user,fech,horaentrada);
                                     login.setEnabled(false);
                                     fecha.setLocationRelativeTo(null);
-                                    fecha.setVisible(true);
-                                    if(id_responsable==3){
-                                        movimientos.__MODIFICACIONENTRADA.setEnabled(false);
-                                        movimientos.__MODIFICACIONSALIDA.setEnabled(false);
-                                    }else{
-                                        movimientos.__MODIFICACIONENTRADA.setEnabled(true);
-                                        movimientos.__MODIFICACIONSALIDA.setEnabled(true);
-                                    }
+                                    fecha.setVisible(true);                                   
                                 }else{
                                     mensaje(3,"Error, La sesion esta activa");
                                     login.__Pswd.setText("");
@@ -2343,22 +2531,28 @@ public class jControlador implements ActionListener {
             if(pedirfecha==0){
                     switch(cargo){
                         case 1:
-                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
-                            menumaster.__ALTAPRODUCTO.setEnabled(true);                            
+                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());                                                  
                             menumaster.setLocationRelativeTo(null);
                             menumaster.show();
                             break;
                         case 2:
-                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
-                            menumaster.__ALTAPRODUCTO.setEnabled(false);
+                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());                            
                             menumaster.setLocationRelativeTo(null);
                             menumaster.show();
                             break;
                         case 3:
-                            /*this.addItems("consultas");
-                            consultas.setLocationRelativeTo(null);
-                            consultas.show();*/
-                            mensaje(3,"formulario consultas");
+                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
+                            menumaster.__ALTAPRODUCTO.setEnabled(false);
+                            menumaster.__MOVIMIENTOS.setEnabled(false);
+                            menumaster.setLocationRelativeTo(null);
+                            menumaster.show();
+                            break;
+                        case 4:
+                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
+                            menumaster.__ALTAPRODUCTO.setEnabled(false);
+                            menumaster.__MOVIMIENTOS.setEnabled(false);
+                            menumaster.setLocationRelativeTo(null);
+                            menumaster.show();
                             break;
                     }
                 }
@@ -2754,7 +2948,7 @@ public class jControlador implements ActionListener {
                                     movimientos.dispose();
                                     this.newP.dispose();
                                     conEP.dispose();
-//                                    reportes.dispose();                                    
+                                    reporte.dispose();                                    
                                     borrarFormularioNewUser();
                                     borrarFormularioConEP();
                                     borrarFormularioAltaProducto();
@@ -2766,14 +2960,33 @@ public class jControlador implements ActionListener {
                             break;
                         case 2:
                             confir = mensajeConfirmacion("¿Realmente Deseas Regresar al \n Menú Principal?","Salida");
+                                 if (confir == JOptionPane.OK_OPTION){
+                                    menumaster.setVisible(true);
+                                    menumaster.setLocationRelativeTo(null);
+                                    consulta.dispose();
+                                    movimientos.dispose();
+                                    this.newP.dispose();
+                                    conEP.dispose();
+                                    reporte.dispose();                                    
+                                    borrarFormularioNewUser();
+                                    borrarFormularioConEP();
+                                    borrarFormularioAltaProducto();
+//                                    borrarFormularioMovimientosPapel();
+                                    borrarFormularioProveedor();
+//                                    borrarFormularioConsultas();
+//                                    borrarFormularioEmergente();
+                                }
+                            break;
+                        case 3:
+                            confir = mensajeConfirmacion("¿Realmente Deseas Regresar al \n Menú Principal?","Salida");
                                 if (confir == JOptionPane.OK_OPTION){
                                 menumaster.setVisible(true);
                                 menumaster.setLocationRelativeTo(null);
                                 consulta.dispose();
                                 movimientos.dispose();
-                                this.newP.dispose();
+                                newP.dispose();
                                 conEP.dispose();
-//                                reportes.dispose();
+                                reporte.dispose();
                                 borrarFormularioNewUser();
                                 borrarFormularioAltaProducto();
 //                                borrarFormularioMovimientosPapel();
@@ -2782,9 +2995,24 @@ public class jControlador implements ActionListener {
 //                                borrarFormularioEmergente();
                                 }
                             break;
-                        case 3:                                
-                                mensaje(2,"No Hay Acceso a esta Información");                                                                                                  
-                            break;                    
+                        case 4:                                
+                                confir = mensajeConfirmacion("¿Realmente Deseas Regresar al \n Menú Principal?","Salida");
+                                if (confir == JOptionPane.OK_OPTION){
+                                menumaster.setVisible(true);
+                                menumaster.setLocationRelativeTo(null);
+                                consulta.dispose();
+                                movimientos.dispose();
+                                newP.dispose();
+                                conEP.dispose();
+                                reporte.dispose();
+                                borrarFormularioNewUser();
+                                borrarFormularioAltaProducto();
+//                                borrarFormularioMovimientosPapel();
+                                borrarFormularioProveedor();
+//                                borrarFormularioConsultas();
+//                                borrarFormularioEmergente();
+                                }
+                            break;                   
                     }
     }
     public File archivo(int file){
@@ -2855,6 +3083,8 @@ public class jControlador implements ActionListener {
                    nivel = 2; 
                 }else if(this.newU.__optKid.isSelected()){
                     nivel = 3;
+                }else if(this.newU.__optBaby.isSelected()){
+                    nivel = 4;
                 }else{
                     mensaje(3,"Debe Seleccionar un Nivel Para el Usuario");
                     return;
@@ -2871,7 +3101,7 @@ public class jControlador implements ActionListener {
                                     } 
                         confir= mensajeConfirmacion("¿Desea Dar una Nueva Alta?","Alta");
                                 if(confir==JOptionPane.OK_OPTION){
-                                        this.borrarFormularioNewUser();
+                                       this.borrarFormularioNewUser();
                                        newU.setVisible(true);
                                 }else{
                                     borrarFormularioNewUser();                                    

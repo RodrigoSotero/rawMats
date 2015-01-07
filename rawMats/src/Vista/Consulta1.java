@@ -55,6 +55,7 @@ public class Consulta1 extends javax.swing.JFrame {
         __MODIFICAR = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel2.setFont(new java.awt.Font("Papyrus", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 0));

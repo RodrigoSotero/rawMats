@@ -68,6 +68,7 @@ public class NuevoUsu extends javax.swing.JFrame {
         __optInactivo = new javax.swing.JRadioButton();
         __CANCELAR = new javax.swing.JButton();
         __etqBloqMayus = new javax.swing.JLabel();
+        __optBaby = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
@@ -167,6 +168,11 @@ public class NuevoUsu extends javax.swing.JFrame {
         __etqBloqMayus.setForeground(new java.awt.Color(255, 255, 0));
         __etqBloqMayus.setText("Bloq. Mayús Activo");
 
+        __optBaby.setBackground(new java.awt.Color(0, 0, 0));
+        __grpNivelUser.add(__optBaby);
+        __optBaby.setForeground(new java.awt.Color(255, 255, 255));
+        __optBaby.setText("Baby");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -224,11 +230,12 @@ public class NuevoUsu extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(42, 42, 42)
                                                 .addComponent(__optMaster)
-                                                .addGap(66, 66, 66)
+                                                .addGap(28, 28, 28)
                                                 .addComponent(__optJunior)
-                                                .addGap(68, 68, 68)
+                                                .addGap(31, 31, 31)
                                                 .addComponent(__optKid)
-                                                .addGap(18, 18, 18))
+                                                .addGap(52, 52, 52)
+                                                .addComponent(__optBaby))
                                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
@@ -277,7 +284,8 @@ public class NuevoUsu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(__optKid)
                     .addComponent(__optJunior)
-                    .addComponent(__optMaster))
+                    .addComponent(__optMaster)
+                    .addComponent(__optBaby))
                 .addGap(18, 18, 18)
                 .addComponent(__etqBloqMayus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
@@ -352,6 +360,7 @@ public class NuevoUsu extends javax.swing.JFrame {
     public javax.swing.ButtonGroup __grpNivelUser;
     public javax.swing.JTextField __nombreUser;
     public javax.swing.JRadioButton __optActivo;
+    public javax.swing.JRadioButton __optBaby;
     public javax.swing.JRadioButton __optInactivo;
     public javax.swing.JRadioButton __optJunior;
     public javax.swing.JRadioButton __optKid;
