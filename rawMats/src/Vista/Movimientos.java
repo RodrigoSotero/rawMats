@@ -26,6 +26,7 @@ public class Movimientos extends javax.swing.JFrame {
         _descripcionProducto = new javax.swing.JTextField();
         __claveProductoSalida = new javax.swing.JTextField();
         __descripcionProductoSalida = new javax.swing.JTextField();
+        this.setResizable(false);
         initComponents();
         _UnidadMedida.addItem("Pz");
         _UnidadMedida.addItem("Lts");
