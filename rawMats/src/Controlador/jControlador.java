@@ -317,7 +317,11 @@ public class jControlador implements ActionListener {
             public void keyTyped(KeyEvent e) {
                 KeyTipedLetrasNumCar(e);
             }
-            public void keyPressed(KeyEvent e) {}
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_TAB){
+                    newP.__SMin_.requestFocus();
+                } 
+            }
             public void keyReleased(KeyEvent e) {}
         });
         this.newP.__SMax_.addKeyListener(new java.awt.event.KeyListener() {
@@ -696,8 +700,8 @@ public class jControlador implements ActionListener {
         final TextAutoCompleter prodSalida = new TextAutoCompleter(movimientos.__claveProductoSalida);
         prodSalida.setMode(0);
         
-        /*com_descripcionSalida= new TextAutoCompleter(movimientos._descripcionProductoSalida);
-        com_descripcion.setMode(0);//infijo */
+        final TextAutoCompleter descSalida = new TextAutoCompleter(movimientos.__descripcionProductoSalida);
+        descSalida.setMode(0);//infijo 
         
         this.movimientos.__claveProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -799,6 +803,51 @@ public class jControlador implements ActionListener {
                 
             }
         });  
+        
+        this.movimientos.__descripcionProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                    try {
+                        
+                        String parametro = movimientos.__descripcionProductoSalida.getText();
+                        System.out.print(parametro);
+                        ResultSet prod = mimodelo.buscarProductoByDescripcion(parametro);
+                        int fila =movimientos.__tablaSalida.getSelectedRow();
+                        while(prod.next()){
+                            movimientos.__tablaSalida.setValueAt(prod.getString("clave"), fila, 0);
+                            ResultSet costo = mimodelo.ultimocosto(prod.getString("clave"));
+                            while(costo.next()){
+                                movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
+                                movimientos.__tablaSalida.setValueAt(costo.getString("ubicacion"), fila, 2);
+                                movimientos.__tablaSalida.setValueAt(costo.getString("unidadmedida"), fila, 4);
+                            }
+                        }
+                        
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+                try {
+                    String parametro = movimientos.__descripcionProductoSalida.getText();
+                    ResultSet buscaDescripcionProducto = mimodelo.buscaDescripcionProducto(parametro);
+                    descSalida.removeAll();
+                    while(buscaDescripcionProducto.next()){
+                        descSalida.addItem(buscaDescripcionProducto.getString(1));
+                        
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+            }
+        });
+        
         
         this.movimientos._descripcionProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -2498,7 +2547,7 @@ public class jControlador implements ActionListener {
     private void KeyTipedLetrasNumCar(KeyEvent evt) {
         mayusculas();
         char caracter = evt.getKeyChar();
-        if(((caracter < 'A') || (caracter > 'Z'))  && ((caracter < '0') || (caracter > '9')) && caracter != '-' && caracter != ',' && caracter != '/'  && caracter != ' ' && caracter != '.' && caracter != 'Ñ' ){
+        if(((caracter < 'A') || (caracter > 'Z'))  && ((caracter < '0') || (caracter > '9')) && caracter != '-' && caracter != ',' && caracter != '/'  && caracter != ' ' && caracter != '.' && caracter != 'Ñ' && caracter != '('&& caracter != ')' ){
             evt.consume();
         }
     }
