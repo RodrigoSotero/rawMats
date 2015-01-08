@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="800" pageHeight="595" orientation="Landscape" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="472c8a9f-2450-49a6-8dae-06879dd8d436">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.6105100000000014"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -15,41 +15,49 @@
 	</style>
 	<queryString>
 		<![CDATA[SELECT
-     vw_infoproducto.`idinventario` AS vw_infoproducto_idinventario,
-     vw_infoproducto.`claveProducto` AS vw_infoproducto_claveProducto,
-     vw_infoproducto.`cantidad` AS vw_infoproducto_cantidad,
-     vw_infoproducto.`costopromedio` AS vw_infoproducto_costopromedio,
-     vw_infoproducto.`ubicacion` AS vw_infoproducto_ubicacion,
-     vw_infoproducto.`area` AS vw_infoproducto_area,
-     vw_infoproducto.`maquina` AS vw_infoproducto_maquina,
-     vw_infoproducto.`descripcionProducto` AS vw_infoproducto_descripcionProducto,
-     vw_infoproducto.`max` AS vw_infoproducto_max,
-     vw_infoproducto.`min` AS vw_infoproducto_min,
-     vw_infoproducto.`cantidad` * vw_infoproducto.`costopromedio` AS total
-FROM `vw_infoproducto` vw_infoproducto
-WHERE vw_infoproducto.`cantidad`>vw_infoproducto.`max`
-ORDER BY vw_infoproducto.`claveProducto` ASC,
-         vw_infoproducto.`descripcionProducto` ASC]]>
+     vw_infosalida.`id_salida` AS vw_infosalida_id_salida,
+     vw_infosalida.`folio` AS vw_infosalida_folio,
+     vw_infosalida.`documento_Sa` AS vw_infosalida_documento_Sa,
+     vw_infosalida.`tipo_salida` AS vw_infosalida_tipo_salida,
+     vw_infosalida.`area` AS vw_infosalida_area,
+     vw_infosalida.`responsable` AS vw_infosalida_responsable,
+     vw_infosalida.`turno` AS vw_infosalida_turno,
+     vw_infosalida.`observaciones` AS vw_infosalida_observaciones,
+     vw_infosalida.`fecha` AS vw_infosalida_fecha,
+     vw_infosalida.`claveproducto` AS vw_infosalida_claveproducto,
+     vw_infosalida.`descripcion` AS vw_infosalida_descripcion,
+     vw_infosalida.`ubicacion` AS vw_infosalida_ubicacion,
+     vw_infosalida.`cantidad` AS vw_infosalida_cantidad,
+     vw_infosalida.`unidadMedida` AS vw_infosalida_unidadMedida,
+     vw_infosalida.`costo` AS vw_infosalida_costo,
+     vw_infosalida.`totalcosto` AS vw_infosalida_totalcosto
+FROM
+     `vw_infosalida` vw_infosalida]]>
 	</queryString>
-	<field name="vw_infoproducto_idinventario" class="java.lang.Integer"/>
-	<field name="vw_infoproducto_claveProducto" class="java.lang.String"/>
-	<field name="vw_infoproducto_cantidad" class="java.lang.Integer"/>
-	<field name="vw_infoproducto_costopromedio" class="java.lang.Double"/>
-	<field name="vw_infoproducto_ubicacion" class="java.lang.String"/>
-	<field name="vw_infoproducto_area" class="java.lang.String"/>
-	<field name="vw_infoproducto_maquina" class="java.lang.String"/>
-	<field name="vw_infoproducto_descripcionProducto" class="java.lang.String"/>
-	<field name="vw_infoproducto_max" class="java.lang.Integer"/>
-	<field name="vw_infoproducto_min" class="java.lang.Integer"/>
-	<field name="total" class="java.lang.Double"/>
+	<field name="vw_infosalida_id_salida" class="java.lang.Long"/>
+	<field name="vw_infosalida_folio" class="java.lang.String"/>
+	<field name="vw_infosalida_documento_Sa" class="java.lang.String"/>
+	<field name="vw_infosalida_tipo_salida" class="java.lang.String"/>
+	<field name="vw_infosalida_area" class="java.lang.String"/>
+	<field name="vw_infosalida_responsable" class="java.lang.String"/>
+	<field name="vw_infosalida_turno" class="java.lang.String"/>
+	<field name="vw_infosalida_observaciones" class="java.lang.String"/>
+	<field name="vw_infosalida_fecha" class="java.sql.Date"/>
+	<field name="vw_infosalida_claveproducto" class="java.lang.String"/>
+	<field name="vw_infosalida_descripcion" class="java.lang.String"/>
+	<field name="vw_infosalida_ubicacion" class="java.lang.String"/>
+	<field name="vw_infosalida_cantidad" class="java.lang.Integer"/>
+	<field name="vw_infosalida_unidadMedida" class="java.lang.String"/>
+	<field name="vw_infosalida_costo" class="java.math.BigDecimal"/>
+	<field name="vw_infosalida_totalcosto" class="java.math.BigDecimal"/>
 	<variable name="cantidad" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[$F{vw_infoproducto_cantidad}]]></variableExpression>
+		<variableExpression><![CDATA[$F{vw_infosalida_cantidad}]]></variableExpression>
 	</variable>
 	<variable name="costo" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{vw_infoproducto_costopromedio}]]></variableExpression>
+		<variableExpression><![CDATA[$F{vw_infosalida_costo}]]></variableExpression>
 	</variable>
 	<variable name="total" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<variableExpression><![CDATA[$F{vw_infosalida_totalcosto}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -64,7 +72,7 @@ ORDER BY vw_infoproducto.`claveProducto` ASC,
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Inventario]]></text>
+					<text><![CDATA[Salidas]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="6a198eb7-c7cb-4152-b6ee-19aa54383fa9" style="SubTitle" x="358" y="37" width="309" height="29" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -110,74 +118,88 @@ ORDER BY vw_infoproducto.`claveProducto` ASC,
 	<columnHeader>
 		<band height="32" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="0ecd264c-fde6-4746-b2a2-201bad5deebe" style="Column header" x="2" y="0" width="119" height="32" forecolor="#000000"/>
+				<reportElement uuid="0ecd264c-fde6-4746-b2a2-201bad5deebe" style="Column header" x="0" y="0" width="43" height="32" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d458e3e1-da69-44db-9ef5-684e2fbdb349" style="Column header" x="43" y="0" width="43" height="32" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turno(s)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="19482571-a322-4347-ac7e-f74ccbbbe82e" x="139" y="0" width="79" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Clave de Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d458e3e1-da69-44db-9ef5-684e2fbdb349" style="Column header" x="121" y="0" width="149" height="32" forecolor="#000000"/>
+				<reportElement uuid="d458e3e1-da69-44db-9ef5-684e2fbdb349" style="Column header" x="218" y="0" width="112" height="32" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Descripción]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="19482571-a322-4347-ac7e-f74ccbbbe82e" x="270" y="0" width="50" height="32"/>
+				<reportElement uuid="6ca2ef93-b075-4c07-bb5f-8974b2758343" style="Column header" x="330" y="0" width="58" height="32" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Ubicación]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d458e3e1-da69-44db-9ef5-684e2fbdb349" style="Column header" x="320" y="0" width="85" height="32" forecolor="#000000"/>
+				<reportElement uuid="37c73103-b755-4ea1-807e-2f86325aa507" style="Column header" x="388" y="0" width="70" height="32" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Area]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6ca2ef93-b075-4c07-bb5f-8974b2758343" style="Column header" x="405" y="0" width="66" height="32" forecolor="#000000"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Maquina]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="37c73103-b755-4ea1-807e-2f86325aa507" style="Column header" x="472" y="0" width="49" height="32" forecolor="#000000"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Maximo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="5aafe76d-1647-435a-89ba-07005a8b1c71" style="Column header" x="521" y="0" width="52" height="32" forecolor="#000000"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Minimo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="e131aba1-5063-4366-8de4-1fee351cd26d" style="Column header" x="699" y="0" width="61" height="32" forecolor="#000000"/>
+				<reportElement uuid="e131aba1-5063-4366-8de4-1fee351cd26d" style="Column header" x="607" y="0" width="61" height="32" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="aaaf9fb1-c210-4863-b6b3-e24649c144fb" style="Column header" x="572" y="0" width="60" height="32" forecolor="#000000"/>
+				<reportElement uuid="aaaf9fb1-c210-4863-b6b3-e24649c144fb" style="Column header" x="458" y="0" width="40" height="32" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cantidad]]></text>
+				<text><![CDATA[Can-tidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d458e3e1-da69-44db-9ef5-684e2fbdb349" style="Column header" x="632" y="0" width="67" height="32" forecolor="#000000"/>
+				<reportElement uuid="d458e3e1-da69-44db-9ef5-684e2fbdb349" style="Column header" x="553" y="0" width="54" height="32" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Costo Promedio]]></text>
+				<text><![CDATA[Costo ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d458e3e1-da69-44db-9ef5-684e2fbdb349" style="Column header" x="86" y="0" width="53" height="32" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Folio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e131aba1-5063-4366-8de4-1fee351cd26d" style="Column header" x="668" y="0" width="92" height="32" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5aafe76d-1647-435a-89ba-07005a8b1c71" style="Column header" x="498" y="0" width="55" height="32" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad de Medida]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -186,78 +208,92 @@ ORDER BY vw_infoproducto.`claveProducto` ASC,
 			<frame>
 				<reportElement uuid="3a88558b-31f1-4f50-9126-5e3989311a37" style="Row" mode="Opaque" x="0" y="0" width="760" height="18"/>
 				<textField isStretchWithOverflow="true" pattern="#,##0.000">
-					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="699" y="0" width="61" height="18"/>
+					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="607" y="0" width="61" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_totalcosto}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="1ff22870-e103-4f22-9f01-708e9665205d" style="Detail" positionType="Float" x="471" y="0" width="50" height="18"/>
+					<reportElement uuid="1ff22870-e103-4f22-9f01-708e9665205d" style="Detail" positionType="Float" x="387" y="0" width="71" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_max}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_area}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="320" y="0" width="85" height="18"/>
+					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="218" y="0" width="112" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_area}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_descripcion}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement uuid="a71ceb75-b645-4d2f-89ed-424471b88131" style="Detail" positionType="Float" x="572" y="0" width="60" height="18"/>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00">
+					<reportElement uuid="a71ceb75-b645-4d2f-89ed-424471b88131" style="Detail" positionType="Float" x="458" y="0" width="40" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_cantidad}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_cantidad}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement uuid="e4fb2237-e9cf-4d0c-85a5-fd9429ae9b3d" style="Detail" positionType="Float" x="1" y="0" width="120" height="18"/>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement uuid="e4fb2237-e9cf-4d0c-85a5-fd9429ae9b3d" style="Detail" positionType="Float" x="0" y="0" width="43" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_claveProducto}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_fecha}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="73b23dc8-8565-41c6-967e-42df813fa482" x="270" y="0" width="50" height="18"/>
+					<reportElement uuid="73b23dc8-8565-41c6-967e-42df813fa482" x="139" y="0" width="79" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_ubicacion}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_claveproducto}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="88485793-7b08-4a19-8383-560fdc473884" style="Detail" positionType="Float" x="121" y="0" width="149" height="18"/>
+					<reportElement uuid="88485793-7b08-4a19-8383-560fdc473884" style="Detail" positionType="Float" x="43" y="0" width="43" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_descripcionProducto}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_turno}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="405" y="0" width="66" height="18"/>
+					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="330" y="0" width="58" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_maquina}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement uuid="304b10b3-f083-4654-859d-64cfbb4997a2" style="Detail" positionType="Float" x="521" y="0" width="52" height="18"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_min}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_ubicacion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.000">
-					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="632" y="0" width="67" height="18"/>
+					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="553" y="0" width="54" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_costopromedio}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_costo}]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement uuid="89c716d2-b33c-49af-9718-01b7d06d610d" x="1" y="0" width="759" height="1" forecolor="#CCCCCC"/>
 				</line>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="88485793-7b08-4a19-8383-560fdc473884" style="Detail" positionType="Float" x="86" y="0" width="53" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_folio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.000">
+					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="668" y="0" width="92" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_observaciones}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="304b10b3-f083-4654-859d-64cfbb4997a2" style="Detail" positionType="Float" x="498" y="0" width="55" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vw_infosalida_unidadMedida}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</detail>
@@ -270,28 +306,28 @@ ORDER BY vw_infoproducto.`claveProducto` ASC,
 				</graphicElement>
 			</line>
 			<textField pattern="#,##0.0000">
-				<reportElement uuid="d2189f31-7279-4c66-a2c9-859bd34cbab6" x="632" y="3" width="67" height="20"/>
+				<reportElement uuid="d2189f31-7279-4c66-a2c9-859bd34cbab6" x="553" y="3" width="54" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{costo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="8524dc75-4db0-4ec8-acc9-15c7dabcea88" x="377" y="3" width="195" height="20"/>
+				<reportElement uuid="8524dc75-4db0-4ec8-acc9-15c7dabcea88" x="263" y="3" width="195" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTALES-------------------------------]]></text>
 			</staticText>
 			<textField pattern="#,##0.0000">
-				<reportElement uuid="cf7648f5-190c-4fd2-9fb4-f10e49f2c6ca" x="699" y="3" width="61" height="20"/>
+				<reportElement uuid="cf7648f5-190c-4fd2-9fb4-f10e49f2c6ca" x="607" y="3" width="61" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.0">
-				<reportElement uuid="eb3716ee-1474-40b1-a860-b2de1d07674b" x="572" y="3" width="60" height="20"/>
+				<reportElement uuid="eb3716ee-1474-40b1-a860-b2de1d07674b" x="458" y="3" width="40" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>

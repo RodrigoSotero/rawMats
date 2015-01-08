@@ -71,7 +71,7 @@ ORDER BY vw_infoproducto.`claveProducto` ASC,
 					<textElement textAlignment="Right">
 						<font size="22" isBold="false"/>
 					</textElement>
-					<text><![CDATA[rawMats]]></text>
+					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="3816ff8d-60d2-4fe2-9c52-ba7355581d53" x="261" y="20" width="218" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -88,11 +88,11 @@ ORDER BY vw_infoproducto.`claveProducto` ASC,
 					<text><![CDATA[***GRUPO CORME***]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="e0fc8e13-8fdf-4e43-8541-3c82fd79f4a5" x="262" y="40" width="217" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="e0fc8e13-8fdf-4e43-8541-3c82fd79f4a5" x="239" y="40" width="253" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Times New Roman" isBold="true"/>
 					</textElement>
-					<text><![CDATA[-   Departamento de Administracion de Papel   -]]></text>
+					<text><![CDATA[-   Departamento de Administración de Materias Primas   -]]></text>
 				</staticText>
 			</frame>
 			<frame>
