@@ -3205,8 +3205,8 @@ public class jControlador implements ActionListener {
         this.newP.__cmbMaquina.removeAllItems();
         this.newP.__cmbMaquina.addItem("Selecciona...");        
         this.newP.__descripcion.setText("");
-        this.newP.__SMin_.setText("");
-        this.newP.__SMax_.setText("");
+        //this.newP.__SMin_.setText("");
+        //this.newP.__SMax_.setText("");
         this.newP.__etqClave.setText("");
         this.addItems("newP");
     }
