@@ -6,10 +6,13 @@
 
 package Modelo;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -1037,6 +1040,33 @@ public class modelo extends database{
         }catch(SQLException e){
             System.err.println(e.getMessage()+" ALTA SALIDA");
             return false;
+        }
+    }
+
+    public void abrirReporte(String report,HashMap map){
+        try{
+            String in ="C:/rawMats/Reportes/"+report;
+            JasperReport archivo = JasperCompileManager.compileReport(in);
+            JasperPrint jasperPrint= JasperFillManager.fillReport(archivo,map,this.getConexion());
+            java.util.List<JRPrintPage> pages = jasperPrint.getPages();
+            if(pages.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Sin paginas, el reporte no se ha creado...");
+                return;
+            }
+            JasperViewer jviewer= new JasperViewer(jasperPrint,false);
+            jviewer.setTitle("Reportes de rawMats");
+            jviewer.setVisible(true);
+            Dimension screenSize = jviewer.getToolkit().getScreenSize();
+            jviewer.setSize(screenSize.width-40, screenSize.height-40);
+            jviewer.setIconImage(Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("imagenes/logo.png")));
+            jviewer.setLocationRelativeTo(null);
+            /*JasperExportManager.exportReportToPdfFile(jasperPrint, "C://IEXSA//"+report+".pdf");
+            File f = new File("C://IEXSA//"+report+".pdf");
+                        Desktop.getDesktop().open(f);*/
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
 }

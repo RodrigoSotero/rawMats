@@ -1535,6 +1535,15 @@ public class jControlador implements ActionListener {
         this.reporte.__menuBackup.setActionCommand("__MENU_BACKUP");
         this.reporte.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
         this.reporte.__menuBackup.addActionListener(this);
+        this.reporte.__RInventario.setActionCommand("__INVENTARIO");
+        this.reporte.__RInventario.setMnemonic('I');
+        this.reporte.__RInventario.addActionListener(this);
+        this.reporte.__Salida.setActionCommand("__SALIDA");
+        this.reporte.__Salida.setMnemonic('S');
+        this.reporte.__Salida.addActionListener(this); 
+        this.reporte.__Entrada.setActionCommand("__ENTRADA");
+        this.reporte.__Entrada.setMnemonic('E');
+        this.reporte.__Entrada.addActionListener(this);                         
         //FIN MENU
     }   
 
@@ -1636,7 +1645,11 @@ public class jControlador implements ActionListener {
         __ACEPTAR_ENTRADA,                             
         __MODIFICACION_ENTRADA,                
         __ACEPTAR_SALIDA,                
-        __MODIFICACION_SALIDA                
+        __MODIFICACION_SALIDA,
+        //REPORTES
+        __INVENTARIO,
+        __SALIDA,
+        __ENTRADA
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -2168,7 +2181,7 @@ public class jControlador implements ActionListener {
             case __CANCELARPASSWORD:
                 newP.setEnabled(true);
                 movimientos.setEnabled(true);
-//                reportes.setEnabled(true);
+                reporte.setEnabled(true);
                 consulta.setEnabled(true);
                 pass.__Pswd.setText("");
                 pass.__NewPswd1.setText("");
@@ -2187,7 +2200,7 @@ public class jControlador implements ActionListener {
                     limpiarTabla(reporteu.__tablaReporteUsuario);
                     newP.setEnabled(true);
                     movimientos.setEnabled(true);
-//                    reportes.setEnabled(true);
+                    reporte.setEnabled(true);
                     consulta.setEnabled(true);
                     reporteu.setVisible(false);
                 }else{
@@ -2417,6 +2430,16 @@ public class jControlador implements ActionListener {
             case __MODIFICACION_SALIDA:
                 SalidaAceptarModificar();
                 break;
+            case __INVENTARIO:
+                this.mimodelo.abrirReporte("inventario.jrxml",new HashMap());
+                break;              
+            case __SALIDA:
+                this.mimodelo.abrirReporte("Salidas.jrxml",new HashMap());
+                break;        
+            case __ENTRADA:
+                this.mimodelo.abrirReporte("entrada.jrxml",new HashMap());
+                break;
+        
 
         }
     }
@@ -2590,7 +2613,7 @@ public class jControlador implements ActionListener {
                 login.setEnabled(true);
                 newP.setEnabled(true);                   
                 movimientos.setEnabled(true);                
-//                reportes.setEnabled(true);                    
+                reporte.setEnabled(true);                    
                 consulta.setEnabled(true);
                 fecha.dispose();
             }
@@ -3135,7 +3158,7 @@ public class jControlador implements ActionListener {
                                     borrarFormularioNewUser();                                    
                                     movimientos.setEnabled(true);
                                     newP.setEnabled(true);                   
-                                    //reportes.setEnabled(true);                    
+                                    reporte.setEnabled(true);                    
                                     consulta.setEnabled(true);
                                     newU.setVisible(false);
                                 } 
@@ -3155,7 +3178,7 @@ public class jControlador implements ActionListener {
                                     borrarFormularioNewUser();                                    
                                     movimientos.setEnabled(true);
                                     newP.setEnabled(true);                   
-                                    //reportes.setEnabled(true);                    
+                                    reporte.setEnabled(true);                    
                                     consulta.setEnabled(true);
                                     newU.setVisible(true);
                                 }
@@ -3168,7 +3191,7 @@ public class jControlador implements ActionListener {
                     borrarFormularioNewUser();
                     movimientos.setEnabled(true);
                     newP.setEnabled(true);                   
-                    //reportes.setEnabled(true);                    
+                    reporte.setEnabled(true);                    
                     consulta.setEnabled(true);
                      newU.setVisible(false); 
                      return;
@@ -3180,7 +3203,7 @@ public class jControlador implements ActionListener {
                         borrarFormularioNewUser();
                         newP.setEnabled(true);
                         movimientos.setEnabled(true);
-                        //reportes.setEnabled(true);                    
+                        reporte.setEnabled(true);                    
                         consulta.setEnabled(true);
                         newU.setVisible(false);
                     }
@@ -3191,7 +3214,7 @@ public class jControlador implements ActionListener {
                         borrarFormularioNewUser();
                         newP.setEnabled(true);
                         movimientos.setEnabled(true);
-                        //reportes.setEnabled(true);                    
+                        reporte.setEnabled(true);                    
                         consulta.setEnabled(true);
                         newU.setVisible(false);
                     }
@@ -3258,7 +3281,7 @@ public class jControlador implements ActionListener {
                                 pass.__NewPswd.setText("");                                
                                 newP.setEnabled(true);
                                 movimientos.setEnabled(true);
-                                //reportes.setEnabled(true);
+                                reporte.setEnabled(true);
                                 consulta.setEnabled(true);
                                 return;
                             }

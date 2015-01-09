@@ -50,9 +50,9 @@ public class Reportes extends javax.swing.JFrame {
         __SALIR = new javax.swing.JButton();
         __etqFecha = new javax.swing.JLabel();
         __etqTotal1 = new javax.swing.JLabel();
-        __Maximo = new javax.swing.JButton();
+        __Entrada = new javax.swing.JButton();
         __etqTotal2 = new javax.swing.JLabel();
-        __Stock = new javax.swing.JButton();
+        __Salida = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         __Archivo = new javax.swing.JMenu();
         __menuAltaProducto = new javax.swing.JMenuItem();
@@ -97,23 +97,23 @@ public class Reportes extends javax.swing.JFrame {
 
         __etqTotal1.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __etqTotal1.setForeground(new java.awt.Color(255, 255, 255));
-        __etqTotal1.setText("Pasados De Su Maximo");
+        __etqTotal1.setText("Detalles de Entrada");
 
-        __Maximo.setText("Maximo");
-        __Maximo.addActionListener(new java.awt.event.ActionListener() {
+        __Entrada.setText("Entrada");
+        __Entrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                __MaximoActionPerformed(evt);
+                __EntradaActionPerformed(evt);
             }
         });
 
         __etqTotal2.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __etqTotal2.setForeground(new java.awt.Color(255, 255, 255));
-        __etqTotal2.setText("En Stock");
+        __etqTotal2.setText("Detalles de Salida");
 
-        __Stock.setText("Stock");
-        __Stock.addActionListener(new java.awt.event.ActionListener() {
+        __Salida.setText("Salida");
+        __Salida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                __StockActionPerformed(evt);
+                __SalidaActionPerformed(evt);
             }
         });
 
@@ -229,12 +229,12 @@ public class Reportes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(__Maximo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(__Entrada, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(__etqTotal1))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
-                        .addComponent(__Stock, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(__Salida, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addComponent(__etqTotal2)))
@@ -262,11 +262,11 @@ public class Reportes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(__etqTotal1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(__Maximo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(__Entrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(__etqTotal2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(__Stock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(__Salida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
                 .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -316,13 +316,13 @@ public class Reportes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event___RInventarioActionPerformed
 
-    private void __MaximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___MaximoActionPerformed
+    private void __EntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___EntradaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event___MaximoActionPerformed
+    }//GEN-LAST:event___EntradaActionPerformed
 
-    private void __StockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___StockActionPerformed
+    private void __SalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___SalidaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event___StockActionPerformed
+    }//GEN-LAST:event___SalidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,11 +362,11 @@ public class Reportes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenu __Archivo;
     public javax.swing.JMenu __Edicion;
-    public javax.swing.JButton __Maximo;
+    public javax.swing.JButton __Entrada;
     public javax.swing.JMenuItem __MenuAbrirArchivo;
     public javax.swing.JButton __RInventario;
     public javax.swing.JButton __SALIR;
-    public javax.swing.JButton __Stock;
+    public javax.swing.JButton __Salida;
     public javax.swing.JLabel __etqFecha;
     public javax.swing.JLabel __etqTotal;
     public javax.swing.JLabel __etqTotal1;
