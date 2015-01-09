@@ -416,10 +416,10 @@ public class modelo extends database{
             }catch(SQLException e){
                 System.err.println( e.getMessage() );
                 return null;
-            }
+                }
     }
     public ResultSet buscarProductoByDescripcion(String descripcion) throws java.sql.SQLException{       
-        String q = "select * from vw_descripcionproductos where descripcion = '"+descripcion+"';";
+        String q = "select * from vw_descripcionproductos where descripcion like '%"+descripcion+"%';";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
