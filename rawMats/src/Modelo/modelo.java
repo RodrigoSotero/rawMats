@@ -319,7 +319,7 @@ public class modelo extends database{
     }
 
     public ResultSet buscardor(String des) {
-        String q = "Select clave, descripcion from vw_infoproducto where descripcion like '%"+des+"%' or clave like '%"+des+"%' order by clave;";
+        String q = "Select clave, descripcion from productos where descripcion like '%"+des+"%' or clave like '%"+des+"%' order by clave;";
         //          Select clave, descripcion from productos where descripcion like '% %'
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
@@ -414,7 +414,7 @@ public class modelo extends database{
 
         }
     public ResultSet buscarProducto(String clave) throws java.sql.SQLException{       
-        String q = "select * from vw_infoproducto where clave = '"+clave+"';";
+        String q = "select * from productos where clave = '"+clave+"';";
         System.out.println(q);
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
@@ -1089,18 +1089,6 @@ public class modelo extends database{
             
             return false;
         }   
-    }
-     
-     public ResultSet algo() {
-        String q = "select * from vw_descripcionproductos";
-        try {
-                PreparedStatement pstm = this.getConexion().prepareStatement(q);
-                ResultSet res = pstm.executeQuery();
-                return res;
-            }catch(SQLException e){
-                
-                return null;
-            }
     }
 }
 
