@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="800" pageHeight="595" orientation="Landscape" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="472c8a9f-2450-49a6-8dae-06879dd8d436">
-	<property name="ireport.zoom" value="1.6105100000000014"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="24"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -15,49 +15,49 @@
 	</style>
 	<queryString>
 		<![CDATA[SELECT
-     vw_infosalida.`id_salida` AS vw_infosalida_id_salida,
-     vw_infosalida.`folio` AS vw_infosalida_folio,
-     vw_infosalida.`documento_Sa` AS vw_infosalida_documento_Sa,
-     vw_infosalida.`tipo_salida` AS vw_infosalida_tipo_salida,
-     vw_infosalida.`area` AS vw_infosalida_area,
-     vw_infosalida.`responsable` AS vw_infosalida_responsable,
-     vw_infosalida.`turno` AS vw_infosalida_turno,
-     vw_infosalida.`observaciones` AS vw_infosalida_observaciones,
-     vw_infosalida.`fecha` AS vw_infosalida_fecha,
-     vw_infosalida.`claveproducto` AS vw_infosalida_claveproducto,
-     vw_infosalida.`descripcion` AS vw_infosalida_descripcion,
-     vw_infosalida.`ubicacion` AS vw_infosalida_ubicacion,
-     vw_infosalida.`cantidad` AS vw_infosalida_cantidad,
-     vw_infosalida.`unidadMedida` AS vw_infosalida_unidadMedida,
-     vw_infosalida.`costo` AS vw_infosalida_costo,
-     vw_infosalida.`totalcosto` AS vw_infosalida_totalcosto
+     vw_infoentrada.`identrada` AS vw_infoentrada_identrada,
+     vw_infoentrada.`folioe` AS vw_infoentrada_folioe,
+     vw_infoentrada.`documentoe` AS vw_infoentrada_documentoe,
+     vw_infoentrada.`tipo_entrada` AS vw_infoentrada_tipo_entrada,
+     vw_infoentrada.`propietario` AS vw_infoentrada_propietario,
+     vw_infoentrada.`cliente` AS vw_infoentrada_cliente,
+     vw_infoentrada.`turno` AS vw_infoentrada_turno,
+     vw_infoentrada.`observaciones` AS vw_infoentrada_observaciones,
+     vw_infoentrada.`fecha` AS vw_infoentrada_fecha,
+     vw_infoentrada.`claveproducto` AS vw_infoentrada_claveproducto,
+     vw_infoentrada.`descripcion` AS vw_infoentrada_descripcion,
+     vw_infoentrada.`ubicacion` AS vw_infoentrada_ubicacion,
+     vw_infoentrada.`cantidad` AS vw_infoentrada_cantidad,
+     vw_infoentrada.`unidadMedida` AS vw_infoentrada_unidadMedida,
+     vw_infoentrada.`costo` AS vw_infoentrada_costo,
+     vw_infoentrada.`totalcosto` AS vw_infoentrada_totalcosto
 FROM
-     `vw_infosalida` vw_infosalida]]>
+     `vw_infoentrada` vw_infoentrada]]>
 	</queryString>
-	<field name="vw_infosalida_id_salida" class="java.lang.Long"/>
-	<field name="vw_infosalida_folio" class="java.lang.String"/>
-	<field name="vw_infosalida_documento_Sa" class="java.lang.String"/>
-	<field name="vw_infosalida_tipo_salida" class="java.lang.String"/>
-	<field name="vw_infosalida_area" class="java.lang.String"/>
-	<field name="vw_infosalida_responsable" class="java.lang.String"/>
-	<field name="vw_infosalida_turno" class="java.lang.String"/>
-	<field name="vw_infosalida_observaciones" class="java.lang.String"/>
-	<field name="vw_infosalida_fecha" class="java.sql.Date"/>
-	<field name="vw_infosalida_claveproducto" class="java.lang.String"/>
-	<field name="vw_infosalida_descripcion" class="java.lang.String"/>
-	<field name="vw_infosalida_ubicacion" class="java.lang.String"/>
-	<field name="vw_infosalida_cantidad" class="java.lang.Integer"/>
-	<field name="vw_infosalida_unidadMedida" class="java.lang.String"/>
-	<field name="vw_infosalida_costo" class="java.math.BigDecimal"/>
-	<field name="vw_infosalida_totalcosto" class="java.math.BigDecimal"/>
+	<field name="vw_infoentrada_identrada" class="java.lang.Integer"/>
+	<field name="vw_infoentrada_folioe" class="java.lang.String"/>
+	<field name="vw_infoentrada_documentoe" class="java.lang.String"/>
+	<field name="vw_infoentrada_tipo_entrada" class="java.lang.String"/>
+	<field name="vw_infoentrada_propietario" class="java.lang.String"/>
+	<field name="vw_infoentrada_cliente" class="java.lang.String"/>
+	<field name="vw_infoentrada_turno" class="java.lang.String"/>
+	<field name="vw_infoentrada_observaciones" class="java.lang.String"/>
+	<field name="vw_infoentrada_fecha" class="java.sql.Date"/>
+	<field name="vw_infoentrada_claveproducto" class="java.lang.String"/>
+	<field name="vw_infoentrada_descripcion" class="java.lang.String"/>
+	<field name="vw_infoentrada_ubicacion" class="java.lang.String"/>
+	<field name="vw_infoentrada_cantidad" class="java.lang.Integer"/>
+	<field name="vw_infoentrada_unidadMedida" class="java.lang.String"/>
+	<field name="vw_infoentrada_costo" class="java.lang.Double"/>
+	<field name="vw_infoentrada_totalcosto" class="java.lang.Double"/>
 	<variable name="cantidad" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[$F{vw_infosalida_cantidad}]]></variableExpression>
+		<variableExpression><![CDATA[$F{vw_infoentrada_cantidad}]]></variableExpression>
 	</variable>
 	<variable name="costo" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{vw_infosalida_costo}]]></variableExpression>
+		<variableExpression><![CDATA[$F{vw_infoentrada_costo}]]></variableExpression>
 	</variable>
 	<variable name="total" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{vw_infosalida_totalcosto}]]></variableExpression>
+		<variableExpression><![CDATA[$F{vw_infoentrada_totalcosto}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -72,7 +72,7 @@ FROM
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Salidas]]></text>
+					<text><![CDATA[Entradas]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="6a198eb7-c7cb-4152-b6ee-19aa54383fa9" style="SubTitle" x="358" y="37" width="309" height="29" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -157,7 +157,7 @@ FROM
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Area]]></text>
+				<text><![CDATA[Propietario]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="e131aba1-5063-4366-8de4-1fee351cd26d" style="Column header" x="607" y="0" width="61" height="32" forecolor="#000000"/>
@@ -212,63 +212,63 @@ FROM
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_totalcosto}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_totalcosto}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="1ff22870-e103-4f22-9f01-708e9665205d" style="Detail" positionType="Float" x="387" y="0" width="71" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_area}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_propietario}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="218" y="0" width="112" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_descripcion}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_descripcion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.00">
 					<reportElement uuid="a71ceb75-b645-4d2f-89ed-424471b88131" style="Detail" positionType="Float" x="458" y="0" width="40" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_cantidad}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_cantidad}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
 					<reportElement uuid="e4fb2237-e9cf-4d0c-85a5-fd9429ae9b3d" style="Detail" positionType="Float" x="0" y="0" width="43" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_fecha}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_fecha}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement uuid="73b23dc8-8565-41c6-967e-42df813fa482" x="139" y="0" width="79" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_claveproducto}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_claveproducto}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="88485793-7b08-4a19-8383-560fdc473884" style="Detail" positionType="Float" x="43" y="0" width="43" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_turno}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_turno}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="330" y="0" width="58" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_ubicacion}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_ubicacion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.000">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="553" y="0" width="54" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_costo}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_costo}]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement uuid="89c716d2-b33c-49af-9718-01b7d06d610d" x="1" y="0" width="759" height="1" forecolor="#CCCCCC"/>
@@ -278,21 +278,21 @@ FROM
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_folio}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_folioe}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.000">
 					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="668" y="0" width="92" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_observaciones}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_observaciones}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="304b10b3-f083-4654-859d-64cfbb4997a2" style="Detail" positionType="Float" x="498" y="0" width="55" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infosalida_unidadMedida}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_unidadMedida}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -317,7 +317,7 @@ FROM
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOTALES-------------------------------------------------------------------------------]]></text>
+				<text><![CDATA[TOTALES-----------------------------------------------------------------------------]]></text>
 			</staticText>
 			<textField pattern="#,##0.0000">
 				<reportElement uuid="cf7648f5-190c-4fd2-9fb4-f10e49f2c6ca" x="607" y="3" width="61" height="20"/>

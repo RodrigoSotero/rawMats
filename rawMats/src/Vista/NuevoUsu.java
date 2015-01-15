@@ -68,7 +68,6 @@ public class NuevoUsu extends javax.swing.JFrame {
         __optInactivo = new javax.swing.JRadioButton();
         __CANCELAR = new javax.swing.JButton();
         __etqBloqMayus = new javax.swing.JLabel();
-        __optBaby = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
@@ -168,11 +167,6 @@ public class NuevoUsu extends javax.swing.JFrame {
         __etqBloqMayus.setForeground(new java.awt.Color(255, 255, 0));
         __etqBloqMayus.setText("Bloq. Mayús Activo");
 
-        __optBaby.setBackground(new java.awt.Color(0, 0, 0));
-        __grpNivelUser.add(__optBaby);
-        __optBaby.setForeground(new java.awt.Color(255, 255, 255));
-        __optBaby.setText("Baby");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,43 +194,41 @@ public class NuevoUsu extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(__optActivo)
-                                                .addGap(61, 61, 61)
-                                                .addComponent(__optInactivo))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(8, 8, 8)
-                                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(88, 88, 88))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(layout.createSequentialGroup()
-                                                    .addGap(82, 82, 82)
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jLabel4)
-                                                        .addComponent(jLabel5)))
-                                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(__nombreUser, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(__User, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(__NewPswd, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(__NewPswd2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(__optActivo)
+                                                    .addGap(61, 61, 61)
+                                                    .addComponent(__optInactivo))
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(8, 8, 8)
+                                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGap(88, 88, 88))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(42, 42, 42)
-                                                .addComponent(__optMaster)
-                                                .addGap(28, 28, 28)
-                                                .addComponent(__optJunior)
-                                                .addGap(31, 31, 31)
-                                                .addComponent(__optKid)
-                                                .addGap(52, 52, 52)
-                                                .addComponent(__optBaby))
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(82, 82, 82)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                            .addComponent(jLabel4)
+                                                            .addComponent(jLabel5)))
+                                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(__nombreUser, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(__User, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(__NewPswd, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(__NewPswd2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(__optMaster)
+                                        .addGap(46, 46, 46)
+                                        .addComponent(__optJunior)
+                                        .addGap(56, 56, 56)
+                                        .addComponent(__optKid)
+                                        .addGap(63, 63, 63)))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(130, 130, 130)
@@ -284,8 +276,7 @@ public class NuevoUsu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(__optKid)
                     .addComponent(__optJunior)
-                    .addComponent(__optMaster)
-                    .addComponent(__optBaby))
+                    .addComponent(__optMaster))
                 .addGap(18, 18, 18)
                 .addComponent(__etqBloqMayus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
@@ -360,7 +351,6 @@ public class NuevoUsu extends javax.swing.JFrame {
     public javax.swing.ButtonGroup __grpNivelUser;
     public javax.swing.JTextField __nombreUser;
     public javax.swing.JRadioButton __optActivo;
-    public javax.swing.JRadioButton __optBaby;
     public javax.swing.JRadioButton __optInactivo;
     public javax.swing.JRadioButton __optJunior;
     public javax.swing.JRadioButton __optKid;

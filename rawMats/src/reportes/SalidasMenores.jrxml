@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="800" pageHeight="595" orientation="Landscape" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="472c8a9f-2450-49a6-8dae-06879dd8d436">
-	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -13,6 +13,12 @@
 			<style mode="Opaque" backcolor="#FFFFFF"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="ingresa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="final" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      vw_infosalida.`id_salida` AS vw_infosalida_id_salida,
@@ -32,7 +38,10 @@
      vw_infosalida.`costo` AS vw_infosalida_costo,
      vw_infosalida.`totalcosto` AS vw_infosalida_totalcosto
 FROM
-     `vw_infosalida` vw_infosalida]]>
+     `vw_infosalida` vw_infosalida
+where vw_infosalida.`fecha` <= $P{final}
+ORDER BY vw_infosalida.`fecha` asc,
+     vw_infosalida.`folio` asc]]>
 	</queryString>
 	<field name="vw_infosalida_id_salida" class="java.lang.Long"/>
 	<field name="vw_infosalida_folio" class="java.lang.String"/>
@@ -317,7 +326,7 @@ FROM
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOTALES-------------------------------------------------------------------------------]]></text>
+				<text><![CDATA[TOTALES----------------------------------------------------------------------------------]]></text>
 			</staticText>
 			<textField pattern="#,##0.0000">
 				<reportElement uuid="cf7648f5-190c-4fd2-9fb4-f10e49f2c6ca" x="607" y="3" width="61" height="20"/>

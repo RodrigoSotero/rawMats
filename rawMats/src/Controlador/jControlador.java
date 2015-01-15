@@ -21,6 +21,7 @@ import Vista.ReporteU;
 import Vista.Reportes;
 import Vista.Splash;
 import Vista.newProducto;
+import static com.lowagie.text.xml.simpleparser.EntitiesToSymbol.map;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
@@ -2434,10 +2435,42 @@ public class jControlador implements ActionListener {
                 this.mimodelo.abrirReporte("inventario.jrxml",new HashMap());
                 break;              
             case __SALIDA:
-                this.mimodelo.abrirReporte("Salidas.jrxml",new HashMap());
+                String SL = JOptionPane.showInputDialog(null,"Ingresa la Fecha Inicial(aaaa-mm-dd)");
+                map.put("ingresa", SL);
+                String SLF = JOptionPane.showInputDialog(null,"Ingresa la Fecha Final(aaaa-mm-dd)");
+                map.put("final", SLF);
+                if(!SL.equals("") && !SLF.equals("")){
+                    mensaje(1,"Generando Salidas entre las Fechas "+SL+" - "+SLF );
+                    this.mimodelo.abrirReporte("SalidasIguales.jrxml",map);                    
+                }else if(!SL.equals("") && SLF.equals("")){
+                    mensaje(1,"Generando Salidas Mayores o Iguales a la Fecha "+SL);
+                    this.mimodelo.abrirReporte("SalidasMayores.jrxml",map);                    
+                }else if(SL.equals("") && !SLF.equals("")){
+                    mensaje(1,"Generando Salidas Menores o Iguales a la Fecha "+SLF);
+                    this.mimodelo.abrirReporte("SalidasMenores.jrxml",map);                    
+                }else{
+                    mensaje(2,"No hay Filtros Se Mostrara Un Reporte Completo");    
+                    this.mimodelo.abrirReporte("Salidas.jrxml",new HashMap());
+                }                                                
                 break;        
             case __ENTRADA:
-                this.mimodelo.abrirReporte("entrada.jrxml",new HashMap());
+                String EN = JOptionPane.showInputDialog(null,"Ingresa la Fecha Inicial(aaaa-mm-dd)");
+                map.put("INICIO", EN);
+                String ENF = JOptionPane.showInputDialog(null,"Ingresa la Fecha Final(aaaa-mm-dd)");
+                map.put("FIN", ENF);
+                if(!EN.equals("") && !ENF.equals("")){
+                    mensaje(1,"Generando Entradas Entre las Fechas "+EN+" - "+ENF );
+                    this.mimodelo.abrirReporte("EntradaEntre.jrxml",map);                    
+                }else if(!EN.equals("") && ENF.equals("")){
+                    mensaje(1,"Generando Entradas Mayores o Iguales a la Fecha "+EN);
+                    this.mimodelo.abrirReporte("EntradaDesde.jrxml",map);                    
+                }else if(EN.equals("") && !ENF.equals("")){
+                    mensaje(1,"Generando Entradas Menores o Iguales a la Fecha "+ENF);
+                    this.mimodelo.abrirReporte("EntradaHasta.jrxml",map);                    
+                }else{
+                    mensaje(2,"No hay Filtros Se Mostrara Un Reporte Completo");  
+                    this.mimodelo.abrirReporte("entrada.jrxml",new HashMap());
+                }                
                 break;
         
 
@@ -3133,9 +3166,7 @@ public class jControlador implements ActionListener {
                 }else if(this.newU.__optJunior.isSelected()){
                    nivel = 2; 
                 }else if(this.newU.__optKid.isSelected()){
-                    nivel = 3;
-                }else if(this.newU.__optBaby.isSelected()){
-                    nivel = 4;
+                    nivel = 3;                
                 }else{
                     mensaje(3,"Debe Seleccionar un Nivel Para el Usuario");
                     return;
