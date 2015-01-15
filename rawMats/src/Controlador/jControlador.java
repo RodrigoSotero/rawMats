@@ -100,6 +100,7 @@ public class jControlador implements ActionListener {
     double restarcantidad,cantidadbd;
     String identradas[]=new String [1000];
     String nombrecolumnas[];
+    int modificaproducto;
     public jControlador( JFrame padre ){
         //this.frmprincipal = (frmPrincipal) padre;
         this.splash = (Splash) padre;
@@ -2235,29 +2236,33 @@ public class jControlador implements ActionListener {
                 newP.setTitle("Alta de Producto");
                 break;
             case __MODIFICARCONSULTAEP:
+                modificaproducto=1;
                 int fila = this.conEP.__tablaProductos.getSelectedRow();
                 if(fila<0){
                     mensaje(2,"Selecciona un producto");
                     return;
                 }
+                try{
+                    ResultSet buscarArea = mimodelo.buscarArea();
+                    newP.__cmbArea.removeAllItems();
+                    newP.__cmbArea.addItem("Selecciona...");
+                    while(buscarArea.next()){
+                        newP.__cmbArea.addItem(buscarArea.getString(1));
+                    }
+                    ResultSet buscarMaquina = mimodelo.buscarMaquina();
+                    newP.__cmbMaquina.removeAllItems();
+                    newP.__cmbMaquina.addItem("Selecciona...");
+                    while(buscarMaquina.next()){
+                        newP.__cmbMaquina.addItem(buscarMaquina.getString(1));
+                    } 
+                }catch(Exception j){
+                            
+                }
                 String clavemod = this.conEP.__tablaProductos.getValueAt(fila, 0).toString();
                 confir = mensajeConfirmacion("¿Realmente Deseas Modificar el Producto "+clavemod+"?","Modificar");
                     if (confir == JOptionPane.OK_OPTION){
-                        
                         try {
                             ResultSet producto = mimodelo.buscarProducto(clavemod);
-                            ResultSet buscarArea = mimodelo.buscarArea();
-                            newP.__cmbArea.removeAllItems();
-                            newP.__cmbArea.addItem("Selecciona...");
-                            while(buscarArea.next()){
-                                newP.__cmbArea.addItem(buscarArea.getString(1));
-                            }
-                            ResultSet buscarMaquina = mimodelo.buscarMaquina();
-                            newP.__cmbMaquina.removeAllItems();
-                            newP.__cmbMaquina.addItem("Selecciona...");
-                            while(buscarMaquina.next()){
-                                newP.__cmbMaquina.addItem(buscarMaquina.getString(1));
-                            }
                             while(producto.next()){
                                 newP.__cmbArea.setSelectedItem(producto.getString("area"));
                                 newP.__cmbMaquina.setSelectedItem(producto.getString("maquina"));
@@ -2265,6 +2270,7 @@ public class jControlador implements ActionListener {
                                 newP.__SMin_.setText(producto.getString("min"));
                                 newP.__SMax_.setText(producto.getString("max"));
                                 newP.__etqClave.setText(producto.getString("clave"));
+                                System.out.println(producto.getString("area"));
                             }
                             conEP.dispose();
                             newP.setVisible(true);        
@@ -2272,6 +2278,8 @@ public class jControlador implements ActionListener {
                             Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
+                    //newP.__cmbArea.setEnabled(false);
+                    //newP.__cmbMaquina.setEnabled(false);
                 break;
             case __ELIMINARCONSULTAEP:
                 break;            
@@ -2320,11 +2328,20 @@ public class jControlador implements ActionListener {
                 }
                 String clave = newP.__etqClave.getText();
                 confir= mensajeConfirmacion("La clave de producto " + clave+" es correcta?" ,"Aceptar");
+                
                 if(confir==JOptionPane.OK_OPTION){
-                    if(mimodelo.nuevoProducto(areaid, maquinaid, clave,DesP, Max, Min)){
-                        if(mimodelo.nuevaexistencia(clave))
-                            mensaje(1,"Alta de producto correcta");
-                            borrarFormularioAltaProducto();
+                    if(modificaproducto==0){
+                        if(mimodelo.nuevoProducto(areaid, maquinaid, clave,DesP, Max, Min)){
+                            if(mimodelo.nuevaexistencia(clave)){
+                                mensaje(1,"Alta de producto correcta");
+                                borrarFormularioAltaProducto();
+                            }
+                        }
+                    }else{
+                        if(mimodelo.updateProducto(areaid, maquinaid, clave,DesP, Max, Min)){
+                                mensaje(1,"Modificacion de producto correcta");
+                                borrarFormularioAltaProducto();
+                        }
                     }
                 }
                 break;
@@ -3232,6 +3249,8 @@ public class jControlador implements ActionListener {
         //this.newP.__SMax_.setText("");
         this.newP.__etqClave.setText("");
         this.addItems("newP");
+        newP.__cmbArea.setEnabled(true);
+        newP.__cmbMaquina.setEnabled(true);
     }
     public void borrarFormularioConEP(){
         conEP.__descripcionP.setText("");
