@@ -2634,9 +2634,10 @@ public class jControlador implements ActionListener {
                 String where =" WHERE ";
                 String condiciones ="";
                 
+                
+                
                 if(this.consulta.__optNinguno.isSelected()){
                     tabla="vw_descripcionproductos";
-                    
                 }
                 break;
         }
