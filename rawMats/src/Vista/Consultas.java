@@ -44,6 +44,7 @@ public class Consultas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grpbtn = new javax.swing.ButtonGroup();
         jPanel9 = new javax.swing.JPanel();
         __optSalida = new javax.swing.JRadioButton();
         __optNinguno = new javax.swing.JRadioButton();
@@ -125,13 +126,16 @@ public class Consultas extends javax.swing.JFrame {
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Movimiento:"));
         jPanel9.setOpaque(false);
 
+        grpbtn.add(__optSalida);
         __optSalida.setForeground(new java.awt.Color(255, 255, 255));
         __optSalida.setText("Salida");
 
+        grpbtn.add(__optNinguno);
         __optNinguno.setForeground(new java.awt.Color(255, 255, 255));
         __optNinguno.setSelected(true);
         __optNinguno.setText("Ninguno");
 
+        grpbtn.add(__optEntrada);
         __optEntrada.setForeground(new java.awt.Color(255, 255, 255));
         __optEntrada.setText("Entrada");
 
@@ -1066,6 +1070,7 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JRadioButton __optNinguno;
     public javax.swing.JRadioButton __optSalida;
     public javax.swing.JTextField __proveedor;
+    private javax.swing.ButtonGroup grpbtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JMenuBar jMenuBar1;
