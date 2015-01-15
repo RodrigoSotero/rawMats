@@ -414,7 +414,8 @@ public class modelo extends database{
 
         }
     public ResultSet buscarProducto(String clave) throws java.sql.SQLException{       
-        String q = "select * from vw_descripcionproductos where clave = '"+clave+"';";
+        String q = "select * from productos where clave = '"+clave+"';";
+        System.out.println(q);
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
@@ -1048,12 +1049,13 @@ public class modelo extends database{
             return false;
         }
     }
-
+        JasperReport archivo ;
+            JasperPrint jasperPrint;
     public void abrirReporte(String report,HashMap map){
         try{
             String in ="C:/rawMats/Reportes/"+report;
-            JasperReport archivo = JasperCompileManager.compileReport(in);
-            JasperPrint jasperPrint= JasperFillManager.fillReport(archivo,map,this.getConexion());
+            archivo= JasperCompileManager.compileReport(in);
+            jasperPrint = JasperFillManager.fillReport(archivo,map,this.getConexion());
             java.util.List<JRPrintPage> pages = jasperPrint.getPages();
             if(pages.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Sin paginas, el reporte no se ha creado...");
@@ -1074,6 +1076,19 @@ public class modelo extends database{
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
+    }
+    
+     public boolean updateProducto(int area, int maquina,String clave,String descripcion, int max, int min) {
+        String q = "update productos set area="+area+", descripcion='"+descripcion+"', max="+max+", min="+min+" where clave ='"+clave+"';";                 
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            
+            return false;
+        }   
     }
 }
 
