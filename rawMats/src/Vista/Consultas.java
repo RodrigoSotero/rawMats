@@ -44,6 +44,7 @@ public class Consultas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        __btngrp = new javax.swing.ButtonGroup();
         jPanel9 = new javax.swing.JPanel();
         __optSalida = new javax.swing.JRadioButton();
         __optNinguno = new javax.swing.JRadioButton();
@@ -55,7 +56,7 @@ public class Consultas extends javax.swing.JFrame {
         __etqFechaConMov = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         __chkDescripcion = new javax.swing.JCheckBox();
-        __descrpcion = new javax.swing.JTextField();
+        __Descripcion = new javax.swing.JTextField();
         __chkProveedor = new javax.swing.JCheckBox();
         __chkTipoEntrada = new javax.swing.JCheckBox();
         __chkTipoSalida = new javax.swing.JCheckBox();
@@ -117,13 +118,16 @@ public class Consultas extends javax.swing.JFrame {
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Movimiento:"));
         jPanel9.setOpaque(false);
 
+        __btngrp.add(__optSalida);
         __optSalida.setForeground(new java.awt.Color(255, 255, 255));
         __optSalida.setText("Salida");
 
+        __btngrp.add(__optNinguno);
         __optNinguno.setForeground(new java.awt.Color(255, 255, 255));
         __optNinguno.setSelected(true);
         __optNinguno.setText("Ninguno");
 
+        __btngrp.add(__optEntrada);
         __optEntrada.setForeground(new java.awt.Color(255, 255, 255));
         __optEntrada.setText("Entrada");
 
@@ -189,8 +193,8 @@ public class Consultas extends javax.swing.JFrame {
             }
         });
 
-        __descrpcion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        __descrpcion.setEnabled(false);
+        __Descripcion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        __Descripcion.setEnabled(false);
 
         __chkProveedor.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkProveedor.setForeground(new java.awt.Color(255, 255, 255));
@@ -582,7 +586,7 @@ public class Consultas extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(__chkDescripcion)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(__descrpcion, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(__Descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(92, 92, 92)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -678,7 +682,7 @@ public class Consultas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(__chkDescripcion)
-                    .addComponent(__descrpcion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(__Descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(__chkArea)
                     .addComponent(__Area, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -856,6 +860,7 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JMenu __Archivo;
     public javax.swing.JTextField __Area;
     public javax.swing.JTextField __Cliente;
+    public javax.swing.JTextField __Descripcion;
     public javax.swing.JMenu __Edicion;
     public javax.swing.JTextField __Maquina;
     public javax.swing.JMenuItem __MenuAbrirArchivo;
@@ -866,6 +871,7 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JTextField __TipoEntrada1;
     public javax.swing.JTextField __TipoSalida;
     public javax.swing.JTextField __Ubicacion;
+    private javax.swing.ButtonGroup __btngrp;
     public javax.swing.JCheckBox __chkArea;
     public javax.swing.JCheckBox __chkCliente;
     public javax.swing.JCheckBox __chkDescripcion;
@@ -888,7 +894,6 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JCheckBox __chkUbicacion;
     public com.toedter.calendar.JDateChooser __dateIni;
     public com.toedter.calendar.JDateChooser __datefin;
-    public javax.swing.JTextField __descrpcion;
     public javax.swing.JTextField __documento;
     public javax.swing.JLabel __etqFechaConMov;
     public javax.swing.JTextField __folio;

@@ -1547,6 +1547,17 @@ public class jControlador implements ActionListener {
         this.reporte.__Entrada.setMnemonic('E');
         this.reporte.__Entrada.addActionListener(this);                         
         //FIN MENU
+        
+        //ACCIOENES CONSULTAS
+        this.consulta.__optNinguno.setActionCommand("__OPTNINGUNO");
+        this.consulta.__optNinguno.addActionListener(this);    
+        this.consulta.__optEntrada.setActionCommand("__OPTENTRADA");
+        this.consulta.__optEntrada.addActionListener(this); 
+        this.consulta.__optSalida.setActionCommand("__OPTSALIDA");
+        this.consulta.__optSalida.addActionListener(this); 
+        
+        this.consulta.__ACEPTARCONSULTA.setActionCommand("__ACEPTARCONSULTA");
+        this.consulta.__ACEPTARCONSULTA.addActionListener(this); 
     }   
 
     public boolean PEPS2(String clave, int cantidad_salida) {
@@ -1651,7 +1662,11 @@ public class jControlador implements ActionListener {
         //REPORTES
         __INVENTARIO,
         __SALIDA,
-        __ENTRADA
+        __ENTRADA,
+        __OPTNINGUNO,
+        __OPTSALIDA,
+        __OPTENTRADA,
+        __ACEPTARCONSULTA
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -2279,8 +2294,8 @@ public class jControlador implements ActionListener {
                             Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    //newP.__cmbArea.setEnabled(false);
-                    //newP.__cmbMaquina.setEnabled(false);
+                    newP.__cmbArea.setEnabled(false);
+                    newP.__cmbMaquina.setEnabled(false);
                 break;
             case __ELIMINARCONSULTAEP:
                 break;            
@@ -2489,8 +2504,141 @@ public class jControlador implements ActionListener {
                     this.mimodelo.abrirReporte("entrada.jrxml",new HashMap());
                 }                
                 break;
-        
-
+            case __OPTNINGUNO:
+                //area, maquina, clave, descripcion, max, min, costopromedio, existencia, ubicacion, op <---
+                this.consulta.__Descripcion.setEnabled(true);
+                this.consulta.__chkDescripcion.setEnabled(true);
+                this.consulta.__proveedor.setEnabled(false);
+                this.consulta.__chkProveedor.setEnabled(false);
+                this.consulta.__Propietario.setEnabled(false);
+                this.consulta.__chkPropietario.setEnabled(false);
+                this.consulta.__Cliente.setEnabled(false);
+                this.consulta.__chkCliente.setEnabled(false);
+                this.consulta.__folio.setEnabled(false);
+                this.consulta.__chkFolio.setEnabled(false);
+                this.consulta.__foliohasta.setEnabled(false);
+                this.consulta.__documento.setEnabled(false);
+                this.consulta.__chkDocumento.setEnabled(false);
+                this.consulta.__OrdenP.setEnabled(true);
+                this.consulta.__chkOrdenP.setEnabled(true);
+                this.consulta.__OrdenC.setEnabled(false);
+                this.consulta.__chkOrdenC.setEnabled(false);
+                this.consulta.__Ubicacion.setEnabled(true);
+                this.consulta.__chkUbicacion.setEnabled(true);
+                this.consulta.__dateIni.setEnabled(false);
+                this.consulta.__chkFechaIni.setEnabled(false);
+                this.consulta.__datefin.setEnabled(false);
+                this.consulta.__chkFechaFin.setEnabled(false);
+                this.consulta.__Area.setEnabled(true);
+                this.consulta.__chkArea.setEnabled(true);
+                this.consulta.__Maquina.setEnabled(true);
+                this.consulta.__chkMaquina.setEnabled(true);
+                this.consulta.__TipoEntrada1.setEnabled(false);
+                this.consulta.__chkTipoEntrada.setEnabled(false);
+                this.consulta.__TipoSalida.setEnabled(false);
+                this.consulta.__chkTipoSalida.setEnabled(false);
+                this.consulta.__max.setEnabled(true);
+                this.consulta.__chkMax.setEnabled(true);
+                this.consulta.__min.setEnabled(true);
+                this.consulta.__chkMin.setEnabled(true);
+                this.consulta.__chkTurno1.setEnabled(false);
+                this.consulta.__chkTurno2.setEnabled(false);
+                this.consulta.__chkTurno3.setEnabled(false);
+                break;
+            case __OPTENTRADA:
+                this.consulta.__Descripcion.setEnabled(true);
+                this.consulta.__chkDescripcion.setEnabled(true);
+                this.consulta.__proveedor.setEnabled(true);
+                this.consulta.__chkProveedor.setEnabled(true);
+                this.consulta.__Propietario.setEnabled(true);
+                this.consulta.__chkPropietario.setEnabled(true);
+                this.consulta.__Cliente.setEnabled(true);
+                this.consulta.__chkCliente.setEnabled(true);
+                this.consulta.__folio.setEnabled(true);
+                this.consulta.__chkFolio.setEnabled(true);
+                this.consulta.__foliohasta.setEnabled(true);
+                this.consulta.__documento.setEnabled(true);
+                this.consulta.__chkDocumento.setEnabled(true);
+                this.consulta.__OrdenP.setEnabled(true);
+                this.consulta.__chkOrdenP.setEnabled(true);
+                this.consulta.__OrdenC.setEnabled(true);
+                this.consulta.__chkOrdenC.setEnabled(true);
+                this.consulta.__Ubicacion.setEnabled(true);
+                this.consulta.__chkUbicacion.setEnabled(true);
+                this.consulta.__dateIni.setEnabled(true);
+                this.consulta.__chkFechaIni.setEnabled(true);
+                this.consulta.__datefin.setEnabled(true);
+                this.consulta.__chkFechaFin.setEnabled(true);
+                this.consulta.__Area.setEnabled(true);
+                this.consulta.__chkArea.setEnabled(true);
+                this.consulta.__Maquina.setEnabled(false);
+                this.consulta.__chkMaquina.setEnabled(false);
+                this.consulta.__TipoEntrada1.setEnabled(true);
+                this.consulta.__chkTipoEntrada.setEnabled(true);
+                this.consulta.__TipoSalida.setEnabled(false);
+                this.consulta.__chkTipoSalida.setEnabled(false);
+                this.consulta.__max.setEnabled(false);
+                this.consulta.__chkMax.setEnabled(false);
+                this.consulta.__min.setEnabled(false);
+                this.consulta.__chkMin.setEnabled(false);
+                this.consulta.__chkTurno1.setEnabled(true);
+                this.consulta.__chkTurno2.setEnabled(true);
+                this.consulta.__chkTurno3.setEnabled(true);
+                break;
+            case __OPTSALIDA:
+                this.consulta.__Descripcion.setEnabled(true);
+                this.consulta.__chkDescripcion.setEnabled(true);
+                this.consulta.__proveedor.setEnabled(false);
+                this.consulta.__chkProveedor.setEnabled(false);
+                this.consulta.__Propietario.setEnabled(false);
+                this.consulta.__chkPropietario.setEnabled(false);
+                this.consulta.__Cliente.setEnabled(false);
+                this.consulta.__chkCliente.setEnabled(false);
+                this.consulta.__folio.setEnabled(true);
+                this.consulta.__chkFolio.setEnabled(true);
+                this.consulta.__foliohasta.setEnabled(true);
+                this.consulta.__documento.setEnabled(true);
+                this.consulta.__chkDocumento.setEnabled(true);
+                this.consulta.__OrdenP.setEnabled(true);
+                this.consulta.__chkOrdenP.setEnabled(true);
+                this.consulta.__OrdenC.setEnabled(false);
+                this.consulta.__chkOrdenC.setEnabled(false);
+                this.consulta.__Ubicacion.setEnabled(true);
+                this.consulta.__chkUbicacion.setEnabled(true);
+                this.consulta.__dateIni.setEnabled(true);
+                this.consulta.__chkFechaIni.setEnabled(true);
+                this.consulta.__datefin.setEnabled(true);
+                this.consulta.__chkFechaFin.setEnabled(true);
+                this.consulta.__Area.setEnabled(true);
+                this.consulta.__chkArea.setEnabled(true);
+                this.consulta.__Maquina.setEnabled(false);
+                this.consulta.__chkMaquina.setEnabled(false);
+                this.consulta.__TipoEntrada1.setEnabled(false);
+                this.consulta.__chkTipoEntrada.setEnabled(false);
+                this.consulta.__TipoSalida.setEnabled(true);
+                this.consulta.__chkTipoSalida.setEnabled(true);
+                this.consulta.__max.setEnabled(false);
+                this.consulta.__chkMax.setEnabled(false);
+                this.consulta.__min.setEnabled(false);
+                this.consulta.__chkMin.setEnabled(false);
+                this.consulta.__chkTurno1.setEnabled(true);
+                this.consulta.__chkTurno2.setEnabled(true);
+                this.consulta.__chkTurno3.setEnabled(true);
+                break;
+            case __ACEPTARCONSULTA:
+                //area, maquina, clave, descripcion, max, min, costopromedio, existencia, ubicacion, op <---
+                String select = "SELECT ";
+                String campos = "";
+                String from =" FROM ";
+                String tabla ="";
+                String where =" WHERE ";
+                String condiciones ="";
+                
+                if(this.consulta.__optNinguno.isSelected()){
+                    tabla="vw_descripcionproductos";
+                    
+                }
+                break;
         }
     }
     public void iniciasesion() {
