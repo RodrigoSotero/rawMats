@@ -97,9 +97,11 @@ public class Consultas extends javax.swing.JFrame {
         __clave = new javax.swing.JTextField();
         __chkCantidad = new javax.swing.JCheckBox();
         __Cantidad = new javax.swing.JTextField();
+        __chkClave2 = new javax.swing.JCheckBox();
+        __clave2 = new javax.swing.JTextField();
         __chkUnidad = new javax.swing.JCheckBox();
         __chkCosto = new javax.swing.JCheckBox();
-        __costo = new javax.swing.JTextField();
+        __clave4 = new javax.swing.JTextField();
         __cmbUnidad = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         __Archivo = new javax.swing.JMenu();
@@ -121,6 +123,7 @@ public class Consultas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setIconImage(getIconImage());
+        getContentPane().setLayout(null);
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Movimiento:"));
         jPanel9.setOpaque(false);
@@ -160,31 +163,46 @@ public class Consultas extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        getContentPane().add(jPanel9);
+        jPanel9.setBounds(10, 48, 234, 101);
+
         __chkFechaIni.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkFechaIni.setForeground(new java.awt.Color(255, 255, 255));
         __chkFechaIni.setSelected(true);
         __chkFechaIni.setText("Fecha Inicial:");
         __chkFechaIni.setEnabled(false);
+        getContentPane().add(__chkFechaIni);
+        __chkFechaIni.setBounds(728, 48, 105, 31);
 
         __dateIni.setDateFormatString("yyyy-MM-d");
         __dateIni.setEnabled(false);
+        getContentPane().add(__dateIni);
+        __dateIni.setBounds(838, 48, 133, 29);
 
         __chkFechaFin.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkFechaFin.setForeground(new java.awt.Color(255, 255, 255));
         __chkFechaFin.setSelected(true);
         __chkFechaFin.setText("Fecha Final:");
         __chkFechaFin.setEnabled(false);
+        getContentPane().add(__chkFechaFin);
+        __chkFechaFin.setBounds(1018, 48, 103, 31);
 
         __datefin.setDateFormatString("yyyy-MM-d");
         __datefin.setEnabled(false);
+        getContentPane().add(__datefin);
+        __datefin.setBounds(1127, 48, 133, 29);
 
         __etqFechaConMov.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         __etqFechaConMov.setForeground(new java.awt.Color(255, 255, 255));
         __etqFechaConMov.setText("DD/MM/AAAA");
+        getContentPane().add(__etqFechaConMov);
+        __etqFechaConMov.setBounds(1150, 11, 110, 22);
 
         jLabel13.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Para Realizar la Consulta Ingresa los Parametros que Necesitas");
+        getContentPane().add(jLabel13);
+        jLabel13.setBounds(10, 14, 393, 23);
 
         __chkDescripcion.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkDescripcion.setForeground(new java.awt.Color(255, 255, 255));
@@ -196,36 +214,52 @@ public class Consultas extends javax.swing.JFrame {
                 __chkDescripcionActionPerformed(evt);
             }
         });
+        getContentPane().add(__chkDescripcion);
+        __chkDescripcion.setBounds(10, 169, 191, 31);
 
         __descrpcion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __descrpcion.setEnabled(false);
+        getContentPane().add(__descrpcion);
+        __descrpcion.setBounds(203, 167, 212, 33);
 
         __chkProveedor.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkProveedor.setForeground(new java.awt.Color(255, 255, 255));
         __chkProveedor.setSelected(true);
         __chkProveedor.setText("Proveedor:");
         __chkProveedor.setEnabled(false);
+        getContentPane().add(__chkProveedor);
+        __chkProveedor.setBounds(106, 213, 95, 31);
 
         __chkTipoEntrada.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkTipoEntrada.setForeground(new java.awt.Color(255, 255, 255));
         __chkTipoEntrada.setSelected(true);
         __chkTipoEntrada.setText("Tipo de Entrada");
         __chkTipoEntrada.setEnabled(false);
+        getContentPane().add(__chkTipoEntrada);
+        __chkTipoEntrada.setBounds(880, 257, 135, 31);
 
         __chkTipoSalida.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkTipoSalida.setForeground(new java.awt.Color(255, 255, 255));
         __chkTipoSalida.setSelected(true);
         __chkTipoSalida.setText("Tipo de Salida");
         __chkTipoSalida.setEnabled(false);
+        getContentPane().add(__chkTipoSalida);
+        __chkTipoSalida.setBounds(890, 301, 123, 31);
 
         __proveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __proveedor.setEnabled(false);
+        getContentPane().add(__proveedor);
+        __proveedor.setBounds(203, 211, 212, 33);
 
         __Propietario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Propietario.setEnabled(false);
+        getContentPane().add(__Propietario);
+        __Propietario.setBounds(203, 255, 212, 33);
 
         __TipoSalida.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __TipoSalida.setEnabled(false);
+        getContentPane().add(__TipoSalida);
+        __TipoSalida.setBounds(1015, 299, 245, 33);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Stock:"));
         jPanel10.setOpaque(false);
@@ -282,6 +316,9 @@ public class Consultas extends javax.swing.JFrame {
                     .addComponent(__max, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
+        getContentPane().add(jPanel10);
+        jPanel10.setBounds(919, 359, 163, 95);
+
         __chkFolio.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkFolio.setForeground(new java.awt.Color(255, 255, 255));
         __chkFolio.setSelected(true);
@@ -292,16 +329,24 @@ public class Consultas extends javax.swing.JFrame {
                 __chkFolioActionPerformed(evt);
             }
         });
+        getContentPane().add(__chkFolio);
+        __chkFolio.setBounds(59, 359, 111, 31);
 
         __folio.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __folio.setEnabled(false);
+        getContentPane().add(__folio);
+        __folio.setBounds(177, 359, 133, 33);
 
         jLabel1.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Hasta:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(320, 365, 43, 23);
 
         __foliohasta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __foliohasta.setEnabled(false);
+        getContentPane().add(__foliohasta);
+        __foliohasta.setBounds(367, 359, 133, 33);
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Turno:"));
         jPanel11.setOpaque(false);
@@ -358,14 +403,21 @@ public class Consultas extends javax.swing.JFrame {
                 .addComponent(__chkTurno3))
         );
 
+        getContentPane().add(jPanel11);
+        jPanel11.setBounds(1126, 359, 134, 92);
+
         __chkOrdenC.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkOrdenC.setForeground(new java.awt.Color(255, 255, 255));
         __chkOrdenC.setSelected(true);
         __chkOrdenC.setText("Orden de Compra:");
         __chkOrdenC.setEnabled(false);
+        getContentPane().add(__chkOrdenC);
+        __chkOrdenC.setBounds(147, 520, 147, 33);
 
         __OrdenC.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __OrdenC.setEnabled(false);
+        getContentPane().add(__OrdenC);
+        __OrdenC.setBounds(297, 520, 133, 33);
 
         __OrdenP.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __OrdenP.setEnabled(false);
@@ -374,12 +426,16 @@ public class Consultas extends javax.swing.JFrame {
                 __OrdenPActionPerformed(evt);
             }
         });
+        getContentPane().add(__OrdenP);
+        __OrdenP.setBounds(298, 460, 133, 33);
 
         __chkOrdenP.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkOrdenP.setForeground(new java.awt.Color(255, 255, 255));
         __chkOrdenP.setSelected(true);
         __chkOrdenP.setText("Orden de Produccion:");
         __chkOrdenP.setEnabled(false);
+        getContentPane().add(__chkOrdenP);
+        __chkOrdenP.setBounds(127, 471, 165, 31);
 
         __chkDocumento.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkDocumento.setForeground(new java.awt.Color(255, 255, 255));
@@ -391,9 +447,13 @@ public class Consultas extends javax.swing.JFrame {
                 __chkDocumentoActionPerformed(evt);
             }
         });
+        getContentPane().add(__chkDocumento);
+        __chkDocumento.setBounds(187, 421, 103, 40);
 
         __documento.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __documento.setEnabled(false);
+        getContentPane().add(__documento);
+        __documento.setBounds(298, 410, 133, 33);
 
         __chkArea.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkArea.setForeground(new java.awt.Color(255, 255, 255));
@@ -405,9 +465,13 @@ public class Consultas extends javax.swing.JFrame {
                 __chkAreaActionPerformed(evt);
             }
         });
+        getContentPane().add(__chkArea);
+        __chkArea.setBounds(952, 169, 63, 31);
 
         __Area.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Area.setEnabled(false);
+        getContentPane().add(__Area);
+        __Area.setBounds(1017, 167, 243, 33);
 
         __chkMaquina.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkMaquina.setForeground(new java.awt.Color(255, 255, 255));
@@ -419,27 +483,39 @@ public class Consultas extends javax.swing.JFrame {
                 __chkMaquinaActionPerformed(evt);
             }
         });
+        getContentPane().add(__chkMaquina);
+        __chkMaquina.setBounds(934, 213, 81, 31);
 
         __Maquina.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Maquina.setEnabled(false);
+        getContentPane().add(__Maquina);
+        __Maquina.setBounds(1017, 211, 243, 33);
 
         __chkPropietario.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkPropietario.setForeground(new java.awt.Color(255, 255, 255));
         __chkPropietario.setSelected(true);
         __chkPropietario.setText("Propietario:");
         __chkPropietario.setEnabled(false);
+        getContentPane().add(__chkPropietario);
+        __chkPropietario.setBounds(102, 257, 99, 31);
 
         __TipoEntrada1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __TipoEntrada1.setEnabled(false);
+        getContentPane().add(__TipoEntrada1);
+        __TipoEntrada1.setBounds(1017, 255, 243, 33);
 
         __chkCliente.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkCliente.setForeground(new java.awt.Color(255, 255, 255));
         __chkCliente.setSelected(true);
         __chkCliente.setText("Cliente:");
         __chkCliente.setEnabled(false);
+        getContentPane().add(__chkCliente);
+        __chkCliente.setBounds(123, 301, 77, 31);
 
         __Cliente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Cliente.setEnabled(false);
+        getContentPane().add(__Cliente);
+        __Cliente.setBounds(202, 299, 213, 33);
 
         __SALIRCONSULTA.setText("CANCELAR");
         __SALIRCONSULTA.addActionListener(new java.awt.event.ActionListener() {
@@ -447,17 +523,25 @@ public class Consultas extends javax.swing.JFrame {
                 __SALIRCONSULTAActionPerformed(evt);
             }
         });
+        getContentPane().add(__SALIRCONSULTA);
+        __SALIRCONSULTA.setBounds(952, 520, 85, 32);
 
         __ACEPTARCONSULTA.setText("ACEPTAR");
+        getContentPane().add(__ACEPTARCONSULTA);
+        __ACEPTARCONSULTA.setBounds(1156, 520, 79, 32);
 
         __chkUbicacion.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkUbicacion.setForeground(new java.awt.Color(255, 255, 255));
         __chkUbicacion.setSelected(true);
         __chkUbicacion.setText("Ubicacion:");
         __chkUbicacion.setEnabled(false);
+        getContentPane().add(__chkUbicacion);
+        __chkUbicacion.setBounds(199, 564, 95, 33);
 
         __Ubicacion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Ubicacion.setEnabled(false);
+        getContentPane().add(__Ubicacion);
+        __Ubicacion.setBounds(297, 564, 133, 33);
 
         __chkClave.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkClave.setForeground(new java.awt.Color(255, 255, 255));
@@ -469,14 +553,13 @@ public class Consultas extends javax.swing.JFrame {
                 __chkClaveActionPerformed(evt);
             }
         });
+        getContentPane().add(__chkClave);
+        __chkClave.setBounds(430, 170, 147, 31);
 
         __clave.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __clave.setEnabled(false);
-        __clave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                __claveActionPerformed(evt);
-            }
-        });
+        getContentPane().add(__clave);
+        __clave.setBounds(580, 170, 212, 33);
 
         __chkCantidad.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkCantidad.setForeground(new java.awt.Color(255, 255, 255));
@@ -488,9 +571,31 @@ public class Consultas extends javax.swing.JFrame {
                 __chkCantidadActionPerformed(evt);
             }
         });
+        getContentPane().add(__chkCantidad);
+        __chkCantidad.setBounds(480, 250, 87, 31);
 
         __Cantidad.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Cantidad.setEnabled(false);
+        getContentPane().add(__Cantidad);
+        __Cantidad.setBounds(580, 250, 212, 33);
+
+        __chkClave2.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
+        __chkClave2.setForeground(new java.awt.Color(255, 255, 255));
+        __chkClave2.setSelected(true);
+        __chkClave2.setText("Clave de Producto:");
+        __chkClave2.setEnabled(false);
+        __chkClave2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __chkClave2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(__chkClave2);
+        __chkClave2.setBounds(502, 586, 147, 31);
+
+        __clave2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        __clave2.setEnabled(false);
+        getContentPane().add(__clave2);
+        __clave2.setBounds(651, 584, 212, 33);
 
         __chkUnidad.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkUnidad.setForeground(new java.awt.Color(255, 255, 255));
@@ -502,6 +607,8 @@ public class Consultas extends javax.swing.JFrame {
                 __chkUnidadActionPerformed(evt);
             }
         });
+        getContentPane().add(__chkUnidad);
+        __chkUnidad.setBounds(430, 210, 147, 31);
 
         __chkCosto.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkCosto.setForeground(new java.awt.Color(255, 255, 255));
@@ -513,11 +620,17 @@ public class Consultas extends javax.swing.JFrame {
                 __chkCostoActionPerformed(evt);
             }
         });
+        getContentPane().add(__chkCosto);
+        __chkCosto.setBounds(440, 450, 73, 31);
 
-        __costo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        __costo.setEnabled(false);
+        __clave4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        __clave4.setEnabled(false);
+        getContentPane().add(__clave4);
+        __clave4.setBounds(590, 450, 212, 33);
 
         __cmbUnidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona..." }));
+        getContentPane().add(__cmbUnidad);
+        __cmbUnidad.setBounds(580, 210, 210, 30);
 
         __Archivo.setText("Archivo");
 
@@ -616,257 +729,6 @@ public class Consultas extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(__chkDescripcion)
-                                .addGap(2, 2, 2)
-                                .addComponent(__descrpcion, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
-                                .addComponent(__chkClave)
-                                .addGap(3, 3, 3)
-                                .addComponent(__clave, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(88, 88, 88)
-                                .addComponent(__chkArea)
-                                .addGap(7, 7, 7)
-                                .addComponent(__Area, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(106, 106, 106)
-                                .addComponent(__chkProveedor)
-                                .addGap(2, 2, 2)
-                                .addComponent(__proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
-                                .addComponent(__chkUnidad)
-                                .addGap(3, 3, 3)
-                                .addComponent(__cmbUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(80, 80, 80)
-                                        .addComponent(__Maquina, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(__chkMaquina)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(102, 102, 102)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(__chkPropietario)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addComponent(__chkCliente)))
-                                .addGap(1, 1, 1)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(__Propietario, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(__Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(65, 65, 65)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(__chkCantidad)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(__chkCosto)))
-                                .addGap(7, 7, 7)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(__Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(__costo, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(__chkTipoEntrada)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(__chkTipoSalida)))
-                                .addGap(5, 5, 5)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(__TipoEntrada1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(__chkFolio)
-                                        .addGap(9, 9, 9)
-                                        .addComponent(__folio, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(7, 7, 7)
-                                        .addComponent(jLabel1)
-                                        .addGap(7, 7, 7)
-                                        .addComponent(__foliohasta, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(131, 131, 131)
-                                        .addComponent(__chkDocumento)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(__documento, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(__chkOrdenC)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addGap(50, 50, 50)
-                                                    .addComponent(__chkUbicacion)))
-                                            .addGap(3, 3, 3)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(__OrdenC, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(__Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(69, 69, 69)
-                                            .addComponent(__chkOrdenP)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(__OrdenP, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(197, 197, 197)
-                                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(720, 720, 720)
-                                .addComponent(__SALIRCONSULTA)
-                                .addGap(115, 115, 115)
-                                .addComponent(__ACEPTARCONSULTA)))
-                        .addGap(0, 9, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(__etqFechaConMov))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(__chkFechaIni)
-                                .addGap(5, 5, 5)
-                                .addComponent(__dateIni, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(__chkFechaFin)
-                                .addGap(7, 7, 7)
-                                .addComponent(__datefin, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)))))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel13)
-                        .addGap(11, 11, 11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(__etqFechaConMov)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(__chkFechaIni)
-                    .addComponent(__dateIni, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(__chkFechaFin)
-                    .addComponent(__datefin, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(__chkDescripcion))
-                    .addComponent(__descrpcion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(__chkClave))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(__clave, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(__chkArea))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(__Area, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(__chkProveedor))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(__proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(__chkUnidad)
-                    .addComponent(__cmbUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(__Maquina, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(__chkMaquina))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(__chkPropietario)
-                        .addGap(13, 13, 13)
-                        .addComponent(__chkCliente))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(__Propietario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(__Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(__chkCantidad)
-                        .addGap(9, 9, 9)
-                        .addComponent(__chkCosto))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(__Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(__costo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(__chkTipoEntrada)
-                        .addGap(9, 9, 9)
-                        .addComponent(__chkTipoSalida))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(__TipoEntrada1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)
-                        .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(__chkFolio)
-                            .addComponent(__folio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel1))
-                            .addComponent(__foliohasta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(__documento, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(__chkDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(__OrdenP, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(__chkOrdenP)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(__SALIRCONSULTA, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(__ACEPTARCONSULTA, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(__chkOrdenC, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(__chkUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(__OrdenC, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(__Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(33, 33, 33))
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -950,6 +812,10 @@ public class Consultas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event___chkCantidadActionPerformed
 
+    private void __chkClave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___chkClave2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___chkClave2ActionPerformed
+
     private void __chkUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___chkUnidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event___chkUnidadActionPerformed
@@ -957,10 +823,6 @@ public class Consultas extends javax.swing.JFrame {
     private void __chkCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___chkCostoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event___chkCostoActionPerformed
-
-    private void __claveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___claveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event___claveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1016,6 +878,7 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JCheckBox __chkArea;
     public javax.swing.JCheckBox __chkCantidad;
     public javax.swing.JCheckBox __chkClave;
+    public javax.swing.JCheckBox __chkClave2;
     public javax.swing.JCheckBox __chkCliente;
     public javax.swing.JCheckBox __chkCosto;
     public javax.swing.JCheckBox __chkDescripcion;
@@ -1038,8 +901,9 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JCheckBox __chkUbicacion;
     public javax.swing.JCheckBox __chkUnidad;
     public javax.swing.JTextField __clave;
+    public javax.swing.JTextField __clave2;
+    public javax.swing.JTextField __clave4;
     private javax.swing.JComboBox __cmbUnidad;
-    public javax.swing.JTextField __costo;
     public com.toedter.calendar.JDateChooser __dateIni;
     public com.toedter.calendar.JDateChooser __datefin;
     public javax.swing.JTextField __descrpcion;
