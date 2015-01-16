@@ -25,6 +25,10 @@ public class Consultas extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Dimension size = this.getSize();
         fondo.setSize(size);
+        this.__cmbUnidad.addItem("Pz");
+        this.__cmbUnidad.addItem("Lts");
+        this.__cmbUnidad.addItem("Kgs");
+        this.__cmbUnidad.addItem("Mts");
         add(fondo);
     }
     public Image getIconImage() {
