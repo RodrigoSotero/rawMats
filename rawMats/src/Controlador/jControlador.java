@@ -100,6 +100,7 @@ public class jControlador implements ActionListener {
     int modificarentrada=0;
     double restarcantidad,cantidadbd;
     String identradas[]=new String [1000];
+    String idsalidas[]=new String [1000];
     String nombrecolumnas[];
     int modificaproducto;
     public jControlador( JFrame padre ){
@@ -1607,6 +1608,33 @@ public class jControlador implements ActionListener {
         }
         return false;
     }
+    int cantbdtem=0,newcantem,cantbd,j;
+    public boolean antipeps2(String[] entradas, int cantidadsumar) {
+        j--;
+        try{
+            ResultSet detent = mimodelo.buscarEntradaID(entradas[j]);
+            while(detent.next()){
+                cantbd=detent.getInt(1);
+                cantbdtem = detent.getInt(2);
+            }
+            newcantem=cantbdtem+cantidadsumar;
+            if(newcantem==0){
+               return true;
+            }
+            if(newcantem>cantbd){
+               //sumamos toda la newcanttem y mandamos a traer antipeps con catnbd-newcantem
+            }
+            if(newcantem<cantbd){
+                //sumamos toda la newcatn te
+            }
+            if(newcantem==cantbd){
+                //sumamos todo
+            }
+        }
+       catch(Exception e) {
+       }
+        return false;
+    }
     
     public enum Accion{
         __INICIA_SESION,
@@ -2413,7 +2441,81 @@ public class jControlador implements ActionListener {
                 SalidaAceptarModificar();
                 break;
             case __MODIFICACION_SALIDA:
-                SalidaAceptarModificar();
+                this.SalidaMovimientos=1;
+                buscarfolio = JOptionPane.showInputDialog("Folio","Ingresa el Folio de la Salida a Modificar");
+                if(buscarfolio==null || buscarfolio.length()<3){
+                    mensaje(2,"Intenta otra vez");
+                    break;
+                }
+                try {
+                   ResultSet salida = mimodelo.buscarSalida(buscarfolio); 
+                   int iddfolio=0;
+                   if(salida.next()){
+                       movimientos.__FolioSalida.setText(buscarfolio);
+                       salida.beforeFirst();
+                       while(salida.next()){
+                           movimientos.__TipoSalida.setText(salida.getString("tipo_salida"));
+                           movimientos.__documentoSalida.setText(salida.getString("documento"));
+                           movimientos.__OrdenProduccionSalida.setText(salida.getString("orden_produccion"));
+                           movimientos.__SolicitanteSalida.setText(salida.getString("solicitante"));
+                           movimientos.__AreaSalida.setText(salida.getString("area"));
+                           if(salida.getString("TURNO1").equals("t1")){
+                               movimientos.__chkTurno1Salida.setSelected(true);
+                           }
+                           if(salida.getString("TURNO2").equals("t2")){
+                               movimientos.__chkTurno2Salida.setSelected(true);
+                           }
+                           if(salida.getString("TURNO3").equals("t3")){
+                               movimientos.__chkTurno3Salida.setSelected(true);
+                           }
+                           iddfolio= salida.getInt("id_salida");
+                       }
+                       this.movimientos.jMenuBar1.setEnabled(false);
+                       this.movimientos.__MODIFICACIONSALIDA.setEnabled(false);
+                       this.movimientos.__Archivo.setEnabled(false);
+                       this.movimientos.__Edicion.setEnabled(false);
+                        this.movimientos.JPanel.setEnabledAt(0, false);
+                        this.movimientos.JPanel.setEnabledAt(1, true);
+                   }else{
+                       mensaje(2,"La Entrada no Existe");
+                       break;
+                   }
+                   ResultSet detallesalida = mimodelo.buscarDetalleSalida(iddfolio);
+                   if(detallesalida.next()){
+                       detallesalida.beforeFirst();
+                       int a=0;
+                       while(detallesalida.next()){
+                           idsalidas[a]=detallesalida.getString("iddetallesalida");
+                            movimientos.__tablaSalida.setValueAt(detallesalida.getString("claveproducto"), a, 0);
+                            movimientos.__tablaSalida.setValueAt(detallesalida.getString("descripcion"), a, 1);
+                            movimientos.__tablaSalida.setValueAt(detallesalida.getString("ubicacion"), a, 2);
+                            movimientos.__tablaSalida.setValueAt(detallesalida.getInt("cantidad_salida"), a, 2);
+                            int cantidadsumar=detallesalida.getInt("cantidad_salida");
+                            ResultSet bep= mimodelo.buscarExistenciaPapel(detallesalida.getString("claveproducto"));
+                            while(bep.next()){
+                                cantidadbd=Double.parseDouble(bep.getString("cantidad"));
+                            }
+                            String entradas[] = detallesalida.getString("entradas").split(",");
+                            j = entradas.length;
+                            antipeps2(entradas,cantidadsumar);
+                            movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("costo")), a, 3);
+                            movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("totalcosto")), a, 4);
+                               mimodelo.sumarexistencia(detallesalida.getString("clavepapel"));
+                           
+                           ResultSetMetaData metaData = detallesalida.getMetaData();
+                           int numcol = metaData.getColumnCount();
+                           nombrecolumnas = new String[numcol];
+                           for(int i=2;i<numcol;i++){
+                               this.nombrecolumnas[i]=metaData.getColumnLabel(i+1);
+                           }
+                           a++;
+                       }
+                   }
+                   movimientos.__TipoSalida.requestFocus();
+                }catch(Exception ex){
+                    //mensaje(3,ex.getMessage());
+                    ex.printStackTrace();
+                }
                 break;
             case __INVENTARIO:
                 this.mimodelo.abrirReporte("inventario.jrxml",new HashMap());
@@ -3899,6 +4001,7 @@ public class jControlador implements ActionListener {
                 }
                 break;
             case 1:
+                
                 break;
         }
         

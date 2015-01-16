@@ -879,7 +879,7 @@ public class modelo extends database{
             }
     }
     public ResultSet buscaTipoSalida(int id) {
-        String q = "SELECT id_tipo_sal as id, tipo_salida as descripcion from tipo_salida where id_tipo_sal="+id+" ;";
+        String q = "SELECT idtipo_salida as id, tipo_salida as descripcion from tipo_salida where idtipo_salida="+id+" ;";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
@@ -1093,6 +1093,40 @@ public class modelo extends database{
      
      public ResultSet algo() {
         String q = "select * from vw_descripcionproductos";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+
+    public ResultSet buscarSalida(String buscarfolio) {
+        String q = "select * from vw_infosalida where folio ='"+buscarfolio+"' limit 1";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscarDetalleSalida(int idfolio) {
+        String q = "SELECT * FROM detallesalida where id_salida = '"+idfolio+"'; ";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
+    public ResultSet buscarEntradaID(String id) {
+        String q = "SELECT cantidad,cantidadtemporal FROM detalleentrada where iddetalleentrada="+id+"; ";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
