@@ -54,7 +54,9 @@ public class Reportes extends javax.swing.JFrame {
         __etqTotal2 = new javax.swing.JLabel();
         __Salida = new javax.swing.JButton();
         __etqTotal3 = new javax.swing.JLabel();
-        __Stock = new javax.swing.JButton();
+        __StockArriba = new javax.swing.JButton();
+        __etqTotal4 = new javax.swing.JLabel();
+        __StockAbajo = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         __Archivo = new javax.swing.JMenu();
         __menuAltaProducto = new javax.swing.JMenuItem();
@@ -121,12 +123,23 @@ public class Reportes extends javax.swing.JFrame {
 
         __etqTotal3.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __etqTotal3.setForeground(new java.awt.Color(255, 255, 255));
-        __etqTotal3.setText("Checar Stock:");
+        __etqTotal3.setText("Productos por Arriba de Stock:");
 
-        __Stock.setText("Stock");
-        __Stock.addActionListener(new java.awt.event.ActionListener() {
+        __StockArriba.setText("Arriba de Stock");
+        __StockArriba.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                __StockActionPerformed(evt);
+                __StockArribaActionPerformed(evt);
+            }
+        });
+
+        __etqTotal4.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
+        __etqTotal4.setForeground(new java.awt.Color(255, 255, 255));
+        __etqTotal4.setText("Productos por Abajo de Stock:");
+
+        __StockAbajo.setText("Abajo de Stock");
+        __StockAbajo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                __StockAbajoActionPerformed(evt);
             }
         });
 
@@ -241,7 +254,14 @@ public class Reportes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(319, 319, 319)
+                                .addGap(36, 36, 36)
+                                .addComponent(__etqTotal3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(__StockArriba, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(80, 80, 80)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(__Entrada, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(__etqTotal1))
@@ -253,11 +273,11 @@ public class Reportes extends javax.swing.JFrame {
                                         .addGap(75, 75, 75)
                                         .addComponent(__etqTotal2))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(__Stock, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(53, 53, 53)
+                                .addComponent(__etqTotal4))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(95, 95, 95)
-                                .addComponent(__etqTotal3)))
+                                .addGap(83, 83, 83)
+                                .addComponent(__StockAbajo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,9 +309,13 @@ public class Reportes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(__Salida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31)
-                .addComponent(__etqTotal3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(__etqTotal3)
+                    .addComponent(__etqTotal4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(__Stock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(__StockArriba, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(__StockAbajo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
                 .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -349,9 +373,13 @@ public class Reportes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event___SalidaActionPerformed
 
-    private void __StockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___StockActionPerformed
+    private void __StockArribaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___StockArribaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event___StockActionPerformed
+    }//GEN-LAST:event___StockArribaActionPerformed
+
+    private void __StockAbajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___StockAbajoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event___StockAbajoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -396,12 +424,14 @@ public class Reportes extends javax.swing.JFrame {
     public javax.swing.JButton __RInventario;
     public javax.swing.JButton __SALIR;
     public javax.swing.JButton __Salida;
-    public javax.swing.JButton __Stock;
+    public javax.swing.JButton __StockAbajo;
+    public javax.swing.JButton __StockArriba;
     public javax.swing.JLabel __etqFecha;
     public javax.swing.JLabel __etqTotal;
     public javax.swing.JLabel __etqTotal1;
     public javax.swing.JLabel __etqTotal2;
     public javax.swing.JLabel __etqTotal3;
+    public javax.swing.JLabel __etqTotal4;
     public javax.swing.JMenuItem __menuAcerca;
     public javax.swing.JMenuItem __menuAltaProducto;
     public javax.swing.JMenuItem __menuAnterior;

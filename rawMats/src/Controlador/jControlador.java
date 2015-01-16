@@ -1548,7 +1548,13 @@ public class jControlador implements ActionListener {
         this.reporte.__Salida.addActionListener(this); 
         this.reporte.__Entrada.setActionCommand("__ENTRADA");
         this.reporte.__Entrada.setMnemonic('E');
-        this.reporte.__Entrada.addActionListener(this);                         
+        this.reporte.__Entrada.addActionListener(this);
+        this.reporte.__StockArriba.setActionCommand("__STOCK_ARRIBA");
+        this.reporte.__StockArriba.setMnemonic('S');
+        this.reporte.__StockArriba.addActionListener(this);        
+        this.reporte.__StockAbajo.setActionCommand("__STOCK_ABAJO");
+        this.reporte.__StockAbajo.setMnemonic('A');
+        this.reporte.__StockAbajo.addActionListener(this);
         //FIN MENU
         
         //ACCIOENES CONSULTAS
@@ -1667,6 +1673,8 @@ public class jControlador implements ActionListener {
         __INVENTARIO,
         __SALIDA,
         __ENTRADA,
+        __STOCK_ARRIBA,
+        __STOCK_ABAJO,
         __OPTNINGUNO,
         __OPTSALIDA,
         __OPTENTRADA,
@@ -2416,7 +2424,7 @@ public class jControlador implements ActionListener {
                 String SLF = JOptionPane.showInputDialog(null,"Ingresa la Fecha Final(aaaa-mm-dd)");
                 map.put("final", SLF);
                 if(!SL.equals("") && !SLF.equals("")){
-                    mensaje(1,"Generando Salidas entre las Fechas "+SL+" - "+SLF );
+                    mensaje(1,"Generando Salidas entre las Fechas "+SL+" A "+SLF );
                     this.mimodelo.abrirReporte("SalidasIguales.jrxml",map);                    
                 }else if(!SL.equals("") && SLF.equals("")){
                     mensaje(1,"Generando Salidas Mayores o Iguales a la Fecha "+SL);
@@ -2425,8 +2433,7 @@ public class jControlador implements ActionListener {
                     mensaje(1,"Generando Salidas Menores o Iguales a la Fecha "+SLF);
                     this.mimodelo.abrirReporte("SalidasMenores.jrxml",map);                    
                 }else{
-                    mensaje(2,"No hay Filtros Se Mostrara Un Reporte Completo");    
-                    this.mimodelo.abrirReporte("Salidas.jrxml",new HashMap());
+                    mensaje(2,"No hay Parametros de Busqueda, No se Creara el Reporte");  
                 }                                                
                 break;        
             case __ENTRADA:
@@ -2435,7 +2442,7 @@ public class jControlador implements ActionListener {
                 String ENF = JOptionPane.showInputDialog(null,"Ingresa la Fecha Final(aaaa-mm-dd)");
                 map.put("FIN", ENF);
                 if(!EN.equals("") && !ENF.equals("")){
-                    mensaje(1,"Generando Entradas Entre las Fechas "+EN+" - "+ENF );
+                    mensaje(1,"Generando Entradas Entre las Fechas "+EN+" A "+ENF );
                     this.mimodelo.abrirReporte("EntradaEntre.jrxml",map);                    
                 }else if(!EN.equals("") && ENF.equals("")){
                     mensaje(1,"Generando Entradas Mayores o Iguales a la Fecha "+EN);
@@ -2444,9 +2451,16 @@ public class jControlador implements ActionListener {
                     mensaje(1,"Generando Entradas Menores o Iguales a la Fecha "+ENF);
                     this.mimodelo.abrirReporte("EntradaHasta.jrxml",map);                    
                 }else{
-                    mensaje(2,"No hay Filtros Se Mostrara Un Reporte Completo");  
-                    this.mimodelo.abrirReporte("entrada.jrxml",new HashMap());
+                    mensaje(2,"No hay Parametros de Busqueda, No se Creara el Reporte");  
                 }                
+                break;
+            case __STOCK_ARRIBA:                
+                mensaje(1,"Generando Reporte Mayores al Stock Minimo");
+                this.mimodelo.abrirReporte("MayorMini.jrxml",map);                
+                break;
+            case __STOCK_ABAJO:
+                mensaje(1,"Generando Reporte Menores al Stock Maximo");
+                this.mimodelo.abrirReporte("MenorMaxi.jrxml",map);  
                 break;
             case __OPTNINGUNO:
                 //area, maquina, clave, descripcion, max, min, costopromedio, existencia, ubicacion, op <---

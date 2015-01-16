@@ -23,7 +23,6 @@
 		<![CDATA[SELECT
      vw_infosalida.`id_salida` AS vw_infosalida_id_salida,
      vw_infosalida.`folio` AS vw_infosalida_folio,
-     vw_infosalida.`documento_Sa` AS vw_infosalida_documento_Sa,
      vw_infosalida.`tipo_salida` AS vw_infosalida_tipo_salida,
      vw_infosalida.`area` AS vw_infosalida_area,
      vw_infosalida.`responsable` AS vw_infosalida_responsable,
@@ -36,16 +35,20 @@
      vw_infosalida.`cantidad` AS vw_infosalida_cantidad,
      vw_infosalida.`unidadMedida` AS vw_infosalida_unidadMedida,
      vw_infosalida.`costo` AS vw_infosalida_costo,
-     vw_infosalida.`totalcosto` AS vw_infosalida_totalcosto
+     vw_infosalida.`totalcosto` AS vw_infosalida_totalcosto,
+     vw_infosalida.`documento` AS vw_infosalida_documento,
+     vw_infosalida.`orden_produccion` AS vw_infosalida_orden_produccion,
+     vw_infosalida.`solicitante` AS vw_infosalida_solicitante
 FROM
      `vw_infosalida` vw_infosalida
-where vw_infosalida.`fecha` >= $P{ingresa}
-ORDER BY vw_infosalida.`fecha` asc,
-         vw_infosalida.`folio` asc]]>
+WHERE
+     vw_infosalida.`fecha` >= $P{ingresa}
+ORDER BY
+     vw_infosalida.`fecha` ASC,
+     vw_infosalida.`folio` ASC]]>
 	</queryString>
 	<field name="vw_infosalida_id_salida" class="java.lang.Long"/>
 	<field name="vw_infosalida_folio" class="java.lang.String"/>
-	<field name="vw_infosalida_documento_Sa" class="java.lang.String"/>
 	<field name="vw_infosalida_tipo_salida" class="java.lang.String"/>
 	<field name="vw_infosalida_area" class="java.lang.String"/>
 	<field name="vw_infosalida_responsable" class="java.lang.String"/>
@@ -59,6 +62,9 @@ ORDER BY vw_infosalida.`fecha` asc,
 	<field name="vw_infosalida_unidadMedida" class="java.lang.String"/>
 	<field name="vw_infosalida_costo" class="java.math.BigDecimal"/>
 	<field name="vw_infosalida_totalcosto" class="java.math.BigDecimal"/>
+	<field name="vw_infosalida_documento" class="java.lang.String"/>
+	<field name="vw_infosalida_orden_produccion" class="java.lang.String"/>
+	<field name="vw_infosalida_solicitante" class="java.lang.String"/>
 	<variable name="cantidad" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{vw_infosalida_cantidad}]]></variableExpression>
 	</variable>

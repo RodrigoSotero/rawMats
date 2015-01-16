@@ -17,36 +17,34 @@
 		<![CDATA[SELECT
      vw_infoproducto.`cantidad`*vw_infoproducto.`costopromedio` AS total,
      vw_infoproducto.`idinventario` AS vw_infoproducto_idinventario,
-     vw_infoproducto.`claveProducto` AS vw_infoproducto_claveProducto,
      vw_infoproducto.`cantidad` AS vw_infoproducto_cantidad,
      vw_infoproducto.`costopromedio` AS vw_infoproducto_costopromedio,
      vw_infoproducto.`ubicacion` AS vw_infoproducto_ubicacion,
      vw_infoproducto.`area` AS vw_infoproducto_area,
      vw_infoproducto.`maquina` AS vw_infoproducto_maquina,
-     vw_infoproducto.`descripcionProducto` AS vw_infoproducto_descripcionProducto,
      vw_infoproducto.`max` AS vw_infoproducto_max,
      vw_infoproducto.`min` AS vw_infoproducto_min,
-     vw_infoproducto.`OP` AS vw_infoproducto_OP
+     vw_infoproducto.`descripcion` AS vw_infoproducto_descripcion,
+     vw_infoproducto.`clave` AS vw_infoproducto_clave
 FROM
      `vw_infoproducto` vw_infoproducto
 WHERE
      vw_infoproducto.`cantidad` > 0
 ORDER BY
-     vw_infoproducto.`claveProducto` ASC,
-     vw_infoproducto.`descripcionProducto` ASC]]>
+     vw_infoproducto.`clave` ASC,
+     vw_infoproducto.`descripcion` ASC]]>
 	</queryString>
 	<field name="total" class="java.lang.Double"/>
 	<field name="vw_infoproducto_idinventario" class="java.lang.Integer"/>
-	<field name="vw_infoproducto_claveProducto" class="java.lang.String"/>
 	<field name="vw_infoproducto_cantidad" class="java.lang.Integer"/>
 	<field name="vw_infoproducto_costopromedio" class="java.lang.Double"/>
 	<field name="vw_infoproducto_ubicacion" class="java.lang.String"/>
 	<field name="vw_infoproducto_area" class="java.lang.String"/>
 	<field name="vw_infoproducto_maquina" class="java.lang.String"/>
-	<field name="vw_infoproducto_descripcionProducto" class="java.lang.String"/>
 	<field name="vw_infoproducto_max" class="java.lang.Integer"/>
 	<field name="vw_infoproducto_min" class="java.lang.Integer"/>
-	<field name="vw_infoproducto_OP" class="java.lang.String"/>
+	<field name="vw_infoproducto_descripcion" class="java.lang.String"/>
+	<field name="vw_infoproducto_clave" class="java.lang.String"/>
 	<variable name="cantidad" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{vw_infoproducto_cantidad}]]></variableExpression>
 	</variable>
@@ -230,7 +228,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_claveProducto}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproducto_clave}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement uuid="73b23dc8-8565-41c6-967e-42df813fa482" x="270" y="0" width="50" height="18"/>
@@ -244,7 +242,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_descripcionProducto}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproducto_descripcion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="405" y="0" width="66" height="18"/>
@@ -275,7 +273,6 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_OP}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

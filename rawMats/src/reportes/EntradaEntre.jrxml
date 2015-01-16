@@ -22,8 +22,6 @@
 	<queryString>
 		<![CDATA[SELECT
      vw_infoentrada.`identrada` AS vw_infoentrada_identrada,
-     vw_infoentrada.`folioe` AS vw_infoentrada_folioe,
-     vw_infoentrada.`documentoe` AS vw_infoentrada_documentoe,
      vw_infoentrada.`tipo_entrada` AS vw_infoentrada_tipo_entrada,
      vw_infoentrada.`propietario` AS vw_infoentrada_propietario,
      vw_infoentrada.`cliente` AS vw_infoentrada_cliente,
@@ -36,17 +34,24 @@
      vw_infoentrada.`cantidad` AS vw_infoentrada_cantidad,
      vw_infoentrada.`unidadMedida` AS vw_infoentrada_unidadMedida,
      vw_infoentrada.`costo` AS vw_infoentrada_costo,
-     vw_infoentrada.`totalcosto` AS vw_infoentrada_totalcosto
+     vw_infoentrada.`totalcosto` AS vw_infoentrada_totalcosto,
+     vw_infoentrada.`folio` AS vw_infoentrada_folio,
+     vw_infoentrada.`documento` AS vw_infoentrada_documento,
+     vw_infoentrada.`OC` AS vw_infoentrada_OC,
+     vw_infoentrada.`OP` AS vw_infoentrada_OP
 FROM
      `vw_infoentrada` vw_infoentrada
 WHERE
       vw_infoentrada.`fecha`>=$P{INICIO}
 AND 
-      vw_infoentrada.`fecha`<=$P{FIN}]]>
+      vw_infoentrada.`fecha`<=$P{FIN}
+ORDER BY 
+     vw_infoentrada.`fecha` ASC,
+     vw_infoentrada.`folio` ASC,
+     vw_infoentrada.`claveproducto` ASC,
+     vw_infoentrada.`descripcion`]]>
 	</queryString>
 	<field name="vw_infoentrada_identrada" class="java.lang.Integer"/>
-	<field name="vw_infoentrada_folioe" class="java.lang.String"/>
-	<field name="vw_infoentrada_documentoe" class="java.lang.String"/>
 	<field name="vw_infoentrada_tipo_entrada" class="java.lang.String"/>
 	<field name="vw_infoentrada_propietario" class="java.lang.String"/>
 	<field name="vw_infoentrada_cliente" class="java.lang.String"/>
@@ -60,6 +65,10 @@ AND
 	<field name="vw_infoentrada_unidadMedida" class="java.lang.String"/>
 	<field name="vw_infoentrada_costo" class="java.lang.Double"/>
 	<field name="vw_infoentrada_totalcosto" class="java.lang.Double"/>
+	<field name="vw_infoentrada_folio" class="java.lang.String"/>
+	<field name="vw_infoentrada_documento" class="java.lang.String"/>
+	<field name="vw_infoentrada_OC" class="java.lang.String"/>
+	<field name="vw_infoentrada_OP" class="java.lang.String"/>
 	<variable name="cantidad" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{vw_infoentrada_cantidad}]]></variableExpression>
 	</variable>
@@ -288,7 +297,7 @@ AND
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoentrada_folioe}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoentrada_folio}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.000">
 					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="668" y="0" width="92" height="18"/>
