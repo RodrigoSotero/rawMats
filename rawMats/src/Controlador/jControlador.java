@@ -92,7 +92,7 @@ public class jControlador implements ActionListener {
     private final NuevoPC NewPC = new NuevoPC();
     private final Consultas consulta = new Consultas();
     private final Reportes reporte = new Reportes();
-    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0,SesionCerrada=0;
+    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0,SesionCerrada=0,saber=0;
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
     String buscarfolio;
@@ -1453,6 +1453,9 @@ public class jControlador implements ActionListener {
         this.movimientos.__menuReporte.addActionListener(this);
         this.movimientos.__menucerrarsesiones.setActionCommand("__MENU_CERRAR_SESIONES");
         this.movimientos.__menucerrarsesiones.addActionListener(this);        
+        this.movimientos.__menuconsultarexistencia.setActionCommand("__MENU_CONSULTA_EXISTENCIA");
+        this.movimientos.__menuconsultarexistencia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y,InputEvent.CTRL_MASK));
+        this.movimientos.__menuconsultarexistencia.addActionListener(this);  
         this.movimientos.__menuAcerca.setActionCommand("__MENU_ACERCADE");
         this.movimientos.__menuAcerca.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,InputEvent.CTRL_MASK));
         this.movimientos.__menuAcerca.addActionListener(this);  
@@ -1627,6 +1630,7 @@ public class jControlador implements ActionListener {
         __MENU_MOV_TRASPASO,
         __MENU_ABRIR_ARCHIVO,
         __MENU_CERRAR_SESIONES,
+        __MENU_CONSULTA_EXISTENCIA,
         __MENU_BAJA_PRODUCTO,
         //Nuevo Usuario ABC
         __MODIFICARUSER,
@@ -1706,6 +1710,7 @@ public class jControlador implements ActionListener {
                 break;
             case __MENU_MASTER_ALTAPRODUCTO:
                 menumaster.dispose();
+                saber=1;
                 conEP.setVisible(true);
                 conEP.setName("Consulta del Producto");
                 this.bucarPorducto();
@@ -1722,11 +1727,7 @@ public class jControlador implements ActionListener {
                 }
                 movimientos.setVisible(true);
                 movimientos.setLocationRelativeTo(null);
-                movimientos.setDefaultCloseOperation(0);
-                if(cargo !=1 ){
-                    this.movimientos.__MODIFICACIONENTRADA.setEnabled(false);
-                    this.movimientos.__MODIFICACIONSALIDA.setEnabled(false);
-                }
+                movimientos.setDefaultCloseOperation(0);                
                 maximoentrada();
                 maximosalida();
                 ponerfecha();
@@ -1749,6 +1750,8 @@ public class jControlador implements ActionListener {
                 confir = this.mensajeConfirmacion("¿Desea Salir?","Salida");
                 if (confir==JOptionPane.OK_OPTION){
                     menumaster.dispose();
+                    menumaster.__ALTAPRODUCTO.setEnabled(true);
+                    menumaster.__MOVIMIENTOS.setEnabled(true);
                     Calendar Cal= Calendar.getInstance();                                                  
                     String hora=Cal.get(Cal.HOUR_OF_DAY)<10 ? "0"+Cal.get(Cal.HOUR_OF_DAY) : ""+Cal.get(Cal.HOUR_OF_DAY);
                     String minute=Cal.get(Cal.MINUTE)<10 ? "0"+Cal.get(Cal.MINUTE) : ""+Cal.get(Cal.MINUTE);
@@ -1775,39 +1778,36 @@ public class jControlador implements ActionListener {
                     case 1:
                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Alta de Papel?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
-                            this.newP.setVisible(true);
-                            this.newP.setLocationRelativeTo(null);
-                            movimientos.dispose();
-                            consulta.dispose();
-                            reporte.dispose();
-//                            reporteuser.dispose();
-//                            verconsulta.dispose();
-                            this.addItems("newP");
-                            }
+                                conEP.setVisible(true);                            
+                                conEP.setLocationRelativeTo(null);
+                                movimientos.dispose();
+                                consulta.dispose();
+                                reporte.dispose();
+                                reporteu.dispose();
+//                            verconsulta.dispose();                                
+                                this.bucarPorducto();
+                            }                                                                                        
                     break;                        
                     case 2:
                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Alta de Papel?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
-                            this.newP.setVisible(true);
-                            this.newP.setLocationRelativeTo(null);
-                            movimientos.dispose();
-                            consulta.dispose();
-                            reporte.dispose();
-//                            reporteuser.dispose();
-//                            verconsulta.dispose();
-                            this.addItems("newP");
+                                conEP.setVisible(true);                            
+                                conEP.setLocationRelativeTo(null);
+                                movimientos.dispose();
+                                consulta.dispose();
+                                reporte.dispose();
+                                reporteu.dispose();
+//                            verconsulta.dispose();                                
+                                this.bucarPorducto();
                             }
                     break;
                     case 3:
                         mensaje(2,"No Hay Acceso a esta Información");
-                        break;
-                    case 4:
-                        mensaje(2,"No Hay Acceso a esta Información");
-                        break;
+                        break;                    
                 }
                 break;
             case __MENU_MOV_PAPEL:                
-                 if(cargo!=4 && cargo!=3){
+                 if(cargo!=3){
                       confir = mensajeConfirmacion("¿Realmente Deseas ir a Movimientos?","Salida");
                         if (confir == JOptionPane.OK_OPTION){
                             if(cargo !=1 ){
@@ -1820,7 +1820,7 @@ public class jControlador implements ActionListener {
                             movimientos.setVisible(true);
                             movimientos.setLocationRelativeTo(null);
                             consulta.dispose();                        
-                            this.newP.dispose();
+                            newP.dispose();
                             reporte.dispose();
                             ponerfecha();
                             movimientos.__documentoEntr.requestFocus();
@@ -1835,55 +1835,20 @@ public class jControlador implements ActionListener {
                         break;
                     }
                 break;
-            case __MENU_CONSULTAS:
-                 switch(cargo){
-                    case 1:
+            case __MENU_CONSULTAS:                
                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Consultas?","Salida");
                         if (confir == JOptionPane.OK_OPTION){
                             this.addItems("consultas");
                             consulta.setVisible(true);
                             consulta.setLocationRelativeTo(null);
-                            this.newP.dispose();
+                            newP.dispose();
                             reporte.dispose();
                             movimientos.dispose();
-//                            reporteuser.dispose();
+                            reporteu.dispose();
 //                            verconsulta.dispose();
-                        }                    
-                        break;
-                    case 2:
-                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Consultas?","Salida");
-                        if (confir == JOptionPane.OK_OPTION){
-                            this.addItems("consultas");
-                            consulta.setVisible(true);
-                            consulta.setLocationRelativeTo(null);
-                            this.newP.dispose();
-                            reporte.dispose();
-                            movimientos.dispose();
-//                            reporteuser.dispose();
-//                            verconsulta.dispose();
-                        }
-                        break;
-                    case 3:
-                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Consultas?","Salida");
-                        if (confir == JOptionPane.OK_OPTION){
-                            this.addItems("consultas");
-                            consulta.setVisible(true);
-                            consulta.setLocationRelativeTo(null);
-                            this.newP.dispose();
-                            reporte.dispose();
-                            movimientos.dispose();
-//                            reporteuser.dispose();
-//                            verconsulta.dispose();
-                        }
-                        break;
-                    case 4:
-                        mensaje(2,"No Hay Acceso a esta Información");
-                        break;               
-                }
+                        }                                        
                 break;
-            case __MENU_REPORTES:
-                switch(cargo){
-                    case 1:
+            case __MENU_REPORTES:             
                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
                             reporte.setVisible(true);
@@ -1891,64 +1856,28 @@ public class jControlador implements ActionListener {
                             movimientos.dispose();
                             newP.dispose();
                             consulta.dispose();
-//                            reporteuser.dispose();
+                            reporteu.dispose();
 //                            verconsulta.dispose();
-                            }
-                        break;
-                    case 2:
-                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
-                            if (confir == JOptionPane.OK_OPTION){
-                            reporte.setVisible(true);
-                            reporte.setLocationRelativeTo(null);
-                            movimientos.dispose();
-                            this.newP.dispose();
-                            consulta.dispose();
-//                            reporteuser.dispose();
-//                            verconsulta.dispose();
-                            }
-                        break;
-                    case 3:
-                         confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
-                            if (confir == JOptionPane.OK_OPTION){
-                            reporte.setVisible(true);
-                            reporte.setLocationRelativeTo(null);
-                            movimientos.dispose();
-                            this.newP.dispose();
-                            consulta.dispose();
-//                            reporteuser.dispose();
-//                            verconsulta.dispose();
-                            }
-                        break;
-                     case 4:
-                        confir = mensajeConfirmacion("¿Realmente Deseas ir a Generar un Reporte?","Salida");
-                            if (confir == JOptionPane.OK_OPTION){
-                            reporte.setVisible(true);
-                            reporte.setLocationRelativeTo(null);
-                            movimientos.dispose();
-                            this.newP.dispose();
-                            consulta.dispose();
-//                            reporteuser.dispose();
-//                            verconsulta.dispose();
-                            }
-                        break; 
-                }                      
+                            }                        
                 break;
             case __MENU_CERRAR_SESION:
-                confir = mensajeConfirmacion("¿Realmente Desea Cerrar la Sesión?","Salida");
+                    confir = mensajeConfirmacion("¿Realmente Desea Cerrar la Sesión?","Salida");
                     if (confir == JOptionPane.OK_OPTION){
                         try {
                             login.setVisible(true);
                             login.setLocationRelativeTo(null);
-                            this.newP.dispose();
+                            newP.dispose();
                             movimientos.dispose();
+                            menumaster.__ALTAPRODUCTO.setEnabled(true);
+                            menumaster.__MOVIMIENTOS.setEnabled(true);
                             consulta.dispose();
-//                            reportes.dispose();
-                            reporteu.dispose();
+                            reporte.dispose();
+                            reporteu.dispose();                            
                             mimodelo.cerrarsesion(user);
                             borrarFormularioNewUser();
-                            borrarFormularioAltaProducto();
+//                            borrarFormularioAltaPapel();
 //                            borrarFormularioMovimientosPapel();
-//                            borrarFormularioProveedor();
+                            borrarFormularioProveedor();
 //                            borrarFormularioConsultas();
 //                            borrarFormularioEmergente();
                         } catch (SQLException ex) {
@@ -1966,7 +1895,7 @@ public class jControlador implements ActionListener {
                     pedirfecha=1;
                     newP.setEnabled(false);
                     movimientos.setEnabled(false);
-//                    reportes.setEnabled(false);
+                    reporte.setEnabled(false);
                     consulta.setEnabled(false);
                     fecha.setVisible(true);
                     fecha.setLocationRelativeTo(null);
@@ -1977,7 +1906,7 @@ public class jControlador implements ActionListener {
                         if(cargo == 1 || cargo==2){
                             newP.setEnabled(false);
                             movimientos.setEnabled(false);
-//                            reportes.setEnabled(false);
+                            reporte.setEnabled(false);
                             consulta.setEnabled(false);
                             newU.setVisible(true);
                             newU.setLocationRelativeTo(null);
@@ -1992,7 +1921,7 @@ public class jControlador implements ActionListener {
                     Toolkit.getDefaultToolkit().setLockingKeyState(KeyEvent.VK_CAPS_LOCK, true);
                     newP.setEnabled(false);
                     movimientos.setEnabled(false);
-//                    reportes.setEnabled(false);
+                    reporte.setEnabled(false);
                     consulta.setEnabled(false);
                     pass.__etqBloqMayus.setVisible(true);
                     pass.show();
@@ -2007,7 +1936,7 @@ public class jControlador implements ActionListener {
                                 this.buscarreporteusuario(1);
                                 newP.setEnabled(false);
                                 movimientos.setEnabled(false);
-//                                reportes.setEnabled(false);
+                                reporte.setEnabled(false);
                                 consulta.setEnabled(false);
                             break;
                         case 2:
@@ -2015,10 +1944,7 @@ public class jControlador implements ActionListener {
                             break;
                         case 3:
                             mensaje(2,"No Hay Acceso a esta Información");
-                            break;
-                        case 4:
-                            mensaje(2,"No Hay Acceso a esta Información");
-                            break;
+                            break;                       
                     }            
                 break;
             case __MENU_ACERCADE:
@@ -2085,11 +2011,20 @@ public class jControlador implements ActionListener {
                             break;
                         case 3:
                             mensaje(2,"No Hay Acceso a esta Información");
-                            break;
-                        case 4:
-                            mensaje(2,"No Hay Acceso a esta Información");
-                            break;
+                            break;                      
                     }
+                break;
+            case __MENU_CONSULTA_EXISTENCIA:
+                movimientos.setEnabled(false);
+                saber=2;
+                conEP.setVisible(true);
+                conEP.setName("Consulta del Producto");
+                if(saber==2){
+                    conEP.__ELIMINAR.setEnabled(false);
+                    conEP.__MODIFICAR.setEnabled(false);
+                    conEP.__ACEPTARNP.setEnabled(false);
+                }
+                this.bucarPorducto();
                 break;
 //            case __MENU_BAJA_PRODUCTO:
 //                switch(cargo){
@@ -2300,8 +2235,17 @@ public class jControlador implements ActionListener {
             case __ELIMINARCONSULTAEP:
                 break;            
             case __REGRESARCONSULTAEP:
-                regresar();
-                
+                if(saber==1){
+                    regresar();
+                }else{
+                    conEP.dispose();
+                    movimientos.setEnabled(true);
+                    movimientos.setVisible(true);
+                    conEP.__ELIMINAR.setEnabled(true);
+                    conEP.__MODIFICAR.setEnabled(true);
+                    conEP.__ACEPTARNP.setEnabled(true);
+                    saber=1;
+                }
                 break;
                 //FIN DE LOS BOTONES DE LA CONSULTA INICIAL DE LA EXISTENCIA DEL PRODUCTO
                 //ALTA DE PRODUCTOS
@@ -2779,33 +2723,18 @@ public class jControlador implements ActionListener {
     public void fechaini() {
         if (aceptarfecha()==true){
             if(pedirfecha==0){
-                    switch(cargo){
-                        case 1:
-                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());                                                  
-                            menumaster.setLocationRelativeTo(null);
-                            menumaster.show();
-                            break;
-                        case 2:
-                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());                            
-                            menumaster.setLocationRelativeTo(null);
-                            menumaster.show();
-                            break;
-                        case 3:
-                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
-                            menumaster.__ALTAPRODUCTO.setEnabled(false);
-                            menumaster.__MOVIMIENTOS.setEnabled(false);
-                            menumaster.setLocationRelativeTo(null);
-                            menumaster.show();
-                            break;
-                        case 4:
-                            menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
-                            menumaster.__ALTAPRODUCTO.setEnabled(false);
-                            menumaster.__MOVIMIENTOS.setEnabled(false);
-                            menumaster.setLocationRelativeTo(null);
-                            menumaster.show();
-                            break;
-                    }
-                }
+                if(cargo==3){
+                    menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());
+                    menumaster.__ALTAPRODUCTO.setEnabled(false);
+                    menumaster.__MOVIMIENTOS.setEnabled(false);
+                    menumaster.setLocationRelativeTo(null);
+                    menumaster.show();
+                }else{
+                    menumaster.__etqUsuarioMenuMaster.setText(fecha.__etqUser.getText());                                                  
+                    menumaster.setLocationRelativeTo(null);
+                    menumaster.show();
+                }                    
+            }        
                 ponerfecha();
                 fecha.date.setDate(null);
                 login.dispose();
@@ -2815,7 +2744,7 @@ public class jControlador implements ActionListener {
                 reporte.setEnabled(true);                    
                 consulta.setEnabled(true);
                 fecha.dispose();
-            }
+        }
     }
     public boolean aceptarfecha() {
         fec = this.aceptarFecha(fecha.date,0);
@@ -3212,10 +3141,10 @@ public class jControlador implements ActionListener {
                             confir = mensajeConfirmacion("¿Realmente Deseas Regresar al \n Menú Principal?","Salida");
                                  if (confir == JOptionPane.OK_OPTION){
                                     menumaster.setVisible(true);
-                                    menumaster.setLocationRelativeTo(null);
+                                    menumaster.setLocationRelativeTo(null);                                    
                                     consulta.dispose();
                                     movimientos.dispose();
-                                    this.newP.dispose();
+                                    newP.dispose();
                                     conEP.dispose();
                                     reporte.dispose();                                    
                                     borrarFormularioNewUser();
@@ -3232,6 +3161,8 @@ public class jControlador implements ActionListener {
                                 if (confir == JOptionPane.OK_OPTION){
                                 menumaster.setVisible(true);
                                 menumaster.setLocationRelativeTo(null);
+                                menumaster.__ALTAPRODUCTO.setEnabled(false);
+                                menumaster.__MOVIMIENTOS.setEnabled(false);
                                 consulta.dispose();
                                 movimientos.dispose();
                                 newP.dispose();
@@ -3243,25 +3174,7 @@ public class jControlador implements ActionListener {
                                 borrarFormularioProveedor();
 //                                borrarFormularioConsultas();
 //                                borrarFormularioEmergente();
-                                }
-                            break;
-                        case 4:                                
-                                confir = mensajeConfirmacion("¿Realmente Deseas Regresar al \n Menú Principal?","Salida");
-                                if (confir == JOptionPane.OK_OPTION){
-                                menumaster.setVisible(true);
-                                menumaster.setLocationRelativeTo(null);
-                                consulta.dispose();
-                                movimientos.dispose();
-                                newP.dispose();
-                                conEP.dispose();
-                                reporte.dispose();
-                                borrarFormularioNewUser();
-                                borrarFormularioAltaProducto();
-//                                borrarFormularioMovimientosPapel();
-                                borrarFormularioProveedor();
-//                                borrarFormularioConsultas();
-//                                borrarFormularioEmergente();
-                                }
+                                }                                                   
                             break;                   
                     }
     }
