@@ -581,8 +581,6 @@ public class Movimientos extends javax.swing.JFrame {
 
         JPanel.addTab("1. Entrada", __pnlEntrada);
 
-        __pnlSalidasG.setOpaque(false);
-
         __AreaSalida.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __AreaSalida.setMaximumSize(new java.awt.Dimension(10, 30));
         __AreaSalida.setMinimumSize(new java.awt.Dimension(10, 30));
@@ -1281,7 +1279,7 @@ public class Movimientos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JMenuBar jMenuBar1;
+    public javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
