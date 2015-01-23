@@ -125,7 +125,10 @@ public class Consultas extends javax.swing.JFrame {
         __menuBackup = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImage(getIconImage());
+        setResizable(false);
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Movimiento:"));
         jPanel9.setOpaque(false);
@@ -1047,7 +1050,7 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JCheckBox __chkUbicacion;
     public javax.swing.JCheckBox __chkUnidad;
     public javax.swing.JTextField __clave;
-    private javax.swing.JComboBox __cmbUnidad;
+    public javax.swing.JComboBox __cmbUnidad;
     public javax.swing.JTextField __costo;
     public com.toedter.calendar.JDateChooser __dateIni;
     public com.toedter.calendar.JDateChooser __datefin;

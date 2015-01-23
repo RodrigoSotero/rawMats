@@ -1136,5 +1136,17 @@ public class modelo extends database{
                 return null;
             }
     }
+    
+    public ResultSet Consulta(String consulta) {
+        String q = consulta;
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }
+    }
 }
 

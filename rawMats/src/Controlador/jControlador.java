@@ -8,6 +8,7 @@ package Controlador;
 
 import Modelo.modelo;
 import Vista.CambioP;
+import Vista.Consulta;
 import Vista.Consulta1;
 import Vista.Consultas;
 import Vista.Fecha;
@@ -92,6 +93,7 @@ public class jControlador implements ActionListener {
     private final NuevoPC NewPC = new NuevoPC();
     private final Consultas consulta = new Consultas();
     private final Reportes reporte = new Reportes();
+    private final Consulta verconsulta = new Consulta();
     int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0,SesionCerrada=0,saber=0;
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
@@ -2566,6 +2568,14 @@ public class jControlador implements ActionListener {
                 break;
             case __OPTNINGUNO:
                 //area, maquina, clave, descripcion, max, min, costopromedio, existencia, ubicacion, op <---
+                this.consulta.__clave.setEnabled(true);
+                this.consulta.__chkClave.setEnabled(true);
+                this.consulta.__cmbUnidad.setEnabled(true);
+                this.consulta.__chkUnidad.setEnabled(true);
+                this.consulta.__Cantidad.setEnabled(true);
+                this.consulta.__chkCantidad.setEnabled(true);
+                this.consulta.__costo.setEnabled(true);
+                this.consulta.__chkCosto.setEnabled(true);
                 this.consulta.__Descripcion.setEnabled(true);
                 this.consulta.__chkDescripcion.setEnabled(true);
                 this.consulta.__proveedor.setEnabled(false);
@@ -2606,6 +2616,14 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkTurno3.setEnabled(false);
                 break;
             case __OPTENTRADA:
+                this.consulta.__clave.setEnabled(true);
+                this.consulta.__chkClave.setEnabled(true);
+                this.consulta.__cmbUnidad.setEnabled(true);
+                this.consulta.__chkUnidad.setEnabled(true);
+                this.consulta.__Cantidad.setEnabled(true);
+                this.consulta.__chkCantidad.setEnabled(true);
+                this.consulta.__costo.setEnabled(true);
+                this.consulta.__chkCosto.setEnabled(true);
                 this.consulta.__Descripcion.setEnabled(true);
                 this.consulta.__chkDescripcion.setEnabled(true);
                 this.consulta.__proveedor.setEnabled(true);
@@ -2646,6 +2664,14 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkTurno3.setEnabled(true);
                 break;
             case __OPTSALIDA:
+                this.consulta.__clave.setEnabled(true);
+                this.consulta.__chkClave.setEnabled(true);
+                this.consulta.__cmbUnidad.setEnabled(true);
+                this.consulta.__chkUnidad.setEnabled(true);
+                this.consulta.__Cantidad.setEnabled(true);
+                this.consulta.__chkCantidad.setEnabled(true);
+                this.consulta.__costo.setEnabled(true);
+                this.consulta.__chkCosto.setEnabled(true);
                 this.consulta.__Descripcion.setEnabled(true);
                 this.consulta.__chkDescripcion.setEnabled(true);
                 this.consulta.__proveedor.setEnabled(false);
@@ -2686,6 +2712,7 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkTurno3.setEnabled(true);
                 break;
             case __ACEPTARCONSULTA:
+                String q="";
                 //area, maquina, clave, descripcion, max, min, costopromedio, existencia, ubicacion, op <---
                 String select = "SELECT ";
                 String campos = "";
@@ -2694,14 +2721,160 @@ public class jControlador implements ActionListener {
                 String where =" WHERE ";
                 String condiciones ="";
                 
+                //DESCRICPCION, PROVEEDOR,CLIENTE,FOLIO,DOCUMENTO,OP,OC,UBICA,CALVE,UNIDAD,CAMTIDAD,COSTO,AREA,TIPO ENTRADA, T1,T2,T3,FECHA INI FECHA FIN
                 
+                String descripcion = this.consulta.__Descripcion.getText();
+                String clavepro = this.consulta.__clave.getText();
+                String uM = (String) this.consulta.__cmbUnidad.getSelectedItem();
+                String cantidad = this.consulta.__Cantidad.getText();
+                String ubicacion = this.consulta.__Ubicacion.getText();
+                String area = this.consulta.__Area.getText();
+                String maquina = this.consulta.__Maquina.getText();
+                String minimo = this.consulta.__min.getText();
+                String maximo = this.consulta.__max.getText();
+                String op = this.consulta.__OrdenP.getText();
+                String proveedor = this.consulta.__proveedor.getText();//
+                String cliente = this.consulta.__Cliente.getText();
+                String folio = this.consulta.__folio.getText();
+                String foliohasta = this.consulta.__foliohasta.getText();
+                String documento = this.consulta.__documento.getText();
+                String oc = this.consulta.__OrdenC.getText();
+                String tipoentrada = this.consulta.__TipoEntrada1.getText();
                 
-                if(this.consulta.__optNinguno.isSelected()){
-                    tabla="vw_descripcionproductos";
+                /*if(this.consulta.__optNinguno.isSelected()){
+                    tabla=" vw_descripcionproductos ";
+                    //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
+                    q+=select;
+                    campos +=" * ";
+                    campos= campos.replace(" * ", " clave,descripcion,area,maquina,ubicacion,op, max,min, existencia, unidadmedida, costopromedio as costo");                    
+                    q+=campos;
+                    q+=from;
+                    q+=tabla;
+                    if(!descripcion.isEmpty()){
+                        condiciones += " and descripcion like '%"+descripcion+"%' ";
+                    }
+                    if(!clavepro.isEmpty()){
+                        condiciones += " and clave='"+clavepro+"' ";
+                    }
+                    if(!uM.equals("Selecciona...")){
+                        condiciones += " and unidadMedida='"+uM+"' ";
+                    }
+                    if(!cantidad.isEmpty()){
+                        condiciones += " and existencia='"+cantidad+"' ";
+                    }
+                    if(!ubicacion.isEmpty()){
+                        condiciones += " and ubicacion='"+ubicacion+"' ";
+                    }
+                    if(!area.isEmpty()){
+                        condiciones += " and area='"+area+"' ";
+                    }
+                    if(!maquina.isEmpty()){
+                        condiciones += " and maquina='"+maquina+"' ";
+                    }
+                    if(!op.isEmpty()){
+                        condiciones += "and op='"+op+"' ";
+                    }
+                    
+                    //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
+                    
+                    if(!condiciones.equals("")){
+                        q+=where;
+                        condiciones = condiciones.substring(4);
+                        condiciones = condiciones.substring(0,(condiciones.length()-1));
+                        q+=condiciones;
+                    }
+                    
+                }*/
+                if(this.consulta.__optEntrada.isSelected()){
+                    tabla=" vw_descripcionproductos ";
+                    //DESCRICPCION, PROVEEDOR,CLIENTE,FOLIO,DOCUMENTO,OP,OC,UBICACALVE,UNIDAD,CAMTIDAD,COSTO,AREA,TIPO ENTRADA, T1,T2,T3,FECHA INI FECHA FIN
+                    q+=select;
+                    campos +=" * ";
+                    //campos= campos.replace(" * ", " clave,descripcion,area,maquina,ubicacion,op, max,min, existencia, unidadmedida, costopromedio as costo");                    
+                    q+=campos;
+                    q+=from;
+                    q+=tabla;
+                    if(!descripcion.isEmpty()){
+                        condiciones += " and descripcion like '%"+descripcion+"%' ";
+                    }
+                    if(!descripcion.isEmpty()){
+                        condiciones += " and descripcion like '%"+descripcion+"%' ";
+                    }
+                    if(!clavepro.isEmpty()){
+                        condiciones += " and clave='"+clavepro+"' ";
+                    }
+                    if(!uM.equals("Selecciona...")){
+                        condiciones += " and unidadMedida='"+uM+"' ";
+                    }
+                    if(!cantidad.isEmpty()){
+                        condiciones += " and existencia='"+cantidad+"' ";
+                    }
+                    if(!ubicacion.isEmpty()){
+                        condiciones += " and ubicacion='"+ubicacion+"' ";
+                    }
+                    if(!area.isEmpty()){
+                        condiciones += " and area='"+area+"' ";
+                    }
+                    if(!maquina.isEmpty()){
+                        condiciones += " and maquina='"+maquina+"' ";
+                    }
+                    if(!op.isEmpty()){
+                        condiciones += "and op='"+op+"' ";
+                    }
+                    
+                    //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
+                    
+                    if(!condiciones.equals("")){
+                        q+=where;
+                        condiciones = condiciones.substring(4);
+                        condiciones = condiciones.substring(0,(condiciones.length()-1));
+                        q+=condiciones;
+                    }
+                    
+                }
+                System.out.println(q);
+                ResultSet Consulta = mimodelo.Consulta(q);
+                try {
+                    if(Consulta.next()){
+                        Consulta.beforeFirst();
+                        ResultSetMetaData metaData = Consulta.getMetaData();
+                        int numcolumnas = metaData.getColumnCount();
+                        String datosT[] =  new String[numcolumnas];
+                        String datosC[] =  new String[numcolumnas];
+                        for(int i=0;i<numcolumnas;i++){
+                            datosT[i]=metaData.getColumnLabel(i+1).toUpperCase();
+                        }
+                        DefaultTableModel modelo = new DefaultTableModel();
+                        verconsulta.__tConsulta.setModel(modelo);
+                        for(int i=0;i<numcolumnas;i++){
+                            modelo.addColumn(datosT[i]);
+                        }
+                        TableColumnModel columnModel = verconsulta.__tConsulta.getColumnModel();
+                        TableColumn columnaTabla = columnModel.getColumn(0);
+                        String nombreColumna = columnaTabla.getIdentifier().toString();
+                        if (nombreColumna.equals("CLAVE")||nombreColumna.equals("CLAVEPAPEL")){
+                            columnaTabla.setPreferredWidth(100);
+                        }
+                        while(Consulta.next()){
+                            for(int i=0;i<numcolumnas;i++){
+                                datosC[i]=Consulta.getString(i+1);
+                            }
+                            modelo.addRow(datosC);
+                        }
+                        int total_filas = verconsulta.__tConsulta.getRowCount();
+                        verconsulta.__etqTotal.setText("Total de Registros: "+total_filas);
+                        verconsulta.show();
+                    }else{
+                        mensaje(2,"La consulta a la base de datos no devolvio informacion");
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                    
                 }
                 break;
         }
     }
+    
     public void iniciasesion() {
         user=this.login.__Usuario.getText();
         contra=this.login.__Pswd.getText();
