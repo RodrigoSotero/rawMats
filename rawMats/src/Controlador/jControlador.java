@@ -1519,6 +1519,22 @@ public class jControlador implements ActionListener {
                 } 
             }
             });
+        //cnsita
+        this.verconsulta.__SALIR.setActionCommand("__REGRESAR");
+        this.verconsulta.__SALIR.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                if(evt.getKeyCode()==KeyEvent.VK_ESCAPE){
+                    limpiarTabla(verconsulta.__tConsulta);
+                    verconsulta.setVisible(false);
+                }                    
+            }
+        });             
+        this.verconsulta.__SALIR.addActionListener(this); 
+        this.verconsulta.__EXCEL.setActionCommand("__EXCEL");
+        this.verconsulta.__EXCEL.addActionListener(this);
+        this.verconsulta.__CORREO.setActionCommand("__CORREO");
+        this.verconsulta.__CORREO.addActionListener(this);
+        
         //Consultas autocompletables        
         //,,,,,
         Com_DescrpcionCon = new TextAutoCompleter(consulta.__Descripcion);
