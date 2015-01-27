@@ -36,8 +36,6 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="__REGRESAR" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="__ELIMINAR" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="__MODIFICAR" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="__ACEPTARNP" min="-2" max="-2" attributes="0"/>
@@ -69,7 +67,6 @@
               <EmptySpace pref="35" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="__ACEPTARNP" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="__ELIMINAR" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="__REGRESAR" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="__MODIFICAR" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -151,17 +148,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="__ELIMINAR">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Eliminar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="__ELIMINARActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JButton" name="__REGRESAR">
       <Properties>
         <Property name="text" type="java.lang.String" value="Regresar"/>

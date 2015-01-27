@@ -49,7 +49,6 @@ public class Consulta1 extends javax.swing.JFrame {
         __descripcionP = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         __tablaProductos = new javax.swing.JTable();
-        __ELIMINAR = new javax.swing.JButton();
         __REGRESAR = new javax.swing.JButton();
         __ACEPTARNP = new javax.swing.JButton();
         __MODIFICAR = new javax.swing.JButton();
@@ -101,13 +100,6 @@ public class Consulta1 extends javax.swing.JFrame {
             __tablaProductos.getColumnModel().getColumn(1).setPreferredWidth(400);
         }
 
-        __ELIMINAR.setText("Eliminar");
-        __ELIMINAR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                __ELIMINARActionPerformed(evt);
-            }
-        });
-
         __REGRESAR.setText("Regresar");
         __REGRESAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,8 +137,6 @@ public class Consulta1 extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(__REGRESAR)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(__ELIMINAR)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(__MODIFICAR)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(__ACEPTARNP))
@@ -170,7 +160,6 @@ public class Consulta1 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(__ACEPTARNP)
-                    .addComponent(__ELIMINAR)
                     .addComponent(__REGRESAR)
                     .addComponent(__MODIFICAR))
                 .addGap(21, 21, 21))
@@ -178,10 +167,6 @@ public class Consulta1 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void __ELIMINARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___ELIMINARActionPerformed
-        // TODO add your handling code here:jha
-    }//GEN-LAST:event___ELIMINARActionPerformed
 
     private void __REGRESARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event___REGRESARActionPerformed
         // TODO add your handling code here:
@@ -232,7 +217,6 @@ public class Consulta1 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton __ACEPTARNP;
-    public javax.swing.JButton __ELIMINAR;
     public javax.swing.JButton __MODIFICAR;
     public javax.swing.JButton __REGRESAR;
     public javax.swing.JTextField __descripcionP;
