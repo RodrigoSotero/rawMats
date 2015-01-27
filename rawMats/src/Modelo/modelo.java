@@ -1160,5 +1160,53 @@ public class modelo extends database{
                 return null;
             }
     }
+    public boolean bajaTipoSalida(int id) {
+            String q="delete from tipo_salida where idtipo_salida='"+id+"'";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean bajaTipoEntrada(int id) {
+            String q="delete from tipo_entrada where id_tipo_en='"+id+"'";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean bajaPropietarios(int id) {
+            String q="delete from propietarios where id_propietarios='"+id+"'";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean bajaProveedor(int id) {
+            String q="delete from proveedores where id_provedores='"+id+"'";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
 }
 

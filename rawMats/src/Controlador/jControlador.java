@@ -672,7 +672,84 @@ public class jControlador implements ActionListener {
                  bucarPorducto();
              }                      
         });
-        //MOVIMIENTOS PAPEL            
+        //MOVIMIENTOS PAPEL  
+        this.movimientos.__etqNewEliminarProveedorEntr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt){}
+            public void mouseExited(java.awt.event.MouseEvent evt){}
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                String prove = movimientos.__ProvEntr.getText().toString();
+                if(prove.isEmpty())return;
+                confir = mensajeConfirmacion("¿Deseas eliminar el proveedor "+prove+"?","Confirma");  
+                if(confir==JOptionPane.YES_OPTION){
+                    int id = busquedaid(movimientos.__ProvEntr);
+                    if(id>0){
+                        boolean tru =mimodelo.bajaProveedor(id);
+                        if(tru) {mensaje(1,"Baja de proveedor"+ prove +" correcta.");
+                                         movimientos.__ProvEntr.setText("");}
+                        else mensaje(3,"Baja de proveedor "+ prove +" incorrecta.");
+                    }else mensaje(2,"Verifica el proveedor");
+                }
+            }
+        });
+         this.movimientos.__etqNewEliminarPropietarioEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt){}
+            public void mouseExited(java.awt.event.MouseEvent evt){}
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                String propietario = movimientos.__PropietarioEntr.getText().toString();
+                if(propietario.isEmpty())return;
+                confir = mensajeConfirmacion("¿Deseas eliminar al propietario "+propietario+"?","Confirma");  
+                if(confir==JOptionPane.YES_OPTION){
+                    int id = busquedaid(movimientos.__PropietarioEntr);
+                    if(id>0){
+                        boolean tru =mimodelo.bajaPropietarios(id);
+                        if(tru) {mensaje(1,"Baja de propietario "+ propietario +" correcta.");
+                                         movimientos.__PropietarioEntr.setText("");}
+                        else mensaje(3,"Baja de propietario "+ propietario +" incorrecta.");
+                    }else mensaje(2,"Verifica el propietario");
+                }
+            }
+        });
+        this.movimientos.__etqNewEliminarTipoEntr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt){}
+            public void mouseExited(java.awt.event.MouseEvent evt){}
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                String ent = movimientos.__TipoEntrada.getText().toString();
+                if(ent.isEmpty())return;
+                confir = mensajeConfirmacion("¿Deseas eliminar el tipo de entrada "+ent+"?","Confirma");  
+                if(confir==JOptionPane.YES_OPTION){
+                    int id = busquedaid(movimientos.__TipoEntrada);
+                    if(id>0){
+                        boolean tru =mimodelo.bajaTipoEntrada(id);
+                        if(tru) {mensaje(1,"Baja de tipo entrada "+ ent +" correcta.");
+                                         movimientos.__TipoEntrada.setText("");}
+                        else mensaje(3,"Baja de tipo entrada "+ ent +" incorrecta.");
+                    }else mensaje(2,"Verifica el tipo de entrada");
+                }
+            }
+        });
+        this.movimientos.__etqNewEliminarTipoSalida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                System.out.println("borrar");
+                String sal = movimientos.__TipoSalida.getText().toString();
+                if(sal.isEmpty())return;
+                confir = mensajeConfirmacion("¿Deseas eliminar el tipo de salida "+sal+"?","Confirma");  
+                if(confir==JOptionPane.YES_OPTION){
+                    int id = busquedaid(movimientos.__TipoSalida);
+                    if(id>0){
+                        boolean tru =mimodelo.bajaTipoSalida(id);
+                        if(tru) {mensaje(1,"Baja de tipo salida "+ sal +" correcta.");
+                                         movimientos.__TipoSalida.setText("");}
+                        else mensaje(3,"Baja de tipo salidaa "+ sal +" incorrecta.");
+                    }else mensaje(2,"Verifica el tipo de salida");
+                }
+            }    
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+               
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                
+            }
+        });
         this.movimientos.__ACEPTARENTRADA.setActionCommand("__ACEPTAR_ENTRADA");
         this.movimientos.__ACEPTARENTRADA.setMnemonic('A');
         this.movimientos.__ACEPTARENTRADA.addActionListener(this);

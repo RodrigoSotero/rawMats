@@ -617,10 +617,6 @@ public class Movimientos extends javax.swing.JFrame {
 
         JPanel.addTab("1. Entrada", __pnlEntrada);
 
-        __pnlSalidasG.setOpaque(false);
-
-        __pnlSalidasG.setOpaque(false);
-
         __AreaSalida.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __AreaSalida.setMaximumSize(new java.awt.Dimension(10, 30));
         __AreaSalida.setMinimumSize(new java.awt.Dimension(10, 30));

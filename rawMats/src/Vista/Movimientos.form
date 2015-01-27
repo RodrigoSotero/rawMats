@@ -1170,9 +1170,6 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="__pnlSalidasG">
-          <Properties>
-            <Property name="opaque" type="boolean" value="false"/>
-          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
