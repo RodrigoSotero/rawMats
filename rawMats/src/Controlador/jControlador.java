@@ -238,15 +238,15 @@ public class jControlador implements ActionListener {
         this.newP.__SALIR.setActionCommand("__SALIR_PRODUCTO");
         this.newP.__SALIR.setMnemonic('R');
         this.newP.__SALIR.addActionListener(this);
-        this.newP.__etqNewArea.addMouseListener(new java.awt.event.MouseAdapter(){
+        this.newP.__etqNewEliminarMaquina.addMouseListener(new java.awt.event.MouseAdapter(){
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 nuevaArea(newP.__cmbArea);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt){
-               newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 3, 12));
+               newP.__etqNewEliminarMaquina.setFont(new java.awt.Font("Papyrus", 3, 12));
             }
             public void mouseExited(java.awt.event.MouseEvent evt){
-                newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 0, 12));
+                newP.__etqNewEliminarMaquina.setFont(new java.awt.Font("Papyrus", 0, 12));
             }
         });
         this.newP.__etqNewMaquina.addMouseListener(new java.awt.event.MouseAdapter(){
@@ -1347,12 +1347,12 @@ public class jControlador implements ActionListener {
                 nuevoTipoSalida();                
             }
         });
-        this.movimientos.__etqNewProveedorSalida.addMouseListener(new java.awt.event.MouseAdapter() {
+        this.movimientos.__etqNewAreaSalida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt){
-                movimientos.__etqNewProveedorSalida.setFont(new java.awt.Font("Papyrus", 3, 12));
+                movimientos.__etqNewAreaSalida.setFont(new java.awt.Font("Papyrus", 3, 12));
             }
             public void mouseExited(java.awt.event.MouseEvent evt){
-                movimientos.__etqNewProveedorSalida.setFont(new java.awt.Font("Papyrus", 0, 12));
+                movimientos.__etqNewAreaSalida.setFont(new java.awt.Font("Papyrus", 0, 12));
             }
             public void mouseClicked(java.awt.event.MouseEvent evt) {                                
                 nuevaArea();                
