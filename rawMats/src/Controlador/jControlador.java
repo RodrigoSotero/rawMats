@@ -1578,7 +1578,7 @@ public class jControlador implements ActionListener {
             public void keyReleased(java.awt.event.KeyEvent evt){
               try {
                     String descripcion = consulta.__proveedor.getText();
-                    //ResultSet buscarproveeor = mimodelo.buscarProveedor(descripcion);
+                    ResultSet buscarproveeor = mimodelo.buscarProveedor(descripcion);
                     Com_proveedorCon.removeAll();
                     while(buscarproveeor.next()){
                         Com_proveedorCon.addItem(buscarproveeor.getString("descripcion"));
