@@ -672,7 +672,43 @@ public class jControlador implements ActionListener {
                  bucarPorducto();
              }                      
         });
-        //MOVIMIENTOS PAPEL  
+        //MOVIMIENTOS PAPEL
+        this.movimientos.__etqNewEliminarAreaSalida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt){}
+            public void mouseExited(java.awt.event.MouseEvent evt){}
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                String area = movimientos.__AreaSalida.getText().toString();
+                if(area.isEmpty())return;
+                confir = mensajeConfirmacion("¿Deseas eliminar el area "+area+"?","Confirma");  
+                if(confir==JOptionPane.YES_OPTION){
+                    int id = busquedaid(movimientos.__AreaSalida);
+                    if(id>0){
+                        boolean tru =mimodelo.bajaArea(id);
+                        if(tru) {mensaje(1,"Baja de cliente "+ cliente +" correcta.");
+                                         movimientos.__ClientEntr.setText("");}
+                        else mensaje(3,"Baja de cliente "+ cliente +" incorrecta.");
+                    }else mensaje(2,"Verifica el cliente");
+                }
+            }
+        });
+        this.movimientos.__etqNewEliminarClienteE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt){}
+            public void mouseExited(java.awt.event.MouseEvent evt){}
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                String cliente = movimientos.__ClientEntr.getText().toString();
+                if(cliente.isEmpty())return;
+                confir = mensajeConfirmacion("¿Deseas eliminar al cliente "+cliente+"?","Confirma");  
+                if(confir==JOptionPane.YES_OPTION){
+                    int id = busquedaid(movimientos.__ClientEntr);
+                    if(id>0){
+                        boolean tru =mimodelo.bajaClientes(id);
+                        if(tru) {mensaje(1,"Baja de cliente "+ cliente +" correcta.");
+                                         movimientos.__ClientEntr.setText("");}
+                        else mensaje(3,"Baja de cliente "+ cliente +" incorrecta.");
+                    }else mensaje(2,"Verifica el cliente");
+                }
+            }
+        });
         this.movimientos.__etqNewEliminarProveedorEntr.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt){}
             public void mouseExited(java.awt.event.MouseEvent evt){}

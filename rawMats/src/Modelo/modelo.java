@@ -1208,5 +1208,30 @@ public class modelo extends database{
             return false;
         }
     }
+    public boolean bajaClientes(int id) {
+            String q="delete from clientes where id_clientes='"+id+"'";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean bajaArea(int id) {
+        String q="delete from area where idarea='"+id+"'";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
 }
 
