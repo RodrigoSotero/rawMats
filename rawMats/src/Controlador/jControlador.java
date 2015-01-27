@@ -11,6 +11,7 @@ import Vista.CambioP;
 import Vista.Consulta;
 import Vista.Consulta1;
 import Vista.Consultas;
+import Vista.Correo;
 import Vista.Fecha;
 import Vista.HiloProgreso;
 import Vista.Login;
@@ -35,6 +36,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -72,6 +74,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  *
@@ -94,6 +101,7 @@ public class jControlador implements ActionListener {
     private final Consultas consulta = new Consultas();
     private final Reportes reporte = new Reportes();
     private final Consulta verconsulta = new Consulta();
+    private final  Vista.Correo correo = new Correo();
     int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0,SesionCerrada=0,saber=0;
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
@@ -1518,7 +1526,22 @@ public class jControlador implements ActionListener {
                 } 
             }
             });
-
+        //consulta
+        this.verconsulta.__SALIR.setActionCommand("__REGRESAR");
+        this.verconsulta.__SALIR.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                if(evt.getKeyCode()==KeyEvent.VK_ESCAPE){
+                    limpiarTabla(verconsulta.__tConsulta);
+                    verconsulta.setVisible(false);
+                }                    
+            }
+        });             
+        this.verconsulta.__SALIR.addActionListener(this); 
+        this.verconsulta.__EXCEL.setActionCommand("__EXCEL");
+        this.verconsulta.__EXCEL.addActionListener(this);
+        this.verconsulta.__CORREO.setActionCommand("__CORREO");
+        this.verconsulta.__CORREO.addActionListener(this);
+        
         //MENUS
         //Menu New Producto 
         this.newP.__menuMovimientos.setActionCommand("__MENU_MOV_PAPEL");
@@ -1846,7 +1869,17 @@ public class jControlador implements ActionListener {
         __OPTNINGUNO,
         __OPTSALIDA,
         __OPTENTRADA,
-        __ACEPTARCONSULTA
+        __ACEPTARCONSULTA,
+        //VER CONSULTA
+        __REGRESAR,
+        __EXCEL,
+        __IMPRIMIR,
+        __CORREO,
+        //CORREO
+        __BUSCARARCHIVO,
+        __ABRIREXCEL,
+        __ACEPTARCORREO,
+        __SALIRCORREO,
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -2879,7 +2912,7 @@ public class jControlador implements ActionListener {
                 String oc = this.consulta.__OrdenC.getText();
                 String tipoentrada = this.consulta.__TipoEntrada1.getText();
                 
-                /*if(this.consulta.__optNinguno.isSelected()){
+                if(this.consulta.__optNinguno.isSelected()){
                     tabla=" vw_descripcionproductos ";
                     //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
                     q+=select;
@@ -2922,7 +2955,7 @@ public class jControlador implements ActionListener {
                         q+=condiciones;
                     }
                     
-                }*/
+                }
                 if(this.consulta.__optEntrada.isSelected()){
                     tabla=" vw_descripcionproductos ";
                     //DESCRICPCION, PROVEEDOR,CLIENTE,FOLIO,DOCUMENTO,OP,OC,UBICACALVE,UNIDAD,CAMTIDAD,COSTO,AREA,TIPO ENTRADA, T1,T2,T3,FECHA INI FECHA FIN
@@ -3009,6 +3042,92 @@ public class jControlador implements ActionListener {
                     mensaje(3,ex.getMessage());
                     
                 }
+                break;
+                case __REGRESAR:
+                    this.limpiarTabla(verconsulta.__tConsulta);
+                    verconsulta.setVisible(false);
+                    break;
+            case __EXCEL:
+                try{
+                    File archivo = this.archivo(1);
+                    if(archivo==null){
+                        return;
+                    }
+                    boolean arch = this.imprimirExcel(archivo,verconsulta.__tConsulta);
+                    if(arch==true){
+                        confir = this.mensajeConfirmacion("Archivo "+archivo+".xls creado correctamente, deseas hacer otra operacion", "Adicional");
+                        if(confir==JOptionPane.OK_OPTION){
+                            correo.setVisible(true);
+                            correo.setLocationRelativeTo(null);
+                            correo.__archivo.setText(archivo.getAbsolutePath().toLowerCase()+".xls");
+                        }
+                    }
+                }catch(Exception a){
+                    mensaje(3,a.getMessage());
+                }
+                break;
+            case __CORREO:
+                correo.setVisible(true);
+                correo.setLocationRelativeTo(null);
+                break;
+                case __BUSCARARCHIVO:
+                File archivo = this.archivo(2);
+                if(archivo==null){
+                    break;
+                }
+                correo.__archivo.setText(archivo.getAbsolutePath().toLowerCase());
+                break;
+            case __ABRIREXCEL:
+                try {
+                    String fil = correo.__archivo.getText();
+                    if(!fil.isEmpty()){
+                        File f = new File(fil);
+                        Desktop.getDesktop().open(f);
+                    }else{
+                        mensaje(3,"Debes Seleccionar el archivo para abrir");
+                    }
+                } catch (IOException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+                break;
+            case __ACEPTARCORREO:
+                String urlarchivo = this.correo.__archivo.getText();
+                if(urlarchivo.isEmpty()){
+                    mensaje(3,"Selecciona el archivo a enviar");
+                    break;
+                }
+                String destinatario = correo.__destinatario.getText();
+                if(destinatario.isEmpty()){
+                    mensaje(3,"Escribe el destinatario");
+                    correo.__destinatario.requestFocus();
+                    break;
+                }
+                String msg = correo.__msg.getText();
+                if(msg.isEmpty()){
+                    confir=this.mensajeConfirmacion("El correo se enviara sin mensaje, deseas continuar?", "Continuar");
+                    if(confir!=JOptionPane.OK_OPTION){
+                        correo.__msg.requestFocus();
+                        break;
+                    }else{
+                        msg=" ";
+                    }
+                }
+                confir=this.mensajeConfirmacion("Estas seguro de enviar el correo", "Continuar");
+                if(confir==JOptionPane.OK_OPTION){
+                    if(this.enviaarchivo(urlarchivo, destinatario, msg)){
+                        mensaje(1,"Archivo enviado correctamente");
+                        correo.__archivo.setText("");
+                        correo.__destinatario.setText("");
+                        correo.__msg.setText("");
+                    }
+                }
+                break;
+            case __SALIRCORREO:
+                correo.__archivo.setText("");
+                correo.__destinatario.setText("");
+                correo.__msg.setText("");
+                correo.dispose();
+                verconsulta.requestFocus();
                 break;
         }
     }
@@ -4498,5 +4617,33 @@ public class jControlador implements ActionListener {
     return null;
     }
     
-    
+    public boolean imprimirExcel(File archivo,JTable table){
+        try {
+            HSSFWorkbook libro = new HSSFWorkbook();
+            HSSFSheet hoja = libro.createSheet();
+            for (int i = 0; i <= table.getRowCount(); i++) {
+                HSSFRow fila = hoja.createRow(i);          
+                if(i==0){
+                    for (int j = 0; j < table.getColumnCount(); j++) {
+                        HSSFCell celda = fila.createCell(j);
+                        celda.setCellValue(new HSSFRichTextString(table.getColumnModel().getColumn(j).getHeaderValue().toString()));
+                    }
+                }
+                if(i!=0){
+                    for (int j = 0; j < table.getColumnCount(); j++) {
+                        HSSFCell celda = fila.createCell(j); 
+                        if(table.getValueAt(i-1, j)!=null)
+                            celda.setCellValue(new HSSFRichTextString(table.getValueAt(i-1, j).toString()));
+                    }
+                }
+            }   
+            FileOutputStream elFichero = new FileOutputStream(archivo.getAbsolutePath()+".xls");
+            libro.write(elFichero);
+            elFichero.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
