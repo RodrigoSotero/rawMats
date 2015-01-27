@@ -1148,5 +1148,17 @@ public class modelo extends database{
                 return null;
             }
     }
+
+    public ResultSet buscaSolicitante(String sol) {
+        String q = "select solicitante from salida where solicitante like '%"+sol+"%'";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }
+    }
 }
 

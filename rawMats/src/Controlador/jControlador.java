@@ -98,7 +98,7 @@ public class jControlador implements ActionListener {
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
     String buscarfolio;
-    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS;
+    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS,Solicitante;
     int modificarentrada=0;
     double restarcantidad,cantidadbd;
     String identradas[]=new String [1000];
@@ -699,6 +699,31 @@ public class jControlador implements ActionListener {
         com_descripcion= new TextAutoCompleter(movimientos._descripcionProducto);
         com_descripcion.setMode(0);//infijo    
        
+        Solicitante = new TextAutoCompleter(movimientos.__SolicitanteSalida);
+        Solicitante.setMode(0);//infijo
+        
+        this.movimientos.__SolicitanteSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                try {
+                    String sol = movimientos.__SolicitanteSalida.getText();
+                    ResultSet soli = mimodelo.buscaSolicitante(sol);
+                    Solicitante.removeAll();
+                    while(soli.next()){
+                        Solicitante.addItem(soli.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        
         /*com_prodcutoSalida= new TextAutoCompleter(movimientos._claveProductoSalida);
         com_prodcuto.setMode(0);//infijo*/
         
