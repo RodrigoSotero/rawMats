@@ -91,7 +91,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkMaquina = new javax.swing.JCheckBox();
         __Maquina = new javax.swing.JTextField();
         __chkPropietario = new javax.swing.JCheckBox();
-        __TipoEntrada1 = new javax.swing.JTextField();
+        __TipoEntrada = new javax.swing.JTextField();
         __chkCliente = new javax.swing.JCheckBox();
         __Cliente = new javax.swing.JTextField();
         __SALIRCONSULTA = new javax.swing.JButton();
@@ -440,8 +440,8 @@ public class Consultas extends javax.swing.JFrame {
         __chkPropietario.setText("Propietario:");
         __chkPropietario.setEnabled(false);
 
-        __TipoEntrada1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        __TipoEntrada1.setEnabled(false);
+        __TipoEntrada.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        __TipoEntrada.setEnabled(false);
 
         __chkCliente.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkCliente.setForeground(new java.awt.Color(255, 255, 255));
@@ -694,7 +694,7 @@ public class Consultas extends javax.swing.JFrame {
                                         .addComponent(__chkTipoSalida)))
                                 .addGap(5, 5, 5)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(__TipoEntrada1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(__TipoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
@@ -832,7 +832,7 @@ public class Consultas extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(__chkTipoSalida))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(__TipoEntrada1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(__TipoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17)
                         .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(7, 7, 7)
@@ -1022,7 +1022,7 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JTextField __OrdenP;
     public javax.swing.JTextField __Propietario;
     public javax.swing.JButton __SALIRCONSULTA;
-    public javax.swing.JTextField __TipoEntrada1;
+    public javax.swing.JTextField __TipoEntrada;
     public javax.swing.JTextField __TipoSalida;
     public javax.swing.JTextField __Ubicacion;
     public javax.swing.JCheckBox __chkArea;

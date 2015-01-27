@@ -98,7 +98,7 @@ public class jControlador implements ActionListener {
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
     String buscarfolio;
-    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS;
+    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS,Com_DescrpcionCon,Com_proveedorCon,Com_propietarioCon,Com_ClienteCon,Com_DocumentoCon,Com_OrdenProduccionCon,Com_OrdenCompraCon,Com_UbicacionCon,Com_ClaveCon,Com_AreaCon,Com_MaquinaCon,Com_TipoEntradaCon,Com_TipoSalidaCon;
     int modificarentrada=0;
     double restarcantidad,cantidadbd;
     String identradas[]=new String [1000];
@@ -654,10 +654,7 @@ public class jControlador implements ActionListener {
         this.conEP.__ACEPTARNP.addActionListener(this);
         this.conEP.__MODIFICAR.setActionCommand("__MODIFICARCONSULTAEP");
         this.conEP.__MODIFICAR.setMnemonic('M'); 
-        this.conEP.__MODIFICAR.addActionListener(this);
-        this.conEP.__ELIMINAR.setActionCommand("__ELIMINARCONSULTAEP");
-        this.conEP.__ELIMINAR.setMnemonic('E');         
-        this.conEP.__ELIMINAR.addActionListener(this);
+        this.conEP.__MODIFICAR.addActionListener(this);        
         this.conEP.__REGRESAR.setActionCommand("__REGRESARCONSULTAEP");
         this.conEP.__REGRESAR.setMnemonic('R');         
         this.conEP.__REGRESAR.addActionListener(this);
@@ -747,8 +744,7 @@ public class jControlador implements ActionListener {
                 }
             }
         
-        });
-        
+        });        
         this.movimientos._claveProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 
@@ -807,8 +803,7 @@ public class jControlador implements ActionListener {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 
             }
-        });  
-        
+        });          
         this.movimientos.__descripcionProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
             
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -851,9 +846,7 @@ public class jControlador implements ActionListener {
                     mensaje(3,ex.getMessage());
                 }
             }
-        });
-        
-        
+        });                
         this.movimientos._descripcionProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 
@@ -1189,8 +1182,7 @@ public class jControlador implements ActionListener {
             }
         });  
 //        this.movimientos._claveProductoSalida
-//        this.movimientos._descripcionProductoSalida
-        
+//        this.movimientos._descripcionProductoSalida        
         this.movimientos.__TipoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 KeyTipedLetras(evt);
@@ -1380,7 +1372,59 @@ public class jControlador implements ActionListener {
                 } 
             }
             });
-
+        //Consultas autocompletables        
+        //,,,,,
+        Com_DescrpcionCon = new TextAutoCompleter(consulta.__Descripcion);
+        Com_DescrpcionCon.setMode(0);//infijo
+        Com_proveedorCon = new TextAutoCompleter(consulta.__proveedor);
+        Com_proveedorCon.setMode(0);//infijo
+        Com_propietarioCon = new TextAutoCompleter(consulta.__Propietario);
+        Com_propietarioCon.setMode(0);//infijo
+        Com_ClienteCon = new TextAutoCompleter(consulta.__Cliente);
+        Com_ClienteCon.setMode(0);//infijo
+        Com_DocumentoCon = new TextAutoCompleter(consulta.__documento);
+        Com_DocumentoCon.setMode(0);//infijo
+        Com_OrdenProduccionCon = new TextAutoCompleter(consulta.__OrdenP);
+        Com_OrdenProduccionCon.setMode(0);//infijo
+        Com_OrdenCompraCon = new TextAutoCompleter(consulta.__OrdenC);
+        Com_OrdenCompraCon.setMode(0);//infijo
+        Com_UbicacionCon = new TextAutoCompleter(consulta.__Ubicacion);
+        Com_UbicacionCon.setMode(0);//infijo
+        Com_ClaveCon = new TextAutoCompleter(consulta.__clave);
+        Com_ClaveCon.setMode(0);//infijo
+        Com_AreaCon = new TextAutoCompleter(consulta.__Area);
+        Com_AreaCon.setMode(0);//infijo
+        Com_MaquinaCon = new TextAutoCompleter(consulta.__Maquina);
+        Com_MaquinaCon.setMode(0);//infijo
+        Com_TipoEntradaCon = new TextAutoCompleter(consulta.__TipoEntrada);
+        Com_TipoEntradaCon.setMode(0);//infijo
+        Com_TipoSalidaCon = new TextAutoCompleter(consulta.__TipoSalida);
+        Com_TipoSalidaCon.setMode(0);//infijo
+        this.consulta.__Descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNum(evt);
+            }
+             public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                                            
+                    consulta.__proveedor.requestFocus();
+                } 
+            }
+             public void keyReleased(java.awt.event.KeyEvent evt){
+              try {
+                    String parametro = consulta.__Descripcion.getText();
+                    ResultSet buscarDescripcion = mimodelo.buscarProductoByDescripcion(parametro);
+                    Com_DescrpcionCon.removeAll();
+                    while(buscarDescripcion.next()){
+                        Com_DescrpcionCon.addItem(buscarDescripcion.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }
+             
+            
+        });        
         //MENUS
         //Menu New Producto 
         this.newP.__menuMovimientos.setActionCommand("__MENU_MOV_PAPEL");
@@ -1503,7 +1547,7 @@ public class jControlador implements ActionListener {
         this.consulta.__menuAcerca.addActionListener(this);  
         this.consulta.__menuBackup.setActionCommand("__MENU_BACKUP");
         this.consulta.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
-        this.consulta.__menuBackup.addActionListener(this);
+        this.consulta.__menuBackup.addActionListener(this);       
         //MENU REPORTE
         this.reporte.__menuAltaProducto.setActionCommand("__MENU_ALTA");
         this.reporte.__menuAltaProducto.addActionListener(this);
@@ -1558,6 +1602,9 @@ public class jControlador implements ActionListener {
         this.reporte.__StockAbajo.setActionCommand("__STOCK_ABAJO");
         this.reporte.__StockAbajo.setMnemonic('A');
         this.reporte.__StockAbajo.addActionListener(this);
+        this.reporte.__SALIR.setActionCommand("__SALIR_PRODUCTO");
+        this.reporte.__SALIR.setMnemonic('R');
+        this.reporte.__SALIR.addActionListener(this);
         //FIN MENU
         
         //ACCIOENES CONSULTAS
@@ -1706,6 +1753,7 @@ public class jControlador implements ActionListener {
         __STOCK_ARRIBA,
         __STOCK_ABAJO,
         __OPTNINGUNO,
+        __REGRESAR_REPORTES,
         __OPTSALIDA,
         __OPTENTRADA,
         __ACEPTARCONSULTA
@@ -2057,8 +2105,7 @@ public class jControlador implements ActionListener {
                 saber=2;
                 conEP.setVisible(true);
                 conEP.setName("Consulta del Producto");
-                if(saber==2){
-                    conEP.__ELIMINAR.setEnabled(false);
+                if(saber==2){                    
                     conEP.__MODIFICAR.setEnabled(false);
                     conEP.__ACEPTARNP.setEnabled(false);
                 }
@@ -2278,8 +2325,7 @@ public class jControlador implements ActionListener {
                 }else{
                     conEP.dispose();
                     movimientos.setEnabled(true);
-                    movimientos.setVisible(true);
-                    conEP.__ELIMINAR.setEnabled(true);
+                    movimientos.setVisible(true);                    
                     conEP.__MODIFICAR.setEnabled(true);
                     conEP.__ACEPTARNP.setEnabled(true);
                     saber=1;
@@ -2346,7 +2392,7 @@ public class jControlador implements ActionListener {
             case __BORRAR_PRODUCTO:
                 borrarFormularioAltaProducto();
                 break;
-            case __SALIR_PRODUCTO:
+            case __SALIR_PRODUCTO:               
                 regresar();
                 break;
             case  __ACEPTAR_PROVEEDOR:
@@ -2565,7 +2611,7 @@ public class jControlador implements ActionListener {
             case __STOCK_ABAJO:
                 mensaje(1,"Generando Reporte Menores al Stock Maximo");
                 this.mimodelo.abrirReporte("MenorMaxi.jrxml",map);  
-                break;
+                break;            
             case __OPTNINGUNO:
                 //area, maquina, clave, descripcion, max, min, costopromedio, existencia, ubicacion, op <---
                 this.consulta.__clave.setEnabled(true);
@@ -2603,7 +2649,7 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkArea.setEnabled(true);
                 this.consulta.__Maquina.setEnabled(true);
                 this.consulta.__chkMaquina.setEnabled(true);
-                this.consulta.__TipoEntrada1.setEnabled(false);
+                this.consulta.__TipoEntrada.setEnabled(false);
                 this.consulta.__chkTipoEntrada.setEnabled(false);
                 this.consulta.__TipoSalida.setEnabled(false);
                 this.consulta.__chkTipoSalida.setEnabled(false);
@@ -2651,7 +2697,7 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkArea.setEnabled(true);
                 this.consulta.__Maquina.setEnabled(false);
                 this.consulta.__chkMaquina.setEnabled(false);
-                this.consulta.__TipoEntrada1.setEnabled(true);
+                this.consulta.__TipoEntrada.setEnabled(true);
                 this.consulta.__chkTipoEntrada.setEnabled(true);
                 this.consulta.__TipoSalida.setEnabled(false);
                 this.consulta.__chkTipoSalida.setEnabled(false);
@@ -2699,7 +2745,7 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkArea.setEnabled(true);
                 this.consulta.__Maquina.setEnabled(false);
                 this.consulta.__chkMaquina.setEnabled(false);
-                this.consulta.__TipoEntrada1.setEnabled(false);
+                this.consulta.__TipoEntrada.setEnabled(false);
                 this.consulta.__chkTipoEntrada.setEnabled(false);
                 this.consulta.__TipoSalida.setEnabled(true);
                 this.consulta.__chkTipoSalida.setEnabled(true);
@@ -2739,7 +2785,7 @@ public class jControlador implements ActionListener {
                 String foliohasta = this.consulta.__foliohasta.getText();
                 String documento = this.consulta.__documento.getText();
                 String oc = this.consulta.__OrdenC.getText();
-                String tipoentrada = this.consulta.__TipoEntrada1.getText();
+                String tipoentrada = this.consulta.__TipoEntrada.getText();
                 
                 /*if(this.consulta.__optNinguno.isSelected()){
                     tabla=" vw_descripcionproductos ";
@@ -3182,6 +3228,8 @@ public class jControlador implements ActionListener {
         newP.__etqFech.setText(fec);
         movimientos.__etqFechaEnt.setText(fec);
         movimientos.__etqFechaSalida.setText(fec);
+        reporte.__etqFecha.setText(fec);
+        consulta.__etqFechaConMov.setText(fec);
     }
     private int mensajeConfirmacion(String mensaje, String titulo) {
         JPanel panel = new JPanel();
@@ -3627,8 +3675,8 @@ public class jControlador implements ActionListener {
         this.newP.__cmbMaquina.removeAllItems();
         this.newP.__cmbMaquina.addItem("Selecciona...");        
         this.newP.__descripcion.setText("");
-        //this.newP.__SMin_.setText("");
-        //this.newP.__SMax_.setText("");
+        this.newP.__SMin_.setText("");
+        this.newP.__SMax_.setText("");
         this.newP.__etqClave.setText("");
         this.addItems("newP");
         newP.__cmbArea.setEnabled(true);
@@ -4179,8 +4227,7 @@ public class jControlador implements ActionListener {
         }
         
         
-    }    
-    
+    }        
     String eval;
     public void docentrada(){
         String doc = movimientos.__documentoEntr.getText();
@@ -4328,8 +4375,7 @@ public class jControlador implements ActionListener {
             }
         }
     return 0;
-    }
-    
+    }    
     //HUEVOS
     public String busquedaNombre(String tabla, int id){
         ResultSet p=null;
