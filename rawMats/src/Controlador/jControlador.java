@@ -1160,6 +1160,7 @@ public class jControlador implements ActionListener {
             
             
         });
+        
         this.movimientos.__ClientEntr.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                  KeyTipedLetrasNum(evt);  
