@@ -149,6 +149,8 @@ public class Movimientos extends javax.swing.JFrame {
 
         JPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        __pnlEntrada.setOpaque(false);
+
         __OrdenProduccionEntr.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __OrdenProduccionEntr.setMaximumSize(new java.awt.Dimension(10, 30));
         __OrdenProduccionEntr.setMinimumSize(new java.awt.Dimension(10, 30));
