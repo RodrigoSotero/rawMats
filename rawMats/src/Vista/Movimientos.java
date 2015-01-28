@@ -826,7 +826,7 @@ public class Movimientos extends javax.swing.JFrame {
 
         jLabel55.setFont(new java.awt.Font("Papyrus", 1, 24)); // NOI18N
         jLabel55.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel55.setText("Salida de Papel");
+        jLabel55.setText("Salida de Producto");
 
         __etqFechaSalida.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         __etqFechaSalida.setForeground(new java.awt.Color(255, 255, 255));

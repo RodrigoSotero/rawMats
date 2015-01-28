@@ -1587,58 +1587,329 @@ public class jControlador implements ActionListener {
         this.verconsulta.__CORREO.addActionListener(this);
         
         //Consultas autocompletables        
-        //,,,,,
+        //DESCRIPCION
         Com_DescrpcionCon = new TextAutoCompleter(consulta.__Descripcion);
         Com_DescrpcionCon.setMode(0);//infijo
-        Com_proveedorCon = new TextAutoCompleter(consulta.__proveedor);
-        Com_proveedorCon.setMode(0);//infijo
-        Com_propietarioCon = new TextAutoCompleter(consulta.__Propietario);
-        Com_propietarioCon.setMode(0);//infijo
-        Com_ClienteCon = new TextAutoCompleter(consulta.__Cliente);
-        Com_ClienteCon.setMode(0);//infijo
-        Com_DocumentoCon = new TextAutoCompleter(consulta.__documento);
-        Com_DocumentoCon.setMode(0);//infijo
-        Com_OrdenProduccionCon = new TextAutoCompleter(consulta.__OrdenP);
-        Com_OrdenProduccionCon.setMode(0);//infijo
-        Com_OrdenCompraCon = new TextAutoCompleter(consulta.__OrdenC);
-        Com_OrdenCompraCon.setMode(0);//infijo
-        Com_UbicacionCon = new TextAutoCompleter(consulta.__Ubicacion);
-        Com_UbicacionCon.setMode(0);//infijo
-        Com_ClaveCon = new TextAutoCompleter(consulta.__clave);
-        Com_ClaveCon.setMode(0);//infijo
-        Com_AreaCon = new TextAutoCompleter(consulta.__Area);
-        Com_AreaCon.setMode(0);//infijo
-        Com_MaquinaCon = new TextAutoCompleter(consulta.__Maquina);
-        Com_MaquinaCon.setMode(0);//infijo
-        Com_TipoEntradaCon = new TextAutoCompleter(consulta.__TipoEntrada);
-        Com_TipoEntradaCon.setMode(0);//infijo
-        Com_TipoSalidaCon = new TextAutoCompleter(consulta.__TipoSalida);
-        Com_TipoSalidaCon.setMode(0);//infijo
         this.consulta.__Descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 KeyTipedLetrasNum(evt);
             }
-             public void keyPressed(java.awt.event.KeyEvent evt){
+            public void keyPressed(java.awt.event.KeyEvent evt){
                 int evento=evt.getKeyCode();               
                  if(evt.getKeyCode()==KeyEvent.VK_ENTER){                                            
                     consulta.__proveedor.requestFocus();
                 } 
             }
-             public void keyReleased(java.awt.event.KeyEvent evt){
+            public void keyReleased(java.awt.event.KeyEvent evt){
               try {
-                    String parametro = consulta.__Descripcion.getText();
-                    ResultSet buscarDescripcion = mimodelo.buscarProductoByDescripcion(parametro);
+                    String descripcion = consulta.__Descripcion.getText();
+                    ResultSet buscarDescripcion = mimodelo.buscarProductoByDescripcion(descripcion);
                     Com_DescrpcionCon.removeAll();
                     while(buscarDescripcion.next()){
-                        Com_DescrpcionCon.addItem(buscarDescripcion.getString(1));
+                        Com_DescrpcionCon.addItem(buscarDescripcion.getString("descripcion"));
+                    }
+              }catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+               }
+            }                         
+        });        
+        //PROVEEDOR
+        Com_proveedorCon = new TextAutoCompleter(consulta.__proveedor);
+        Com_proveedorCon.setMode(0);//infijo
+        this.consulta.__proveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     consulta.__Propietario.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__proveedor.getText();
+                    ResultSet buscarProveedores = mimodelo.buscaProveedor(parametro,true);
+                    //ResultSet buscarClientes = mimodelo.buscarCliente(parametro,true);
+                    //ResultSet buscarPropiedad = mimodelo.buscarPropiedad(parametro,true);
+                    Com_proveedorCon.removeAll();
+                    while(buscarProveedores.next()){
+                        Com_proveedorCon.addItem(buscarProveedores.getString(2));
                     }
                 } catch (SQLException ex) {
                     mensaje(3,ex.getMessage());
                 }
-             }
-             
-            
-        });        
+             }                                    
+        });
+        //PROPIETARIO
+        Com_propietarioCon = new TextAutoCompleter(consulta.__Propietario);
+        Com_propietarioCon.setMode(0);//infijo
+        this.consulta.__Propietario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     consulta.__Cliente.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__Propietario.getText();
+                    //ResultSet buscarProveedores = mimodelo.buscaProveedor(parametro);
+                    //ResultSet buscarClientes = mimodelo.buscarCliente(parametro,true);
+                    ResultSet buscarPropiedad = mimodelo.buscarPropiedad(parametro,true);
+                    Com_propietarioCon.removeAll();
+                    while(buscarPropiedad.next()){
+                        Com_propietarioCon.addItem(buscarPropiedad.getString(2));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        //CLIENTE
+        Com_ClienteCon = new TextAutoCompleter(consulta.__Cliente);
+        Com_ClienteCon.setMode(0);//infijo
+        this.consulta.__Cliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     consulta.__documento.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__Cliente.getText();
+                    //ResultSet buscarProveedores = mimodelo.buscaProveedor(parametro);
+                    ResultSet buscarClientes = mimodelo.buscarCliente(parametro,true);
+                    //ResultSet buscarPropiedad = mimodelo.buscarPropiedad(parametro);
+                    Com_ClienteCon.removeAll();
+                    while(buscarClientes.next()){
+                        Com_ClienteCon.addItem(buscarClientes.getString(2));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        //DOCUMENTO
+        Com_DocumentoCon = new TextAutoCompleter(consulta.__documento);
+        Com_DocumentoCon.setMode(0);//infijo
+        //OP
+        Com_OrdenProduccionCon = new TextAutoCompleter(consulta.__OrdenP);
+        Com_OrdenProduccionCon.setMode(0);//infijo
+        this.consulta.__OrdenP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     consulta.__OrdenC.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__OrdenP.getText();                    
+                    ResultSet buscarOP = mimodelo.buscarop(parametro);
+                    System.out.println(buscarOP);
+                    Com_OrdenProduccionCon.removeAll();
+                    while(buscarOP.next()){
+                        Com_OrdenProduccionCon.addItem(buscarOP.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        //OC
+        Com_OrdenCompraCon = new TextAutoCompleter(consulta.__OrdenC);
+        Com_OrdenCompraCon.setMode(0);//infijo
+        this.consulta.__OrdenC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     consulta.__Ubicacion.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__OrdenC.getText();                    
+                    ResultSet buscarOC = mimodelo.buscaroc(parametro);                   
+                    Com_OrdenCompraCon.removeAll();
+                    while(buscarOC.next()){
+                        Com_OrdenCompraCon.addItem(buscarOC.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        //UBICACION
+        Com_UbicacionCon = new TextAutoCompleter(consulta.__Ubicacion);
+        Com_UbicacionCon.setMode(0);//infijo
+        this.consulta.__Ubicacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     consulta.__clave.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__Ubicacion.getText();                    
+                    ResultSet buscarUbicacion = mimodelo.buscarubicacion(parametro);                   
+                    Com_UbicacionCon.removeAll();
+                    while(buscarUbicacion.next()){
+                        Com_UbicacionCon.addItem(buscarUbicacion.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        //CLAVE
+        Com_ClaveCon = new TextAutoCompleter(consulta.__clave);
+        Com_ClaveCon.setMode(0);//infijo
+        this.consulta.__clave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     consulta.__Area.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__clave.getText();                    
+                    ResultSet buscarClave = mimodelo.buscarclave(parametro);                   
+                    Com_ClaveCon.removeAll();
+                    while(buscarClave.next()){
+                        Com_ClaveCon.addItem(buscarClave.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        //AREA
+        Com_AreaCon = new TextAutoCompleter(consulta.__Area);
+        Com_AreaCon.setMode(0);//infijo
+        this.consulta.__Area.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     consulta.__Maquina.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__Area.getText();                    
+                    ResultSet buscarArea = mimodelo.buscararea(parametro);                   
+                    Com_AreaCon.removeAll();
+                    while(buscarArea.next()){
+                        Com_AreaCon.addItem(buscarArea.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        //MAQUINA
+        Com_MaquinaCon = new TextAutoCompleter(consulta.__Maquina);
+        Com_MaquinaCon.setMode(0);//infijo
+        this.consulta.__Maquina.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     consulta.__TipoEntrada.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__Maquina.getText();                    
+                    ResultSet buscarMaquina = mimodelo.buscarmaquina(parametro);                   
+                    Com_MaquinaCon.removeAll();
+                    while(buscarMaquina.next()){
+                        Com_MaquinaCon.addItem(buscarMaquina.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        //TIPO DE ENTRADA
+        Com_TipoEntradaCon = new TextAutoCompleter(consulta.__TipoEntrada);
+        Com_TipoEntradaCon.setMode(0);//infijo
+        this.consulta.__TipoEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     consulta.__TipoSalida.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__TipoEntrada.getText();                    
+                    ResultSet buscarTEntrada = mimodelo.buscartentrada(parametro);                   
+                    Com_TipoEntradaCon.removeAll();
+                    while(buscarTEntrada.next()){
+                        Com_TipoEntradaCon.addItem(buscarTEntrada.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        //TIPO DE SALIDA
+        Com_TipoSalidaCon = new TextAutoCompleter(consulta.__TipoSalida);
+        Com_TipoSalidaCon.setMode(0);//infijo
+        this.consulta.__TipoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+//                     consulta.__Area.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__TipoSalida.getText();                    
+                    ResultSet buscarTSalida = mimodelo.buscartsalida(parametro);                   
+                    Com_TipoSalidaCon.removeAll();
+                    while(buscarTSalida.next()){
+                        Com_TipoSalidaCon.addItem(buscarTSalida.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        
         //MENUS
         //Menu New Producto 
         this.newP.__menuMovimientos.setActionCommand("__MENU_MOV_PAPEL");
@@ -3366,7 +3637,7 @@ public class jControlador implements ActionListener {
     private void KeyTipedLetrasNum(KeyEvent evt) {
         mayusculas();
         char caracter = evt.getKeyChar();
-        if(((caracter < 'A') || (caracter > 'Z'))  && ((caracter < '0') || (caracter > '9')) && caracter !=' ' && caracter != 'Ñ' ){
+        if(((caracter < 'A') || (caracter > 'Z'))  && ((caracter < '0') || (caracter > '9')) && caracter !=' ' && caracter != 'Ñ' && caracter != '/' ){
             evt.consume();
         }
     }
