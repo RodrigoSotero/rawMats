@@ -1235,5 +1235,110 @@ public class modelo extends database{
     }
     
     // de aqui pabajo
+
+    public ResultSet buscarop(String parametro) {
+        String q = "SELECT DISTINCT OP FROM rawmats.entrada where OP like '%"+parametro+"%' ;";
+                  //SELECT OP FROM rawmats.entrada where OP like '%l%' ;
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }        
+    }
+
+    public ResultSet buscaroc(String parametro) {
+        String q = "SELECT DISTINCT OC  FROM rawmats.entrada where OC like '%"+parametro+"%' ;";
+                  //SELECT OC FROM rawmats.entrada where OC like '%l%' ;
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }        
+    }
+
+    public ResultSet buscarubicacion(String parametro) {
+        String q = "SELECT DISTINCT ubicacion FROM rawmats.inventario where ubicacion like '%"+parametro+"%';";
+                  //SELECT ubicacion FROM rawmats.inventario where ubicacion like '%r%';
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }              
+    }
+
+    public ResultSet buscarclave(String parametro) {
+        String q = "SELECT claveProducto FROM rawmats.inventario where claveProducto like '%"+parametro+"%';";
+                  //SELECT claveProducto FROM rawmats.inventario where claveProducto like '%r%';
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }        
+    }
+
+    public ResultSet buscartsalida(String parametro) {
+        String q = "SELECT tipo_salida FROM rawmats.tipo_salida where tipo_salida like'%"+parametro+"%';";
+                  //SELECT tipo_salida FROM rawmats.tipo_salida where tipo_salida like'%%';
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }             
+    }
+
+    public ResultSet buscartentrada(String parametro) {
+        String q = "SELECT Tipo_Entrada FROM rawmats.tipo_entrada where Tipo_Entrada like '%"+parametro+"%';";
+                  //SELECT Tipo_Entrada FROM rawmats.tipo_entrada where Tipo_Entrada like '%%';
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }         
+    }
+
+    public ResultSet buscarmaquina(String parametro) {
+         String q = "SELECT descripcion FROM rawmats.maquina where descripcion like '%"+parametro+"%';";
+                   //SELECT descripcion FROM rawmats.maquina where descripcion like '%%';
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }       
+    }
+
+    public ResultSet buscararea(String parametro) {
+        String q = "SELECT descripcion FROM rawmats.area where descripcion like '%"+parametro+"%';";
+                  //SELECT descripcion FROM rawmats.area where descripcion like '%%';
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }            
+    }
+    
 }
 
