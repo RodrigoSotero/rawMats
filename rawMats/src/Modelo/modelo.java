@@ -744,7 +744,7 @@ public class modelo extends database{
             }
     }
     public ResultSet buscaDescripcionProducto(String parametro) {
-        String q = "select descripcion from productos where descripcion like '%"+parametro+"%' ;";
+        String q = "select descripcion,clave from productos where descripcion like '%"+parametro+"%' ;";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
@@ -1150,7 +1150,7 @@ public class modelo extends database{
     }
 
     public ResultSet buscaSolicitante(String sol) {
-        String q = "select solicitante from salida where solicitante like '%"+sol+"%'";
+        String q = "select distinct solicitante from salida where solicitante like '%"+sol+"%'";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
@@ -1223,6 +1223,31 @@ public class modelo extends database{
 
     public boolean bajaArea(int id) {
         String q="delete from area where idarea='"+id+"'";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean bajaMaquina(int id) {
+        String q="delete from maquina where idmaquina='"+id+"'";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean tottemp(int canttem,String id) {
+            String q=" UPDATE  detalleentrada SET cantidadtemporal='"+canttem+"' where iddetalleentrada ='"+id+"';";
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();

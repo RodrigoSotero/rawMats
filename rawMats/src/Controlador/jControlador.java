@@ -238,6 +238,56 @@ public class jControlador implements ActionListener {
         this.menumaster.__SALIR.setMnemonic('A');
         this.menumaster.__SALIR.addActionListener(this);
         //FORMULARIO NEW PRODUCTO
+        this.newP.__etqNewEliminarArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                String altanombre=newP.__cmbArea.getSelectedItem().toString();
+                if(newP.__cmbArea.getSelectedIndex()==0){
+                    mensaje(3,"Debe Seleccionar una Area");
+                }else{
+                    confir = mensajeConfirmacion("¿Deseas eliminar el area "+altanombre+"?","Confirma"); 
+                    if(confir!=JOptionPane.OK_OPTION){
+                        return;
+                    }else{
+                    int idarea = busquedaid("area");
+                    mimodelo.bajaArea(idarea);
+                    mensaje(1,"Nombre "+ altanombre +" eliminado correctamente");
+                    newP.__cmbArea.removeItem(altanombre);
+                    }
+                }
+                
+            }    
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+               
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                
+            }
+        });
+        this.newP.__etqNewEliminarMaquina.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                String altanombre=newP.__cmbMaquina.getSelectedItem().toString();
+                if(newP.__cmbMaquina.getSelectedIndex()==0){
+                    mensaje(3,"Debe Seleccionar una Maquina");
+                }else{
+                    confir = mensajeConfirmacion("¿Deseas eliminar la maquina "+altanombre+"?","Confirma"); 
+                    if(confir!=JOptionPane.OK_OPTION){
+                        return;
+                    }else{
+                    int idarea = busquedaid("maquina");
+                    mimodelo.bajaMaquina(idarea);
+                    mensaje(1,"Nombre "+ altanombre +" eliminado correctamente");
+                    newP.__cmbMaquina.removeItem(altanombre);
+                    }
+                }
+                
+            }    
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+               
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                
+            }
+        });
         this.newP.__GUARDAR.setActionCommand("__GUARDAR_PRODUCTO");
         this.newP.__GUARDAR.setMnemonic('G');
         this.newP.__GUARDAR.addActionListener(this);
@@ -1002,7 +1052,7 @@ public class jControlador implements ActionListener {
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
                     try {
                         String parametro = movimientos._descripcionProducto.getText();
-                        ResultSet prod = mimodelo.buscarProductoByDescripcion(parametro);
+                        ResultSet prod = mimodelo.buscaDescripcionProducto(parametro);
                         int fila =movimientos.__tablaEntrada.getSelectedRow();
                         while(prod.next()){
                             movimientos.__tablaEntrada.setValueAt(prod.getString("clave"), fila, 0);
@@ -2106,12 +2156,18 @@ public class jControlador implements ActionListener {
                return true;
             }
             if(newcantem>cantbd){
+                mimodelo.tottemp(cantbd , entradas[j]);
+                antipeps2(entradas,cantidadsumar-cantbdtem);
                //sumamos toda la newcanttem y mandamos a traer antipeps con catnbd-newcantem
             }
             if(newcantem<cantbd){
+                 mimodelo.tottemp(newcantem, entradas[j]);
+                 return true;
                 //sumamos toda la newcatn te
             }
             if(newcantem==cantbd){
+                 mimodelo.tottemp(newcantem , entradas[j]);
+                 return true;
                 //sumamos todo
             }
         }
@@ -2970,7 +3026,7 @@ public class jControlador implements ActionListener {
                         this.movimientos.JPanel.setEnabledAt(0, false);
                         this.movimientos.JPanel.setEnabledAt(1, true);
                    }else{
-                       mensaje(2,"La Entrada no Existe");
+                       mensaje(2,"La Salida no Existe");
                        break;
                    }
                    ResultSet detallesalida = mimodelo.buscarDetalleSalida(iddfolio);
