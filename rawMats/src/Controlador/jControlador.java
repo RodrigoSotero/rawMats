@@ -1819,6 +1819,15 @@ public class jControlador implements ActionListener {
         this.reporte.__SALIR.setActionCommand("__SALIR_PRODUCTO");
         this.reporte.__SALIR.setMnemonic('R');
         this.reporte.__SALIR.addActionListener(this);
+        
+        this.correo.__ABRIREXCEL.setActionCommand("__ABRIREXCEL");
+       this.correo.__ABRIREXCEL.addActionListener(this);
+       this.correo.__BUSCARARCHIVO.setActionCommand("__BUSCARARCHIVO");
+       this.correo.__BUSCARARCHIVO.addActionListener(this);
+       this.correo.__ACEPTARCORREO.setActionCommand("__ACEPTARCORREO");
+       this.correo.__ACEPTARCORREO.addActionListener(this);
+       this.correo.__SALIRCORREO.setActionCommand("__SALIRCORREO");
+       this.correo.__SALIRCORREO.addActionListener(this);
         //FIN MENU
         
         //ACCIOENES CONSULTAS
