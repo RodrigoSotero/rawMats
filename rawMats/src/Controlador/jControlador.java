@@ -107,7 +107,7 @@ public class jControlador implements ActionListener {
     private int tipoalta;
     String buscarfolio;
     TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS,Solicitante;
-    TextAutoCompleter Com_DescrpcionCon,Com_proveedorCon,Com_propietarioCon,Com_ClienteCon,Com_DocumentoCon,Com_OrdenProduccionCon,Com_OrdenCompraCon,Com_UbicacionCon,Com_ClaveCon,Com_AreaCon,Com_MaquinaCon,Com_TipoEntradaCon,Com_TipoSalidaCon;
+    TextAutoCompleter Com_DescrpcionCon,Com_proveedorCon,Com_propietarioCon,Com_ClienteCon,Com_DocumentoCon,Com_OrdenProduccionCon,Com_OrdenCompraCon,Com_UbicacionCon,Com_ClaveCon,Com_AreaCon,Com_MaquinaCon,Com_TipoEntradaCon,Com_TipoSalidaCon,foloini,foliofin,SolicitanteCon;
     int modificarentrada=0;
     double restarcantidad,cantidadbd;
     String identradas[]=new String [1000];
@@ -1524,6 +1524,9 @@ public class jControlador implements ActionListener {
             }
         });
         //NUEVO PROVEEDOR CLIENTE
+        this.consulta.__SALIRCONSULTA.setActionCommand("__SALIR_CONSULTA");
+        this.consulta.__SALIRCONSULTA.setMnemonic('C');
+        this.consulta.__SALIRCONSULTA.addActionListener(this);
         this.NewPC.__ACEPTARPROVEEDOR.setActionCommand("__ACEPTAR_PROVEEDOR");
         this.NewPC.__ACEPTARPROVEEDOR.setMnemonic('A');
         this.NewPC.__ACEPTARPROVEEDOR.addActionListener(this);
@@ -1612,7 +1615,33 @@ public class jControlador implements ActionListener {
                     mensaje(3,ex.getMessage());
                }
             }                         
-        });        
+        });
+        //documento
+        SolicitanteCon = new TextAutoCompleter(consulta.__Solicitante);
+        SolicitanteCon.setMode(0);//infijo
+        this.consulta.__Solicitante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     //consulta.__Propietario.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {
+                    String sol = consulta.__Solicitante.getText();
+                    ResultSet soli = mimodelo.buscaSolicitante(sol);
+                    SolicitanteCon.removeAll();
+                    while(soli.next()){
+                        SolicitanteCon.addItem(soli.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+             }                                    
+        });
         //PROVEEDOR
         Com_proveedorCon = new TextAutoCompleter(consulta.__proveedor);
         Com_proveedorCon.setMode(0);//infijo
@@ -1700,6 +1729,35 @@ public class jControlador implements ActionListener {
         //DOCUMENTO
         Com_DocumentoCon = new TextAutoCompleter(consulta.__documento);
         Com_DocumentoCon.setMode(0);//infijo
+        this.consulta.__documento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     //consulta.__OrdenC.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__OrdenP.getText();
+                    ResultSet buscarDocu = null;
+                    if(consulta.__optEntrada.isSelected()){
+                        buscarDocu= mimodelo.documentoe(parametro);
+                    }
+                    if(consulta.__optSalida.isSelected()){
+                        buscarDocu= mimodelo.documentos(parametro);
+                    }
+                    Com_DocumentoCon.removeAll();
+                    while(buscarDocu.next()){
+                        Com_DocumentoCon.addItem(buscarDocu.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
         //OP
         Com_OrdenProduccionCon = new TextAutoCompleter(consulta.__OrdenP);
         Com_OrdenProduccionCon.setMode(0);//infijo
@@ -1753,6 +1811,7 @@ public class jControlador implements ActionListener {
                 }
              }                                    
         });
+        
         //UBICACION
         Com_UbicacionCon = new TextAutoCompleter(consulta.__Ubicacion);
         Com_UbicacionCon.setMode(0);//infijo
@@ -1903,6 +1962,68 @@ public class jControlador implements ActionListener {
                     Com_TipoSalidaCon.removeAll();
                     while(buscarTSalida.next()){
                         Com_TipoSalidaCon.addItem(buscarTSalida.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        foloini = new TextAutoCompleter(consulta.__folio);
+        foloini.setMode(0);
+        this.consulta.__folio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+//                     consulta.__Area.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__folio.getText();                    
+                    ResultSet buscarfolio= null;
+                    if(consulta.__optEntrada.isSelected()){
+                        buscarfolio= mimodelo.folioentrada(parametro);  
+                    }
+                    if(consulta.__optSalida.isSelected()){
+                        buscarfolio= mimodelo.foliosalida(parametro);  
+                    }             
+                    foloini.removeAll();
+                    while(buscarfolio.next()){
+                        foloini.addItem(buscarfolio.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        foliofin = new TextAutoCompleter(consulta.__foliohasta);
+        foliofin.setMode(0);
+        this.consulta.__foliohasta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+//                     consulta.__Area.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = consulta.__foliohasta.getText();                    
+                    ResultSet buscarfolio= null;
+                    if(consulta.__optEntrada.isSelected()){
+                        buscarfolio= mimodelo.folioentrada(parametro);  
+                    }
+                    if(consulta.__optSalida.isSelected()){
+                        buscarfolio= mimodelo.foliosalida(parametro);  
+                    }             
+                    foliofin.removeAll();
+                    while(buscarfolio.next()){
+                        foliofin.addItem(buscarfolio.getString(1));
                     }
                 } catch (SQLException ex) {
                     mensaje(3,ex.getMessage());
@@ -2093,6 +2214,15 @@ public class jControlador implements ActionListener {
         this.reporte.__SALIR.setActionCommand("__SALIR_PRODUCTO");
         this.reporte.__SALIR.setMnemonic('R');
         this.reporte.__SALIR.addActionListener(this);
+        
+        this.correo.__ABRIREXCEL.setActionCommand("__ABRIREXCEL");
+       this.correo.__ABRIREXCEL.addActionListener(this);
+       this.correo.__BUSCARARCHIVO.setActionCommand("__BUSCARARCHIVO");
+       this.correo.__BUSCARARCHIVO.addActionListener(this);
+       this.correo.__ACEPTARCORREO.setActionCommand("__ACEPTARCORREO");
+       this.correo.__ACEPTARCORREO.addActionListener(this);
+       this.correo.__SALIRCORREO.setActionCommand("__SALIRCORREO");
+       this.correo.__SALIRCORREO.addActionListener(this);
         //FIN MENU
         
         //ACCIOENES CONSULTAS
@@ -2251,6 +2381,7 @@ public class jControlador implements ActionListener {
         __OPTSALIDA,
         __OPTENTRADA,
         __ACEPTARCONSULTA,
+        __SALIR_CONSULTA,
         //VER CONSULTA
         __REGRESAR,
         __EXCEL,
@@ -3162,6 +3293,10 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkTurno1.setEnabled(false);
                 this.consulta.__chkTurno2.setEnabled(false);
                 this.consulta.__chkTurno3.setEnabled(false);
+                this.consulta.__chkObservaciones.setEnabled(false);
+                this.consulta.__Observaciones.setEnabled(false);
+                this.consulta.__Solicitante.setEnabled(false);
+                this.consulta.__chkSolicitante.setEnabled(false);
                 break;
             case __OPTENTRADA:
                 this.consulta.__clave.setEnabled(true);
@@ -3197,8 +3332,8 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkFechaFin.setEnabled(true);
                 this.consulta.__Area.setEnabled(true);
                 this.consulta.__chkArea.setEnabled(true);
-                this.consulta.__Secion.setEnabled(false);
-                this.consulta.__chkMaquina.setEnabled(false);
+                this.consulta.__Secion.setEnabled(true);
+                this.consulta.__chkMaquina.setEnabled(true);
                 this.consulta.__TipoEntrada.setEnabled(true);
                 this.consulta.__chkTipoEntrada.setEnabled(true);
                 this.consulta.__TipoSalida.setEnabled(false);
@@ -3210,6 +3345,10 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkTurno1.setEnabled(true);
                 this.consulta.__chkTurno2.setEnabled(true);
                 this.consulta.__chkTurno3.setEnabled(true);
+                this.consulta.__chkObservaciones.setEnabled(true);
+                this.consulta.__Observaciones.setEnabled(true);
+                this.consulta.__Solicitante.setEnabled(false);
+                this.consulta.__chkSolicitante.setEnabled(false);
                 break;
             case __OPTSALIDA:
                 this.consulta.__clave.setEnabled(true);
@@ -3258,6 +3397,10 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkTurno1.setEnabled(true);
                 this.consulta.__chkTurno2.setEnabled(true);
                 this.consulta.__chkTurno3.setEnabled(true);
+                this.consulta.__chkObservaciones.setEnabled(true);
+                this.consulta.__Observaciones.setEnabled(true);
+                this.consulta.__Solicitante.setEnabled(true);
+                this.consulta.__chkSolicitante.setEnabled(true);
                 break;
             case __ACEPTARCONSULTA:
                 String q="";
@@ -3288,6 +3431,15 @@ public class jControlador implements ActionListener {
                 String documento = this.consulta.__documento.getText();
                 String oc = this.consulta.__OrdenC.getText();
                 String tipoentrada = this.consulta.__TipoEntrada.getText();
+                String tiposalida = this.consulta.__TipoSalida.getText();
+                String propi = this.consulta.__Propietario.getText();
+                String t1 = this.consulta.__chkTurno1.isSelected()?"t1":"";
+                String t2 = this.consulta.__chkTurno2.isSelected()?"t2":"";
+                String t3 = this.consulta.__chkTurno3.isSelected()?"t3":"";
+                String fechaIni = this.aceptarFecha(consulta.__dateIni,1);
+                String fechaFin = this.aceptarFecha(consulta.__datefin,1);
+                String observaciones = this.consulta.__Observaciones.getText();
+                String solicitante = this.consulta.__Solicitante.getText();
                 
                 if(this.consulta.__optNinguno.isSelected()){
                     tabla=" vw_descripcionproductos ";
@@ -3308,7 +3460,7 @@ public class jControlador implements ActionListener {
                         condiciones += " and unidadMedida='"+uM+"' ";
                     }
                     if(!cantidad.isEmpty()){
-                        condiciones += " and existencia='"+cantidad+"' ";
+                        condiciones += " and existencia"+cantidad+" ";
                     }
                     if(!ubicacion.isEmpty()){
                         condiciones += " and ubicacion='"+ubicacion+"' ";
@@ -3322,7 +3474,12 @@ public class jControlador implements ActionListener {
                     if(!op.isEmpty()){
                         condiciones += "and op='"+op+"' ";
                     }
-                    
+                    if(!minimo.isEmpty()){
+                        condiciones +=" and min"+minimo+"  ";
+                    }
+                    if(!maximo.isEmpty()){
+                        condiciones +=" and max"+maximo+"  ";
+                    }
                     //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
                     
                     if(!condiciones.equals("")){
@@ -3334,31 +3491,67 @@ public class jControlador implements ActionListener {
                     
                 }
                 if(this.consulta.__optEntrada.isSelected()){
-                    tabla=" vw_descripcionproductos ";
-                    //DESCRICPCION, PROVEEDOR,CLIENTE,FOLIO,DOCUMENTO,OP,OC,UBICACALVE,UNIDAD,CAMTIDAD,COSTO,AREA,TIPO ENTRADA, T1,T2,T3,FECHA INI FECHA FIN
+                    //folio,documento,op,oc,tipo_entrada,propietario,cliente,turno,observaciones,fecha,claveproducto,descripcion,ubicacion,cantidad,unidadMedida,costo,totalcosto
+                    tabla=" vw_infoentrada ";
                     q+=select;
                     campos +=" * ";
-                    //campos= campos.replace(" * ", " clave,descripcion,area,maquina,ubicacion,op, max,min, existencia, unidadmedida, costopromedio as costo");                    
+                    campos= campos.replace(" * ", "folio, documento, op, oc, proveedor, tipo_entrada,propietario,cliente, turno, observaciones,fecha,  claveproducto as clave,descripcion,area,maquina as seccion,ubicacion, cantidad, unidadmedida,costo,totalcosto ");                    
                     q+=campos;
                     q+=from;
                     q+=tabla;
-                    if(!descripcion.isEmpty()){
-                        condiciones += " and descripcion like '%"+descripcion+"%' ";
+                    if(!folio.isEmpty()){
+                        condiciones +=" and folio >='"+folio+"' ";
                     }
-                    if(!descripcion.isEmpty()){
-                        condiciones += " and descripcion like '%"+descripcion+"%' ";
+                    if(!foliohasta.isEmpty()){
+                        condiciones +=" and folio <='"+foliohasta+"' ";
+                    }
+                    if(!documento.isEmpty()){
+                        condiciones +=" and documento='" +documento+"' ";
+                    }
+                    if(!op.isEmpty()){
+                        condiciones += "and op='"+op+"' ";
+                    }
+                    if(!oc.isEmpty()){
+                        condiciones += "and oc='"+oc+"' ";
+                    }
+                    if(!tipoentrada.isEmpty()){
+                        condiciones +=" and tipo_entrada ='"+tipoentrada+"' ";
+                    }
+                    if(!propi.isEmpty()){
+                        condiciones +=" and propietario ='"+propi+"' ";
+                    }
+                    if(!cliente.isEmpty()){
+                        condiciones +=" and cliente ='"+cliente+"' ";
+                    }
+                    if(!t1.isEmpty()){
+                        condiciones +=" and turno like '%"+t1+"%' ";
+                    }
+                    if(!t2.isEmpty()){
+                        condiciones +=" and turno like '%"+t2+"%' ";
+                    }
+                    if(!t3.isEmpty()){
+                        condiciones +=" and turno like '%"+t3+"%' ";
+                    }
+                    if(fechaIni!=null){
+                        condiciones +=" and fecha >= '"+fechaIni+"' ";
+                    }
+                    if(fechaFin!=null){
+                        condiciones +=" and fecha <= '"+fechaFin+"' ";
                     }
                     if(!clavepro.isEmpty()){
-                        condiciones += " and clave='"+clavepro+"' ";
+                        condiciones += " and claveproducto='"+clavepro+"' ";
                     }
-                    if(!uM.equals("Selecciona...")){
-                        condiciones += " and unidadMedida='"+uM+"' ";
-                    }
-                    if(!cantidad.isEmpty()){
-                        condiciones += " and existencia='"+cantidad+"' ";
+                    if(!descripcion.isEmpty()){
+                        condiciones += " and descripcion like '%"+descripcion+"%' ";
                     }
                     if(!ubicacion.isEmpty()){
                         condiciones += " and ubicacion='"+ubicacion+"' ";
+                    }
+                    if(!cantidad.isEmpty()){
+                        condiciones += " and cantidad"+cantidad+" ";
+                    }
+                    if(!uM.equals("Selecciona...")){
+                        condiciones += " and unidadMedida='"+uM+"' ";
                     }
                     if(!area.isEmpty()){
                         condiciones += " and area='"+area+"' ";
@@ -3366,10 +3559,109 @@ public class jControlador implements ActionListener {
                     if(!maquina.isEmpty()){
                         condiciones += " and maquina='"+maquina+"' ";
                     }
+                    if(!maquina.isEmpty()){
+                        condiciones += " and maquina='"+maquina+"' ";
+                    }
+                    if(!proveedor.isEmpty()){
+                        condiciones += " and proveedor='"+proveedor+"' ";
+                    }
+                    if(!observaciones.isEmpty()){
+                        condiciones +=" and observaciones like '%"+observaciones+"%' ";
+                    }
+                    //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
+                    
+                    if(!condiciones.equals("")){
+                        q+=where;
+                        condiciones = condiciones.substring(4);
+                        condiciones = condiciones.substring(0,(condiciones.length()-1));
+                        q+=condiciones;
+                    }
+                    
+                }
+                if(this.consulta.__optSalida.isSelected()){
+                    //folio,documento,op,oc,tipo_entrada,propietario,cliente,turno,observaciones,fecha,claveproducto,descripcion,ubicacion,cantidad,unidadMedida,costo,totalcosto
+                    tabla=" vw_infosalida ";
+                    q+=select;
+                    campos +=" * ";
+                    campos= campos.replace(" * ", "folio, documento, op,  tipo_salida, area,responsable,turno, observaciones,fecha,  claveproducto as clave,descripcion,ubicacion,cantidad, unidadmedida,costo, totalcosto,solicitante  ");                    
+                    q+=campos;
+                    q+=from;
+                    q+=tabla;
+                    if(!folio.isEmpty()){
+                        condiciones +=" and folio >='"+folio+"' ";
+                    }
+                    if(!foliohasta.isEmpty()){
+                        condiciones +=" and folio <='"+foliohasta+"' ";
+                    }
+                    if(!documento.isEmpty()){
+                        condiciones +=" and documento='" +documento+"' ";
+                    }
                     if(!op.isEmpty()){
                         condiciones += "and op='"+op+"' ";
                     }
-                    
+                    if(!oc.isEmpty()){
+                        condiciones += "and oc='"+oc+"' ";
+                    }
+                    if(!tiposalida.isEmpty()){
+                        condiciones +=" and tipo_salida ='"+tiposalida+"' ";
+                    }
+                    if(!propi.isEmpty()){
+                        condiciones +=" and propietario ='"+propi+"' ";
+                    }
+                    if(!cliente.isEmpty()){
+                        condiciones +=" and cliente ='"+cliente+"' ";
+                    }
+                    if(!t1.isEmpty()){
+                        condiciones +=" and turno like '%"+t1+"%' ";
+                    }
+                    if(!t2.isEmpty()){
+                        condiciones +=" and turno like '%"+t2+"%' ";
+                    }
+                    if(!t3.isEmpty()){
+                        condiciones +=" and turno like '%"+t3+"%' ";
+                    }
+                    if(fechaIni!=null){
+                        condiciones +=" and fecha >= '"+fechaIni+"' ";
+                    }
+                    if(fechaFin!=null){
+                        condiciones +=" and fecha <= '"+fechaFin+"' ";
+                    }
+                    if(!clavepro.isEmpty()){
+                        condiciones += " and claveproducto='"+clavepro+"' ";
+                    }
+                    if(!descripcion.isEmpty()){
+                        condiciones += " and descripcion like '%"+descripcion+"%' ";
+                    }
+                    if(!ubicacion.isEmpty()){
+                        condiciones += " and ubicacion='"+ubicacion+"' ";
+                    }
+                    if(!cantidad.isEmpty()){
+                        condiciones += " and cantidad"+cantidad+" ";
+                    }
+                    if(!uM.equals("Selecciona...")){
+                        condiciones += " and unidadMedida='"+uM+"' ";
+                    }
+                    if(!area.isEmpty()){
+                        condiciones += " and area='"+area+"' ";
+                    }
+                    if(!maquina.isEmpty()){
+                        condiciones += " and maquina='"+maquina+"' ";
+                    }
+                    if(!maquina.isEmpty()){
+                        condiciones += " and maquina='"+maquina+"' ";
+                    }
+                    if(!proveedor.isEmpty()){
+                        condiciones += " and proveedor='"+proveedor+"' ";
+                    }
+                    if(!observaciones.isEmpty()){
+                        condiciones +=" and observaciones like '%"+observaciones+"%' ";
+                    }
+                    if(!observaciones.isEmpty()){
+                        condiciones +=" and observaciones like '%"+observaciones+"%' ";
+                    }
+                    if(!solicitante.isEmpty()){
+                        condiciones +=" and solicitante ='"+solicitante+"' ";
+                    }
                     //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
                     
                     if(!condiciones.equals("")){
@@ -3419,6 +3711,14 @@ public class jControlador implements ActionListener {
                     mensaje(3,ex.getMessage());
                     
                 }
+                break;
+                case __SALIR_CONSULTA:
+                confir=this.mensajeConfirmacion("Estas Seguro de Salir","Confirmación");
+                        if (confir==JOptionPane.OK_OPTION){
+                            consulta.dispose();
+                            menumaster.setVisible(true);
+                            //borrarFormularioConsultas();
+                        }
                 break;
                 case __REGRESAR:
                     this.limpiarTabla(verconsulta.__tConsulta);
