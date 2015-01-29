@@ -29,7 +29,7 @@
 FROM
      `vw_infoproducto` vw_infoproducto
 WHERE
-     vw_infoproducto.`cantidad` >     vw_infoproducto.`min`
+     vw_infoproducto.`cantidad` <  vw_infoproducto.`min`
 ORDER BY
      vw_infoproducto.`clave` ASC,
      vw_infoproducto.`descripcion` ASC,
@@ -68,7 +68,7 @@ ORDER BY
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Stock Mayor]]></text>
+					<text><![CDATA[Stock Menor]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="6a198eb7-c7cb-4152-b6ee-19aa54383fa9" style="SubTitle" x="358" y="37" width="309" height="29" forecolor="#000000" backcolor="#FFFFFF"/>
