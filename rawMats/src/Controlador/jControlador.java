@@ -3582,7 +3582,7 @@ public class jControlador implements ActionListener {
                     tabla=" vw_infosalida ";
                     q+=select;
                     campos +=" * ";
-                    //campos= campos.replace(" * ", "folio, documento, op, oc, proveedor, tipo_entrada,propietario,cliente, turno, observaciones,fecha,  claveproducto as clave,descripcion,area,maquina as seccion,ubicacion, cantidad, unidadmedida,costo,totalcosto ");                    
+                    campos= campos.replace(" * ", "folio, documento, op,  tipo_salida, area,responsable,turno, observaciones,fecha,  claveproducto as clave,descripcion,ubicacion,cantidad, unidadmedida,costo, totalcosto,solicitante  ");                    
                     q+=campos;
                     q+=from;
                     q+=tabla;
