@@ -1815,7 +1815,7 @@ public class jControlador implements ActionListener {
             public void keyPressed(java.awt.event.KeyEvent evt){
                 int evento=evt.getKeyCode();               
                  if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
-                     consulta.__Maquina.requestFocus();
+                     consulta.__Secion.requestFocus();
                 } 
             }
             public void keyReleased(java.awt.event.KeyEvent evt){
@@ -1832,9 +1832,9 @@ public class jControlador implements ActionListener {
              }                                    
         });
         //MAQUINA
-        Com_MaquinaCon = new TextAutoCompleter(consulta.__Maquina);
+        Com_MaquinaCon = new TextAutoCompleter(consulta.__Secion);
         Com_MaquinaCon.setMode(0);//infijo
-        this.consulta.__Maquina.addKeyListener(new java.awt.event.KeyAdapter() {
+        this.consulta.__Secion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                  KeyTipedLetrasNum(evt);                  
             }
@@ -1846,7 +1846,7 @@ public class jControlador implements ActionListener {
             }
             public void keyReleased(java.awt.event.KeyEvent evt){
               try {                    
-                    String parametro = consulta.__Maquina.getText();                    
+                    String parametro = consulta.__Secion.getText();                    
                     ResultSet buscarMaquina = mimodelo.buscarmaquina(parametro);                   
                     Com_MaquinaCon.removeAll();
                     while(buscarMaquina.next()){
@@ -3148,7 +3148,7 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkFechaFin.setEnabled(false);
                 this.consulta.__Area.setEnabled(true);
                 this.consulta.__chkArea.setEnabled(true);
-                this.consulta.__Maquina.setEnabled(true);
+                this.consulta.__Secion.setEnabled(true);
                 this.consulta.__chkMaquina.setEnabled(true);
                 this.consulta.__TipoEntrada.setEnabled(false);
                 this.consulta.__chkTipoEntrada.setEnabled(false);
@@ -3196,7 +3196,7 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkFechaFin.setEnabled(true);
                 this.consulta.__Area.setEnabled(true);
                 this.consulta.__chkArea.setEnabled(true);
-                this.consulta.__Maquina.setEnabled(false);
+                this.consulta.__Secion.setEnabled(false);
                 this.consulta.__chkMaquina.setEnabled(false);
                 this.consulta.__TipoEntrada.setEnabled(true);
                 this.consulta.__chkTipoEntrada.setEnabled(true);
@@ -3244,7 +3244,7 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkFechaFin.setEnabled(true);
                 this.consulta.__Area.setEnabled(true);
                 this.consulta.__chkArea.setEnabled(true);
-                this.consulta.__Maquina.setEnabled(false);
+                this.consulta.__Secion.setEnabled(false);
                 this.consulta.__chkMaquina.setEnabled(false);
                 this.consulta.__TipoEntrada.setEnabled(false);
                 this.consulta.__chkTipoEntrada.setEnabled(false);
@@ -3276,7 +3276,7 @@ public class jControlador implements ActionListener {
                 String cantidad = this.consulta.__Cantidad.getText();
                 String ubicacion = this.consulta.__Ubicacion.getText();
                 String area = this.consulta.__Area.getText();
-                String maquina = this.consulta.__Maquina.getText();
+                String maquina = this.consulta.__Secion.getText();
                 String minimo = this.consulta.__min.getText();
                 String maximo = this.consulta.__max.getText();
                 String op = this.consulta.__OrdenP.getText();
