@@ -107,7 +107,7 @@ public class jControlador implements ActionListener {
     private int tipoalta;
     String buscarfolio;
     TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS,Solicitante;
-    TextAutoCompleter Com_DescrpcionCon,Com_proveedorCon,Com_propietarioCon,Com_ClienteCon,Com_DocumentoCon,Com_OrdenProduccionCon,Com_OrdenCompraCon,Com_UbicacionCon,Com_ClaveCon,Com_AreaCon,Com_MaquinaCon,Com_TipoEntradaCon,Com_TipoSalidaCon,foloini,foliofin;
+    TextAutoCompleter Com_DescrpcionCon,Com_proveedorCon,Com_propietarioCon,Com_ClienteCon,Com_DocumentoCon,Com_OrdenProduccionCon,Com_OrdenCompraCon,Com_UbicacionCon,Com_ClaveCon,Com_AreaCon,Com_MaquinaCon,Com_TipoEntradaCon,Com_TipoSalidaCon,foloini,foliofin,SolicitanteCon;
     int modificarentrada=0;
     double restarcantidad,cantidadbd;
     String identradas[]=new String [1000];
@@ -1617,7 +1617,31 @@ public class jControlador implements ActionListener {
             }                         
         });
         //documento
-        
+        SolicitanteCon = new TextAutoCompleter(consulta.__Solicitante);
+        SolicitanteCon.setMode(0);//infijo
+        this.consulta.__Solicitante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     //consulta.__Propietario.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {
+                    String sol = consulta.__Solicitante.getText();
+                    ResultSet soli = mimodelo.buscaSolicitante(sol);
+                    SolicitanteCon.removeAll();
+                    while(soli.next()){
+                        SolicitanteCon.addItem(soli.getString(1));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+             }                                    
+        });
         //PROVEEDOR
         Com_proveedorCon = new TextAutoCompleter(consulta.__proveedor);
         Com_proveedorCon.setMode(0);//infijo
@@ -3268,6 +3292,10 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkTurno1.setEnabled(false);
                 this.consulta.__chkTurno2.setEnabled(false);
                 this.consulta.__chkTurno3.setEnabled(false);
+                this.consulta.__chkObservaciones.setEnabled(false);
+                this.consulta.__Observaciones.setEnabled(false);
+                this.consulta.__Solicitante.setEnabled(false);
+                this.consulta.__chkSolicitante.setEnabled(false);
                 break;
             case __OPTENTRADA:
                 this.consulta.__clave.setEnabled(true);
@@ -3316,6 +3344,10 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkTurno1.setEnabled(true);
                 this.consulta.__chkTurno2.setEnabled(true);
                 this.consulta.__chkTurno3.setEnabled(true);
+                this.consulta.__chkObservaciones.setEnabled(true);
+                this.consulta.__Observaciones.setEnabled(true);
+                this.consulta.__Solicitante.setEnabled(false);
+                this.consulta.__chkSolicitante.setEnabled(false);
                 break;
             case __OPTSALIDA:
                 this.consulta.__clave.setEnabled(true);
@@ -3364,6 +3396,10 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkTurno1.setEnabled(true);
                 this.consulta.__chkTurno2.setEnabled(true);
                 this.consulta.__chkTurno3.setEnabled(true);
+                this.consulta.__chkObservaciones.setEnabled(true);
+                this.consulta.__Observaciones.setEnabled(true);
+                this.consulta.__Solicitante.setEnabled(true);
+                this.consulta.__chkSolicitante.setEnabled(true);
                 break;
             case __ACEPTARCONSULTA:
                 String q="";
@@ -3394,12 +3430,16 @@ public class jControlador implements ActionListener {
                 String documento = this.consulta.__documento.getText();
                 String oc = this.consulta.__OrdenC.getText();
                 String tipoentrada = this.consulta.__TipoEntrada.getText();
+                String tiposalida = this.consulta.__TipoSalida.getText();
                 String propi = this.consulta.__Propietario.getText();
                 String t1 = this.consulta.__chkTurno1.isSelected()?"t1":"";
                 String t2 = this.consulta.__chkTurno2.isSelected()?"t2":"";
                 String t3 = this.consulta.__chkTurno3.isSelected()?"t3":"";
                 String fechaIni = this.aceptarFecha(consulta.__dateIni,1);
                 String fechaFin = this.aceptarFecha(consulta.__datefin,1);
+                String observaciones = this.consulta.__Observaciones.getText();
+                String solicitante = this.consulta.__Solicitante.getText();
+                
                 if(this.consulta.__optNinguno.isSelected()){
                     tabla=" vw_descripcionproductos ";
                     //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
@@ -3433,7 +3473,12 @@ public class jControlador implements ActionListener {
                     if(!op.isEmpty()){
                         condiciones += "and op='"+op+"' ";
                     }
-                    
+                    if(!minimo.isEmpty()){
+                        condiciones +=" and min"+minimo+"  ";
+                    }
+                    if(!maximo.isEmpty()){
+                        condiciones +=" and max"+maximo+"  ";
+                    }
                     //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
                     
                     if(!condiciones.equals("")){
@@ -3449,7 +3494,7 @@ public class jControlador implements ActionListener {
                     tabla=" vw_infoentrada ";
                     q+=select;
                     campos +=" * ";
-                    //campos= campos.replace(" * ", " clave,descripcion,area,maquina,ubicacion,op, max,min, existencia, unidadmedida, costopromedio as costo");                    
+                    campos= campos.replace(" * ", "folio, documento, op, oc, proveedor, tipo_entrada,propietario,cliente, turno, observaciones,fecha,  claveproducto as clave,descripcion,area,maquina as seccion,ubicacion, cantidad, unidadmedida,costo,totalcosto ");                    
                     q+=campos;
                     q+=from;
                     q+=tabla;
@@ -3518,6 +3563,103 @@ public class jControlador implements ActionListener {
                     }
                     if(!proveedor.isEmpty()){
                         condiciones += " and proveedor='"+proveedor+"' ";
+                    }
+                    if(!observaciones.isEmpty()){
+                        condiciones +=" and observaciones like '%"+observaciones+"%' ";
+                    }
+                    //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
+                    
+                    if(!condiciones.equals("")){
+                        q+=where;
+                        condiciones = condiciones.substring(4);
+                        condiciones = condiciones.substring(0,(condiciones.length()-1));
+                        q+=condiciones;
+                    }
+                    
+                }
+                if(this.consulta.__optSalida.isSelected()){
+                    //folio,documento,op,oc,tipo_entrada,propietario,cliente,turno,observaciones,fecha,claveproducto,descripcion,ubicacion,cantidad,unidadMedida,costo,totalcosto
+                    tabla=" vw_infosalida ";
+                    q+=select;
+                    campos +=" * ";
+                    //campos= campos.replace(" * ", "folio, documento, op, oc, proveedor, tipo_entrada,propietario,cliente, turno, observaciones,fecha,  claveproducto as clave,descripcion,area,maquina as seccion,ubicacion, cantidad, unidadmedida,costo,totalcosto ");                    
+                    q+=campos;
+                    q+=from;
+                    q+=tabla;
+                    if(!folio.isEmpty()){
+                        condiciones +=" and folio >='"+folio+"' ";
+                    }
+                    if(!foliohasta.isEmpty()){
+                        condiciones +=" and folio <='"+foliohasta+"' ";
+                    }
+                    if(!documento.isEmpty()){
+                        condiciones +=" and documento='" +documento+"' ";
+                    }
+                    if(!op.isEmpty()){
+                        condiciones += "and op='"+op+"' ";
+                    }
+                    if(!oc.isEmpty()){
+                        condiciones += "and oc='"+oc+"' ";
+                    }
+                    if(!tiposalida.isEmpty()){
+                        condiciones +=" and tipo_salida ='"+tiposalida+"' ";
+                    }
+                    if(!propi.isEmpty()){
+                        condiciones +=" and propietario ='"+propi+"' ";
+                    }
+                    if(!cliente.isEmpty()){
+                        condiciones +=" and cliente ='"+cliente+"' ";
+                    }
+                    if(!t1.isEmpty()){
+                        condiciones +=" and turno like '%"+t1+"%' ";
+                    }
+                    if(!t2.isEmpty()){
+                        condiciones +=" and turno like '%"+t2+"%' ";
+                    }
+                    if(!t3.isEmpty()){
+                        condiciones +=" and turno like '%"+t3+"%' ";
+                    }
+                    if(fechaIni!=null){
+                        condiciones +=" and fecha >= '"+fechaIni+"' ";
+                    }
+                    if(fechaFin!=null){
+                        condiciones +=" and fecha <= '"+fechaFin+"' ";
+                    }
+                    if(!clavepro.isEmpty()){
+                        condiciones += " and claveproducto='"+clavepro+"' ";
+                    }
+                    if(!descripcion.isEmpty()){
+                        condiciones += " and descripcion like '%"+descripcion+"%' ";
+                    }
+                    if(!ubicacion.isEmpty()){
+                        condiciones += " and ubicacion='"+ubicacion+"' ";
+                    }
+                    if(!cantidad.isEmpty()){
+                        condiciones += " and cantidad"+cantidad+" ";
+                    }
+                    if(!uM.equals("Selecciona...")){
+                        condiciones += " and unidadMedida='"+uM+"' ";
+                    }
+                    if(!area.isEmpty()){
+                        condiciones += " and area='"+area+"' ";
+                    }
+                    if(!maquina.isEmpty()){
+                        condiciones += " and maquina='"+maquina+"' ";
+                    }
+                    if(!maquina.isEmpty()){
+                        condiciones += " and maquina='"+maquina+"' ";
+                    }
+                    if(!proveedor.isEmpty()){
+                        condiciones += " and proveedor='"+proveedor+"' ";
+                    }
+                    if(!observaciones.isEmpty()){
+                        condiciones +=" and observaciones like '%"+observaciones+"%' ";
+                    }
+                    if(!observaciones.isEmpty()){
+                        condiciones +=" and observaciones like '%"+observaciones+"%' ";
+                    }
+                    if(!solicitante.isEmpty()){
+                        condiciones +=" and solicitante ='"+solicitante+"' ";
                     }
                     //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
                     
