@@ -89,7 +89,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkArea = new javax.swing.JCheckBox();
         __Area = new javax.swing.JTextField();
         __chkMaquina = new javax.swing.JCheckBox();
-        __Maquina = new javax.swing.JTextField();
+        __Secion = new javax.swing.JTextField();
         __chkPropietario = new javax.swing.JCheckBox();
         __TipoEntrada = new javax.swing.JTextField();
         __chkCliente = new javax.swing.JCheckBox();
@@ -106,6 +106,10 @@ public class Consultas extends javax.swing.JFrame {
         __chkCosto = new javax.swing.JCheckBox();
         __costo = new javax.swing.JTextField();
         __cmbUnidad = new javax.swing.JComboBox();
+        __chkSolicitante = new javax.swing.JCheckBox();
+        __Solicitante = new javax.swing.JTextField();
+        __chkObservaciones = new javax.swing.JCheckBox();
+        __Observaciones = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         __Archivo = new javax.swing.JMenu();
         __menuAltaProducto = new javax.swing.JMenuItem();
@@ -423,7 +427,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkMaquina.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkMaquina.setForeground(new java.awt.Color(255, 255, 255));
         __chkMaquina.setSelected(true);
-        __chkMaquina.setText("Maquina:");
+        __chkMaquina.setText("Sección:");
         __chkMaquina.setEnabled(false);
         __chkMaquina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -431,8 +435,8 @@ public class Consultas extends javax.swing.JFrame {
             }
         });
 
-        __Maquina.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        __Maquina.setEnabled(false);
+        __Secion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        __Secion.setEnabled(false);
 
         __chkPropietario.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkPropietario.setForeground(new java.awt.Color(255, 255, 255));
@@ -529,6 +533,24 @@ public class Consultas extends javax.swing.JFrame {
         __costo.setEnabled(false);
 
         __cmbUnidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona..." }));
+
+        __chkSolicitante.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
+        __chkSolicitante.setForeground(new java.awt.Color(255, 255, 255));
+        __chkSolicitante.setSelected(true);
+        __chkSolicitante.setText("Solicitante:");
+        __chkSolicitante.setEnabled(false);
+
+        __Solicitante.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        __Solicitante.setEnabled(false);
+
+        __chkObservaciones.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
+        __chkObservaciones.setForeground(new java.awt.Color(255, 255, 255));
+        __chkObservaciones.setSelected(true);
+        __chkObservaciones.setText("Observaciones:");
+        __chkObservaciones.setEnabled(false);
+
+        __Observaciones.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        __Observaciones.setEnabled(false);
 
         __Archivo.setText("Archivo");
 
@@ -634,7 +656,7 @@ public class Consultas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(__chkDescripcion)
@@ -644,9 +666,9 @@ public class Consultas extends javax.swing.JFrame {
                                 .addComponent(__chkClave)
                                 .addGap(3, 3, 3)
                                 .addComponent(__clave, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(88, 88, 88)
+                                .addGap(89, 89, 89)
                                 .addComponent(__chkArea)
-                                .addGap(7, 7, 7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(__Area, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(106, 106, 106)
@@ -657,12 +679,10 @@ public class Consultas extends javax.swing.JFrame {
                                 .addComponent(__chkUnidad)
                                 .addGap(3, 3, 3)
                                 .addComponent(__cmbUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(80, 80, 80)
-                                        .addComponent(__Maquina, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(__chkMaquina)))
+                                .addGap(71, 71, 71)
+                                .addComponent(__chkMaquina)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(__Secion, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(102, 102, 102)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -686,16 +706,23 @@ public class Consultas extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(__Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(__costo, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(__chkTipoEntrada)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(__chkTipoSalida)))
-                                .addGap(5, 5, 5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(__chkTipoEntrada)
+                                        .addGap(5, 5, 5))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(__chkSolicitante, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(__chkTipoSalida, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(__chkObservaciones, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(__Solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(__TipoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(__Observaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -708,30 +735,33 @@ public class Consultas extends javax.swing.JFrame {
                                         .addGap(7, 7, 7)
                                         .addComponent(__foliohasta, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(131, 131, 131)
-                                        .addComponent(__chkDocumento)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(__documento, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(__chkOrdenC)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(131, 131, 131)
+                                                .addComponent(__chkDocumento)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(__documento, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addGroup(layout.createSequentialGroup()
-                                                    .addGap(50, 50, 50)
-                                                    .addComponent(__chkUbicacion)))
-                                            .addGap(3, 3, 3)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(__OrdenC, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(__Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(69, 69, 69)
-                                            .addComponent(__chkOrdenP)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(__OrdenP, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(197, 197, 197)
-                                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(__chkOrdenC)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                            .addGap(50, 50, 50)
+                                                            .addComponent(__chkUbicacion)))
+                                                    .addGap(3, 3, 3)
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(__OrdenC, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(__Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(69, 69, 69)
+                                                    .addComponent(__chkOrdenP)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(__OrdenP, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(47, 47, 47)
+                                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(170, 170, 170))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(720, 720, 720)
                                 .addComponent(__SALIRCONSULTA)
@@ -790,10 +820,9 @@ public class Consultas extends javax.swing.JFrame {
                         .addComponent(__clave, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(__chkArea))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(__Area, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(__Area, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(__chkArea))))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -804,8 +833,9 @@ public class Consultas extends javax.swing.JFrame {
                         .addComponent(__proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(__chkUnidad)
                     .addComponent(__cmbUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(__Maquina, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(__chkMaquina))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(__Secion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(__chkMaquina)))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -827,44 +857,42 @@ public class Consultas extends javax.swing.JFrame {
                         .addGap(7, 7, 7)
                         .addComponent(__costo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(__chkTipoEntrada)
-                        .addGap(9, 9, 9)
-                        .addComponent(__chkTipoSalida))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(__TipoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)
-                        .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(__TipoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(__chkTipoEntrada))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(__chkTipoSalida))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(__Solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(__chkSolicitante))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(__chkFolio)
                             .addComponent(__folio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel1))
-                            .addComponent(__foliohasta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
+                            .addComponent(__foliohasta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(__Observaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(__chkObservaciones))))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(__documento, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(__chkDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(__OrdenP, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(__chkOrdenP)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(__SALIRCONSULTA, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(__ACEPTARCONSULTA, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
+                            .addComponent(__chkOrdenP))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -874,7 +902,16 @@ public class Consultas extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(__OrdenC, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
-                                .addComponent(__Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(__Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(__SALIRCONSULTA, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(__ACEPTARCONSULTA, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(33, 33, 33))
         );
 
@@ -1016,12 +1053,14 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JTextField __Cliente;
     public javax.swing.JTextField __Descripcion;
     public javax.swing.JMenu __Edicion;
-    public javax.swing.JTextField __Maquina;
     public javax.swing.JMenuItem __MenuAbrirArchivo;
+    public javax.swing.JTextField __Observaciones;
     public javax.swing.JTextField __OrdenC;
     public javax.swing.JTextField __OrdenP;
     public javax.swing.JTextField __Propietario;
     public javax.swing.JButton __SALIRCONSULTA;
+    public javax.swing.JTextField __Secion;
+    public javax.swing.JTextField __Solicitante;
     public javax.swing.JTextField __TipoEntrada;
     public javax.swing.JTextField __TipoSalida;
     public javax.swing.JTextField __Ubicacion;
@@ -1038,10 +1077,12 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JCheckBox __chkMaquina;
     public javax.swing.JCheckBox __chkMax;
     public javax.swing.JCheckBox __chkMin;
+    public javax.swing.JCheckBox __chkObservaciones;
     public javax.swing.JCheckBox __chkOrdenC;
     public javax.swing.JCheckBox __chkOrdenP;
     public javax.swing.JCheckBox __chkPropietario;
     public javax.swing.JCheckBox __chkProveedor;
+    public javax.swing.JCheckBox __chkSolicitante;
     public javax.swing.JCheckBox __chkTipoEntrada;
     public javax.swing.JCheckBox __chkTipoSalida;
     public javax.swing.JCheckBox __chkTurno1;

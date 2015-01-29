@@ -67,6 +67,8 @@ public class newProducto extends javax.swing.JFrame {
         __SMax_ = new javax.swing.JTextField();
         __etqNewArea = new javax.swing.JLabel();
         __etqNewEliminarArea = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        __Ubicacion = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         __Archivo = new javax.swing.JMenu();
         __menuMovimientos = new javax.swing.JMenuItem();
@@ -107,7 +109,7 @@ public class newProducto extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Maquina:");
+        jLabel11.setText("Sección:");
 
         __cmbMaquina.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona....." }));
         __cmbMaquina.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +180,12 @@ public class newProducto extends javax.swing.JFrame {
         __etqNewEliminarArea.setFont(new java.awt.Font("Papyrus", 0, 12)); // NOI18N
         __etqNewEliminarArea.setForeground(new java.awt.Color(255, 255, 255));
         __etqNewEliminarArea.setText("X");
+
+        jLabel20.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Ubicación:");
+
+        __Ubicacion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         __Archivo.setText("Archivo");
 
@@ -322,15 +330,6 @@ public class newProducto extends javax.swing.JFrame {
                                 .addGap(219, 219, 219)
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(95, 95, 95)
-                                .addComponent(jLabel18)
-                                .addGap(4, 4, 4)
-                                .addComponent(__SMin_, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel19)
-                                .addGap(4, 4, 4)
-                                .addComponent(__SMax_, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(179, 179, 179)
                                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -342,7 +341,22 @@ public class newProducto extends javax.swing.JFrame {
                                 .addGap(42, 42, 42)
                                 .addComponent(__BORRAR)
                                 .addGap(64, 64, 64)
-                                .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(95, 95, 95)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel18)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(__SMin_, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel19)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(__SMax_, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel20)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(__Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 10, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -382,6 +396,12 @@ public class newProducto extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
                             .addComponent(jLabel19))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(__Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel20)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel16)
                 .addGap(6, 6, 6)
@@ -392,7 +412,7 @@ public class newProducto extends javax.swing.JFrame {
                         .addComponent(__GUARDAR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(__BORRAR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(__SALIR, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -478,6 +498,7 @@ public class newProducto extends javax.swing.JFrame {
     public javax.swing.JButton __SALIR;
     public javax.swing.JTextField __SMax_;
     public javax.swing.JTextField __SMin_;
+    public javax.swing.JTextField __Ubicacion;
     public javax.swing.JComboBox __cmbArea;
     public javax.swing.JComboBox __cmbMaquina;
     public javax.swing.JTextArea __descripcion;
@@ -509,6 +530,7 @@ public class newProducto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
