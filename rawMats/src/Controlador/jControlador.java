@@ -2072,6 +2072,9 @@ public class jControlador implements ActionListener {
         this.reporte.__menuBackup.setActionCommand("__MENU_BACKUP");
         this.reporte.__menuBackup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_MASK));
         this.reporte.__menuBackup.addActionListener(this);
+        this.reporte.__menu_datos.setActionCommand("__MENU_DATOS");
+        this.reporte.__menu_datos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G,InputEvent.CTRL_MASK));
+        this.reporte.__menu_datos.addActionListener(this);       
         this.reporte.__RInventario.setActionCommand("__INVENTARIO");
         this.reporte.__RInventario.setMnemonic('I');
         this.reporte.__RInventario.addActionListener(this);
@@ -2279,6 +2282,8 @@ public class jControlador implements ActionListener {
                 if (confir==JOptionPane.OK_OPTION){
                     login.setEnabled(true);
                     newP.setEnabled(true);
+                    consulta.setEnabled(true);
+                    movimientos.setEnabled(true);
                     fecha.setVisible(false);
                      Calendar Cal= Calendar.getInstance();                                                  
                                String hora=Cal.get(Cal.HOUR_OF_DAY)<10 ? "0"+Cal.get(Cal.HOUR_OF_DAY) : ""+Cal.get(Cal.HOUR_OF_DAY);
@@ -2490,7 +2495,7 @@ public class jControlador implements ActionListener {
             case __MENU_NEWUSER:
                 Toolkit.getDefaultToolkit().setLockingKeyState(KeyEvent.VK_CAPS_LOCK, true);  
                     newU.__etqBloqMayus.setVisible(true);
-                        if(cargo == 1 || cargo==2){
+                        if(cargo == 1){
                             newP.setEnabled(false);
                             movimientos.setEnabled(false);
                             reporte.setEnabled(false);
@@ -2537,19 +2542,15 @@ public class jControlador implements ActionListener {
             case __MENU_ACERCADE:
                 mensaje(1,"rawMats By: =F@vo0R!to0= && yo0po0");
                 break;
-            case __MENU_BACKUP:
-                 if(cargo==1){
+            case __MENU_BACKUP:                 
                         mimodelo.bp(fech+"desdemenu");
                         this.enviaarchivo("C:\\iexsa\\backups\\dump"+fech+"desdemenu.sql","dispaper.iexsa@gmail.com" ,"Backup de la base de datos");
                         File fichero = new File("C:\\iexsa\\backups\\dump"+fech+"desdemenu.sql");
                         fichero.delete();
-                        mensaje(1,"Backup de la Base de Datos Correcta");
-                    }else{
-                        mensaje(2,"No Hay Acceso a esta Información");
-                    }
+                        mensaje(1,"Backup de la Base de Datos Correcta");                    
                 break;
             case __MENU_DATOS:
-                //this.mimodelo.abrirReporte("Datos.jrxml",new HashMap());
+                this.mimodelo.abrirReporte("Listado.jrxml",new HashMap());
                 break;           
             case __MENU_ABRIR_ARCHIVO:
                 try {
@@ -2901,17 +2902,17 @@ public class jControlador implements ActionListener {
                 break;
             case __CANCELAR_PROVEEDOR: 
                 if(NewPC.__NombreProveedor.getText().isEmpty()&&NewPC.__DireccionProveedor.getText().isEmpty()&&NewPC.__RFC.getText().isEmpty()&&NewPC.__TelefonoNProveedor.getText().isEmpty() ){
-                    borrarFormularioProveedor();
+                        borrarFormularioProveedor();
                         movimientos.setEnabled(true);
                         NewPC.dispose();
-                        movimientos.setEnabled(true);
+                        movimientos.setVisible(true);
                 }else
                 confir= mensajeConfirmacion("Realmente Desea Salir","Cancelar");
                     if(confir==JOptionPane.OK_OPTION){
                         borrarFormularioProveedor();
                         movimientos.setEnabled(true);
-                        NewPC.dispose();
-                        movimientos.setEnabled(true);
+                        NewPC.dispose(); 
+                        movimientos.setVisible(true);
                     }
                 break;
             case __ACEPTAR_ENTRADA:
@@ -4447,6 +4448,9 @@ public class jControlador implements ActionListener {
                             if(altaprove==true){                                       
                                 mensaje(1,"Alta Correcta de Nuevo Proveedor: "+Nombre+"");  
                                 borrarFormularioProveedor();
+                                movimientos.setEnabled(true);
+                                NewPC.dispose();
+                                movimientos.setVisible(true);
                             }else{
                                 mensaje(3,"Ocurrio un Error al Dar de Alta el Nuevo Proveedor");                          
                             }       
@@ -4460,6 +4464,9 @@ public class jControlador implements ActionListener {
                             if(altacli==true){                                       
                                 mensaje(1,"Alta Correcta de Nuevo Cliente: "+Nombre+"");   
                                 borrarFormularioProveedor();
+                                movimientos.setEnabled(true);
+                                NewPC.dispose();
+                                movimientos.setVisible(true);
                             }else{
                                 mensaje(3,"Ocurrio un Error al Dar de Alta el Nuevo Cliente");                          
                             }                        

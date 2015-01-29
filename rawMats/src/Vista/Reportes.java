@@ -72,8 +72,9 @@ public class Reportes extends javax.swing.JFrame {
         __menuCambiarContraseña = new javax.swing.JMenuItem();
         __menuReporte = new javax.swing.JMenuItem();
         __menucerrarsesiones = new javax.swing.JMenuItem();
-        __menuAcerca = new javax.swing.JMenuItem();
+        __menu_datos = new javax.swing.JMenuItem();
         __menuBackup = new javax.swing.JMenuItem();
+        __menuAcerca = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setIconImage(getIconImage());
@@ -223,9 +224,9 @@ public class Reportes extends javax.swing.JFrame {
         __menucerrarsesiones.setText("Cerrar Todas las Sesiones");
         __Edicion.add(__menucerrarsesiones);
 
-        __menuAcerca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, java.awt.event.InputEvent.CTRL_MASK));
-        __menuAcerca.setText("Acerca de...");
-        __Edicion.add(__menuAcerca);
+        __menu_datos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        __menu_datos.setText("Listar Clientes,Proveedores, Propietarios");
+        __Edicion.add(__menu_datos);
 
         __menuBackup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         __menuBackup.setText("Backup");
@@ -235,6 +236,10 @@ public class Reportes extends javax.swing.JFrame {
             }
         });
         __Edicion.add(__menuBackup);
+
+        __menuAcerca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, java.awt.event.InputEvent.CTRL_MASK));
+        __menuAcerca.setText("Acerca de...");
+        __Edicion.add(__menuAcerca);
 
         jMenuBar1.add(__Edicion);
 
@@ -444,6 +449,7 @@ public class Reportes extends javax.swing.JFrame {
     public javax.swing.JMenuItem __menuNuevoUsuario;
     public javax.swing.JMenuItem __menuReporte;
     public javax.swing.JMenuItem __menuSalir;
+    public javax.swing.JMenuItem __menu_datos;
     public javax.swing.JMenuItem __menucerrarsesiones;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
