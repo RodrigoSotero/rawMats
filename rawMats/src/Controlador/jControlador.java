@@ -3303,7 +3303,7 @@ public class jControlador implements ActionListener {
                 this.consulta.__chkFechaFin.setEnabled(true);
                 this.consulta.__Area.setEnabled(true);
                 this.consulta.__chkArea.setEnabled(true);
-                this.consulta.__Maquina.setEnabled(true);
+                this.consulta.__Secion.setEnabled(true);
                 this.consulta.__chkMaquina.setEnabled(true);
                 this.consulta.__TipoEntrada.setEnabled(true);
                 this.consulta.__chkTipoEntrada.setEnabled(true);
