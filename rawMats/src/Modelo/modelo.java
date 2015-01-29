@@ -1273,6 +1273,55 @@ public class modelo extends database{
                 return null;
             }        
     }
+    public ResultSet folioentrada(String parametro) {
+        String q = "select folioe from entrada where folioe like '%"+parametro+"%' ;";
+                  //SELECT OP FROM rawmats.entrada where OP like '%l%' ;
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }        
+    }
+    public ResultSet foliosalida(String parametro) {
+        String q = "select folio from salida where folio like '%"+parametro+"%' ;";
+                  //SELECT OP FROM rawmats.entrada where OP like '%l%' ;
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }        
+    }
+    public ResultSet documentoe(String parametro) {
+        String q = "select distinct documentoe from entrada where documentoe like '%"+parametro+"%' ;";
+                  //SELECT OP FROM rawmats.entrada where OP like '%l%' ;
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }        
+    }
+    public ResultSet documentos(String parametro) {
+        String q = "select  distinct documento_salida from salida where documento_salida like '%"+parametro+"%' ;";
+                  //SELECT OP FROM rawmats.entrada where OP like '%l%' ;
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(Exception e){
+                
+                return null;
+            }        
+    }
+    
 
     public ResultSet buscaroc(String parametro) {
         String q = "SELECT DISTINCT OC  FROM rawmats.entrada where OC like '%"+parametro+"%' ;";
