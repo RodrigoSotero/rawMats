@@ -2730,37 +2730,21 @@ public class jControlador implements ActionListener {
                 }
                 break;
             case __MENU_CERRAR_SESIONES:
-                switch(cargo){
-                        case 1: 
-                            SesionCerrada=0;                            
-                            confir= mensajeConfirmacion("Realmente Desea Cerrar Todas las Sesiones ","Cerrar Sesiones");
-                            if(confir==JOptionPane.OK_OPTION){
-                                boolean SC=mimodelo.cerrarsesiones(SesionCerrada);
-                                    if(SC==true){
-                                        mensaje(1,"Sesiones Cerradas con Exito");
-                                        tipoalta=0;
-                                    }else{
-                                        mensaje(3,"Ocurrio un Error al Cerrar las Sesiones");
-                                    }
-                            }
-                            break;
-                        case 2: 
-                            SesionCerrada=0;                                  
-                            confir= mensajeConfirmacion("Realmente Desea Cerrar Todas las Sesiones ","Cerrar Sesiones");
-                            if(confir==JOptionPane.OK_OPTION){
-                                boolean SC=mimodelo.cerrarsesiones(SesionCerrada);
-                                    if(SC==true){
-                                        mensaje(1,"Sesiones Cerradas con Exito");
-                                        tipoalta=0;
-                                    }else{
-                                        mensaje(3,"Ocurrio un Error al Cerrar las Sesiones");
-                                    }
-                            }
-                            break;
-                        case 3:
-                            mensaje(2,"No Hay Acceso a esta Información");
-                            break;                      
+                if(user=="ROOT"){
+                    SesionCerrada=0;                            
+                    confir= mensajeConfirmacion("Realmente Desea Cerrar Todas las Sesiones ","Cerrar Sesiones");
+                    if(confir==JOptionPane.OK_OPTION){
+                        boolean SC=mimodelo.cerrarsesiones(SesionCerrada);
+                        if(SC==true){
+                            mensaje(1,"Sesiones Cerradas con Exito");
+                            tipoalta=0;
+                        }else{
+                            mensaje(3,"Ocurrio un Error al Cerrar las Sesiones");
+                        }
                     }
+                }else{
+                    mensaje(2,"No Hay Acceso a esta Información");
+                }               
                 break;
             case __MENU_CONSULTA_EXISTENCIA:
                 movimientos.setEnabled(false);
