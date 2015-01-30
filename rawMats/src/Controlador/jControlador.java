@@ -107,7 +107,7 @@ public class jControlador implements ActionListener {
     private int tipoalta;
     String buscarfolio;
     TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS,Solicitante;
-    TextAutoCompleter Com_DescrpcionCon,Com_proveedorCon,Com_propietarioCon,Com_ClienteCon,Com_DocumentoCon,Com_OrdenProduccionCon,Com_OrdenCompraCon,Com_UbicacionCon,Com_ClaveCon,Com_AreaCon,Com_MaquinaCon,Com_TipoEntradaCon,Com_TipoSalidaCon,foloini,foliofin,SolicitanteCon;
+    TextAutoCompleter Com_DescrpcionCon,Com_proveedorCon,Com_propietarioCon,Com_ClienteCon,Com_DocumentoCon,Com_OrdenProduccionCon,Com_OrdenCompraCon,Com_UbicacionCon,Com_ClaveCon,Com_AreaCon,Com_MaquinaCon,Com_TipoEntradaCon,Com_TipoSalidaCon,foloini,foliofin,SolicitanteCon,ubicacioncom;
     int modificarentrada=0;
     double restarcantidad,cantidadbd;
     String identradas[]=new String [1000];
@@ -957,6 +957,8 @@ public class jControlador implements ActionListener {
                             ResultSet costo = mimodelo.ultimocosto(parametro);
                             while(costo.next()){
                                 movimientos.__tablaEntrada.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
+                                movimientos.__tablaEntrada.setValueAt(costo.getString("ubicacion"), fila, 2);
+                                movimientos.__tablaEntrada.setValueAt(costo.getString("unidadmedida"), fila, 4);
                             }
                         }
                         
@@ -1059,6 +1061,8 @@ public class jControlador implements ActionListener {
                             ResultSet costo = mimodelo.ultimocosto(prod.getString("clave"));
                             while(costo.next()){
                                 movimientos.__tablaEntrada.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
+                                movimientos.__tablaEntrada.setValueAt(costo.getString("ubicacion"), fila, 2);
+                                movimientos.__tablaEntrada.setValueAt(costo.getString("unidadmedida"), fila, 4);
                             }
                         }
                         
@@ -1573,6 +1577,31 @@ public class jControlador implements ActionListener {
                 } 
             }
             });
+        ubicacioncom = new TextAutoCompleter(newP.__Ubicacion);
+        ubicacioncom.setMode(0);//infijo
+        this.newP.__Ubicacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNum(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                                            
+                    //consulta.__proveedor.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {
+                    String ubicacion = newP.__Ubicacion.getText();
+                    ResultSet buscarDescripcion = mimodelo.buscarubicacion(ubicacion);
+                    ubicacioncom.removeAll();
+                    while(buscarDescripcion.next()){
+                        ubicacioncom.addItem(buscarDescripcion.getString("ubicacion"));
+                    }
+              }catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+               }
+            }                         
+        });
         //cnsita
         this.verconsulta.__SALIR.setActionCommand("__REGRESAR");
         this.verconsulta.__SALIR.addKeyListener(new java.awt.event.KeyAdapter(){
@@ -2939,6 +2968,7 @@ public class jControlador implements ActionListener {
                                 newP.__SMin_.setText(producto.getString("min"));
                                 newP.__SMax_.setText(producto.getString("max"));
                                 newP.__etqClave.setText(producto.getString("clave"));
+                                newP.__Ubicacion.setText(producto.getString("ubicacion"));
                                 System.out.println(producto.getString("area"));
                             }
                             conEP.dispose();
@@ -3003,19 +3033,25 @@ public class jControlador implements ActionListener {
                     mensaje(3,"El Maximo No Puede ser Menor que el Minimo");
                      this.newP.__SMax_.requestFocus();
                 }
+                String ubicacion1 = newP.__Ubicacion.getText();
+                if(ubicacion1.isEmpty()){
+                    mensaje(3,"Debes Colocar una Ubicacion al Producto");
+                    this.newP.__Ubicacion.requestFocus();
+                    return;
+                }
                 String clave = newP.__etqClave.getText();
                 confir= mensajeConfirmacion("La clave de producto " + clave+" es correcta?" ,"Aceptar");
                 
                 if(confir==JOptionPane.OK_OPTION){
                     if(modificaproducto==0){
                         if(mimodelo.nuevoProducto(areaid, maquinaid, clave,DesP, Max, Min)){
-                            if(mimodelo.nuevaexistencia(clave)){
+                            if(mimodelo.nuevaexistencia(clave,ubicacion1)){
                                 mensaje(1,"Alta de producto correcta");
                                 borrarFormularioAltaProducto();
                             }
                         }
                     }else{
-                        if(mimodelo.updateProducto(areaid, maquinaid, clave,DesP, Max, Min)){
+                        if(mimodelo.updateProducto(areaid, maquinaid, clave,DesP, Max, Min,ubicacion1)){
                                 mensaje(1,"Modificacion de producto correcta");
                                 borrarFormularioAltaProducto();
                         }
@@ -3446,7 +3482,7 @@ public class jControlador implements ActionListener {
                     //DESCRIPCION ,CLVE,UNIDAD,CANTIDAD,COSTO,UBICAION,AREA, MAQUINA,MINIMO, MAXIMO,OP
                     q+=select;
                     campos +=" * ";
-                    campos= campos.replace(" * ", " clave,descripcion,area,maquina,ubicacion,op, max,min, existencia, unidadmedida, costopromedio as costo");                    
+                    campos= campos.replace(" * ", " clave,descripcion,area,maquina as seccion,ubicacion,op, max,min, existencia, unidadmedida, costopromedio as costo");                    
                     q+=campos;
                     q+=from;
                     q+=tabla;
@@ -4569,6 +4605,7 @@ public class jControlador implements ActionListener {
         this.addItems("newP");
         newP.__cmbArea.setEnabled(true);
         newP.__cmbMaquina.setEnabled(true);
+        newP.__Ubicacion.setText("");
     }
     public void borrarFormularioConEP(){
         conEP.__descripcionP.setText("");

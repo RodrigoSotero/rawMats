@@ -319,7 +319,7 @@ public class modelo extends database{
     }
 
     public ResultSet buscardor(String des) {
-        String q = "Select clave, descripcion from vw_infoproducto where descripcion like '%"+des+"%' or clave like '%"+des+"%' order by clave;";
+        String q = "Select clave, descripcion,ubicacion,cantidad as existencia from vw_infoproducto where descripcion like '%"+des+"%' or clave like '%"+des+"%' order by clave;";
         //          Select clave, descripcion from productos where descripcion like '% %'
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
@@ -473,8 +473,8 @@ public class modelo extends database{
             }
     }
     
-    public boolean nuevaexistencia(String clave) {
-      String q ="INSERT INTO  `inventario` (`idinventario` ,`claveProducto` ,`cantidad`,costopromedio,ubicacion)VALUES (NULL ,  '"+clave+"', '0','0','');";
+    public boolean nuevaexistencia(String clave,String ubicacion) {
+      String q ="INSERT INTO  `inventario` (`idinventario` ,`claveProducto` ,`cantidad`,costopromedio,ubicacion)VALUES (NULL ,  '"+clave+"', '0','0','"+ubicacion+"');";
     try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
@@ -1078,15 +1078,16 @@ public class modelo extends database{
         }
     }
     
-     public boolean updateProducto(int area, int maquina,String clave,String descripcion, int max, int min) {
+     public boolean updateProducto(int area, int maquina,String clave,String descripcion, int max, int min,String ubicacion) {
         String q = "update productos set area="+area+", descripcion='"+descripcion+"', max="+max+", min="+min+" where clave ='"+clave+"';";                 
+        String q2 = "update inventario ubicacion='"+ubicacion+"' where claveProducto ='"+clave+"';";  
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
             pstm.close();
             return true;
         }catch(SQLException e){
-            
+            System.out.println(e.getMessage());
             return false;
         }   
     }
