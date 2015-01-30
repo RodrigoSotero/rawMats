@@ -19,6 +19,7 @@ import Vista.MenuMaster;
 import Vista.Movimientos;
 import Vista.NuevoPC;
 import Vista.NuevoUsu;
+import Vista.RFinanzas;
 import Vista.ReporteU;
 import Vista.Reportes;
 import Vista.Splash;
@@ -102,11 +103,12 @@ public class jControlador implements ActionListener {
     private final Reportes reporte = new Reportes();
     private final Consulta verconsulta = new Consulta();
     private final  Vista.Correo correo = new Correo();
+    private final Vista.RFinanzas Finanzas = new RFinanzas();
     int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0,SesionCerrada=0,saber=0;
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
     String buscarfolio;
-    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS,Solicitante;
+    TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS,Solicitante,Com_ClaveRFin,Com_DescripcionRFin;
     TextAutoCompleter Com_DescrpcionCon,Com_proveedorCon,Com_propietarioCon,Com_ClienteCon,Com_DocumentoCon,Com_OrdenProduccionCon,Com_OrdenCompraCon,Com_UbicacionCon,Com_ClaveCon,Com_AreaCon,Com_MaquinaCon,Com_TipoEntradaCon,Com_TipoSalidaCon,foloini,foliofin,SolicitanteCon,ubicacioncom,ubicacionsal,ubicacionent;
     int modificarentrada=0;
     double restarcantidad,cantidadbd;
@@ -2109,7 +2111,63 @@ public class jControlador implements ActionListener {
                 }
              }                                    
         });
-        
+        //autocompletables Finanzas          
+        this.Finanzas.__ACEPTAR.setActionCommand("__ACEPTAR_FINANZAS");
+        this.Finanzas.__ACEPTAR.setMnemonic('A');
+        this.Finanzas.__ACEPTAR.addActionListener(this);
+        this.Finanzas.__SALIR2.setActionCommand("__CANCELAR_FINANZAS");
+        this.Finanzas.__SALIR2.setMnemonic('C');
+        this.Finanzas.__SALIR2.addActionListener(this);
+        Com_ClaveRFin = new TextAutoCompleter(Finanzas.__clave);
+        Com_ClaveRFin.setMode(0);//infijo
+        this.Finanzas.__clave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                 KeyTipedLetrasNum(evt);                  
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                    
+                     Finanzas.__descripcion.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {                    
+                    String parametro = Finanzas.__clave.getText();                    
+                    ResultSet buscarClave = mimodelo.buscarclave(parametro);                   
+                    Com_ClaveRFin.removeAll();
+                    while(buscarClave.next()){
+                        Com_ClaveRFin.addItem(buscarClave.getString("claveProducto"));
+                    }
+                } catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+                }
+             }                                    
+        });
+        Com_DescripcionRFin = new TextAutoCompleter(Finanzas.__descripcion);
+        Com_DescripcionRFin.setMode(0);//infijo
+        this.Finanzas.__descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNum(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                                            
+                    //consulta.__proveedor.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {
+                    String descripcion = Finanzas.__descripcion.getText();
+                    ResultSet buscarDescripcion = mimodelo.buscarProductoByDescripcion(descripcion);
+                    Com_DescripcionRFin.removeAll();
+                    while(buscarDescripcion.next()){
+                        Com_DescripcionRFin.addItem(buscarDescripcion.getString("descripcion"));
+                    }
+              }catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+               }
+            }                         
+        });
         //MENUS
         //Menu New Producto 
         this.newP.__menuMovimientos.setActionCommand("__MENU_MOV_PAPEL");
@@ -2293,15 +2351,18 @@ public class jControlador implements ActionListener {
         this.reporte.__SALIR.setActionCommand("__SALIR_PRODUCTO");
         this.reporte.__SALIR.setMnemonic('R');
         this.reporte.__SALIR.addActionListener(this);
-        
+        this.reporte.__Finanzas.setActionCommand("__REPORTE_FINANZAS");
+        this.reporte.__Finanzas.setMnemonic('F');
+        this.reporte.__Finanzas.addActionListener(this);
+        //FINAL REPORTES
         this.correo.__ABRIREXCEL.setActionCommand("__ABRIREXCEL");
-       this.correo.__ABRIREXCEL.addActionListener(this);
-       this.correo.__BUSCARARCHIVO.setActionCommand("__BUSCARARCHIVO");
-       this.correo.__BUSCARARCHIVO.addActionListener(this);
-       this.correo.__ACEPTARCORREO.setActionCommand("__ACEPTARCORREO");
-       this.correo.__ACEPTARCORREO.addActionListener(this);
-       this.correo.__SALIRCORREO.setActionCommand("__SALIRCORREO");
-       this.correo.__SALIRCORREO.addActionListener(this);
+        this.correo.__ABRIREXCEL.addActionListener(this);
+        this.correo.__BUSCARARCHIVO.setActionCommand("__BUSCARARCHIVO");
+        this.correo.__BUSCARARCHIVO.addActionListener(this);
+        this.correo.__ACEPTARCORREO.setActionCommand("__ACEPTARCORREO");
+        this.correo.__ACEPTARCORREO.addActionListener(this);
+        this.correo.__SALIRCORREO.setActionCommand("__SALIRCORREO");
+        this.correo.__SALIRCORREO.addActionListener(this);
         //FIN MENU
         
         //ACCIOENES CONSULTAS
@@ -2455,6 +2516,9 @@ public class jControlador implements ActionListener {
         __ENTRADA,
         __STOCK_ARRIBA,
         __STOCK_ABAJO,
+        __REPORTE_FINANZAS,
+        __ACEPTAR_FINANZAS,
+        __CANCELAR_FINANZAS,
         __OPTNINGUNO,
         __REGRESAR_REPORTES,
         __OPTSALIDA,
@@ -3324,7 +3388,87 @@ public class jControlador implements ActionListener {
             case __STOCK_ABAJO:
                 mensaje(1,"Generando Reporte Menores al Stock Maximo");
                 this.mimodelo.abrirReporte("MenorMaxi.jrxml",map);  
-                break;            
+                break; 
+            case __REPORTE_FINANZAS:
+                this.Finanzas.setVisible(true);                
+                this.reporte.setEnabled(false);                
+                break;
+            case __ACEPTAR_FINANZAS:
+                String ClaveFinanzas=this.Finanzas.__clave.getText();
+                Date fechainii=null,fechafinn=null;
+                map.put("clave",ClaveFinanzas);
+                String RFI,RFF;
+                if(aceptarFecha(this.Finanzas.__dateIni,1)==null){
+                    RFI="";
+                }else{
+                    RFI= this.aceptarFecha(this.Finanzas.__dateIni,1).toString();
+                    fechainii = Finanzas.__dateIni.getCalendar().getTime();
+                    map.put("inicial",RFI);
+                }
+                if(aceptarFecha(this.Finanzas.__datefin,1)==null){
+                    RFF="";
+                }else{
+                    RFF = this.aceptarFecha(this.Finanzas.__datefin,1).toString();
+                    map.put("final",RFF);
+                    fechafinn=  Finanzas.__datefin.getCalendar().getTime();
+                }
+                if(fechafinn!=null&&fechainii!=null&&fechafinn.before(fechainii)){
+                    mensaje(3,"La Fecha Inicial No Puede se Mayor a Fecha Final");
+                    return;
+                }
+                if(ClaveFinanzas.isEmpty()){
+                    if(RFI.equals("")){
+                        if(RFF.equals("")){
+                            //tres vacipos
+                            mensaje(2,"No hay Parametros de Busqueda, No se Creara el Reporte");  
+                        }else{
+                            //lo unico que tiene es fecha final
+                            mensaje(1,"Busqueda por: Fecha Final "+RFF);
+                            this.mimodelo.abrirReporte("ReporteFMenor.jrxml",map);
+                        }
+                    }else{
+                        if(RFF.equals("")){
+                            //ñlpo unicpo que tiene es fecha inciañl
+                            mensaje(1,"Busqueda por: Fecha Inicial "+RFI);
+                            this.mimodelo.abrirReporte("ReporteFMayor.jrxml",map);
+                        }else{
+                            //lo que tiene es fecha final e inicial
+                            mensaje(1,"Busqueda por: Fecha Inicial "+RFI+", Fecha Final "+RFF);
+                            this.mimodelo.abrirReporte("ReporteFIgual.jrxml",map);
+                        }
+                    }
+                }else{
+                    if(RFI.equals("")){
+                        if(RFF.equals("")){
+                            //tiene clave 
+                            mensaje(1,"Busqueda por: Clave "+ClaveFinanzas);
+                            this.mimodelo.abrirReporte("ReporteFClave.jrxml",map);
+                        }else{
+                            //tiene clave fecha final
+                            mensaje(1,"Busqueda por: Clave "+ClaveFinanzas+", Fecha Final "+RFF);
+                            this.mimodelo.abrirReporte("ReporteFClavefin.jrxml",map);
+                        }
+                    }else{
+                        if(RFF.equals("")){
+                            //tiene clave inicial
+                            mensaje(1,"Busqueda por: Clave "+ClaveFinanzas+", Fecha Inicial "+RFI);
+                            this.mimodelo.abrirReporte("ReporteFClaveIni.jrxml",map);
+                        }else{
+                            //tiene clave fecha final y fecha inicial
+                            mensaje(1,"Busqueda por: Clave "+ClaveFinanzas+", Fecha Inicial "+RFI+", Fecha Final "+RFF);
+                            this.mimodelo.abrirReporte("ReporteFClaveIniFin.jrxml",map);
+                        }
+                    }
+                }
+                break;
+            case __CANCELAR_FINANZAS:
+                Finanzas.__clave.setText("");
+                this.Finanzas.__dateIni.setDate(null);
+                this.Finanzas.__datefin.setDate(null);                
+                reporte.setEnabled(true);
+                reporte.setVisible(true);
+                Finanzas.setVisible(false);                
+                break;
             case __OPTNINGUNO:
                 //area, maquina, clave, descripcion, max, min, costopromedio, existencia, ubicacion, op <---
                 this.consulta.__clave.setEnabled(true);
