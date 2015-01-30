@@ -107,7 +107,7 @@ public class jControlador implements ActionListener {
     private int tipoalta;
     String buscarfolio;
     TextAutoCompleter Com_propietarioE,Com_TipoE,Com_proveedorE,Com_clienteE,com_prodcuto,com_descripcion,com_prodcutoSalida,com_descripcionSalida,Com_TipoS,Com_AreaS,Solicitante;
-    TextAutoCompleter Com_DescrpcionCon,Com_proveedorCon,Com_propietarioCon,Com_ClienteCon,Com_DocumentoCon,Com_OrdenProduccionCon,Com_OrdenCompraCon,Com_UbicacionCon,Com_ClaveCon,Com_AreaCon,Com_MaquinaCon,Com_TipoEntradaCon,Com_TipoSalidaCon,foloini,foliofin,SolicitanteCon,ubicacioncom;
+    TextAutoCompleter Com_DescrpcionCon,Com_proveedorCon,Com_propietarioCon,Com_ClienteCon,Com_DocumentoCon,Com_OrdenProduccionCon,Com_OrdenCompraCon,Com_UbicacionCon,Com_ClaveCon,Com_AreaCon,Com_MaquinaCon,Com_TipoEntradaCon,Com_TipoSalidaCon,foloini,foliofin,SolicitanteCon,ubicacioncom,ubicacionsal,ubicacionent;
     int modificarentrada=0;
     double restarcantidad,cantidadbd;
     String identradas[]=new String [1000];
@@ -1602,6 +1602,56 @@ public class jControlador implements ActionListener {
                }
             }                         
         });
+        ubicacionent = new TextAutoCompleter(movimientos._ubicacion);
+        ubicacionent.setMode(0);//infijo
+        this.movimientos._ubicacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNum(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                                            
+                    //consulta.__proveedor.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {
+                    String ubicacion = movimientos._ubicacion.getText();
+                    ResultSet buscarDescripcion = mimodelo.buscarubicacion(ubicacion);
+                    ubicacionent.removeAll();
+                    while(buscarDescripcion.next()){
+                        ubicacionent.addItem(buscarDescripcion.getString("ubicacion"));
+                    }
+              }catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+               }
+            }                         
+        });
+        ubicacionsal = new TextAutoCompleter(movimientos._ubicacionsalida);
+        ubicacionsal.setMode(0);//infijo
+        this.movimientos._ubicacionsalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                KeyTipedLetrasNum(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt){
+                int evento=evt.getKeyCode();               
+                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){                                            
+                    //consulta.__proveedor.requestFocus();
+                } 
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt){
+              try {
+                    String ubicacion = movimientos._ubicacionsalida.getText();
+                    ResultSet buscarDescripcion = mimodelo.buscarubicacion(ubicacion);
+                    ubicacionsal.removeAll();
+                    while(buscarDescripcion.next()){
+                        ubicacionsal.addItem(buscarDescripcion.getString("ubicacion"));
+                    }
+              }catch (SQLException ex) {
+                    mensaje(3,ex.getMessage());
+               }
+            }                         
+        });
         //cnsita
         this.verconsulta.__SALIR.setActionCommand("__REGRESAR");
         this.verconsulta.__SALIR.addKeyListener(new java.awt.event.KeyAdapter(){
@@ -2632,6 +2682,9 @@ public class jControlador implements ActionListener {
                             borrarFormularioProveedor();
 //                            borrarFormularioConsultas();
 //                            borrarFormularioEmergente();
+                            if(!user.equals("ROOT")){
+                                mimodelo.cerrarsesion(user);
+                            }
                         } catch (SQLException ex) {
                             mensaje(3,ex.getMessage());
                         }
@@ -2640,6 +2693,13 @@ public class jControlador implements ActionListener {
             case __MENU_SALIR:
                 confir = mensajeConfirmacion("¿Realmente Desea Salir del Sistema?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
+                            if(!user.equals("ROOT")){
+                                try {
+                                    mimodelo.cerrarsesion(user);
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
                             SalirSistema();
                             }
                 break;
@@ -4163,11 +4223,9 @@ public class jControlador implements ActionListener {
                                String minute=Cal.get(Cal.MINUTE)<10 ? "0"+Cal.get(Cal.MINUTE) : ""+Cal.get(Cal.MINUTE);
                                horasalida = hora+":"+minute;                
             boolean registrasalida=mimodelo.horasalida(horasalida,user);
-            if(!user.equals("ROOT")){
-                mimodelo.cerrarsesion(user);
-            }
+            
             System.exit(0);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             mensaje(3,ex.getMessage());
         }
     }

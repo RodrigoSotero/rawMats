@@ -182,7 +182,7 @@ public class modelo extends database{
     }
 
     public boolean cerrarsesiones(int SesionCerrada) {
-            String q=" UPDATE  `dis_paper`.`responsable` SET Sesion ='"+SesionCerrada+"';";
+            String q=" UPDATE  `responsable` SET Sesion ='"+SesionCerrada+"';";
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
