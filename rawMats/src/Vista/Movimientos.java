@@ -273,7 +273,7 @@ public class Movimientos extends javax.swing.JFrame {
             __tablaEntrada.getColumnModel().getColumn(1).setPreferredWidth(242);
             __tablaEntrada.getColumnModel().getColumn(1).setCellEditor(new javax.swing.DefaultCellEditor(_descripcionProducto));
             __tablaEntrada.getColumnModel().getColumn(2).setPreferredWidth(110);
-            __tablaEntrada.getColumnModel().getColumn(2).setCellEditor(null);
+            __tablaEntrada.getColumnModel().getColumn(2).setCellEditor(new javax.swing.DefaultCellEditor(_ubicacion));
             __tablaEntrada.getColumnModel().getColumn(3).setPreferredWidth(120);
             __tablaEntrada.getColumnModel().getColumn(4).setPreferredWidth(110);
             __tablaEntrada.getColumnModel().getColumn(4).setCellEditor(new javax.swing.DefaultCellEditor(_UnidadMedida));

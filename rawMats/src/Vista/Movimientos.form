@@ -714,7 +714,9 @@
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="110" resizable="true">
                           <Title/>
-                          <Editor editor="org.netbeans.modules.form.RADConnectionPropertyEditor"/>
+                          <Editor editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                            <Connection code="new javax.swing.DefaultCellEditor(_ubicacion)" type="code"/>
+                          </Editor>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="120" resizable="true">
