@@ -3383,7 +3383,7 @@ public class jControlador implements ActionListener {
                 break;
             case __STOCK_ARRIBA:                
                 mensaje(1,"Generando Reporte Mayores al Stock Minimo");
-                this.mimodelo.abrirReporte("MayorMini.jrxml",map);                
+                this.mimodelo.abrirReporte("ArribaStock.jrxml",map);                
                 break;
             case __STOCK_ABAJO:
                 mensaje(1,"Generando Reporte Menores al Stock Maximo");
