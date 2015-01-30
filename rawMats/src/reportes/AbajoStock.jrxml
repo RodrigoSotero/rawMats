@@ -273,34 +273,6 @@ ORDER BY
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<textField pattern="#,##0.0000">
-				<reportElement uuid="d2189f31-7279-4c66-a2c9-859bd34cbab6" x="632" y="3" width="67" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{costo}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="8524dc75-4db0-4ec8-acc9-15c7dabcea88" x="377" y="3" width="195" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[TOTALES-------------------------------]]></text>
-			</staticText>
-			<textField pattern="#,##0.0000">
-				<reportElement uuid="cf7648f5-190c-4fd2-9fb4-f10e49f2c6ca" x="699" y="3" width="61" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.0">
-				<reportElement uuid="eb3716ee-1474-40b1-a860-b2de1d07674b" x="572" y="3" width="60" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{cantidad}]]></textFieldExpression>
-			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>

@@ -2790,7 +2790,7 @@ public class jControlador implements ActionListener {
                 }
                 break;
             case __MENU_CERRAR_SESIONES:
-                if(user=="ROOT"){
+                if(user.equals("ROOT")){
                     SesionCerrada=0;                            
                     confir= mensajeConfirmacion("Realmente Desea Cerrar Todas las Sesiones ","Cerrar Sesiones");
                     if(confir==JOptionPane.OK_OPTION){
