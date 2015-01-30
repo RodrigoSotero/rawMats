@@ -273,6 +273,7 @@ public class Movimientos extends javax.swing.JFrame {
             __tablaEntrada.getColumnModel().getColumn(1).setPreferredWidth(242);
             __tablaEntrada.getColumnModel().getColumn(1).setCellEditor(new javax.swing.DefaultCellEditor(_descripcionProducto));
             __tablaEntrada.getColumnModel().getColumn(2).setPreferredWidth(110);
+            __tablaEntrada.getColumnModel().getColumn(2).setCellEditor(null);
             __tablaEntrada.getColumnModel().getColumn(3).setPreferredWidth(120);
             __tablaEntrada.getColumnModel().getColumn(4).setPreferredWidth(110);
             __tablaEntrada.getColumnModel().getColumn(4).setCellEditor(new javax.swing.DefaultCellEditor(_UnidadMedida));
@@ -746,7 +747,7 @@ public class Movimientos extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, true, false
@@ -770,6 +771,7 @@ public class Movimientos extends javax.swing.JFrame {
             __tablaSalida.getColumnModel().getColumn(1).setPreferredWidth(242);
             __tablaSalida.getColumnModel().getColumn(1).setCellEditor(new javax.swing.DefaultCellEditor(__descripcionProductoSalida));
             __tablaSalida.getColumnModel().getColumn(2).setPreferredWidth(110);
+            __tablaSalida.getColumnModel().getColumn(2).setCellEditor(new javax.swing.DefaultCellEditor(_ubicacionsalida));
             __tablaSalida.getColumnModel().getColumn(3).setPreferredWidth(120);
             __tablaSalida.getColumnModel().getColumn(4).setPreferredWidth(110);
             __tablaSalida.getColumnModel().getColumn(4).setCellEditor(new javax.swing.DefaultCellEditor(_UnidadMedida));
