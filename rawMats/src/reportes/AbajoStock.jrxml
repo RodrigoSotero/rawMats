@@ -29,7 +29,7 @@
 FROM
      `vw_infoproducto` vw_infoproducto
 WHERE
-     vw_infoproducto.`cantidad` > vw_infoproducto.`max`
+     vw_infoproducto.`cantidad` < vw_infoproducto.`min`
 ORDER BY
      vw_infoproducto.`clave` ASC,
      vw_infoproducto.`descripcion` ASC,
@@ -63,22 +63,22 @@ ORDER BY
 			<frame>
 				<reportElement uuid="50734bd7-1348-4afb-9b25-9b47c9626d77" mode="Opaque" x="81" y="0" width="679" height="66" forecolor="#000000" backcolor="#FFFFFF"/>
 				<staticText>
-					<reportElement uuid="41bbe4e4-03b7-409b-8b8b-0357bc4a811f" style="Title" x="0" y="0" width="324" height="66" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="41bbe4e4-03b7-409b-8b8b-0357bc4a811f" style="Title" x="0" y="0" width="370" height="66" forecolor="#000000" backcolor="#FFFFFF"/>
 					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
 					<textElement verticalAlignment="Bottom">
 						<font isBold="false"/>
 					</textElement>
-					<text><![CDATA[Stock Mayor]]></text>
+					<text><![CDATA[Abajo de]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="6a198eb7-c7cb-4152-b6ee-19aa54383fa9" style="SubTitle" x="358" y="37" width="309" height="29" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Right">
 						<font size="22" isBold="false"/>
 					</textElement>
-					<text><![CDATA[A SU MAXIMO]]></text>
+					<text><![CDATA[Stock]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="3816ff8d-60d2-4fe2-9c52-ba7355581d53" x="273" y="17" width="218" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="3816ff8d-60d2-4fe2-9c52-ba7355581d53" x="274" y="17" width="218" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Times New Roman" isBold="true"/>
 					</textElement>
@@ -92,7 +92,7 @@ ORDER BY
 					<text><![CDATA[***GRUPO CORME***]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="e0fc8e13-8fdf-4e43-8541-3c82fd79f4a5" x="261" y="37" width="254" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="e0fc8e13-8fdf-4e43-8541-3c82fd79f4a5" x="262" y="37" width="254" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Times New Roman" isBold="true"/>
 					</textElement>
