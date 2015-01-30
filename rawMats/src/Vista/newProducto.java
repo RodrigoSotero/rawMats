@@ -120,7 +120,7 @@ public class newProducto extends javax.swing.JFrame {
 
         __etqNewMaquina.setFont(new java.awt.Font("Papyrus", 0, 12)); // NOI18N
         __etqNewMaquina.setForeground(new java.awt.Color(255, 255, 255));
-        __etqNewMaquina.setText("Nueva Maquina...");
+        __etqNewMaquina.setText("Nueva Seccion...");
 
         __etqAlto_.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __etqAlto_.setForeground(new java.awt.Color(255, 255, 255));
