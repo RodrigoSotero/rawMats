@@ -526,6 +526,19 @@ public class modelo extends database{
             return false;
         }
     }
+    
+    public boolean opp(String claveproducto, String op) {
+      String q=" UPDATE  inventario SET op='"+op+"' where claveproducto ='"+claveproducto+"';";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
 
     public boolean altaEntrada(String FolioE, String DocumentoE, String TipoE, String PropietarioE, String ProveedorE, String OrdenProducionE, String OrdenCompraE, String ClienteE, String t1, String t2, String t3, int id_responsable, String fechaentrada, String Obs) {
         //INSERT INTO `rawmats`.`entrada` (`identrada`, `folioe`, `documentoE`, `tipoE`, `propietarioE`, `provedorE`, `OP`, `OC`, `responsable`, `t`folioe`, `documentoE`, `tipoE`, `propietarioE`, `provedorE`, `OP`, `O1`, `t2`, `t3`, `observaciones`, `fecha`) VALUES ('1', 'folio', 'docu', '1', '1', '1', 'op', 'oc', '1', 't1', 't2', 't3', 'obset', 'fech');

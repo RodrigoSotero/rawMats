@@ -2829,8 +2829,8 @@ public class jControlador implements ActionListener {
                 break;
             case __MENU_BACKUP:                 
                         mimodelo.bp(fech+"desdemenu");
-                        this.enviaarchivo("C:\\iexsa\\backups\\dump"+fech+"desdemenu.sql","dispaper.iexsa@gmail.com" ,"Backup de la base de datos");
-                        File fichero = new File("C:\\iexsa\\backups\\dump"+fech+"desdemenu.sql");
+                        this.enviaarchivo("C:\\rawmats\\backups\\dump"+fech+"desdemenu.sql","rawmats2014@gmail.com" ,"Backup de la base de datos");
+                        File fichero = new File("C:\\rawmats\\backups\\dump"+fech+"desdemenu.sql");
                         fichero.delete();
                         mensaje(1,"Backup de la Base de Datos Correcta");                    
                 break;
@@ -4432,7 +4432,7 @@ public class jControlador implements ActionListener {
             props.put("mail.smtp.host", "smtp.gmail.com");
             props.setProperty("mail.smtp.starttls.enable", "true");
             props.setProperty("mail.smtp.port", "587");
-            props.setProperty("mail.smtp.user", "dispaper.iexsa@gmail.com");
+            props.setProperty("mail.smtp.user", "rawmats2014@gmail.com");
             props.setProperty("mail.smtp.auth", "true");
 
             Session session = Session.getDefaultInstance(props, null);
@@ -4461,7 +4461,7 @@ public class jControlador implements ActionListener {
             message.addRecipient(
             Message.RecipientType.TO,
             new InternetAddress(destinatario));
-            message.setSubject("Correo de Dis-Paper "+ fec);
+            message.setSubject("Correo de Raw-Mats "+ fec);
             message.setContent(multiParte);
 
             // Se envia el correo.
@@ -5255,7 +5255,8 @@ public class jControlador implements ActionListener {
                                 if(existenciaPapel.next()){
                                     detalleentrada = mimodelo.altaDetalleEntrada(id_entrada,claveproducto,descripcion,unidad_m,cantidadentrada,ubicacion,costo,totalcosto);
                                     mimodelo.sumarexistencia(claveproducto);
-                                    mimodelo.ubicacion(claveproducto, ubicacion);
+                                    mimodelo.ubicacion(claveproducto,ubicacion);
+                                    mimodelo.opp(claveproducto, OrdenProducionE);
                                 }else{
                                     mensaje(3,"EL PRODUCTO NO EXISTE");
                                     return;
