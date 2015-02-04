@@ -2123,7 +2123,7 @@ public class jControlador implements ActionListener {
         Com_ClaveRFin.setMode(0);//infijo
         this.Finanzas.__clave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                 KeyTipedLetrasNum(evt);                  
+                 KeyTipedLetrasNumCar(evt);                  
             }
             public void keyPressed(java.awt.event.KeyEvent evt){
                 int evento=evt.getKeyCode();               
@@ -3516,6 +3516,7 @@ public class jControlador implements ActionListener {
                 break;
             case __CANCELAR_FINANZAS:
                 Finanzas.__clave.setText("");
+                Finanzas.__descripcion.setText("");
                 this.Finanzas.__dateIni.setDate(null);
                 this.Finanzas.__datefin.setDate(null);                
                 reporte.setEnabled(true);
