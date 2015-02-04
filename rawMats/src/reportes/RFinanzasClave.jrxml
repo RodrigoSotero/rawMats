@@ -94,11 +94,11 @@ ORDER BY
 					<text><![CDATA[***GRUPO CORME***]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="e0fc8e13-8fdf-4e43-8541-3c82fd79f4a5" x="259" y="40" width="217" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<reportElement uuid="e0fc8e13-8fdf-4e43-8541-3c82fd79f4a5" x="235" y="40" width="261" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Times New Roman" isBold="true"/>
 					</textElement>
-					<text><![CDATA[-   Departamento de Administracion de Papel   -]]></text>
+					<text><![CDATA[-   Departamento de Administracion de Materias Primas   -]]></text>
 				</staticText>
 			</frame>
 			<frame>
