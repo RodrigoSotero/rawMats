@@ -3395,8 +3395,10 @@ public class jControlador implements ActionListener {
                 break;
             case __ACEPTAR_FINANZAS:
                 String ClaveFinanzas=this.Finanzas.__clave.getText();
+                String Descripcion=this.Finanzas.__descripcion.getText();
                 Date fechainii=null,fechafinn=null;
                 map.put("clave",ClaveFinanzas);
+                map.put("descripcion",Descripcion);
                 String RFI,RFF;
                 if(aceptarFecha(this.Finanzas.__dateIni,1)==null){
                     RFI="";
@@ -3417,49 +3419,97 @@ public class jControlador implements ActionListener {
                     return;
                 }
                 if(ClaveFinanzas.isEmpty()){
-                    if(RFI.equals("")){
-                        if(RFF.equals("")){
-                            //tres vacipos
-                            mensaje(2,"No hay Parametros de Busqueda, No se Creara el Reporte");  
+                    if(Descripcion.isEmpty()){
+                        if(RFI.equals("")){
+                            if(RFF.equals("")){
+                                //No Hay Datos de Busqueda
+                                mensaje(2,"No hay Parametros de Busqueda, No se Creara el Reporte");  
+                            }else{
+                                //Solo Busca Por fecha Final
+                                mensaje(1,"Busqueda por: Fecha Final "+RFF);
+                                this.mimodelo.abrirReporte("RFinanzasFFinal.jrxml",map);
+                            }
                         }else{
-                            //lo unico que tiene es fecha final
-                            mensaje(1,"Busqueda por: Fecha Final "+RFF);
-                            this.mimodelo.abrirReporte("ReporteFMenor.jrxml",map);
+                            if(RFF.equals("")){
+                                //Solo Tiene Fecha Inicial
+                                mensaje(1,"Busqueda por: Fecha Inicial "+RFI);
+                                this.mimodelo.abrirReporte("RFinanzasFInicial.jrxml",map);
+                            }else{
+                             //Tiene Fecha Inicial Y Fecha Final
+                                mensaje(1,"Busqueda por: Fecha Inicial "+RFI+", Fecha Final "+RFF);
+                                this.mimodelo.abrirReporte("RFinanzasFInicialFFinal.jrxml",map);
+                            }                            
                         }
                     }else{
-                        if(RFF.equals("")){
-                            //ñlpo unicpo que tiene es fecha inciañl
-                            mensaje(1,"Busqueda por: Fecha Inicial "+RFI);
-                            this.mimodelo.abrirReporte("ReporteFMayor.jrxml",map);
+                        if(RFI.equals("")){
+                            if(RFF.equals("")){
+                                ////Aqui Solo Tenemos Descripcion
+                                mensaje(1,"Busqueda por: Descripción "+Descripcion);
+                                this.mimodelo.abrirReporte("RFinanzasDescripcion.jrxml",map);
+                            }else{
+                                mensaje(1,"Busqueda por: Descripción "+Descripcion+" y Fecha Final: "+RFF);
+                                this.mimodelo.abrirReporte("RFinanzasDescripcionFFinal.jrxml",map);
+                                //Aqui Solo Tengo Descripcion ff
+                            }
                         }else{
-                            //lo que tiene es fecha final e inicial
-                            mensaje(1,"Busqueda por: Fecha Inicial "+RFI+", Fecha Final "+RFF);
-                            this.mimodelo.abrirReporte("ReporteFIgual.jrxml",map);
+                            if(RFF.equals("")){
+                                mensaje(1,"Busqueda por: Descripción "+Descripcion+" y Fecha Inicial: "+RFI);
+                                this.mimodelo.abrirReporte("RFinanzasDescripcionFInicial.jrxml",map);
+                                //Aqui Solo Tenemos Descripcion Y Fecha Inicial
+                            }else{
+                                mensaje(1,"Busqueda por: Descripción "+Descripcion +", Fecha Inicial: "+RFI+", Fecha Final: "+RFF);
+                                this.mimodelo.abrirReporte("RFinanzasDescripcionFInicialFFinal.jrxml",map);
+                                //Aqui Tenemos Descripcion Fecha Inicial Y Fecha Final
+                            }
                         }
                     }
                 }else{
-                    if(RFI.equals("")){
-                        if(RFF.equals("")){
-                            //tiene clave 
-                            mensaje(1,"Busqueda por: Clave "+ClaveFinanzas);
-                            this.mimodelo.abrirReporte("ReporteFClave.jrxml",map);
+                    if(Descripcion.isEmpty()){
+                        if(RFI.equals("")){
+                            if(RFF.equals("")){
+                                mensaje(1,"Busqueda por: Clave "+ClaveFinanzas);
+                                this.mimodelo.abrirReporte("RFinanzasClave.jrxml",map);
+                                //Aqui Solo Tengo Clave 
+                            }else{
+                                mensaje(1,"Busqueda por: Clave "+ClaveFinanzas+", Fecha Final: "+RFF);
+                                this.mimodelo.abrirReporte("RFinanzasClaveFFinal.jrxml",map);
+                                //Aqui Solo Tengo Clave Y fi
+                            }
                         }else{
-                            //tiene clave fecha final
-                            mensaje(1,"Busqueda por: Clave "+ClaveFinanzas+", Fecha Final "+RFF);
-                            this.mimodelo.abrirReporte("ReporteFClavefin.jrxml",map);
+                            if(RFF.equals("")){
+                                mensaje(1,"Busqueda por: Clave "+ClaveFinanzas);
+                                this.mimodelo.abrirReporte("RFinanzasClave.jrxml",map);
+                                //Aqui Solo Tengo Clave 
+                            }else{
+                                mensaje(1,"Busqueda por: Clave "+ClaveFinanzas+", Fecha Inicial: "+RFI+", Fecha Final: "+RFF);
+                                this.mimodelo.abrirReporte("RFinanzasClaveFInicialFFinal.jrxml",map);
+                                //Aqui Solo Tengo Clave Y fi ff
+                            }
                         }
                     }else{
-                        if(RFF.equals("")){
-                            //tiene clave inicial
-                            mensaje(1,"Busqueda por: Clave "+ClaveFinanzas+", Fecha Inicial "+RFI);
-                            this.mimodelo.abrirReporte("ReporteFClaveIni.jrxml",map);
+                        if(RFI.equals("")){
+                            if(RFF.equals("")){
+                                mensaje(1,"Busqueda por: Descripción "+Descripcion);
+                                this.mimodelo.abrirReporte("RFinanzasDescripcion.jrxml",map);
+                                //Aqui Solo Tengo Descripcion
+                            }else{
+                                mensaje(1,"Busqueda por: Descripción "+Descripcion+" y Fecha Final: "+RFF);
+                                this.mimodelo.abrirReporte("RFinanzasDescripcionFFinal.jrxml",map);
+                                //Aqui Solo Tengo Descripcion ff
+                            }
                         }else{
-                            //tiene clave fecha final y fecha inicial
-                            mensaje(1,"Busqueda por: Clave "+ClaveFinanzas+", Fecha Inicial "+RFI+", Fecha Final "+RFF);
-                            this.mimodelo.abrirReporte("ReporteFClaveIniFin.jrxml",map);
+                            if(RFF.equals("")){
+                                mensaje(1,"Busqueda por: Descripción "+Descripcion+" y Fecha Inicial: "+RFI);
+                                this.mimodelo.abrirReporte("RFinanzasDescripcionFInicial.jrxml",map);
+                                //Aqui Solo Tengo Descripcion Fecha Inicial
+                            }else{
+                                mensaje(1,"Busqueda por: Descripción "+Descripcion+", Fecha Inicial: "+RFI+", Fecha Final: "+RFF);
+                                this.mimodelo.abrirReporte("RFinanzasDescripcionFInicialFFinal.jrxml",map);
+                               // Aqui Solo Tengo Descripcion Fecha Inicial ff
+                            }
                         }
                     }
-                }
+                }                   
                 break;
             case __CANCELAR_FINANZAS:
                 Finanzas.__clave.setText("");
