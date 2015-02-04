@@ -89,7 +89,7 @@ public class jControlador implements ActionListener {
     HiloProgreso hilo;
     private static  Vista.Splash splash = new Splash();  
     private final  Login login = new Login();
-    private final  modelo mimodelo = new modelo();
+    modelo mimodelo = new modelo();
     private final  Fecha fecha = new Fecha(); 
     private final  MenuMaster menumaster = new MenuMaster();
     private final  newProducto newP = new newProducto();
@@ -121,6 +121,7 @@ public class jControlador implements ActionListener {
         this.splash = (Splash) padre;
     }
     public void iniciar(){
+        
         Toolkit.getDefaultToolkit().setLockingKeyState(KeyEvent.VK_CAPS_LOCK, true);
         hilo = new HiloProgreso(this.splash.progreso);
         hilo.start();
@@ -3118,6 +3119,8 @@ public class jControlador implements ActionListener {
                     return;
                 }
                 String DesP = this.newP.__descripcion.getText();
+                DesP = DesP.replaceAll("\n", "");
+                DesP = DesP.replaceAll("\t", "");
                 if(DesP.equals("")){
                     mensaje(3,"Debes Colocar una Descripcion al Producto");
                     this.newP.__descripcion.requestFocus();
@@ -5134,6 +5137,46 @@ public class jControlador implements ActionListener {
             return;
         }
         String claveproducto="";
+        
+        int contador = 0 ;
+        for(int i=0;i<movimientos.__tablaEntrada.getRowCount();i++){
+            Object valueAt = movimientos.__tablaEntrada.getValueAt(i, 0);
+            if(valueAt!=null){
+                contador++;
+            }
+        }
+        
+        for(int i=0;i<contador;i++){
+            for (int j=0;j<7;j++){
+                Object valueAt =   movimientos.__tablaEntrada.getValueAt(i, j);
+                if(valueAt==null||(valueAt.toString()).isEmpty()||valueAt.toString().equals("")){
+                    switch(j){
+                        case 0:
+                            mensaje(2,"Completa la clave en la entrada " +(i+1));
+                            break;
+                        case 1:
+                            mensaje(2,"Completa la descripción en la entrada " +(i+1));
+                            break;
+                        case 2:
+                            mensaje(2,"Completa la ubicación en la entrada " +(i+1));
+                            break;
+                        case 3:
+                            mensaje(2,"Completa la cantidad en la entrada " +(i+1));
+                            break;
+                        case 4:
+                            mensaje(2,"Completa la unidad de medida en la entrada " +(i+1));
+                            break;
+                        case 5:
+                            mensaje(2,"Completa el costo en la entrada " +(i+1));
+                            break;
+                        case 6:
+                            mensaje(2,"Completa el costo total en la entrada " +(i+1));
+                            break;
+                    }
+                    return;
+                }
+            }
+        }
         switch(modificarentrada){
                 case 0:
                     Obs=JOptionPane.showInputDialog(null, "Observaciones de la Entrada");
@@ -5178,6 +5221,7 @@ public class jControlador implements ActionListener {
                                 mensaje(1,"Entrada agregada correctamente");
                                 this.borrarFormularioMovimientos();
                                 mimodelo.costopromedio(claveproducto);
+                                this.borrarFormularioMovimientos();
                             }else{
                                 mensaje(3,"Ocurrio un error al dar de alta la entrada");
                                 break;
@@ -5213,12 +5257,14 @@ public class jControlador implements ActionListener {
                                     mimodelo.sumarexistencia(claveproducto);
                                     mimodelo.ubicacion(claveproducto, ubicacion);
                                     mensaje(1,"modificacion de entrada correcta");
+                                    this.borrarFormularioMovimientos();
                                 }else{
                                     mensaje(3,"EL PRODUCTO NO EXISTE");
                                     return;
                                 }
                             } catch (Exception ex) {
                                 //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                                
                             }
                             
                         }
@@ -5227,7 +5273,7 @@ public class jControlador implements ActionListener {
                     }
                     break;
             }
-        this.borrarFormularioMovimientos();
+        
     }
     public void SalidaAceptarModificar(){
         String FolioS=movimientos.__FolioSalida.getText();
@@ -5266,6 +5312,54 @@ public class jControlador implements ActionListener {
             mensaje(3,"Ingresa Valores a la Tabla");
             return;
         }
+        int contador = 0 ;
+        for(int i=0;i<movimientos.__tablaSalida.getRowCount();i++){
+            Object valueAt = movimientos.__tablaSalida.getValueAt(i, 0);
+            if(valueAt!=null){
+                contador++;
+            }
+        }
+        
+        for(int i=0;i<contador;i++){
+            for (int j=0;j<7;j++){
+                Object valueAt =   movimientos.__tablaSalida.getValueAt(i, j);
+                if(valueAt==null||(valueAt.toString()).isEmpty()||valueAt.toString().equals("")){
+                    switch(j){
+                        case 0:
+                            mensaje(2,"Completa la clave en la salida " +(i+1));
+                            break;
+                        case 1:
+                            mensaje(2,"Completa la descripción en la salida " +(i+1));
+                            break;
+                        case 2:
+                            mensaje(2,"Completa la ubicación en la salida " +(i+1));
+                            break;
+                        case 3:
+                            mensaje(2,"Completa la cantidad en la salida " +(i+1));
+                            break;
+                        case 4:
+                            mensaje(2,"Completa la unidad de medida en la salida " +(i+1));
+                            break;
+                        case 5:
+                            mensaje(2,"Completa el costo en la salida " +(i+1));
+                            break;
+                        case 6:
+                            mensaje(2,"Completa el costo total en la salida " +(i+1));
+                            break;
+                    }
+                    return;
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
         for(int i =0;i< movimientos.__tablaSalida.getRowCount();i++){
             try {
                 String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
@@ -5553,3 +5647,4 @@ public class jControlador implements ActionListener {
         return false;
     }
 }
+    
