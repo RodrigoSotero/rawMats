@@ -40,7 +40,9 @@
 FROM
      `vw_infocard` vw_infocard
 WHERE
-     vw_infocard.`descripcion` =  $P{descripcion}
+     vw_infocard.`fecha`>= $P{inicial}
+AND  vw_infocard.`fecha` <=$P{final}
+AND  vw_infocard.`descripcion`=$P{descripcion}
 ORDER BY
      vw_infocard.`fecha` ASC,
      vw_infocard.`folio` ASC,
