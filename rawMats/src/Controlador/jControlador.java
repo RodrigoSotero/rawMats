@@ -7,6 +7,7 @@
 package Controlador;
 
 import Modelo.modelo;
+import Vista.CSesion;
 import Vista.CambioP;
 import Vista.Consulta;
 import Vista.Consulta1;
@@ -104,6 +105,7 @@ public class jControlador implements ActionListener {
     private final Consulta verconsulta = new Consulta();
     private final  Vista.Correo correo = new Correo();
     private final Vista.RFinanzas Finanzas = new RFinanzas();
+    private final Vista.CSesion csesion = new CSesion();
     int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0,SesionCerrada=0,saber=0;
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
@@ -126,6 +128,23 @@ public class jControlador implements ActionListener {
         hilo = new HiloProgreso(this.splash.progreso);
         hilo.start();
         hilo = null;
+        
+        this.csesion.__GUARDAR.setActionCommand("__ACEPTAR_SESION");
+        this.csesion.__GUARDAR.addActionListener(this);
+        this.csesion.__GUARDAR.setMnemonic('S');
+        this.csesion.__NewPswd.addKeyListener(new java.awt.event.KeyAdapter() {
+                     public void keyPressed(java.awt.event.KeyEvent evt){
+                         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                            sesionactiva();
+                        } 
+                     }
+                });
+        this.csesion.__CANCELAR.setActionCommand("__CANCELAR_SESION");
+        this.csesion.__CANCELAR.addActionListener(this);
+        this.csesion.__CANCELAR.setMnemonic('C');
+        
+        
+        
         this.splash.setLocationRelativeTo(null);
         this.splash.setVisible(true);
         this.splash.progreso.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -2536,6 +2555,9 @@ public class jControlador implements ActionListener {
         __ABRIREXCEL,
         __ACEPTARCORREO,
         __SALIRCORREO,
+        //cerrar sesion
+        __ACEPTAR_SESION,
+        __CANCELAR_SESION
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -4084,9 +4106,62 @@ public class jControlador implements ActionListener {
                 correo.dispose();
                 verconsulta.requestFocus();
                 break;
+            case __ACEPTAR_SESION:
+                sesionactiva();
+                break;
+            case __CANCELAR_SESION:
+                login.setEnabled(true);
+                login.__Usuario.setText("");
+                login.__Pswd.setText("");
+                csesion.__NewPswd.setText("");
+                csesion.dispose();
+                login.__Usuario.requestFocus();
+                break;
         }
     }
-    
+    public void sesionactiva(){
+        System.out.println(this.user);
+                contra=this.csesion.__NewPswd.getText();
+                if(contra.isEmpty()||contra.equals("")){
+                    mensaje(3,"escribe la contraseña");
+                    this.csesion.__NewPswd.requestFocus();
+                }else{
+                    try {
+                        System.out.println(contra);
+                        contra= this.encriptaContraseña(contra);
+                        ResultSet buscarUser=this.mimodelo.buscarUser1(user);
+                        if(!buscarUser.next()){
+                            mensaje(3,"Error,  Usuario No Dado de Alta");
+                            login.__Pswd.setText("");
+                            login.__Usuario.setText("");
+                            login.__Usuario.requestFocus();
+                            return;
+                        }
+                        buscarUser.beforeFirst();
+                        while(buscarUser.next()){
+                            pswd = buscarUser.getString(1);
+                            id_responsable = buscarUser.getInt(2);
+                            cargo = buscarUser.getInt(3);
+                            se=buscarUser.getInt(7);
+                            act=buscarUser.getInt(6);
+                        }
+                        if(contra.equals(pswd)){
+                            if(mimodelo.cerrarsesion(user)){
+                                mensaje(1,"Sesion Cerrada correctamente");
+                                login.setEnabled(true);
+                                csesion.__NewPswd.setText("");
+                                csesion.dispose();
+                                login.__Usuario.requestFocus();
+                            }
+                        }else{
+                            mensaje(3,"Error,  Contraseña Erronea");
+                            this.csesion.__NewPswd.requestFocus();
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }   
+    }
     public void iniciasesion() {
         user=this.login.__Usuario.getText();
         contra=this.login.__Pswd.getText();
@@ -4139,9 +4214,17 @@ public class jControlador implements ActionListener {
                                     fecha.setVisible(true);                                   
                                 }else{
                                     mensaje(3,"Error, La sesion esta activa");
-                                    login.__Pswd.setText("");
-                                    login.__Usuario.setText("");
-                                    login.__Usuario.requestFocus();
+                                    this.confir=this.mensajeConfirmacion("¿Deseas cerrar tu sesion para poder ingresar aqui?", "Sesion Activa");
+                                    //formulario cerrar sesion.
+                                    if(confir==JOptionPane.OK_OPTION){
+                                        login.setEnabled(false);
+                                        csesion.setVisible(true);
+                                        csesion.setLocationRelativeTo(null);
+                                    }else{
+                                        login.__Pswd.setText("");
+                                        login.__Usuario.setText("");
+                                        login.__Usuario.requestFocus();
+                                    }
                                 }
                             }else{
                                 mensaje(3,"Error, el usuario esta Bloqueado");
