@@ -2219,9 +2219,7 @@ public class jControlador implements ActionListener {
         this.newP.__menuCambiarContraseña.setActionCommand("__MENU_CONTRASEÑA");
         this.newP.__menuCambiarContraseña.addActionListener(this);        
         this.newP.__menuReporte.setActionCommand("__MENU_REPORTE_USUARIOS");
-        this.newP.__menuReporte.addActionListener(this);
-        this.newP.__menucerrarsesiones.setActionCommand("__MENU_CERRAR_SESIONES");
-        this.newP.__menucerrarsesiones.addActionListener(this);
+        this.newP.__menuReporte.addActionListener(this);        
         this.newP.__menuBajaProducto.setActionCommand("__MENU_BAJA_PRODUCTO");
         this.newP.__menuBajaProducto.addActionListener(this);
         this.newP.__menuAcerca.setActionCommand("__MENU_ACERCADE");
@@ -2260,9 +2258,7 @@ public class jControlador implements ActionListener {
         this.movimientos.__menuCambiarContraseña.setActionCommand("__MENU_CONTRASEÑA");
         this.movimientos.__menuCambiarContraseña.addActionListener(this);        
         this.movimientos.__menuReporte.setActionCommand("__MENU_REPORTE_USUARIOS");
-        this.movimientos.__menuReporte.addActionListener(this);
-        this.movimientos.__menucerrarsesiones.setActionCommand("__MENU_CERRAR_SESIONES");
-        this.movimientos.__menucerrarsesiones.addActionListener(this);        
+        this.movimientos.__menuReporte.addActionListener(this);    
         this.movimientos.__menuconsultarexistencia.setActionCommand("__MENU_CONSULTA_EXISTENCIA");
         this.movimientos.__menuconsultarexistencia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y,InputEvent.CTRL_MASK));
         this.movimientos.__menuconsultarexistencia.addActionListener(this);  
@@ -2302,9 +2298,7 @@ public class jControlador implements ActionListener {
         this.consulta.__menuCambiarContraseña.setActionCommand("__MENU_CONTRASEÑA");
         this.consulta.__menuCambiarContraseña.addActionListener(this);        
         this.consulta.__menuReporte.setActionCommand("__MENU_REPORTE_USUARIOS");
-        this.consulta.__menuReporte.addActionListener(this);
-        this.consulta.__menucerrarsesiones.setActionCommand("__MENU_CERRAR_SESIONES");
-        this.consulta.__menucerrarsesiones.addActionListener(this);        
+        this.consulta.__menuReporte.addActionListener(this);               
         this.consulta.__menuAcerca.setActionCommand("__MENU_ACERCADE");
         this.consulta.__menuAcerca.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,InputEvent.CTRL_MASK));
         this.consulta.__menuAcerca.addActionListener(this);  
@@ -2341,9 +2335,7 @@ public class jControlador implements ActionListener {
         this.reporte.__menuCambiarContraseña.setActionCommand("__MENU_CONTRASEÑA");
         this.reporte.__menuCambiarContraseña.addActionListener(this);        
         this.reporte.__menuReporte.setActionCommand("__MENU_REPORTE_USUARIOS");
-        this.reporte.__menuReporte.addActionListener(this);
-        this.reporte.__menucerrarsesiones.setActionCommand("__MENU_CERRAR_SESIONES");
-        this.reporte.__menucerrarsesiones.addActionListener(this);        
+        this.reporte.__menuReporte.addActionListener(this);             
         this.reporte.__menuAcerca.setActionCommand("__MENU_ACERCADE");
         this.reporte.__menuAcerca.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,InputEvent.CTRL_MASK));
         this.reporte.__menuAcerca.addActionListener(this);  
@@ -2495,8 +2487,7 @@ public class jControlador implements ActionListener {
         __MENU_BACKUP,
         __MENU_DATOS,
         __MENU_MOV_TRASPASO,
-        __MENU_ABRIR_ARCHIVO,
-        __MENU_CERRAR_SESIONES,
+        __MENU_ABRIR_ARCHIVO,        
         __MENU_CONSULTA_EXISTENCIA,
         __MENU_BAJA_PRODUCTO,
         //Nuevo Usuario ABC
@@ -2875,24 +2866,7 @@ public class jControlador implements ActionListener {
                 } catch (IOException ex) {
                     mensaje(3,ex.getMessage());
                 }
-                break;
-            case __MENU_CERRAR_SESIONES:
-                if(user.equals("ROOT")){
-                    SesionCerrada=0;                            
-                    confir= mensajeConfirmacion("Realmente Desea Cerrar Todas las Sesiones ","Cerrar Sesiones");
-                    if(confir==JOptionPane.OK_OPTION){
-                        boolean SC=mimodelo.cerrarsesiones(SesionCerrada);
-                        if(SC==true){
-                            mensaje(1,"Sesiones Cerradas con Exito");
-                            tipoalta=0;
-                        }else{
-                            mensaje(3,"Ocurrio un Error al Cerrar las Sesiones");
-                        }
-                    }
-                }else{
-                    mensaje(2,"No Hay Acceso a esta Información");
-                }               
-                break;
+                break;            
             case __MENU_CONSULTA_EXISTENCIA:
                 movimientos.setEnabled(false);
                 saber=2;

@@ -124,7 +124,6 @@ public class Consultas extends javax.swing.JFrame {
         __menuNuevoUsuario = new javax.swing.JMenuItem();
         __menuCambiarContraseña = new javax.swing.JMenuItem();
         __menuReporte = new javax.swing.JMenuItem();
-        __menucerrarsesiones = new javax.swing.JMenuItem();
         __menuAcerca = new javax.swing.JMenuItem();
         __menuBackup = new javax.swing.JMenuItem();
 
@@ -629,9 +628,6 @@ public class Consultas extends javax.swing.JFrame {
         __menuReporte.setText("Reporte de Usuarios");
         __Edicion.add(__menuReporte);
 
-        __menucerrarsesiones.setText("Cerrar Todas las Sesiones");
-        __Edicion.add(__menucerrarsesiones);
-
         __menuAcerca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, java.awt.event.InputEvent.CTRL_MASK));
         __menuAcerca.setText("Acerca de...");
         __Edicion.add(__menuAcerca);
@@ -1112,7 +1108,6 @@ public class Consultas extends javax.swing.JFrame {
     public javax.swing.JMenuItem __menuReporte;
     public javax.swing.JMenuItem __menuReportes;
     public javax.swing.JMenuItem __menuSalir;
-    public javax.swing.JMenuItem __menucerrarsesiones;
     public javax.swing.JTextField __min;
     public javax.swing.JRadioButton __optEntrada;
     public javax.swing.JRadioButton __optNinguno;
