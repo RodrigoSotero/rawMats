@@ -1944,7 +1944,7 @@ public class jControlador implements ActionListener {
         Com_ClaveCon.setMode(0);//infijo
         this.consulta.__clave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                 KeyTipedLetrasNum(evt);                  
+                 KeyTipedLetrasNumCar(evt);                  
             }
             public void keyPressed(java.awt.event.KeyEvent evt){
                 int evento=evt.getKeyCode();               
@@ -3172,19 +3172,25 @@ public class jControlador implements ActionListener {
                     this.newP.__Ubicacion.requestFocus();
                     return;
                 }
+                String um = newP.__cmbum.getSelectedItem().toString();
+                if(um.equals("Selecciona...")){
+                    mensaje(3,"Debes Seeccionar una unidad de medida");
+                    this.newP.__cmbum.requestFocus();
+                    return;
+                }
                 String clave = newP.__etqClave.getText();
                 confir= mensajeConfirmacion("La clave de producto " + clave+" es correcta?" ,"Aceptar");
                 
                 if(confir==JOptionPane.OK_OPTION){
                     if(modificaproducto==0){
                         if(mimodelo.nuevoProducto(areaid, maquinaid, clave,DesP, Max, Min)){
-                            if(mimodelo.nuevaexistencia(clave,ubicacion1)){
+                            if(mimodelo.nuevaexistencia(clave,ubicacion1,um)){
                                 mensaje(1,"Alta de producto correcta");
                                 borrarFormularioAltaProducto();
                             }
                         }
                     }else{
-                        if(mimodelo.updateProducto(areaid, maquinaid, clave,DesP, Max, Min,ubicacion1)){
+                        if(mimodelo.updateProducto(areaid, maquinaid, clave,DesP, Max, Min,ubicacion1,um)){
                                 mensaje(1,"Modificacion de producto correcta");
                                 borrarFormularioAltaProducto();
                         }
@@ -5340,6 +5346,7 @@ public class jControlador implements ActionListener {
                                     detalleentrada = mimodelo.altaDetalleEntrada(id_entrada,claveproducto,descripcion,unidad_m,cantidadentrada,ubicacion,costo,totalcosto);
                                     mimodelo.sumarexistencia(claveproducto);
                                     mimodelo.ubicacion(claveproducto,ubicacion);
+                                    mimodelo.um(claveproducto,unidad_m);
                                     mimodelo.opp(claveproducto, OrdenProducionE);
                                 }else{
                                     mensaje(3,"EL PRODUCTO NO EXISTE");
@@ -5391,6 +5398,7 @@ public class jControlador implements ActionListener {
                                     mimodelo.costopromedio(claveproducto);
                                     mimodelo.sumarexistencia(claveproducto);
                                     mimodelo.ubicacion(claveproducto, ubicacion);
+                                    mimodelo.um(claveproducto,unidad_m);
                                     mensaje(1,"modificacion de entrada correcta");
                                     this.borrarFormularioMovimientos();
                                 }else{

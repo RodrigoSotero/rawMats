@@ -473,8 +473,8 @@ public class modelo extends database{
             }
     }
     
-    public boolean nuevaexistencia(String clave,String ubicacion) {
-      String q ="INSERT INTO  `inventario` (`idinventario` ,`claveProducto` ,`cantidad`,costopromedio,ubicacion)VALUES (NULL ,  '"+clave+"', '0','0','"+ubicacion+"');";
+    public boolean nuevaexistencia(String clave,String ubicacion,String um) {
+      String q ="INSERT INTO  `inventario` (`idinventario` ,`claveProducto` ,`cantidad`,costopromedio,ubicacion,unidadmedida)VALUES (NULL ,  '"+clave+"', '0','0','"+ubicacion+"','"+um+"');";
     try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
@@ -516,6 +516,19 @@ public class modelo extends database{
 
     public boolean ubicacion(String claveproducto, String ubicacion) {
       String q=" UPDATE  inventario SET ubicacion='"+ubicacion+"' where claveproducto ='"+claveproducto+"';";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean um(String claveproducto, String um) {
+      String q=" UPDATE  inventario SET unidadmedida='"+um+"' where claveproducto ='"+claveproducto+"';";
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
@@ -1091,13 +1104,16 @@ public class modelo extends database{
         }
     }
     
-     public boolean updateProducto(int area, int maquina,String clave,String descripcion, int max, int min,String ubicacion) {
+     public boolean updateProducto(int area, int maquina,String clave,String descripcion, int max, int min,String ubicacion,String um) {
         String q = "update productos set area="+area+", descripcion='"+descripcion+"', max="+max+", min="+min+" where clave ='"+clave+"';";                 
-        String q2 = "update inventario ubicacion='"+ubicacion+"' where claveProducto ='"+clave+"';";  
+        String q2 = "update inventario set ubicacion='"+ubicacion+"', unidadmedida='"+um+"' where claveProducto ='"+clave+"';";  
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            PreparedStatement pstm2 = this.getConexion().prepareStatement(q2);
             pstm.execute();
             pstm.close();
+            pstm2.execute();
+            pstm2.close();
             return true;
         }catch(SQLException e){
             System.out.println(e.getMessage());
