@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="800" pageHeight="595" orientation="Landscape" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="46732f24-dd08-46b3-b889-1d5d06b7e936">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="4.177248169415657"/>
+	<property name="ireport.x" value="1279"/>
+	<property name="ireport.y" value="415"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -36,12 +36,14 @@
      vw_infocard.`fecha` AS vw_infocard_fecha,
      vw_infocard.`observaciones` AS vw_infocard_observaciones,
      vw_infocard.`tipo` AS vw_infocard_tipo,
-     vw_infocard.`descripcion` AS vw_infocard_descripcion
+     vw_infocard.`descripcion` AS vw_infocard_descripcion,
+     vw_infocard.`unidadMedida` AS vw_infocard_unidadMedida,
+     vw_infocard.`op` AS vw_infocard_op
 FROM
      `vw_infocard` vw_infocard
 WHERE
      vw_infocard.`fecha` >= $P{inicial}
-     AND  vw_infocard.`descripcion`=$P{descripcion}
+ AND vw_infocard.`descripcion` = $P{descripcion}
 ORDER BY
      vw_infocard.`fecha` ASC,
      vw_infocard.`folio` ASC,
@@ -58,6 +60,8 @@ ORDER BY
 	<field name="vw_infocard_observaciones" class="java.lang.String"/>
 	<field name="vw_infocard_tipo" class="java.lang.Long"/>
 	<field name="vw_infocard_descripcion" class="java.lang.String"/>
+	<field name="vw_infocard_unidadMedida" class="java.lang.String"/>
+	<field name="vw_infocard_op" class="java.lang.String"/>
 	<variable name="sum" class="java.lang.Long" calculation="Sum">
 		<variableExpression><![CDATA[$F{vw_infocard_cantidad}]]></variableExpression>
 	</variable>
@@ -277,6 +281,20 @@ ORDER BY
 						<font fontName="Arial" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infocard_descripcion}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="446" y="0" width="55" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vw_infocard_unidadMedida}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="390" y="0" width="56" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vw_infocard_op}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

@@ -95,7 +95,7 @@ public class database {
        }
       String location = database.class.getProtectionDomain().getCodeSource().getLocation().toString();
       location = location.replace("file:/", "");
-      location=location+"Reportes";
+      location=location+"reportes";
       File d1 = new File(location);
       if (!d1.exists()) { 
             d1.mkdir();
