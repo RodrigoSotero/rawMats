@@ -5656,8 +5656,10 @@ public class jControlador implements ActionListener {
         movimientos.__chkTurno1Salida.setSelected(false);
         movimientos.__chkTurno2Salida.setSelected(false);
         movimientos.__chkTurno3Salida.setSelected(false);
+        this.movimientos.jMenuBar1.setEnabled(true);
         modificarentrada=0;
         this.movimientos.__MODIFICACIONENTRADA.setEnabled(true);
+        this.movimientos.__MODIFICACIONSALIDA.setEnabled(true);
         this.movimientos.__Archivo.setEnabled(true);
         this.movimientos.__Edicion.setEnabled(true);
         this.movimientos.JPanel.setEnabledAt(0, true);
