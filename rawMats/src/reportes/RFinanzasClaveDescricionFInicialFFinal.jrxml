@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="800" pageHeight="595" orientation="Landscape" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="46732f24-dd08-46b3-b889-1d5d06b7e936">
-	<property name="ireport.zoom" value="1.6105100000000008"/>
-	<property name="ireport.x" value="24"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="6.115909044841463"/>
+	<property name="ireport.x" value="2591"/>
+	<property name="ireport.y" value="738"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -164,7 +164,7 @@ ORDER BY
 				<text><![CDATA[Clave de Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="aaaf9fb1-c210-4863-b6b3-e24649c144fb" style="Column header" x="501" y="0" width="57" height="35" forecolor="#000000"/>
+				<reportElement uuid="aaaf9fb1-c210-4863-b6b3-e24649c144fb" style="Column header" x="446" y="0" width="57" height="35" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -206,7 +206,7 @@ ORDER BY
 				<text><![CDATA[O-P]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6ca2ef93-b075-4c07-bb5f-8974b2758343" style="Column header" x="446" y="0" width="55" height="35" forecolor="#000000"/>
+				<reportElement uuid="6ca2ef93-b075-4c07-bb5f-8974b2758343" style="Column header" x="503" y="0" width="55" height="35" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -247,7 +247,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{vw_infocard_clave}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="a71ceb75-b645-4d2f-89ed-424471b88131" style="Detail" positionType="Float" x="501" y="0" width="57" height="18"/>
+					<reportElement uuid="a71ceb75-b645-4d2f-89ed-424471b88131" style="Detail" positionType="Float" x="446" y="0" width="57" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
@@ -285,18 +285,18 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{vw_infocard_descripcion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="446" y="0" width="55" height="18"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infocard_unidadMedida}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="390" y="0" width="56" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infocard_op}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="503" y="0" width="55" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vw_infocard_unidadMedida}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -310,7 +310,7 @@ ORDER BY
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="501" y="5" width="57" height="23"/>
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="446" y="4" width="57" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
