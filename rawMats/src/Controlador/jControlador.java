@@ -3316,21 +3316,22 @@ public class jControlador implements ActionListener {
                        int a=0;
                        while(detallesalida.next()){
                            idsalidas[a]=detallesalida.getString("iddetallesalida");
-                            movimientos.__tablaSalida.setValueAt(detallesalida.getString("claveproducto"), a, 0);
+                            movimientos.__tablaSalida.setValueAt(detallesalida.getString("claveproduto"), a, 0);
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("descripcion"), a, 1);
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("ubicacion"), a, 2);
-                            movimientos.__tablaSalida.setValueAt(detallesalida.getInt("cantidad_salida"), a, 2);
+                            movimientos.__tablaSalida.setValueAt(detallesalida.getInt("cantidad_salida"), a, 3);
                             int cantidadsumar=detallesalida.getInt("cantidad_salida");
-                            ResultSet bep= mimodelo.buscarExistenciaPapel(detallesalida.getString("claveproducto"));
+                            ResultSet bep= mimodelo.buscarExistenciaPapel(detallesalida.getString("claveproduto"));
                             while(bep.next()){
                                 cantidadbd=Double.parseDouble(bep.getString("cantidad"));
                             }
                             String entradas[] = detallesalida.getString("entradas").split(",");
                             j = entradas.length;
                             antipeps2(entradas,cantidadsumar);
-                            movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("costo")), a, 3);
-                            movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("totalcosto")), a, 4);
-                               mimodelo.sumarexistencia(detallesalida.getString("clavepapel"));
+                            movimientos.__tablaSalida.setValueAt(detallesalida.getString("unidad"), a, 4);
+                            movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("costo")), a, 5);
+                            movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("totalcosto")), a, 6);
+                            mimodelo.sumarexistencia(detallesalida.getString("claveproduto"));
                            
                            ResultSetMetaData metaData = detallesalida.getMetaData();
                            int numcol = metaData.getColumnCount();
@@ -4909,6 +4910,7 @@ public class jControlador implements ActionListener {
         newP.__cmbArea.setEnabled(true);
         newP.__cmbMaquina.setEnabled(true);
         newP.__Ubicacion.setText("");
+        newP.__cmbum.setSelectedIndex(0);
     }
     public void borrarFormularioConEP(){
         conEP.__descripcionP.setText("");
@@ -5468,15 +5470,6 @@ public class jControlador implements ActionListener {
                 }
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
         for(int i =0;i< movimientos.__tablaSalida.getRowCount();i++){
             try {
                 String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
@@ -5550,12 +5543,44 @@ public class jControlador implements ActionListener {
                 }
                 break;
             case 1:
-                
+                Obs=JOptionPane.showInputDialog(null, "Observaciones de la Salida");
+                confir=mensajeConfirmacion("Estas seguro de modificar la Salida","Aceptar");
+                boolean modifsalida=false;
+                if (confir==JOptionPane.OK_OPTION){
+                    for(int i =0;i< movimientos.__tablaSalida.getRowCount();i++){
+                        try {
+                            String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
+                            String Descripcion = movimientos.__tablaSalida.getValueAt(i,1).toString();
+                            String Ubicacion = movimientos.__tablaSalida.getValueAt(i,2).toString();
+                            int cantidad_salida =  Integer.parseInt(movimientos.__tablaSalida.getValueAt(i,3).toString());
+                            String Unidad = movimientos.__tablaSalida.getValueAt(i,4).toString();
+                            Double costo =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,5).toString());
+                            Double Totalcosto = cantidad_salida*costo;
+                            movimientos.__tablaSalida.setValueAt(Totalcosto, i, 6);
+                            identradas_="";
+                            PEPS2(claveProducto, cantidad_salida);
+                            mimodelo.sumarexistencia(claveProducto);
+                            modifsalida= mimodelo.modifDetalleSalida(Integer.parseInt(idsalidas[i]),claveProducto,Descripcion,Ubicacion,cantidad_salida,Unidad,costo,Totalcosto,identradas_);
+                        } catch (Exception ex) {
+                            //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+                        } 
+                    }
+                    String fechaentrada=fec.replaceAll("-", "");
+                        boolean altaSalida = mimodelo.modifSalida(FolioS,DocumentoS,idTipoSal,OrdenProducionS,Solicitante,idAreaSal,t1,t2,t3,fechaentrada,Obs,id_responsable);
+                        if(altaSalida==true && modifsalida==true){
+                            mensaje(1,"Salida modificada correctamente");
+                            this.borrarFormularioMovimientos();
+                        }else{
+                            mensaje(3,"Ocurrio un error al Mmodificar la salida");
+                            break;
+                        }
+                }
                 break;
         }
         
         
-    }        
+    } 
+    int id_salida = 0;
     String eval;
     public void docentrada(){
         String doc = movimientos.__documentoEntr.getText();
@@ -5617,6 +5642,9 @@ public class jControlador implements ActionListener {
         movimientos.__chkTurno1Entr.setSelected(false);
         movimientos.__chkTurno2Entr.setSelected(false);
         movimientos.__chkTurno3Entr.setSelected(false);
+        movimientos.__chkTurno1Salida.setSelected(false);
+        movimientos.__chkTurno2Salida.setSelected(false);
+        movimientos.__chkTurno3Salida.setSelected(false);
         modificarentrada=0;
         this.movimientos.__MODIFICACIONENTRADA.setEnabled(true);
         this.movimientos.__Archivo.setEnabled(true);

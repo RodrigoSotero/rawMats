@@ -474,7 +474,7 @@ public class modelo extends database{
     }
     
     public boolean nuevaexistencia(String clave,String ubicacion,String um) {
-      String q ="INSERT INTO  `inventario` (`idinventario` ,`claveProducto` ,`cantidad`,costopromedio,ubicacion,unidadmedida)VALUES (NULL ,  '"+clave+"', '0','0','"+ubicacion+"','"+um+"');";
+      String q ="INSERT INTO  `inventario` (`idinventario` ,`claveProducto` ,`cantidad`,costopromedio,ubicacion,op,unidadmedida)VALUES (NULL ,  '"+clave+"', '0','0','"+ubicacion+"',' ','"+um+"');";
     try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
@@ -1061,7 +1061,36 @@ public class modelo extends database{
             return false;
         }
     }
+    
+    public boolean modifDetalleSalida(int id_salida, String claveProducto, String Descripcion, String Ubicacion, int cantidad_salida, String Unidad, Double costo, Double Totalcosto, String identradas_) {
+        //String q ="INSERT INTO `detallesalida` (`id_salida`, `claveproduto`, `descripcion`, `ubicacion`, `cantidad_salida`, `unidad`, `costo`, `totalcosto`, `entradas`) VALUES"
+          //      + " ('"+id_salida+"', '"+claveProducto+"', '"+Descripcion+"', '"+Ubicacion+"', '"+cantidad_salida+"', '"+Unidad+"', '"+costo+"', '"+Totalcosto+"', '"+identradas_+"');";
+        String q="update detallesalida set claveproduto = '"+claveProducto+"', descripcion = '"+Descripcion+"',  ubicacion = '"+Ubicacion+"',  cantidad_salida = '"+cantidad_salida+"',  "
+                + "unidad = '"+Unidad+"',  costo = '"+costo+"',  totalcosto = '"+Totalcosto+"',  entradas = '"+identradas_+"' where  id_salida = '"+id_salida+"'";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage()+"modif DETALLE SALIDA");
+            return false;
+        }
+    }
 
+    
+    public boolean modifSalida(String FolioS, String DocumentoS, int TipoS, String OrdenProducionS, String Solicitante, int AreaSalida, String t1, String t2, String t3, String fecha, String Obs, int id_responsable) {
+        String q="update salida set `documento_salida` =  '"+DocumentoS+"',`tipo_salida`=  '"+TipoS+"',`orden_produccion`= '"+OrdenProducionS+"', `solicitante`= '"+Solicitante+"', `id_area`= '"+AreaSalida+"',`turno1`= '"+t1+"',`turno2`= '"+t2+"',`turno3`= '"+t3+"',`fecha`= '"+fecha+"',`Observaciones`= '"+Obs+"', `id_responsable`= '"+id_responsable+"'";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage()+" ALTA SALIDA");
+            return false;
+        }
+    }
     public boolean altaSalida(String FolioS, String DocumentoS, int TipoS, String OrdenProducionS, String Solicitante, int AreaSalida, String t1, String t2, String t3, String fecha, String Obs, int id_responsable) {
         String q = "INSERT INTO `rawmats`.`salida` (`folio`, `TURNO1`, `TURNO2`, `TURNO3`, `orden_produccion`, `Fecha`, `tipo_salida`, `documento_salida`, `solicitante`, `id_area`, `id_responsable`, `observaciones`) "
                 + "VALUES ('"+FolioS+"', '"+t1+"', '"+t2+"', '"+t3+"', '"+OrdenProducionS+"', '"+fecha+"', '"+TipoS+"', '"+DocumentoS+"', '"+Solicitante+"', '"+AreaSalida+"', '"+id_responsable+"', '"+Obs+"');";
