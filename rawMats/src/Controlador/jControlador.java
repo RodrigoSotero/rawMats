@@ -943,15 +943,16 @@ public class jControlador implements ActionListener {
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
                     try {
                         String prod = movimientos.__claveProductoSalida.getText();
-                        ResultSet Producto = mimodelo.buscarProducto(prod);
+                        ResultSet Producto = mimodelo.buscarProductoByDescripcion(prod);
                         int fila =movimientos.__tablaSalida.getSelectedRow();
                         while(Producto.next()){
                             movimientos.__tablaSalida.setValueAt(Producto.getString("descripcion"), fila, 1);
+                            movimientos.__tablaEntrada.setValueAt(Producto.getString("ubicacion"), fila, 2);
+                            movimientos.__tablaEntrada.setValueAt(Producto.getString("unidadmedida"), fila, 4);
                             ResultSet costo = mimodelo.ultimocosto(prod);
                             while(costo.next()){
                                 movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
-                                movimientos.__tablaSalida.setValueAt(costo.getString("ubicacion"), fila, 2);
-                                movimientos.__tablaSalida.setValueAt(costo.getString("unidadmedida"), fila, 4);
+                                
                             }
                         }
                         
@@ -983,15 +984,16 @@ public class jControlador implements ActionListener {
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
                     try {
                         String parametro = movimientos._claveProducto.getText();
-                        ResultSet prod = mimodelo.buscarProducto(parametro);
+                        
+                        ResultSet prod = mimodelo.buscarProductoByDescripcion(parametro);
                         int fila =movimientos.__tablaEntrada.getSelectedRow();
                         while(prod.next()){
                             movimientos.__tablaEntrada.setValueAt(prod.getString("descripcion"), fila, 1);
+                            movimientos.__tablaEntrada.setValueAt(prod.getString("ubicacion"), fila, 2);
+                            movimientos.__tablaEntrada.setValueAt(prod.getString("unidadmedida"), fila, 4);
                             ResultSet costo = mimodelo.ultimocosto(parametro);
                             while(costo.next()){
                                 movimientos.__tablaEntrada.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
-                                movimientos.__tablaEntrada.setValueAt(costo.getString("ubicacion"), fila, 2);
-                                movimientos.__tablaEntrada.setValueAt(costo.getString("unidadmedida"), fila, 4);
                             }
                         }
                         
@@ -1011,6 +1013,52 @@ public class jControlador implements ActionListener {
                 } catch (SQLException ex) {
                     mensaje(3,ex.getMessage());
                 }
+            }
+        });
+        this.movimientos.__tablaSalida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                if(evt.getButton()==3){
+                    int fila= movimientos.__tablaSalida.getSelectedRow();
+                    if(fila==-1){
+                        return;
+                    }
+                    confir = mensajeConfirmacion("¿Deseas eliminar la salida " +(fila+1),"ALERTA");
+                    if (confir==JOptionPane.OK_OPTION){
+                        DefaultTableModel dtm = (DefaultTableModel) movimientos.__tablaSalida.getModel();
+                        dtm.removeRow(fila);
+                        String datos []={};
+                        dtm.addRow(datos);
+                    }
+                }
+            }    
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+               
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                
+            }
+        });
+        this.movimientos.__tablaEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                if(evt.getButton()==3){
+                    int fila= movimientos.__tablaEntrada.getSelectedRow();
+                    if(fila==-1){
+                        return;
+                    }
+                    confir = mensajeConfirmacion("¿Deseas eliminar la entrada " +(fila+1),"ALERTA");
+                    if (confir==JOptionPane.OK_OPTION){
+                        DefaultTableModel dtm = (DefaultTableModel) movimientos.__tablaEntrada.getModel();
+                        dtm.removeRow(fila);
+                        String datos []={};
+                        dtm.addRow(datos);
+                    }
+                }
+            }    
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+               
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                
             }
         });
         this.movimientos.__tablaEntrada.addKeyListener(new java.awt.event.KeyAdapter(){
@@ -1051,12 +1099,14 @@ public class jControlador implements ActionListener {
                         int fila =movimientos.__tablaSalida.getSelectedRow();
                         while(prod.next()){
                             movimientos.__tablaSalida.setValueAt(prod.getString("clave"), fila, 0);
+                            movimientos.__tablaSalida.setValueAt(prod.getString("ubicacion"), fila, 2);
+                            movimientos.__tablaSalida.setValueAt(prod.getString("unidadmedida"), fila, 4);
                             ResultSet costo = mimodelo.ultimocosto(prod.getString("clave"));
                             while(costo.next()){
                                 movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
-                                movimientos.__tablaSalida.setValueAt(costo.getString("ubicacion"), fila, 2);
-                                movimientos.__tablaSalida.setValueAt(costo.getString("unidadmedida"), fila, 4);
                             }
+                            
+                            
                         }
                         
                         
@@ -1087,15 +1137,16 @@ public class jControlador implements ActionListener {
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
                     try {
                         String parametro = movimientos._descripcionProducto.getText();
-                        ResultSet prod = mimodelo.buscaDescripcionProducto(parametro);
+                        
+                        ResultSet prod = mimodelo.buscarProductoByDescripcion(parametro);
                         int fila =movimientos.__tablaEntrada.getSelectedRow();
                         while(prod.next()){
                             movimientos.__tablaEntrada.setValueAt(prod.getString("clave"), fila, 0);
+                            movimientos.__tablaEntrada.setValueAt(prod.getString("ubicacion"), fila, 2);
+                            movimientos.__tablaEntrada.setValueAt(prod.getString("unidadmedida"), fila, 4);
                             ResultSet costo = mimodelo.ultimocosto(prod.getString("clave"));
                             while(costo.next()){
                                 movimientos.__tablaEntrada.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
-                                movimientos.__tablaEntrada.setValueAt(costo.getString("ubicacion"), fila, 2);
-                                movimientos.__tablaEntrada.setValueAt(costo.getString("unidadmedida"), fila, 4);
                             }
                         }
                         
@@ -3178,6 +3229,7 @@ public class jControlador implements ActionListener {
                         if(mimodelo.updateProducto(areaid, maquinaid, clave,DesP, Max, Min,ubicacion1,um)){
                                 mensaje(1,"Modificacion de producto correcta");
                                 borrarFormularioAltaProducto();
+                                
                         }
                     }
                 }
@@ -4922,6 +4974,7 @@ public class jControlador implements ActionListener {
         newP.__cmbMaquina.setEnabled(true);
         newP.__Ubicacion.setText("");
         newP.__cmbum.setSelectedIndex(0);
+        modificaproducto=0;
     }
     public void borrarFormularioConEP(){
         conEP.__descripcionP.setText("");
