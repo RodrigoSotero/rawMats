@@ -4282,7 +4282,7 @@ public class jControlador implements ActionListener {
     private void KeyTipedLetrasNumCar(KeyEvent evt) {
         mayusculas();
         char caracter = evt.getKeyChar();
-        if(((caracter < 'A') || (caracter > 'Z'))  && ((caracter < '0') || (caracter > '9')) && caracter != '-' && caracter != ',' && caracter != '/'  && caracter != ' ' && caracter != '.' && caracter != 'Ñ' && caracter != '('&& caracter != ')' ){
+        if(((caracter < 'A') || (caracter > 'Z'))  && ((caracter < '0') || (caracter > '9')) && caracter != '-' && caracter != ',' && caracter != '/'  && caracter != ' ' && caracter != '.' && caracter != 'Ñ' && caracter != '(' && caracter != ')'&& caracter != ':'&& caracter != '-' ){
             evt.consume();
         }
     }
