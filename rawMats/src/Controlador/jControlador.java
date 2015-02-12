@@ -1665,7 +1665,7 @@ public class jControlador implements ActionListener {
         ubicacioncom.setMode(0);//infijo
         this.newP.__Ubicacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                KeyTipedLetrasNum(evt);
+                KeyTipedLetrasNumCar(evt);
             }
             public void keyPressed(java.awt.event.KeyEvent evt){
                 int evento=evt.getKeyCode();               
@@ -4341,7 +4341,7 @@ public class jControlador implements ActionListener {
     private void KeyTipedLetrasNumCar(KeyEvent evt) {
         mayusculas();
         char caracter = evt.getKeyChar();
-        if(((caracter < 'A') || (caracter > 'Z'))  && ((caracter < '0') || (caracter > '9')) && caracter != '-' && caracter != ',' && caracter != '/'  && caracter != ' ' && caracter != '.' && caracter != 'Ñ' && caracter != '('&& caracter != ')' ){
+        if(((caracter < 'A') || (caracter > 'Z'))  && ((caracter < '0') || (caracter > '9')) && caracter != '-' && caracter != ',' && caracter != '/'  && caracter != ' ' && caracter != '.' && caracter != 'Ñ' && caracter != '(' && caracter != ')'&& caracter != ':'&& caracter != '-' ){
             evt.consume();
         }
     }
@@ -4635,15 +4635,15 @@ public class jControlador implements ActionListener {
     public void nuevaMaquina(JComboBox combo){
         int idarea = this.busquedaid("area");
         if(idarea!=0){
-            String Nombre = (String)JOptionPane.showInputDialog(null,"Escribe la nueva Maquina: ","NUEVO NOMBRE",JOptionPane.PLAIN_MESSAGE);
+            String Nombre = (String)JOptionPane.showInputDialog(null,"Escribe la nueva Sección: ","NUEVA SECCIÓN",JOptionPane.PLAIN_MESSAGE);
                 if ((Nombre != null) && (Nombre.length() > 0)) {
                     try {
                         Nombre=Nombre.toUpperCase();
-                        int conf=JOptionPane.showConfirmDialog(null,"Se agregara la Maquina:, " +Nombre + ".",Nombre,JOptionPane.OK_CANCEL_OPTION);
+                        int conf=JOptionPane.showConfirmDialog(null,"Se agregara la Sección:, " +Nombre + ".",Nombre,JOptionPane.OK_CANCEL_OPTION);
                         if (conf==JOptionPane.OK_OPTION){
                             boolean altaNombre=mimodelo.newMaquina(Nombre,idarea);
                             if(altaNombre==true){
-                                JOptionPane.showMessageDialog(null,"Maquina "+Nombre+" Agregada Correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null,"Sección "+Nombre+" Agregada Correctamente.","Correcto",JOptionPane.INFORMATION_MESSAGE);
                             }
                         }
                         ResultSet buscarNombrePapel = mimodelo.buscarMaquina(idarea);
@@ -4657,7 +4657,7 @@ public class jControlador implements ActionListener {
                         mensaje(3,ex.getMessage());
                     }
                 }
-                mensaje(3,"No agregaste Maquina.");
+                mensaje(3,"No agregaste Ninguna Nueva Sección.");
         }else{
             mensaje(3,"Selecciona el Area.");
         }
