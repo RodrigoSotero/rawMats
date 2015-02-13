@@ -2667,7 +2667,7 @@ public class jControlador implements ActionListener {
             case __MENU_ALTA:
                 switch(cargo){
                     case 1:
-                        confir = mensajeConfirmacion("¿Realmente Deseas ir a Alta de Papel?","Salida");
+                        confir = mensajeConfirmacion("¿Realmente Deseas ir a Alta de Producto?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
                                 conEP.setVisible(true);                            
                                 conEP.setLocationRelativeTo(null);
@@ -2680,7 +2680,7 @@ public class jControlador implements ActionListener {
                             }                                                                                        
                     break;                        
                     case 2:
-                        confir = mensajeConfirmacion("¿Realmente Deseas ir a Alta de Papel?","Salida");
+                        confir = mensajeConfirmacion("¿Realmente Deseas ir a Alta de Producto?","Salida");
                             if (confir == JOptionPane.OK_OPTION){
                                 conEP.setVisible(true);                            
                                 conEP.setLocationRelativeTo(null);

@@ -96,6 +96,7 @@ public class Movimientos extends javax.swing.JFrame {
         __etqNewEliminarProveedorEntr = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
         __etqLimpiarTablaEntrada = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
         __pnlSalidasG = new javax.swing.JPanel();
         __AreaSalida = new javax.swing.JTextField();
         __TipoSalida = new javax.swing.JTextField();
@@ -127,6 +128,7 @@ public class Movimientos extends javax.swing.JFrame {
         __etqNewEliminarAreaSalida = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         __Archivo = new javax.swing.JMenu();
         __menuAltaProducto = new javax.swing.JMenuItem();
@@ -330,7 +332,7 @@ public class Movimientos extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Propietario:");
         __pnlEntrada.add(jLabel6);
-        jLabel6.setBounds(270, 140, 74, 23);
+        jLabel6.setBounds(270, 150, 74, 23);
 
         jLabel7.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -354,19 +356,19 @@ public class Movimientos extends javax.swing.JFrame {
         __etqNewTipoEntr.setForeground(new java.awt.Color(255, 255, 255));
         __etqNewTipoEntr.setText("Nuevo Tipo de Entrada...");
         __pnlEntrada.add(__etqNewTipoEntr);
-        __etqNewTipoEntr.setBounds(278, 112, 145, 20);
+        __etqNewTipoEntr.setBounds(280, 120, 220, 20);
 
         __etqNewPropietarioEntrada.setFont(new java.awt.Font("Papyrus", 0, 12)); // NOI18N
         __etqNewPropietarioEntrada.setForeground(new java.awt.Color(255, 255, 255));
         __etqNewPropietarioEntrada.setText("Nuevo Propietario...");
         __pnlEntrada.add(__etqNewPropietarioEntrada);
-        __etqNewPropietarioEntrada.setBounds(258, 180, 193, 20);
+        __etqNewPropietarioEntrada.setBounds(310, 190, 250, 20);
 
         __etqNewProveedorEntr.setFont(new java.awt.Font("Papyrus", 0, 12)); // NOI18N
         __etqNewProveedorEntr.setForeground(new java.awt.Color(255, 255, 255));
         __etqNewProveedorEntr.setText("Nuevo Proveedor...");
         __pnlEntrada.add(__etqNewProveedorEntr);
-        __etqNewProveedorEntr.setBounds(629, 76, 104, 20);
+        __etqNewProveedorEntr.setBounds(629, 76, 190, 20);
 
         jLabel28.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
@@ -378,7 +380,7 @@ public class Movimientos extends javax.swing.JFrame {
         __etqNewClienteE.setForeground(new java.awt.Color(255, 255, 255));
         __etqNewClienteE.setText("Nuevo Cliente...");
         __pnlEntrada.add(__etqNewClienteE);
-        __etqNewClienteE.setBounds(710, 220, 90, 20);
+        __etqNewClienteE.setBounds(650, 220, 170, 20);
 
         jLabel12.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -440,7 +442,7 @@ public class Movimientos extends javax.swing.JFrame {
             }
         });
         __pnlEntrada.add(__PropietarioEntr);
-        __PropietarioEntr.setBounds(350, 140, 150, 30);
+        __PropietarioEntr.setBounds(350, 150, 150, 30);
 
         __ClientEntr.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __ClientEntr.setMaximumSize(new java.awt.Dimension(10, 30));
@@ -503,6 +505,12 @@ public class Movimientos extends javax.swing.JFrame {
         __etqLimpiarTablaEntrada.setText("Limpiar Tabla");
         __pnlEntrada.add(__etqLimpiarTablaEntrada);
         __etqLimpiarTablaEntrada.setBounds(40, 540, 120, 20);
+
+        jLabel61.setFont(new java.awt.Font("Papyrus", 0, 18)); // NOI18N
+        jLabel61.setForeground(new java.awt.Color(255, 255, 0));
+        jLabel61.setText("Para Eliminar algún registro clic Botón Derecho Eliminar ");
+        __pnlEntrada.add(jLabel61);
+        jLabel61.setBounds(270, 550, 431, 29);
 
         JPanel.addTab("1. Entrada", __pnlEntrada);
 
@@ -740,90 +748,95 @@ public class Movimientos extends javax.swing.JFrame {
         jLabel59.setForeground(new java.awt.Color(255, 255, 0));
         jLabel59.setText("En la casilla de Costo presionar dos veces Enter, para que el costo se actualize");
 
+        jLabel60.setFont(new java.awt.Font("Papyrus", 0, 18)); // NOI18N
+        jLabel60.setForeground(new java.awt.Color(255, 255, 0));
+        jLabel60.setText("Para Eliminar algún registro clic Botón Derecho Eliminar ");
+
         javax.swing.GroupLayout __pnlSalidasGLayout = new javax.swing.GroupLayout(__pnlSalidasG);
         __pnlSalidasG.setLayout(__pnlSalidasGLayout);
         __pnlSalidasGLayout.setHorizontalGroup(
             __pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(__pnlSalidasGLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(__pnlSalidasGLayout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabel15))
+                            .addComponent(__FolioSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(__pnlSalidasGLayout.createSequentialGroup()
                                 .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                        .addGap(51, 51, 51)
-                                        .addComponent(jLabel15))
-                                    .addComponent(__FolioSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
+                                        .addGap(65, 65, 65)
+                                        .addComponent(jLabel44)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, __pnlSalidasGLayout.createSequentialGroup()
+                                        .addGap(43, 43, 43)
                                         .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                                .addGap(65, 65, 65)
-                                                .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                                        .addComponent(jLabel44)
-                                                        .addGap(4, 4, 4)
-                                                        .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                                        .addGap(54, 54, 54)
-                                                        .addComponent(__etqNewTipoSalida))))
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, __pnlSalidasGLayout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jLabel35)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(__documentoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(__etqNewEliminarTipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(19, 19, 19)
-                                        .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                                .addComponent(jLabel45)
-                                                .addGap(4, 4, 4)
-                                                .addComponent(__OrdenProduccionSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, __pnlSalidasGLayout.createSequentialGroup()
-                                                .addComponent(jLabel43)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(__SolicitanteSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                                .addComponent(jLabel36)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(__etqNewAreaSalida)
-                                                    .addComponent(__AreaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(__documentoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(__etqNewTipoSalida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(__etqNewEliminarAreaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17)
+                                .addComponent(__etqNewEliminarTipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(19, 19, 19)
                                 .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel34))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                .addComponent(jLabel55)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(__etqFechaSalida))))
-                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                        .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addComponent(jLabel57))
-                            .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
+                                        .addComponent(jLabel45)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(__OrdenProduccionSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, __pnlSalidasGLayout.createSequentialGroup()
+                                        .addComponent(jLabel43)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(__SolicitanteSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(__pnlSalidasGLayout.createSequentialGroup()
+                                .addGap(424, 424, 424)
+                                .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
                                         .addGap(10, 10, 10)
-                                        .addComponent(__etqLimpiarTablaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(__MODIFICACIONSALIDA, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(__ACEPTARSALIDA, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 986, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 45, Short.MAX_VALUE)))
+                                        .addComponent(__etqNewAreaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
+                                        .addComponent(jLabel36)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(__AreaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(__etqNewEliminarAreaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)
+                        .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel34))
+                        .addGap(0, 64, Short.MAX_VALUE))
+                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
+                        .addComponent(jLabel55)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(__etqFechaSalida)))
                 .addContainerGap())
+            .addGroup(__pnlSalidasGLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel57))
+                    .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, __pnlSalidasGLayout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(__etqLimpiarTablaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(56, 56, 56)
+                            .addComponent(jLabel60)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(__MODIFICACIONSALIDA, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(__ACEPTARSALIDA, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 986, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         __pnlSalidasGLayout.setVerticalGroup(
             __pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -846,19 +859,17 @@ public class Movimientos extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(__pnlSalidasGLayout.createSequentialGroup()
-                                        .addGap(4, 4, 4)
-                                        .addComponent(jLabel44))
-                                    .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(__etqNewEliminarTipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(10, 10, 10)
-                                .addComponent(__etqNewTipoSalida))
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel44))
+                            .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(__TipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(__etqNewEliminarTipoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(__pnlSalidasGLayout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(jLabel45))
                             .addComponent(__OrdenProduccionSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addComponent(__etqNewTipoSalida)
                         .addGap(11, 11, 11)
                         .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(__documentoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -874,7 +885,7 @@ public class Movimientos extends javax.swing.JFrame {
                             .addComponent(__etqNewEliminarAreaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(__etqNewAreaSalida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel57)
@@ -887,9 +898,11 @@ public class Movimientos extends javax.swing.JFrame {
                     .addGroup(__pnlSalidasGLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(__MODIFICACIONSALIDA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(__pnlSalidasGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(__MODIFICACIONSALIDA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(__ACEPTARSALIDA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         JPanel.addTab("2. Salidas", __pnlSalidasG);
@@ -1225,6 +1238,8 @@ public class Movimientos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel7;
     public javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel4;
