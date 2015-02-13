@@ -25,14 +25,15 @@ public class prueba {
     
     public static void main(String[]args) throws SQLException{
         prueba a = new prueba();
-        ResultSet desc=a.buscadescr();
+        /*ResultSet desc=a.buscadescr();
         while(desc.next()){
             int id = desc.getInt("idproductos");
             String descr = desc.getString("descripcion");
             descr=descr.replaceAll("\n", "");
             descr=descr.replaceAll("\t", "");
             a.opp(id, descr);
-        }
+        }*/
+        a.bp("asa");
     }
     
     public ResultSet buscadescr() {
@@ -59,4 +60,9 @@ public class prueba {
             return false;
         }
     }
+    
+    public void bp(String fecha){
+        database.backupbd(fecha);
+    }
+    
     }

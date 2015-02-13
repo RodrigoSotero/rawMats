@@ -118,10 +118,12 @@ public class jControlador implements ActionListener {
     String idsalidas[]=new String [1000];
     String nombrecolumnas[];
     int modificaproducto;
+    
     public jControlador( JFrame padre ){
         //this.frmprincipal = (frmPrincipal) padre;
         this.splash = (Splash) padre;
     }
+    String traia;
     public void iniciar(){
         
         Toolkit.getDefaultToolkit().setLockingKeyState(KeyEvent.VK_CAPS_LOCK, true);
@@ -271,6 +273,64 @@ public class jControlador implements ActionListener {
         this.menumaster.__SALIR.setMnemonic('A');
         this.menumaster.__SALIR.addActionListener(this);
         //FORMULARIO NEW PRODUCTO
+        this.newP.__MateriaPrima.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                etiqueta="";
+                traia="";
+                newP.__etqClave.setText("");
+                String clave= newP.__etqClave.getText();
+                if(!clave.isEmpty()||!clave.equals("")){
+                    clave=clave.replace("RF-", "MP-");
+                    newP.__etqClave.setText(clave);
+                    etiqueta=clave;
+                }else{
+                    newP.__etqClave.setText("MP-");
+                    etiqueta="MP-";
+                }
+                newP.__cmbArea.setSelectedIndex(0);
+                newP.__cmbArea.setEnabled(true);
+                newP.__etqNewArea.setEnabled(true);
+                newP.__cmbMaquina.setSelectedIndex(0);
+                newP.__etqNewMaquina.setEnabled(true);
+                newP.__cmbMaquina.setEnabled(true);
+            }    
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+               
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                
+            }
+        });
+        this.newP.__Refacciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                etiqueta="";
+                traia="";
+                newP.__etqClave.setText("");
+                String clave= newP.__etqClave.getText();
+                if(!clave.isEmpty()||!clave.equals("")){
+                    clave=clave.replace("MP-", "RF-");
+                    newP.__etqClave.setText(clave);
+                    etiqueta=clave;
+                }else{
+                    newP.__etqClave.setText("RF-");
+                    etiqueta="RF-";
+                }
+                newP.__cmbArea.setSelectedIndex(0);
+                newP.__cmbArea.setEnabled(true);
+                newP.__etqNewArea.setEnabled(true);
+                newP.__cmbMaquina.setSelectedIndex(0);
+                newP.__etqNewMaquina.setEnabled(true);
+                newP.__cmbMaquina.setEnabled(true);
+                
+            }    
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+               
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                
+            }
+        });
+        
         this.newP.__etqNewEliminarArea.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 String altanombre=newP.__cmbArea.getSelectedItem().toString();
@@ -341,7 +401,7 @@ public class jControlador implements ActionListener {
                 newP.__etqNewEliminarMaquina.setFont(new java.awt.Font("Papyrus", 0, 12));
             }
         });
-        this.newP.__etqNewMaquina.addMouseListener(new java.awt.event.MouseAdapter(){
+         this.newP.__etqNewMaquina.addMouseListener(new java.awt.event.MouseAdapter(){
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 nuevaMaquina(newP.__cmbMaquina);
             }
@@ -352,6 +412,18 @@ public class jControlador implements ActionListener {
                 newP.__etqNewMaquina.setFont(new java.awt.Font("Papyrus", 0, 12));
             }
         });
+        this.newP.__etqNewArea.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                nuevaArea(newP.__cmbArea);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt){
+               newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 3, 12));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt){
+                newP.__etqNewArea.setFont(new java.awt.Font("Papyrus", 0, 12));
+            }
+        });
+        
         this.newP.__cmbArea.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 int idarea;
@@ -367,8 +439,12 @@ public class jControlador implements ActionListener {
                             newP.__cmbMaquina.addItem(buscarMaquina.getString(1)); 
                         }
                         newP.__etqClave.setText("");
-                        etiqueta = idarea < 10 ? "0"+idarea+"-": idarea+"-";
-                        newP.__etqClave.setText(etiqueta);
+                        String area = idarea < 10 ? "0"+idarea+"-": idarea+"-";
+                        System.out.println(etiqueta+area);
+                        newP.__etqClave.setText("");
+                        newP.__etqClave.setText(etiqueta+area);
+                        traia= etiqueta+area;
+                        
                     } catch (SQLException ex) {
                         Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -382,18 +458,19 @@ public class jControlador implements ActionListener {
                 if(newP.__cmbMaquina.getSelectedIndex()<=0){
                     return;
                 }else{
-                    newP.__etqClave.setText(etiqueta);
                     idmaquina = busquedaid("maquina");
-                    String traia= newP.__etqClave.getText();
                     String ponerid = idmaquina <10 ? "0"+idmaquina:idmaquina+"";
+                    System.out.println(traia+ponerid);
                     newP.__etqClave.setText(traia+ponerid);
                     String likeclave = newP.__etqClave.getText();
                     try{
                         ResultSet clave = mimodelo.buscarProductos(likeclave);
                         if(clave.next()){
                             String poneridclave= "";
+                            System.out.println(likeclave+"like");
+                            System.out.println( clave.getString("clave")+"regresa");
                             String[] partido = clave.getString("clave").split("-");
-                            int idclave = Integer.parseInt(partido[2]);
+                            int idclave = Integer.parseInt(partido[3]);
                             idclave++;
                             if(idclave<10) poneridclave = "000"+idclave;
                             else if(idclave<100) poneridclave = "00"+idclave;
@@ -404,7 +481,7 @@ public class jControlador implements ActionListener {
                             newP.__etqClave.setText(likeclave+"-0001");
                         }
                     }catch(Exception ex){
-                    
+                  
                     }
                 }
                 
@@ -3129,6 +3206,16 @@ public class jControlador implements ActionListener {
                         try {
                             ResultSet producto = mimodelo.buscarProducto(clavemod);
                             while(producto.next()){
+                                newP.__cmbArea.setEnabled(true);
+                                newP.__cmbMaquina.setEnabled(true);
+                                
+                                
+                                String clavemodi =producto.getString("clave");
+                                if(clavemodi.contains("RF-")){
+                                    newP.__Refacciones.setSelected(true);
+                                }else if(clavemodi.contains("MP-")){
+                                    newP.__Refacciones.setSelected(true);
+                                }
                                 newP.__cmbArea.setSelectedItem(producto.getString("area"));
                                 newP.__cmbMaquina.setSelectedItem(producto.getString("maquina"));
                                 newP.__descripcion.setText(producto.getString("descripcion"));
@@ -3136,7 +3223,7 @@ public class jControlador implements ActionListener {
                                 newP.__SMax_.setText(producto.getString("max"));
                                 newP.__etqClave.setText(producto.getString("clave"));
                                 newP.__Ubicacion.setText(producto.getString("ubicacion"));
-                                System.out.println(producto.getString("area"));
+                                newP.__cmbum.setSelectedItem(producto.getString("unidadM"));
                             }
                             conEP.dispose();
                             newP.setVisible(true);        
@@ -3146,6 +3233,10 @@ public class jControlador implements ActionListener {
                     }
                     newP.__cmbArea.setEnabled(false);
                     newP.__cmbMaquina.setEnabled(false);
+                    newP.__etqNewArea.setEnabled(false);
+                    newP.__etqNewMaquina.setEnabled(false);
+                    newP.__Refacciones.setEnabled(false);
+                    newP.__MateriaPrima.setEnabled(false);
                 break;
             case __ELIMINARCONSULTAEP:
                 break;            
@@ -3166,6 +3257,10 @@ public class jControlador implements ActionListener {
             case __GUARDAR_PRODUCTO:
                 int areaid = this.busquedaid("area");
                 int maquinaid = this.busquedaid("maquina");
+                if(!newP.__Refacciones.isSelected()&&!newP.__MateriaPrima.isSelected()){
+                    mensaje(3,"Selcciona el tipo de Producto");
+                    return;
+                }
                 if(areaid==0){
                     mensaje(3,"No Dejes el Area Vacia");
                     this.newP.__cmbArea.requestFocus();
@@ -3201,6 +3296,7 @@ public class jControlador implements ActionListener {
                 if(Min>Max){
                     mensaje(3,"El Maximo No Puede ser Menor que el Minimo");
                      this.newP.__SMax_.requestFocus();
+                     return;
                 }
                 String ubicacion1 = newP.__Ubicacion.getText();
                 if(ubicacion1.isEmpty()){
@@ -4960,7 +5056,9 @@ public class jControlador implements ActionListener {
         }
         
     }
-    public void borrarFormularioAltaProducto() {        
+    public void borrarFormularioAltaProducto() {    
+        newP.__Refacciones.setEnabled(true);
+        newP.__MateriaPrima.setEnabled(true);
         this.newP.__cmbArea.removeAllItems();
         this.newP.__cmbArea.addItem("Selecciona...");
         this.newP.__cmbMaquina.removeAllItems();
@@ -4969,12 +5067,18 @@ public class jControlador implements ActionListener {
         this.newP.__SMin_.setText("");
         this.newP.__SMax_.setText("");
         this.newP.__etqClave.setText("");
+        this.newP.buttonGroup1.clearSelection();
         this.addItems("newP");
-        newP.__cmbArea.setEnabled(true);
-        newP.__cmbMaquina.setEnabled(true);
+        newP.__cmbArea.setEnabled(false);
+        newP.__etqNewArea.setEnabled(false);
+        newP.__etqNewMaquina.setEnabled(false);
+        newP.__cmbMaquina.setEnabled(false);
         newP.__Ubicacion.setText("");
         newP.__cmbum.setSelectedIndex(0);
         modificaproducto=0;
+        etiqueta="";
+        traia="";
+        newP.__MateriaPrima.requestFocus();
     }
     public void borrarFormularioConEP(){
         conEP.__descripcionP.setText("");
@@ -5090,7 +5194,7 @@ public class jControlador implements ActionListener {
             for (int i = 0;filas>i; i++) {
                 modelo.removeRow(0);
             }
-            for (int i = 0;i<10; i++) {
+            for (int i = 0;i<20; i++) {
                 modelo.addRow(datos);
             }
         } catch (Exception e) {}        
