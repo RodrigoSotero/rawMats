@@ -437,7 +437,7 @@ public class modelo extends database{
             }
     }
     
-    public boolean nuevoProducto(int area, int maquina,String clave,String descripcion, int max, int min) {
+    public boolean nuevoProducto(int area, int maquina,String clave,String descripcion, Double max, Double min) {
         String q = "INSERT INTO `rawmats`.`productos` (`idproductos`, `area`, `maquina`, `clave`, `descripcion`, `max`, `min`) VALUES (null, '"+area+"', '"+maquina+"', '"+clave+"', '"+descripcion+"', '"+max+"', '"+min+"');";                 
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
@@ -1048,7 +1048,7 @@ public class modelo extends database{
         }
     }
 
-    public boolean altaDetalleSalida(int id_salida, String claveProducto, String Descripcion, String Ubicacion, int cantidad_salida, String Unidad, Double costo, Double Totalcosto, String identradas_) {
+    public boolean altaDetalleSalida(int id_salida, String claveProducto, String Descripcion, String Ubicacion, Double cantidad_salida, String Unidad, Double costo, Double Totalcosto, String identradas_) {
         String q ="INSERT INTO `detallesalida` (`id_salida`, `claveproduto`, `descripcion`, `ubicacion`, `cantidad_salida`, `unidad`, `costo`, `totalcosto`, `entradas`) VALUES"
                 + " ('"+id_salida+"', '"+claveProducto+"', '"+Descripcion+"', '"+Ubicacion+"', '"+cantidad_salida+"', '"+Unidad+"', '"+costo+"', '"+Totalcosto+"', '"+identradas_+"');";
         try{
@@ -1062,7 +1062,7 @@ public class modelo extends database{
         }
     }
     
-    public boolean modifDetalleSalida(int id_salida, String claveProducto, String Descripcion, String Ubicacion, int cantidad_salida, String Unidad, Double costo, Double Totalcosto, String identradas_) {
+    public boolean modifDetalleSalida(int id_salida, String claveProducto, String Descripcion, String Ubicacion, Double cantidad_salida, String Unidad, Double costo, Double Totalcosto, String identradas_) {
         //String q ="INSERT INTO `detallesalida` (`id_salida`, `claveproduto`, `descripcion`, `ubicacion`, `cantidad_salida`, `unidad`, `costo`, `totalcosto`, `entradas`) VALUES"
           //      + " ('"+id_salida+"', '"+claveProducto+"', '"+Descripcion+"', '"+Ubicacion+"', '"+cantidad_salida+"', '"+Unidad+"', '"+costo+"', '"+Totalcosto+"', '"+identradas_+"');";
         String q="update detallesalida set claveproduto = '"+claveProducto+"', descripcion = '"+Descripcion+"',  ubicacion = '"+Ubicacion+"',  cantidad_salida = '"+cantidad_salida+"',  "
@@ -1133,7 +1133,7 @@ public class modelo extends database{
         }
     }
     
-     public boolean updateProducto(int area, int maquina,String clave,String descripcion, int max, int min,String ubicacion,String um) {
+     public boolean updateProducto(int area, int maquina,String clave,String descripcion, Double max, Double min,String ubicacion,String um) {
         String q = "update productos set area="+area+", descripcion='"+descripcion+"', max="+max+", min="+min+" where clave ='"+clave+"';";                 
         String q2 = "update inventario set ubicacion='"+ubicacion+"', unidadmedida='"+um+"' where claveProducto ='"+clave+"';";  
         try{
@@ -1473,5 +1473,42 @@ public class modelo extends database{
             }            
     }
     
+    
+    public boolean updateteporalde(double cantidadtemporal,int id) {
+        String q=" UPDATE  `detalleentrada` SET  `cantidadtemporal` =  '"+cantidadtemporal+"' WHERE `identrada` =  '"+id+"' ;";
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            System.err.println(e.getMessage() + "------");
+            return false;
+        }
+    }
+    
+    public ResultSet primeraentrada(String claveProducto) {
+        String q = "select iddetalleentrada as id, cantidadtemporal as canttemp,costo from detalleentrada where claveProducto = '"+claveProducto+"' and cantidadTemporal>0 limit 1";
+        try {
+                PreparedStatement pstm =this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }  
+    
+    public ResultSet buscaentrada(int identrada) {
+        String q = "select id_detalleentrada as id, cantidadtemporal as canttemp  from detalleentrada where iddetalleentrada='"+identrada+"' and total_temporal>0 limit 1";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }  
 }
 

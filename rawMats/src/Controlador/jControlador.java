@@ -106,7 +106,8 @@ public class jControlador implements ActionListener {
     private final  Vista.Correo correo = new Correo();
     private final Vista.RFinanzas Finanzas = new RFinanzas();
     private final Vista.CSesion csesion = new CSesion();
-    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,Min,Max,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0,SesionCerrada=0,saber=0;
+    int a=1,id_responsable,cargo,pedirfecha,confir,filas,columnas,se,act,clienteprovedor=0,EntradaMovimientos=0,SalidaMovimientos=0,SesionCerrada=0,saber=0;
+    Double Min,Max;
     String fec,user="",contra,pswd,fech,horaentrada,horasalida,modificaruser,t1="",t2="",t3="",etiqueta,identradas_;
     private int tipoalta;
     String buscarfolio;
@@ -2527,78 +2528,8 @@ public class jControlador implements ActionListener {
         this.consulta.__ACEPTARCONSULTA.setActionCommand("__ACEPTARCONSULTA");
         this.consulta.__ACEPTARCONSULTA.addActionListener(this); 
     }   
-
-    public boolean PEPS2(String clave, int cantidad_salida) {
-        String fecpe="";
-        int cantidad=0;
-        String ID="";
-        try{
-            ResultSet PE = mimodelo.buscarPrimeraEntrada2(clave,fec);
-            while(PE.next()){
-                fecpe=PE.getString("fecha_entrada");
-                if(fecpe==null){
-                    mensaje(2,"no hay entradas de este papel");
-                    return false;
-                }else{
-                    cantidad=PE.getInt("cantidad");
-                    ID=PE.getString("id");
-                    identradas_+=ID;
-                }
-            }
-            identradas_+=",";
-            if(cantidad_salida==0){
-                mimodelo.nuevacantidadtemporal(ID,cantidad);
-                return true;
-            }
-            if(cantidad_salida<cantidad){
-                mimodelo.nuevacantidadtemporal(ID,cantidad-cantidad_salida);
-                return true;
-            }
-            if(cantidad_salida>cantidad){
-                mimodelo.nuevacantidadtemporal(ID,cantidad-cantidad);
-                PEPS2(clave,cantidad_salida-cantidad);
-            }
-            if(cantidad_salida==cantidad){
-                mimodelo.nuevacantidadtemporal(ID,cantidad_salida-cantidad_salida);
-                return true;
-            }
-        }catch(Exception e){
-        }
-        return false;
-    }
-    int cantbdtem=0,newcantem,cantbd,j;
-    public boolean antipeps2(String[] entradas, int cantidadsumar) {
-        j--;
-        try{
-            ResultSet detent = mimodelo.buscarEntradaID(entradas[j]);
-            while(detent.next()){
-                cantbd=detent.getInt(1);
-                cantbdtem = detent.getInt(2);
-            }
-            newcantem=cantbdtem+cantidadsumar;
-            if(newcantem==0){
-               return true;
-            }
-            if(newcantem>cantbd){
-                mimodelo.tottemp(cantbd , entradas[j]);
-                antipeps2(entradas,cantidadsumar-cantbdtem);
-               //sumamos toda la newcanttem y mandamos a traer antipeps con catnbd-newcantem
-            }
-            if(newcantem<cantbd){
-                 mimodelo.tottemp(newcantem, entradas[j]);
-                 return true;
-                //sumamos toda la newcatn te
-            }
-            if(newcantem==cantbd){
-                 mimodelo.tottemp(newcantem , entradas[j]);
-                 return true;
-                //sumamos todo
-            }
-        }
-       catch(Exception e) {
-       }
-        return false;
-    }
+    
+    
     
     public enum Accion{
         __INICIA_SESION,
@@ -3280,14 +3211,14 @@ public class jControlador implements ActionListener {
                     return;
                 }
                 if(!this.newP.__SMin_.getText().isEmpty()){
-                    Min = Integer.parseInt(this.newP.__SMin_.getText());
+                    Min = Double.parseDouble(this.newP.__SMin_.getText());
                 }else{
                     mensaje(3,"Debes Poner Un Minimo Mayor a 0");
                     this.newP.__SMin_.requestFocus();
                     return;
                 }
                 if(!this.newP.__SMax_.getText().isEmpty()){
-                    Max = Integer.parseInt(this.newP.__SMax_.getText());
+                    Max = Double.parseDouble(this.newP.__SMax_.getText());
                 }else{
                      mensaje(3,"Debes Poner Un Maximo Mayor a 0");
                      this.newP.__SMax_.requestFocus();
@@ -3478,26 +3409,13 @@ public class jControlador implements ActionListener {
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("claveproduto"), a, 0);
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("descripcion"), a, 1);
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("ubicacion"), a, 2);
-                            movimientos.__tablaSalida.setValueAt(detallesalida.getInt("cantidad_salida"), a, 3);
-                            int cantidadsumar=detallesalida.getInt("cantidad_salida");
-                            ResultSet bep= mimodelo.buscarExistenciaPapel(detallesalida.getString("claveproduto"));
-                            while(bep.next()){
-                                cantidadbd=Double.parseDouble(bep.getString("cantidad"));
-                            }
-                            String entradas[] = detallesalida.getString("entradas").split(",");
-                            j = entradas.length;
-                            antipeps2(entradas,cantidadsumar);
+                            movimientos.__tablaSalida.setValueAt(detallesalida.getInt("cantidad_salida"), a, 3); 
+                            String entradas=  detallesalida.getString("entradas");
+                            this.antipeps3(entradas);
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("unidad"), a, 4);
                             movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("costo")), a, 5);
                             movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("totalcosto")), a, 6);
                             mimodelo.sumarexistencia(detallesalida.getString("claveproduto"));
-                           
-                           ResultSetMetaData metaData = detallesalida.getMetaData();
-                           int numcol = metaData.getColumnCount();
-                           nombrecolumnas = new String[numcol];
-                           for(int i=2;i<numcol;i++){
-                               this.nombrecolumnas[i]=metaData.getColumnLabel(i+1);
-                           }
                            a++;
                        }
                    }
@@ -5684,15 +5602,14 @@ public class jControlador implements ActionListener {
                                 String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
                                 String Descripcion = movimientos.__tablaSalida.getValueAt(i,1).toString();
                                 String Ubicacion = movimientos.__tablaSalida.getValueAt(i,2).toString();
-                                int cantidad_salida =  Integer.parseInt(movimientos.__tablaSalida.getValueAt(i,3).toString());
                                 String Unidad = movimientos.__tablaSalida.getValueAt(i,4).toString();
                                 Double costo =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,5).toString());
-                                Double Totalcosto = cantidad_salida*costo;
-                                movimientos.__tablaSalida.setValueAt(Totalcosto, i, 6);
-                                identradas_="";
-                                PEPS2(claveProducto, cantidad_salida);
+                                entradas="";
+                                costoconsumo=0.0;
+                                Double conscant = Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,3).toString());
+                                this.Peps3(claveProducto, conscant);
                                 mimodelo.sumarexistencia(claveProducto);
-                                detallesalida = mimodelo.altaDetalleSalida(id_salida,claveProducto,Descripcion,Ubicacion,cantidad_salida,Unidad,costo,Totalcosto,identradas_);
+                                detallesalida = mimodelo.altaDetalleSalida(id_salida,claveProducto,Descripcion,Ubicacion,conscant,Unidad,costo,costoconsumo,entradas);
                             } catch (Exception ex) {
                                 //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                             } 
@@ -5720,15 +5637,14 @@ public class jControlador implements ActionListener {
                             String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
                             String Descripcion = movimientos.__tablaSalida.getValueAt(i,1).toString();
                             String Ubicacion = movimientos.__tablaSalida.getValueAt(i,2).toString();
-                            int cantidad_salida =  Integer.parseInt(movimientos.__tablaSalida.getValueAt(i,3).toString());
+                            Double conscant =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,3).toString());
                             String Unidad = movimientos.__tablaSalida.getValueAt(i,4).toString();
                             Double costo =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,5).toString());
-                            Double Totalcosto = cantidad_salida*costo;
-                            movimientos.__tablaSalida.setValueAt(Totalcosto, i, 6);
-                            identradas_="";
-                            PEPS2(claveProducto, cantidad_salida);
+                            entradas="";
+                            costoconsumo=0.0;
+                            this.Peps3(claveProducto, conscant);
                             mimodelo.sumarexistencia(claveProducto);
-                            modifsalida= mimodelo.modifDetalleSalida(Integer.parseInt(idsalidas[i]),claveProducto,Descripcion,Ubicacion,cantidad_salida,Unidad,costo,Totalcosto,identradas_);
+                            modifsalida= mimodelo.modifDetalleSalida(Integer.parseInt(idsalidas[i]),claveProducto,Descripcion,Ubicacion,conscant,Unidad,costo,costoconsumo,entradas);
                         } catch (Exception ex) {
                             //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                         } 
@@ -5960,6 +5876,55 @@ public class jControlador implements ActionListener {
             e.printStackTrace();
         }
         return false;
+    }
+    Double newtemcant,costoconsumo;
+    String entradas;
+    public void Peps3(String claveProducto, Double conscant) {
+        try {
+            ResultSet primeraentrada = mimodelo.primeraentrada(claveProducto);
+            while(primeraentrada.next()){
+                int identrada= primeraentrada.getInt("id");
+                Double canttemp = primeraentrada.getDouble("canttemp");
+                Double costoentrada = primeraentrada.getDouble("costo");
+                newtemcant = canttemp-conscant;
+                if(newtemcant<0){
+                    //falta consumo
+                    mimodelo.updateteporalde(0, identrada);
+                    newtemcant=newtemcant*-1;
+                    costoconsumo = costoconsumo +(costoentrada *canttemp);
+                    Peps3(claveProducto,newtemcant);
+                    entradas+=identrada+","+canttemp+",/";
+                }else{
+                    costoconsumo = costoconsumo +(costoentrada *conscant);
+                    entradas+=identrada+","+conscant+",/";
+                    mimodelo.updateteporalde(newtemcant, identrada);
+                    return;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void antipeps3(String entradas){
+        String entrada[] = entradas.split("/");
+        for(int i=0;i<entrada.length;i++){
+            try {
+                System.out.println(entrada[i]);
+                String detalleentrada[]=entrada[i].split(",");
+                int identrada= Integer.parseInt(detalleentrada[0]);
+                Double cant= Double.parseDouble(detalleentrada[1]);
+                Double temcant=0.0;
+                ResultSet buscaentrada = mimodelo.buscaentrada(identrada);
+                while(buscaentrada.next()){
+                    temcant=buscaentrada.getDouble("canttemp");
+                }
+                Double newtemcant = temcant+cant;
+                mimodelo.updateteporalde(newtemcant, identrada);
+            } catch (SQLException ex) {
+                Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
     
