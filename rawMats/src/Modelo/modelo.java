@@ -486,7 +486,7 @@ public class modelo extends database{
         }
     }
 
-    public boolean altaDetalleEntrada(int id_entrada, String claveproducto, String descripcion, String unidad_m, int cantidadentrada, String ubicacion, String costo, String totalcosto) {
+    public boolean altaDetalleEntrada(int id_entrada, String claveproducto, String descripcion, String unidad_m, Double cantidadentrada, String ubicacion, String costo, String totalcosto) {
         //INSERT INTO `rawmats`.`detalleentrada` (`iddetalleEntrada`, `idEntrada`, `claveProducto`, `descripcion`, `Ubicacion`, `cantidad`, `unidadMedida`, `costo`, `totalcosto`, `CantidadTemporal`, `costopromedio`) VALUES ('1', '1', 'clave', 'desc', 'ubic', '100', 'pz', '1.02', '102.0', '100', '1.02');
         String q ="INSERT INTO `rawmats`.`detalleentrada` (`iddetalleEntrada`, `idEntrada`, `claveProducto`, `descripcion`, `Ubicacion`, `cantidad`, `unidadMedida`, `costo`, `totalcosto`, `CantidadTemporal`, `costopromedio`) VALUES"
                 + " (null, '"+id_entrada+"', '"+claveproducto+"', '"+descripcion+"', '"+ubicacion+"', '"+cantidadentrada+"', '"+unidad_m+"', '"+costo+"', '"+totalcosto+"', '"+cantidadentrada+"', '"+costo+"');";

@@ -1027,11 +1027,6 @@ public class jControlador implements ActionListener {
                             movimientos.__tablaSalida.setValueAt(Producto.getString("descripcion"), fila, 1);
                             movimientos.__tablaEntrada.setValueAt(Producto.getString("ubicacion"), fila, 2);
                             movimientos.__tablaEntrada.setValueAt(Producto.getString("unidadmedida"), fila, 4);
-                            ResultSet costo = mimodelo.ultimocosto(prod);
-                            while(costo.next()){
-                                movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
-                                
-                            }
                         }
                         
                     } catch (SQLException ex) {
@@ -1179,10 +1174,7 @@ public class jControlador implements ActionListener {
                             movimientos.__tablaSalida.setValueAt(prod.getString("clave"), fila, 0);
                             movimientos.__tablaSalida.setValueAt(prod.getString("ubicacion"), fila, 2);
                             movimientos.__tablaSalida.setValueAt(prod.getString("unidadmedida"), fila, 4);
-                            ResultSet costo = mimodelo.ultimocosto(prod.getString("clave"));
-                            while(costo.next()){
-                                movimientos.__tablaSalida.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
-                            }
+                            
                             
                             
                         }
@@ -1522,29 +1514,7 @@ public class jControlador implements ActionListener {
         Com_TipoS.setMode(0);//infijo
         Com_AreaS= new TextAutoCompleter(movimientos.__AreaSalida);
         Com_AreaS.setMode(0);//infijo        
-        this.movimientos.__tablaSalida.addKeyListener(new java.awt.event.KeyAdapter(){
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                int columna = movimientos.__tablaSalida.getSelectedColumn();
-                int fila = movimientos.__tablaSalida.getSelectedRow();
-                if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    try{
-                        if(columna==3||columna==5){
-                            Double cant=Double.parseDouble(movimientos.__tablaSalida.getValueAt(fila, 3)+"");
-                            Double cos=Double.parseDouble(movimientos.__tablaSalida.getValueAt(fila, 5)+"");
-                            Double totcos= cant*cos;
-                            movimientos.__tablaSalida.setValueAt(totcos, fila, 6);
-                        }
-                    }catch(Exception e){
-                    }
-                }
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                
-            }
-        });  
+        
 //        this.movimientos._claveProductoSalida
 //        this.movimientos._descripcionProductoSalida        
         this.movimientos.__TipoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -3413,8 +3383,6 @@ public class jControlador implements ActionListener {
                             String entradas=  detallesalida.getString("entradas");
                             this.antipeps3(entradas);
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("unidad"), a, 4);
-                            movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("costo")), a, 5);
-                            movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("totalcosto")), a, 6);
                             mimodelo.sumarexistencia(detallesalida.getString("claveproduto"));
                            a++;
                        }
@@ -5399,7 +5367,7 @@ public class jControlador implements ActionListener {
                                 claveproducto=movimientos.__tablaEntrada.getValueAt(i, 0).toString();
                                 String descripcion =movimientos.__tablaEntrada.getValueAt(i, 1).toString();
                                 String ubicacion = movimientos.__tablaEntrada.getValueAt(i, 2).toString();
-                                int cantidadentrada=Integer.parseInt(movimientos.__tablaEntrada.getValueAt(i, 3).toString());
+                                Double cantidadentrada=Double.parseDouble(movimientos.__tablaEntrada.getValueAt(i, 3).toString());
                                 String unidad_m = movimientos.__tablaEntrada.getValueAt(i, 4).toString();
                                 String costo=movimientos.__tablaEntrada.getValueAt(i, 5).toString();
                                 String totalcosto=movimientos.__tablaEntrada.getValueAt(i, 6).toString();
@@ -5450,7 +5418,7 @@ public class jControlador implements ActionListener {
                                 claveproducto=movimientos.__tablaEntrada.getValueAt(i, 0).toString();
                                 String descripcion =movimientos.__tablaEntrada.getValueAt(i, 1).toString();
                                 String ubicacion = movimientos.__tablaEntrada.getValueAt(i, 2).toString();
-                                int cantidadentrada=Integer.parseInt(movimientos.__tablaEntrada.getValueAt(i, 3).toString());
+                                Double cantidadentrada=Double.parseDouble(movimientos.__tablaEntrada.getValueAt(i, 3).toString());
                                 String unidad_m = movimientos.__tablaEntrada.getValueAt(i, 4).toString();
                                 String costo=movimientos.__tablaEntrada.getValueAt(i, 5).toString();
                                 String totalcosto=movimientos.__tablaEntrada.getValueAt(i, 6).toString();
@@ -5545,12 +5513,6 @@ public class jControlador implements ActionListener {
                         case 4:
                             mensaje(2,"Completa la unidad de medida en la salida " +(i+1));
                             break;
-                        case 5:
-                            mensaje(2,"Completa el costo en la salida " +(i+1));
-                            break;
-                        case 6:
-                            mensaje(2,"Completa el costo total en la salida " +(i+1));
-                            break;
                     }
                     return;
                 }
@@ -5575,9 +5537,6 @@ public class jControlador implements ActionListener {
                     mensaje(3,"Verifica la clave de la salida #" +(i+1));
                     return;
                 }
-                Double costo =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,5).toString());
-                Double Totalcosto = cantidad_salida*costo;
-                movimientos.__tablaSalida.setValueAt(Totalcosto, i, 6);
             } catch (Exception ex) {
                 //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
             } 
@@ -5603,11 +5562,11 @@ public class jControlador implements ActionListener {
                                 String Descripcion = movimientos.__tablaSalida.getValueAt(i,1).toString();
                                 String Ubicacion = movimientos.__tablaSalida.getValueAt(i,2).toString();
                                 String Unidad = movimientos.__tablaSalida.getValueAt(i,4).toString();
-                                Double costo =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,5).toString());
                                 entradas="";
                                 costoconsumo=0.0;
                                 Double conscant = Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,3).toString());
                                 this.Peps3(claveProducto, conscant);
+                                Double costo = costoconsumo / conscant;
                                 mimodelo.sumarexistencia(claveProducto);
                                 detallesalida = mimodelo.altaDetalleSalida(id_salida,claveProducto,Descripcion,Ubicacion,conscant,Unidad,costo,costoconsumo,entradas);
                             } catch (Exception ex) {
@@ -5639,10 +5598,10 @@ public class jControlador implements ActionListener {
                             String Ubicacion = movimientos.__tablaSalida.getValueAt(i,2).toString();
                             Double conscant =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,3).toString());
                             String Unidad = movimientos.__tablaSalida.getValueAt(i,4).toString();
-                            Double costo =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,5).toString());
                             entradas="";
                             costoconsumo=0.0;
                             this.Peps3(claveProducto, conscant);
+                            Double costo = costoconsumo / conscant;
                             mimodelo.sumarexistencia(claveProducto);
                             modifsalida= mimodelo.modifDetalleSalida(Integer.parseInt(idsalidas[i]),claveProducto,Descripcion,Ubicacion,conscant,Unidad,costo,costoconsumo,entradas);
                         } catch (Exception ex) {
