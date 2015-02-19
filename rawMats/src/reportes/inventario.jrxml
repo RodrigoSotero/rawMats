@@ -206,7 +206,7 @@ ORDER BY
 		<band height="18" splitType="Stretch">
 			<frame>
 				<reportElement uuid="3a88558b-31f1-4f50-9126-5e3989311a37" style="Row" mode="Opaque" x="0" y="0" width="760" height="18"/>
-				<textField isStretchWithOverflow="true" pattern="#,##0.000">
+				<textField isStretchWithOverflow="true" pattern="¤ #,##0.0000">
 					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="699" y="0" width="61" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
@@ -227,7 +227,7 @@ ORDER BY
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_area}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true">
+				<textField isStretchWithOverflow="true" pattern="#,##0.0000">
 					<reportElement uuid="a71ceb75-b645-4d2f-89ed-424471b88131" style="Detail" positionType="Float" x="600" y="0" width="45" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
@@ -269,7 +269,7 @@ ORDER BY
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_min}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0.000">
+				<textField isStretchWithOverflow="true" pattern="¤ #,##0.0000">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="645" y="0" width="54" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
@@ -304,8 +304,8 @@ ORDER BY
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<textField pattern="#,##0.0000">
-				<reportElement uuid="d2189f31-7279-4c66-a2c9-859bd34cbab6" x="632" y="3" width="67" height="20"/>
+			<textField pattern="¤ #,##0.0000">
+				<reportElement uuid="d2189f31-7279-4c66-a2c9-859bd34cbab6" x="645" y="3" width="54" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
@@ -318,7 +318,7 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[TOTALES--------------------------------------------------------------------]]></text>
 			</staticText>
-			<textField pattern="#,##0.0000">
+			<textField pattern="¤ #,##0.0000">
 				<reportElement uuid="cf7648f5-190c-4fd2-9fb4-f10e49f2c6ca" x="699" y="3" width="61" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
