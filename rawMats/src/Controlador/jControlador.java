@@ -5494,7 +5494,7 @@ public class jControlador implements ActionListener {
         }
         
         for(int i=0;i<contador;i++){
-            for (int j=0;j<7;j++){
+            for (int j=0;j<5;j++){
                 Object valueAt =   movimientos.__tablaSalida.getValueAt(i, j);
                 if(valueAt==null||(valueAt.toString()).isEmpty()||valueAt.toString().equals("")){
                     switch(j){
@@ -5696,6 +5696,17 @@ public class jControlador implements ActionListener {
         this.movimientos.__Edicion.setEnabled(true);
         this.movimientos.JPanel.setEnabledAt(0, true);
         this.movimientos.JPanel.setEnabledAt(1, true);
+        
+        
+        ResultSet claves = mimodelo.claves();
+        try {
+            while(claves.next()){
+                String clave = claves.getString("claveProducto");
+                mimodelo.costoprom(clave);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     private void maximoentrada() {
         try {

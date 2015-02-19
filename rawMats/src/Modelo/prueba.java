@@ -33,7 +33,17 @@ public class prueba {
             descr=descr.replaceAll("\t", "");
             a.opp(id, descr);
         }*/
+        a.bd();
+        
     }
+    public prueba(){
+        
+    }
+    
+    public void bd(){
+        mimodelo.bp("asdasdasdsa");
+    }
+    
     public void consumir(String claveProducto,Double conscant,String fecha) {
         try {
             ResultSet existenciaactual = this.buscarExistenciaProductofecha(claveProducto, fecha);
