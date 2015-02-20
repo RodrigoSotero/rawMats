@@ -33,7 +33,8 @@ public class prueba {
             descr=descr.replaceAll("\t", "");
             a.opp(id, descr);
         }*/
-        a.bd();
+        a.clavesentrada();
+        
         
     }
     public prueba(){
@@ -41,7 +42,7 @@ public class prueba {
     }
     
     public void bd(){
-        mimodelo.bp("asdasdasdsa");
+        mimodelo.bp("PARAHOY");
     }
     
     public void consumir(String claveProducto,Double conscant,String fecha) {
@@ -63,6 +64,24 @@ public class prueba {
             Logger.getLogger(prueba.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void clavesentrada(){
+        String q = "select distinct (claveproducto) from detalleentrada";
+        try {
+                PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                while (res.next()){
+                    this.sumarexistencia(res.getString(1));
+                    mimodelo.costoprom(res.getString(1));
+                }
+                return;
+            }catch(SQLException e){
+                
+                return;
+            }
+    }
+    
+    
     
     Double newtemcant,costoconsumo;
     String entradas;
@@ -144,6 +163,7 @@ public class prueba {
     
     public boolean sumarexistencia(String claveproducto) {
         String q1="CALL sumaexistencia('"+claveproducto+"')";//aqui es sumaexistenca ....
+        System.out.println(q1);
          try{
             PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q1);
             pstm.execute();

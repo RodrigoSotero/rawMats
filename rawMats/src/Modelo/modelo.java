@@ -617,7 +617,7 @@ public class modelo extends database{
         }
     }
     
-    public boolean costoprom(String clave) {
+        public boolean costoprom(String clave) {
         String q1="CALL preciopromedio2('"+clave+"')";
          try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q1);
@@ -1501,7 +1501,8 @@ public class modelo extends database{
     
     
     public boolean updateteporalde(double cantidadtemporal,int id) {
-        String q=" UPDATE  `detalleentrada` SET  `cantidadtemporal` =  '"+cantidadtemporal+"' WHERE `identrada` =  '"+id+"' ;";
+        String q=" UPDATE  `detalleentrada` SET  `cantidadtemporal` =  '"+cantidadtemporal+"' WHERE `iddetalleentrada` =  '"+id+"' ;";
+        System.out.println(q);
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
@@ -1515,6 +1516,7 @@ public class modelo extends database{
     
     public ResultSet primeraentrada(String claveProducto) {
         String q = "select iddetalleentrada as id, cantidadtemporal as canttemp,costo from detalleentrada where claveProducto = '"+claveProducto+"' and cantidadTemporal>0 limit 1";
+        System.out.println(q);
         try {
                 PreparedStatement pstm =this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();

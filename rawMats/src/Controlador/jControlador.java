@@ -441,7 +441,6 @@ public class jControlador implements ActionListener {
                         }
                         newP.__etqClave.setText("");
                         String area = idarea < 10 ? "0"+idarea+"-": idarea+"-";
-                        System.out.println(etiqueta+area);
                         newP.__etqClave.setText("");
                         newP.__etqClave.setText(etiqueta+area);
                         traia= etiqueta+area;
@@ -461,7 +460,6 @@ public class jControlador implements ActionListener {
                 }else{
                     idmaquina = busquedaid("maquina");
                     String ponerid = idmaquina <10 ? "0"+idmaquina:idmaquina+"";
-                    System.out.println(traia+ponerid);
                     newP.__etqClave.setText(traia+ponerid);
                     String likeclave = newP.__etqClave.getText();
                     try{
@@ -2798,7 +2796,7 @@ public class jControlador implements ActionListener {
 //                            borrarFormularioAltaPapel();
 //                            borrarFormularioMovimientosPapel();
                             borrarFormularioProveedor();
-//                            borrarFormularioConsultas();
+                            
 //                            borrarFormularioEmergente();
                             if(!user.equals("ROOT")){
                                 mimodelo.cerrarsesion(user);
@@ -5378,6 +5376,7 @@ public class jControlador implements ActionListener {
                                     mimodelo.ubicacion(claveproducto,ubicacion);
                                     mimodelo.um(claveproducto,unidad_m);
                                     mimodelo.opp(claveproducto, OrdenProducionE);
+                                    mimodelo.costoprom(claveproducto);
                                 }else{
                                     mensaje(3,"EL PRODUCTO NO EXISTE");
                                     return;
@@ -5568,6 +5567,7 @@ public class jControlador implements ActionListener {
                                 this.Peps3(claveProducto, conscant);
                                 Double costo = costoconsumo / conscant;
                                 mimodelo.sumarexistencia(claveProducto);
+                                mimodelo.costoprom(claveProducto);
                                 detallesalida = mimodelo.altaDetalleSalida(id_salida,claveProducto,Descripcion,Ubicacion,conscant,Unidad,costo,costoconsumo,entradas);
                             } catch (Exception ex) {
                                 //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -5614,7 +5614,7 @@ public class jControlador implements ActionListener {
                             mensaje(1,"Salida modificada correctamente");
                             this.borrarFormularioMovimientos();
                         }else{
-                            mensaje(3,"Ocurrio un error al Mmodificar la salida");
+                            mensaje(3,"Ocurrio un error al Modificar la salida");
                             break;
                         }
                 }
@@ -5698,7 +5698,7 @@ public class jControlador implements ActionListener {
         this.movimientos.JPanel.setEnabledAt(1, true);
         
         
-        ResultSet claves = mimodelo.claves();
+        /*ResultSet claves = mimodelo.claves();
         try {
             while(claves.next()){
                 String clave = claves.getString("claveProducto");
@@ -5706,7 +5706,7 @@ public class jControlador implements ActionListener {
             }
         } catch (SQLException ex) {
             Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
     private void maximoentrada() {
         try {
@@ -5720,7 +5720,6 @@ public class jControlador implements ActionListener {
         try {
             String folio = mimodelo.buscarFolioSalida();
             movimientos.__FolioSalida.setText(folio);
-            System.out.println(folio);
         } catch (SQLException ex) {
             mensaje(3,ex.getMessage());
         }
@@ -5857,17 +5856,21 @@ public class jControlador implements ActionListener {
                 Double canttemp = primeraentrada.getDouble("canttemp");
                 Double costoentrada = primeraentrada.getDouble("costo");
                 newtemcant = canttemp-conscant;
+                System.out.println(newtemcant);
                 if(newtemcant<0){
                     //falta consumo
-                    mimodelo.updateteporalde(0, identrada);
+                    mimodelo.updateteporalde(0.0, identrada);
+                    
                     newtemcant=newtemcant*-1;
                     costoconsumo = costoconsumo +(costoentrada *canttemp);
                     Peps3(claveProducto,newtemcant);
                     entradas+=identrada+","+canttemp+",/";
+                    System.out.println("a la entrada "+identrada+" se le va a dejar en 0" );
                 }else{
                     costoconsumo = costoconsumo +(costoentrada *conscant);
                     entradas+=identrada+","+conscant+",/";
                     mimodelo.updateteporalde(newtemcant, identrada);
+                    System.out.println("a la entrada "+identrada+" se le va a restar "+conscant );
                     return;
                 }
             }
@@ -5880,7 +5883,6 @@ public class jControlador implements ActionListener {
         String entrada[] = entradas.split("/");
         for(int i=0;i<entrada.length;i++){
             try {
-                System.out.println(entrada[i]);
                 String detalleentrada[]=entrada[i].split(",");
                 int identrada= Integer.parseInt(detalleentrada[0]);
                 Double cant= Double.parseDouble(detalleentrada[1]);
