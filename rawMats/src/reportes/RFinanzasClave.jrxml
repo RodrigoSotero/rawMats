@@ -310,9 +310,9 @@ ORDER BY
 				</textElement>
 				<textFieldExpression><![CDATA[$V{sum}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0.0000">
-				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="600" y="5" width="68" height="23"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+			<textField pattern="¤ #,##0.000">
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="600" y="5" width="160" height="23"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Sumtotal}]]></textFieldExpression>
