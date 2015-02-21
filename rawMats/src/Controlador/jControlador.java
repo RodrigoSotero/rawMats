@@ -1018,13 +1018,14 @@ public class jControlador implements ActionListener {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
                     try {
-                        String prod = movimientos.__claveProductoSalida.getText();
-                        ResultSet Producto = mimodelo.buscarProductoByDescripcion(prod);
+                        String parametro = movimientos.__claveProductoSalida.getText();
+                        ResultSet prod = mimodelo.buscarProductoByClave(parametro);
                         int fila =movimientos.__tablaSalida.getSelectedRow();
-                        while(Producto.next()){
-                            movimientos.__tablaSalida.setValueAt(Producto.getString("descripcion"), fila, 1);
-                            movimientos.__tablaEntrada.setValueAt(Producto.getString("ubicacion"), fila, 2);
-                            movimientos.__tablaEntrada.setValueAt(Producto.getString("unidadmedida"), fila, 4);
+                        while(prod.next()){
+                            movimientos.__tablaSalida.setValueAt(prod.getString("clave"), fila, 0);
+                            movimientos.__tablaSalida.setValueAt(prod.getString("descripcion"), fila, 1);
+                            movimientos.__tablaSalida.setValueAt(prod.getString("ubicacion"), fila, 2);
+                            movimientos.__tablaSalida.setValueAt(prod.getString("unidadmedida"), fila, 4);
                         }
                         
                     } catch (SQLException ex) {
@@ -1055,14 +1056,14 @@ public class jControlador implements ActionListener {
                 if(evt.getKeyCode()==KeyEvent.VK_ENTER){
                     try {
                         String parametro = movimientos._claveProducto.getText();
-                        
-                        ResultSet prod = mimodelo.buscarProductoByDescripcion(parametro);
+                        ResultSet prod = mimodelo.buscarProductoByClave(parametro);
                         int fila =movimientos.__tablaEntrada.getSelectedRow();
                         while(prod.next()){
+                            movimientos.__tablaEntrada.setValueAt(prod.getString("clave"), fila, 0);
                             movimientos.__tablaEntrada.setValueAt(prod.getString("descripcion"), fila, 1);
                             movimientos.__tablaEntrada.setValueAt(prod.getString("ubicacion"), fila, 2);
                             movimientos.__tablaEntrada.setValueAt(prod.getString("unidadmedida"), fila, 4);
-                            ResultSet costo = mimodelo.ultimocosto(parametro);
+                            ResultSet costo = mimodelo.ultimocosto(prod.getString("clave"));
                             while(costo.next()){
                                 movimientos.__tablaEntrada.setValueAt(Double.parseDouble(costo.getString("costo")), fila, 5);
                             }
@@ -2496,6 +2497,35 @@ public class jControlador implements ActionListener {
         this.consulta.__ACEPTARCONSULTA.setActionCommand("__ACEPTARCONSULTA");
         this.consulta.__ACEPTARCONSULTA.addActionListener(this); 
     }   
+
+    public void borrarFormularioConsultas() {
+        this.consulta.__Descripcion.setText("");
+        this.consulta.__clave.setText("");
+        this.consulta.__cmbUnidad.setSelectedIndex(0);
+        this.consulta.__Cantidad.setText("");
+        this.consulta.__Ubicacion.setText("");
+        this.consulta.__Area.setText("");
+        this.consulta.__Secion.setText("");
+        this.consulta.__min.setText("");
+        this.consulta.__max.setText("");
+        this.consulta.__OrdenP.setText("");
+        this.consulta.__proveedor.setText("");//
+        this.consulta.__Cliente.setText("");
+        this.consulta.__folio.setText("");
+        this.consulta.__foliohasta.setText("");
+        this.consulta.__documento.setText("");
+        this.consulta.__OrdenC.setText("");
+        this.consulta.__TipoEntrada.setText("");
+        this.consulta.__TipoSalida.setText("");
+        this.consulta.__Propietario.setText("");
+        this.consulta.__chkTurno1.setSelected(false);
+        this.consulta.__chkTurno2.setSelected(false);
+        this.consulta.__chkTurno3.setSelected(false);
+        this.consulta.__Observaciones.setText("");
+        this.consulta.__Solicitante.setText("");
+        this.consulta.__dateIni.setDate(null);
+        this.consulta.__datefin.setDate(null);
+    }
     
     
     
@@ -4041,7 +4071,7 @@ public class jControlador implements ActionListener {
                         if (confir==JOptionPane.OK_OPTION){
                             consulta.dispose();
                             menumaster.setVisible(true);
-                            //borrarFormularioConsultas();
+                            borrarFormularioConsultas();
                         }
                 break;
                 case __REGRESAR:
@@ -5520,13 +5550,13 @@ public class jControlador implements ActionListener {
         for(int i =0;i< movimientos.__tablaSalida.getRowCount();i++){
             try {
                 String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
-                int cantidad_salida =  Integer.parseInt(movimientos.__tablaSalida.getValueAt(i,3).toString());
+                Double cantidad_salida =  Double.parseDouble(movimientos.__tablaSalida.getValueAt(i,3).toString());
                 ResultSet existencia = mimodelo.buscarExistenciaProductofecha(claveProducto, fec);
-                int cantidadbd=0;
+                Double cantidadbd=0.0;
                 if(existencia.next()){
                     existencia.beforeFirst();
                     while(existencia.next()){
-                        cantidadbd = existencia.getInt("cantidad");
+                        cantidadbd = Double.parseDouble(existencia.getString("cantidadalafecha"));
                     }
                     if(cantidadbd<cantidad_salida){
                         mensaje(3,"No hay suficiente existencia en la bd para realizar la salida #" +(i+1)+" hay "+cantidadbd);

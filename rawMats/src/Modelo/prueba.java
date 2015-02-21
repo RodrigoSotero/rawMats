@@ -33,7 +33,7 @@ public class prueba {
             descr=descr.replaceAll("\t", "");
             a.opp(id, descr);
         }*/
-        a.clavesentrada();
+        a.bd();
         
         
     }
@@ -42,7 +42,7 @@ public class prueba {
     }
     
     public void bd(){
-        mimodelo.bp("PARAHOY");
+        mimodelo.bp("PARAHOooooooooY");
     }
     
     public void consumir(String claveProducto,Double conscant,String fecha) {

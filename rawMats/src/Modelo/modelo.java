@@ -437,6 +437,18 @@ public class modelo extends database{
             }
     }
     
+    public ResultSet buscarProductoByClave(String clave) throws java.sql.SQLException{       
+        String q = "select * from vw_descripcionproductos where clave = '"+clave+"';";
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                System.err.println( e.getMessage() );
+                return null;
+            }
+    }
+    
     public boolean nuevoProducto(int area, int maquina,String clave,String descripcion, Double max, Double min) {
         String q = "INSERT INTO `rawmats`.`productos` (`idproductos`, `area`, `maquina`, `clave`, `descripcion`, `max`, `min`) VALUES (null, '"+area+"', '"+maquina+"', '"+clave+"', '"+descripcion+"', '"+max+"', '"+min+"');";                 
         try{
@@ -1026,8 +1038,12 @@ public class modelo extends database{
         }
     }
     
-    public ResultSet buscarExistenciaProductofecha(String clavePapel,String fecha) {
-        String q = "call sumaxistencia_fecha('"+clavePapel+"','"+fecha+"');";
+    public ResultSet buscarExistenciaProductofecha(String claveProducto,String fecha) {
+        String q = "select sum(cantidadtemporal) as cantidadalafecha" +
+"  from detalleentrada d,entrada e " +
+"    where d.identrada=e.identrada " +
+"      and claveProducto ='"+claveProducto+"' " +
+"        and fecha <='"+fecha+"'";
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
