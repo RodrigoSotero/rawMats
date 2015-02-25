@@ -617,7 +617,7 @@ public class modelo extends database{
          }
      }
     public boolean costopromedio(String clave) {
-        String q1="CALL preciopromedio('"+clave+"')";
+        String q1="CALL PRECIOPROMEDIO2('"+clave+"')";
          try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q1);
             pstm.execute();
@@ -630,7 +630,8 @@ public class modelo extends database{
     }
     
         public boolean costoprom(String clave) {
-        String q1="CALL preciopromedio2('"+clave+"')";
+        String q1="CALL PRECIOPROMEDIO2('"+clave+"')";
+        System.out.println(q1);
          try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q1);
             pstm.execute();

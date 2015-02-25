@@ -3461,6 +3461,7 @@ public class jControlador implements ActionListener {
                 }
                 break;
             case __INVENTARIO:
+                
                 this.mimodelo.abrirReporte("inventario.jrxml",new HashMap());
                 break;              
             case __SALIDA:
@@ -5478,8 +5479,6 @@ public class jControlador implements ActionListener {
                             if(altaEntrada==true && detalleentrada==true){
                                 mensaje(1,"Entrada agregada correctamente");
                                 this.borrarFormularioMovimientos();
-                                mimodelo.costopromedio(claveproducto);
-                                this.borrarFormularioMovimientos();
                             }else{
                                 mensaje(3,"Ocurrio un error al dar de alta la entrada");
                                 break;
@@ -5667,8 +5666,10 @@ public class jControlador implements ActionListener {
                                 this.Peps3(claveProducto, conscant);
                                 Double costo = costoconsumo / conscant;
                                 mimodelo.sumarexistencia(claveProducto);
-                                mimodelo.costoprom(claveProducto);
+                                
                                 detallesalida = mimodelo.altaDetalleSalida(id_salida,claveProducto,Descripcion,Ubicacion,conscant,Unidad,costo,costoconsumo,entradas);
+                                mimodelo.costoprom(claveProducto);
+                                
                             } catch (Exception ex) {
                                 //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                             } 

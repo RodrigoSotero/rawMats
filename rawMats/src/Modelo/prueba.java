@@ -33,7 +33,7 @@ public class prueba {
             descr=descr.replaceAll("\t", "");
             a.opp(id, descr);
         }*/
-        a.bd();
+        a.clavesentrada();
         
         
     }
