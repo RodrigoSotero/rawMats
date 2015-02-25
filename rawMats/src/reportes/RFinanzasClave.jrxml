@@ -27,7 +27,6 @@
      vw_infocard.`costo`*vw_infocard.`cantidad` AS total,
      vw_infocard.`folio` AS vw_infocard_folio,
      vw_infocard.`clave` AS vw_infocard_clave,
-     vw_infocard.`cantidad` AS vw_infocard_cantidad,
      vw_infocard.`concepto` AS vw_infocard_concepto,
      vw_infocard.`costo` AS vw_infocard_costo,
      vw_infocard.`fecha` AS vw_infocard_fecha,
@@ -35,7 +34,8 @@
      vw_infocard.`tipo` AS vw_infocard_tipo,
      vw_infocard.`descripcion` AS vw_infocard_descripcion,
      vw_infocard.`unidadMedida` AS vw_infocard_unidadMedida,
-     vw_infocard.`op` AS vw_infocard_op
+     vw_infocard.`op` AS vw_infocard_op,
+     vw_infocard.`cantidad` AS vw_infocard_cantidad
 FROM
      `vw_infocard` vw_infocard
 WHERE
@@ -46,18 +46,18 @@ ORDER BY
      vw_infocard.`tipo` ASC,
      vw_infocard.`clave` ASC]]>
 	</queryString>
-	<field name="total" class="java.lang.Double"/>
+	<field name="total" class="java.math.BigDecimal"/>
 	<field name="vw_infocard_folio" class="java.lang.String"/>
 	<field name="vw_infocard_clave" class="java.lang.String"/>
-	<field name="vw_infocard_cantidad" class="java.lang.Long"/>
 	<field name="vw_infocard_concepto" class="java.lang.String"/>
-	<field name="vw_infocard_costo" class="java.lang.Double"/>
+	<field name="vw_infocard_costo" class="java.math.BigDecimal"/>
 	<field name="vw_infocard_fecha" class="java.sql.Date"/>
 	<field name="vw_infocard_observaciones" class="java.lang.String"/>
 	<field name="vw_infocard_tipo" class="java.lang.Long"/>
 	<field name="vw_infocard_descripcion" class="java.lang.String"/>
 	<field name="vw_infocard_unidadMedida" class="java.lang.String"/>
 	<field name="vw_infocard_op" class="java.lang.String"/>
+	<field name="vw_infocard_cantidad" class="java.math.BigDecimal"/>
 	<variable name="sum" class="java.lang.Long" calculation="Sum">
 		<variableExpression><![CDATA[$F{vw_infocard_cantidad}]]></variableExpression>
 	</variable>
@@ -310,13 +310,13 @@ ORDER BY
 				</graphicElement>
 			</line>
 			<textField pattern="#,##0.0000">
-				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="446" y="4" width="57" height="23"/>
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="444" y="4" width="57" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{sum}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0.000">
+			<textField pattern="¤ #,##0.0000">
 				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="600" y="5" width="68" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
@@ -335,7 +335,7 @@ ORDER BY
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{prom2}/$V{prom}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{Sumtotal}/$V{sum}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
