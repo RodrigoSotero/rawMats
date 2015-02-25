@@ -61,7 +61,7 @@ ORDER BY
 	<field name="vw_infocard_descripcion" class="java.lang.String"/>
 	<field name="vw_infocard_unidadMedida" class="java.lang.String"/>
 	<field name="vw_infocard_op" class="java.lang.String"/>
-	<variable name="sum" class="java.lang.Long" calculation="Sum">
+	<variable name="sum" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{vw_infocard_cantidad}]]></variableExpression>
 	</variable>
 	<variable name="Sumtotal" class="java.math.BigDecimal" calculation="Sum">
