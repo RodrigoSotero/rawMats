@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="800" pageHeight="595" orientation="Landscape" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="46732f24-dd08-46b3-b889-1d5d06b7e936">
-	<property name="ireport.zoom" value="2.3579476910000023"/>
-	<property name="ireport.x" value="654"/>
-	<property name="ireport.y" value="63"/>
+	<property name="ireport.zoom" value="2.8531167061100033"/>
+	<property name="ireport.x" value="1058"/>
+	<property name="ireport.y" value="180"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -42,7 +42,8 @@
 FROM
      `vw_infocard` vw_infocard
 WHERE
-     vw_infocard.`descripcion` = $P{descripcion}
+     vw_infocard.`fecha` >= $P{inicial}
+ AND vw_infocard.`descripcion` = $P{descripcion}
 ORDER BY
      vw_infocard.`fecha` ASC,
      vw_infocard.`folio` ASC,
@@ -118,7 +119,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Times New Roman" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Busqueda Mediante Descripción]]></text>
+					<text><![CDATA[Busqueda Mediante Descripción, y Fecha Inicial]]></text>
 				</staticText>
 			</frame>
 			<image>
@@ -168,7 +169,7 @@ ORDER BY
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e131aba1-5063-4366-8de4-1fee351cd26d" style="Column header" x="545" y="0" width="55" height="35" forecolor="#000000"/>
+				<reportElement uuid="e131aba1-5063-4366-8de4-1fee351cd26d" style="Column header" x="558" y="0" width="42" height="35" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -203,11 +204,11 @@ ORDER BY
 				<text><![CDATA[O-P]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6ca2ef93-b075-4c07-bb5f-8974b2758343" style="Column header" x="503" y="0" width="42" height="35" forecolor="#000000"/>
+				<reportElement uuid="6ca2ef93-b075-4c07-bb5f-8974b2758343" style="Column header" x="503" y="0" width="55" height="35" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[U-M]]></text>
+				<text><![CDATA[Unidad de Medidad]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -251,7 +252,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{vw_infocard_cantidad}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="¤ #,##0.0000">
-					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="545" y="0" width="55" height="18"/>
+					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="558" y="0" width="42" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
@@ -282,7 +283,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{vw_infocard_descripcion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="503" y="0" width="42" height="18"/>
+					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="503" y="0" width="55" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
@@ -306,17 +307,17 @@ ORDER BY
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<textField pattern="#,##0.0000">
-				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="446" y="4" width="57" height="23"/>
+			<textField>
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="446" y="3" width="57" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{sum}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤ #,##0.0000">
-				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="600" y="3" width="68" height="23"/>
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="600" y="4" width="68" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Sumtotal}]]></textFieldExpression>
 			</textField>
@@ -328,7 +329,7 @@ ORDER BY
 				<text><![CDATA[Totales----------------------]]></text>
 			</staticText>
 			<textField pattern="¤ #,##0.0000">
-				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="545" y="3" width="55" height="23"/>
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="545" y="4" width="55" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>

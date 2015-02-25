@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="800" pageHeight="595" orientation="Landscape" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="46732f24-dd08-46b3-b889-1d5d06b7e936">
 	<property name="ireport.zoom" value="3.4522712143931042"/>
-	<property name="ireport.x" value="1823"/>
+	<property name="ireport.x" value="1551"/>
 	<property name="ireport.y" value="293"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -30,7 +30,6 @@
      vw_infocard.`costo`*vw_infocard.`cantidad` AS total,
      vw_infocard.`folio` AS vw_infocard_folio,
      vw_infocard.`clave` AS vw_infocard_clave,
-     vw_infocard.`cantidad` AS vw_infocard_cantidad,
      vw_infocard.`concepto` AS vw_infocard_concepto,
      vw_infocard.`costo` AS vw_infocard_costo,
      vw_infocard.`fecha` AS vw_infocard_fecha,
@@ -38,7 +37,8 @@
      vw_infocard.`tipo` AS vw_infocard_tipo,
      vw_infocard.`descripcion` AS vw_infocard_descripcion,
      vw_infocard.`unidadMedida` AS vw_infocard_unidadMedida,
-     vw_infocard.`op` AS vw_infocard_op
+     vw_infocard.`op` AS vw_infocard_op,
+     vw_infocard.`cantidad` AS vw_infocard_cantidad
 FROM
      `vw_infocard` vw_infocard
 WHERE
@@ -51,18 +51,18 @@ ORDER BY
      vw_infocard.`tipo` ASC,
      vw_infocard.`clave` ASC]]>
 	</queryString>
-	<field name="total" class="java.lang.Double"/>
+	<field name="total" class="java.math.BigDecimal"/>
 	<field name="vw_infocard_folio" class="java.lang.String"/>
 	<field name="vw_infocard_clave" class="java.lang.String"/>
-	<field name="vw_infocard_cantidad" class="java.lang.Long"/>
 	<field name="vw_infocard_concepto" class="java.lang.String"/>
-	<field name="vw_infocard_costo" class="java.lang.Double"/>
+	<field name="vw_infocard_costo" class="java.math.BigDecimal"/>
 	<field name="vw_infocard_fecha" class="java.sql.Date"/>
 	<field name="vw_infocard_observaciones" class="java.lang.String"/>
 	<field name="vw_infocard_tipo" class="java.lang.Long"/>
 	<field name="vw_infocard_descripcion" class="java.lang.String"/>
 	<field name="vw_infocard_unidadMedida" class="java.lang.String"/>
 	<field name="vw_infocard_op" class="java.lang.String"/>
+	<field name="vw_infocard_cantidad" class="java.math.BigDecimal"/>
 	<variable name="sum" class="java.lang.Long" calculation="Sum">
 		<variableExpression><![CDATA[$F{vw_infocard_cantidad}]]></variableExpression>
 	</variable>
@@ -170,7 +170,7 @@ ORDER BY
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e131aba1-5063-4366-8de4-1fee351cd26d" style="Column header" x="558" y="0" width="42" height="35" forecolor="#000000"/>
+				<reportElement uuid="e131aba1-5063-4366-8de4-1fee351cd26d" style="Column header" x="545" y="0" width="55" height="35" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -205,11 +205,11 @@ ORDER BY
 				<text><![CDATA[O-P]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6ca2ef93-b075-4c07-bb5f-8974b2758343" style="Column header" x="503" y="0" width="55" height="35" forecolor="#000000"/>
+				<reportElement uuid="6ca2ef93-b075-4c07-bb5f-8974b2758343" style="Column header" x="503" y="0" width="42" height="35" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Unidad de Medidad]]></text>
+				<text><![CDATA[U-M]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -253,7 +253,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{vw_infocard_cantidad}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="¤ #,##0.0000">
-					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="558" y="0" width="42" height="18"/>
+					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="545" y="0" width="55" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
@@ -284,7 +284,7 @@ ORDER BY
 					<textFieldExpression><![CDATA[$F{vw_infocard_descripcion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="503" y="0" width="55" height="18"/>
+					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="503" y="0" width="42" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
@@ -301,7 +301,7 @@ ORDER BY
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="44" splitType="Stretch">
+		<band height="33" splitType="Stretch">
 			<line>
 				<reportElement uuid="2317ab9f-225a-45be-8684-0404e80dec41" positionType="FixRelativeToBottom" x="0" y="3" width="760" height="1"/>
 				<graphicElement>
@@ -309,16 +309,16 @@ ORDER BY
 				</graphicElement>
 			</line>
 			<textField pattern="#,##0.0000">
-				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="446" y="4" width="82" height="23"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="446" y="4" width="57" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{sum}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0.000">
-				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="600" y="5" width="160" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10" isBold="true"/>
+			<textField pattern="¤ #,##0.0000">
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="600" y="5" width="68" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Sumtotal}]]></textFieldExpression>
 			</textField>
@@ -329,6 +329,13 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Totales----------------------]]></text>
 			</staticText>
+			<textField pattern="¤ #,##0.0000">
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="545" y="5" width="55" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Sumtotal}/$V{sum}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
