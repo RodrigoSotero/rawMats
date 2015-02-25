@@ -42,7 +42,7 @@ public class prueba {
     }
     
     public void bd(){
-        mimodelo.bp("PARAHOooooooooY");
+        mimodelo.bp("prubeapru-pppppppAAas");
     }
     
     public void consumir(String claveProducto,Double conscant,String fecha) {

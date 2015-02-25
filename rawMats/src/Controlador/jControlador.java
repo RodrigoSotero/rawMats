@@ -2182,7 +2182,7 @@ public class jControlador implements ActionListener {
         foloini.setMode(0);
         this.consulta.__folio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                 KeyTipedLetrasNum(evt);                  
+                 KeyTipedLetrasNumCar(evt);                  
             }
             public void keyPressed(java.awt.event.KeyEvent evt){
                 int evento=evt.getKeyCode();               
@@ -2213,7 +2213,7 @@ public class jControlador implements ActionListener {
         foliofin.setMode(0);
         this.consulta.__foliohasta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                 KeyTipedLetrasNum(evt);                  
+                 KeyTipedLetrasNumCar(evt);                  
             }
             public void keyPressed(java.awt.event.KeyEvent evt){
                 int evento=evt.getKeyCode();               
@@ -2659,11 +2659,25 @@ public class jControlador implements ActionListener {
             case __MENU_MASTER_ALTAPRODUCTO:
                 menumaster.dispose();
                 saber=1;
+                this.borrarFormularioAltaProducto();
+                this.borrarFormularioConEP();
+                this.borrarFormularioConsultas();
+                this.borrarFormularioMovimientos();
+                this.borrarFormularioNewUser();
+                this.borrarFormularioProveedor();
+                
                 conEP.setVisible(true);
                 conEP.setName("Consulta del Producto");
                 this.bucarPorducto();
+                
                 break;
             case __MENU_MASTER_MOVIMIENTOS:                
+                this.borrarFormularioAltaProducto();
+                this.borrarFormularioConEP();
+                this.borrarFormularioConsultas();
+                this.borrarFormularioMovimientos();
+                this.borrarFormularioNewUser();
+                this.borrarFormularioProveedor();
                 movimientos.setTitle("Movimientos del Producto");
                 menumaster.dispose();
                 if(cargo !=1 ){
@@ -2682,12 +2696,24 @@ public class jControlador implements ActionListener {
                 addItems("movimientos");                
                 break;
             case __MENU_MASTER_REPORTES:
+                this.borrarFormularioAltaProducto();
+                this.borrarFormularioConEP();
+                this.borrarFormularioConsultas();
+                this.borrarFormularioMovimientos();
+                this.borrarFormularioNewUser();
+                this.borrarFormularioProveedor();
                 menumaster.dispose();
                 reporte.setVisible(true);
                 reporte.setLocationRelativeTo(null);
                 reporte.setTitle("Reportes");
                 break;
             case __MENU_MASTER_CONSULTAS:
+                this.borrarFormularioAltaProducto();
+                this.borrarFormularioConEP();
+                this.borrarFormularioConsultas();
+                this.borrarFormularioMovimientos();
+                this.borrarFormularioNewUser();
+                this.borrarFormularioProveedor();
                 menumaster.dispose();
                 this.addItems("consultas");
                 consulta.setVisible(true);
@@ -2695,6 +2721,12 @@ public class jControlador implements ActionListener {
                 consulta.setTitle("Consultas");
                 break;
             case __MENU_MASTER_CANCELAR:
+                this.borrarFormularioAltaProducto();
+                this.borrarFormularioConEP();
+                this.borrarFormularioConsultas();
+                this.borrarFormularioMovimientos();
+                this.borrarFormularioNewUser();
+                this.borrarFormularioProveedor();
                 confir = this.mensajeConfirmacion("¿Desea Salir?","Salida");
                 if (confir==JOptionPane.OK_OPTION){
                     menumaster.dispose();
@@ -2835,6 +2867,12 @@ public class jControlador implements ActionListener {
                             mensaje(3,ex.getMessage());
                         }
                     }
+                    this.borrarFormularioAltaProducto();
+                    this.borrarFormularioConEP();
+                    this.borrarFormularioConsultas();
+                    this.borrarFormularioNewUser();
+                    this.borrarFormularioMovimientos();
+                    this.borrarFormularioProveedor();
                 break;
             case __MENU_SALIR:
                 confir = mensajeConfirmacion("¿Realmente Desea Salir del Sistema?","Salida");
@@ -3284,7 +3322,7 @@ public class jControlador implements ActionListener {
                     }
                 break;
             case __ACEPTAR_ENTRADA:
-                EntradaAceptarModificar();                
+                EntradaAceptarModificar(); 
                 break;                
             case __MODIFICACION_ENTRADA:
                 buscarfolio = JOptionPane.showInputDialog("Folio","Ingresa el Folio de la Entrada a Modificar");
@@ -3359,10 +3397,10 @@ public class jControlador implements ActionListener {
                 SalidaAceptarModificar();
                 break;
             case __MODIFICACION_SALIDA:
-                this.SalidaMovimientos=1;
                 buscarfolio = JOptionPane.showInputDialog("Folio","Ingresa el Folio de la Salida a Modificar");
                 if(buscarfolio==null || buscarfolio.length()<3){
                     mensaje(2,"Intenta otra vez");
+                    SalidaMovimientos=0;
                     break;
                 }
                 try {
@@ -3407,7 +3445,7 @@ public class jControlador implements ActionListener {
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("claveproduto"), a, 0);
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("descripcion"), a, 1);
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("ubicacion"), a, 2);
-                            movimientos.__tablaSalida.setValueAt(detallesalida.getInt("cantidad_salida"), a, 3); 
+                            movimientos.__tablaSalida.setValueAt(Double.parseDouble(detallesalida.getString("cantidad_salida")), a, 3); 
                             String entradas=  detallesalida.getString("entradas");
                             this.antipeps3(entradas);
                             movimientos.__tablaSalida.setValueAt(detallesalida.getString("unidad"), a, 4);
@@ -3416,6 +3454,7 @@ public class jControlador implements ActionListener {
                        }
                    }
                    movimientos.__TipoSalida.requestFocus();
+                   SalidaMovimientos=1;
                 }catch(Exception ex){
                     //mensaje(3,ex.getMessage());
                     ex.printStackTrace();
@@ -5344,6 +5383,7 @@ public class jControlador implements ActionListener {
             }
         }
         
+        
         for(int i=0;i<contador;i++){
             for (int j=0;j<7;j++){
                 Object valueAt =   movimientos.__tablaEntrada.getValueAt(i, j);
@@ -5373,6 +5413,23 @@ public class jControlador implements ActionListener {
                     }
                     return;
                 }
+            }
+        }
+        
+        for(int i=0;i<movimientos.__tablaEntrada.getRowCount();i++){
+            try {
+                String claveProducto = movimientos.__tablaEntrada.getValueAt(i, 0).toString();
+                String descripcionProducto=movimientos.__tablaEntrada.getValueAt(i, 1).toString();
+                ResultSet producto=mimodelo.buscarProductoByDescripcion(descripcionProducto);
+                while(producto.next()){
+                    String claveProductobd=producto.getString("clave");
+                    if(!claveProductobd.equals(claveProducto)){
+                        mensaje(3,"Verifica la Clave del producto en la entrada #"+(i+1)+".");
+                        return;
+                    }
+                }
+            } catch (Exception ex) {
+                //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         switch(modificarentrada){
@@ -5452,24 +5509,18 @@ public class jControlador implements ActionListener {
                                 String costo=movimientos.__tablaEntrada.getValueAt(i, 5).toString();
                                 String totalcosto=movimientos.__tablaEntrada.getValueAt(i, 6).toString();
                                 ResultSet existenciaPapel = mimodelo.buscarExistenciaProducto(claveproducto);
-                                if(existenciaPapel.next()){
-                                    mimodelo.modifDetalleEntrada(Integer.parseInt(identradas[i]),claveproducto,descripcion,ubicacion,cantidadentrada+"",unidad_m,costo,totalcosto);
-                                    mimodelo.costopromedio(claveproducto);
-                                    mimodelo.sumarexistencia(claveproducto);
-                                    mimodelo.ubicacion(claveproducto, ubicacion);
-                                    mimodelo.um(claveproducto,unidad_m);
-                                    mensaje(1,"modificacion de entrada correcta");
-                                    this.borrarFormularioMovimientos();
-                                }else{
-                                    mensaje(3,"EL PRODUCTO NO EXISTE");
-                                    return;
-                                }
+                                mimodelo.modifDetalleEntrada(Integer.parseInt(identradas[i]),claveproducto,descripcion,ubicacion,cantidadentrada+"",unidad_m,costo,totalcosto);
+                                mimodelo.costopromedio(claveproducto);
+                                mimodelo.sumarexistencia(claveproducto);
+                                mimodelo.ubicacion(claveproducto, ubicacion);
+                                mimodelo.um(claveproducto,unidad_m);
                             } catch (Exception ex) {
                                 //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                                 
-                            }
-                            
+                            }   
                         }
+                        mensaje(1,"modificacion de entrada correcta");
+                        this.borrarFormularioMovimientos();
                     }else{
                         return;
                     }
@@ -5547,6 +5598,8 @@ public class jControlador implements ActionListener {
                 }
             }
         }
+        
+        
         for(int i =0;i< movimientos.__tablaSalida.getRowCount();i++){
             try {
                 String claveProducto = movimientos.__tablaSalida.getValueAt(i,0).toString();
@@ -5569,6 +5622,23 @@ public class jControlador implements ActionListener {
             } catch (Exception ex) {
                 //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
             } 
+        }
+        
+        for(int i=0;i<movimientos.__tablaSalida.getRowCount();i++){
+            try {
+                String claveProducto = movimientos.__tablaSalida.getValueAt(i, 0).toString();
+                String descripcionProducto=movimientos.__tablaSalida.getValueAt(i, 1).toString();
+                ResultSet producto=mimodelo.buscarProductoByDescripcion(descripcionProducto);
+                while(producto.next()){
+                    String claveProductobd=producto.getString("clave");
+                    if(!claveProductobd.equals(claveProducto)){
+                        mensaje(3,"Verifica la Clave del producto en la entrada #"+(i+1)+".");
+                        return;
+                    }
+                }
+            } catch (Exception ex) {
+                //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         switch(SalidaMovimientos){
             case 0:
@@ -5647,11 +5717,11 @@ public class jControlador implements ActionListener {
                             mensaje(3,"Ocurrio un error al Modificar la salida");
                             break;
                         }
+                }else{
+                    
                 }
                 break;
         }
-        
-        
     } 
     int id_salida = 0;
     String eval;
@@ -5720,6 +5790,7 @@ public class jControlador implements ActionListener {
         movimientos.__chkTurno3Salida.setSelected(false);
         this.movimientos.jMenuBar1.setEnabled(true);
         modificarentrada=0;
+        SalidaMovimientos=0;
         this.movimientos.__MODIFICACIONENTRADA.setEnabled(true);
         this.movimientos.__MODIFICACIONSALIDA.setEnabled(true);
         this.movimientos.__Archivo.setEnabled(true);
@@ -5727,16 +5798,6 @@ public class jControlador implements ActionListener {
         this.movimientos.JPanel.setEnabledAt(0, true);
         this.movimientos.JPanel.setEnabledAt(1, true);
         
-        
-        /*ResultSet claves = mimodelo.claves();
-        try {
-            while(claves.next()){
-                String clave = claves.getString("claveProducto");
-                mimodelo.costoprom(clave);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
     }
     private void maximoentrada() {
         try {

@@ -1002,11 +1002,13 @@ public class modelo extends database{
                 +"costopromedio='"+costo+"' where iddetalleentrada='"+identrada+"';";
         
         try{
+            System.out.println(q);
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             
             pstm.execute();
             pstm.close();
         }catch(SQLException e){
+            
         }
     }
     
@@ -1108,7 +1110,8 @@ public class modelo extends database{
         //String q ="INSERT INTO `detallesalida` (`id_salida`, `claveproduto`, `descripcion`, `ubicacion`, `cantidad_salida`, `unidad`, `costo`, `totalcosto`, `entradas`) VALUES"
           //      + " ('"+id_salida+"', '"+claveProducto+"', '"+Descripcion+"', '"+Ubicacion+"', '"+cantidad_salida+"', '"+Unidad+"', '"+costo+"', '"+Totalcosto+"', '"+identradas_+"');";
         String q="update detallesalida set claveproduto = '"+claveProducto+"', descripcion = '"+Descripcion+"',  ubicacion = '"+Ubicacion+"',  cantidad_salida = '"+cantidad_salida+"',  "
-                + "unidad = '"+Unidad+"',  costo = '"+costo+"',  totalcosto = '"+Totalcosto+"',  entradas = '"+identradas_+"' where  id_salida = '"+id_salida+"'";
+                + "unidad = '"+Unidad+"',  costo = '"+costo+"',  totalcosto = '"+Totalcosto+"',  entradas = '"+identradas_+"' where  iddetallesalida = '"+id_salida+"'";
+        System.out.println(q);
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
@@ -1122,7 +1125,8 @@ public class modelo extends database{
 
     
     public boolean modifSalida(String FolioS, String DocumentoS, int TipoS, String OrdenProducionS, String Solicitante, int AreaSalida, String t1, String t2, String t3, String fecha, String Obs, int id_responsable) {
-        String q="update salida set `documento_salida` =  '"+DocumentoS+"',`tipo_salida`=  '"+TipoS+"',`orden_produccion`= '"+OrdenProducionS+"', `solicitante`= '"+Solicitante+"', `id_area`= '"+AreaSalida+"',`turno1`= '"+t1+"',`turno2`= '"+t2+"',`turno3`= '"+t3+"',`fecha`= '"+fecha+"',`Observaciones`= '"+Obs+"', `id_responsable`= '"+id_responsable+"'";
+        String q="update salida set `documento_salida` =  '"+DocumentoS+"',`tipo_salida`=  '"+TipoS+"',`orden_produccion`= '"+OrdenProducionS+"', `solicitante`= '"+Solicitante+"', `id_area`= '"+AreaSalida+"',`turno1`= '"+t1+"',`turno2`= '"+t2+"',`turno3`= '"+t3+"',`fecha`= '"+fecha+"',`Observaciones`= '"+Obs+"', `id_responsable`= '"+id_responsable+"'"
+                + " where folio='"+FolioS+"'";
         try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q);
             pstm.execute();
@@ -1544,7 +1548,8 @@ public class modelo extends database{
     }  
     
     public ResultSet buscaentrada(int identrada) {
-        String q = "select id_detalleentrada as id, cantidadtemporal as canttemp  from detalleentrada where iddetalleentrada='"+identrada+"' and total_temporal>0 limit 1";
+        String q = "select iddetalleentrada as id, cantidadtemporal as canttemp  from detalleentrada where iddetalleentrada='"+identrada+"' and cantidadtemporal>0 limit 1";
+        System.out.println(q);
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
