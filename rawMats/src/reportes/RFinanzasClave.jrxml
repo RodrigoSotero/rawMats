@@ -64,6 +64,12 @@ ORDER BY
 	<variable name="Sumtotal" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{total}]]></variableExpression>
 	</variable>
+	<variable name="prom" class="java.lang.Double" calculation="Count">
+		<variableExpression><![CDATA[$F{vw_infocard_costo}]]></variableExpression>
+	</variable>
+	<variable name="prom2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{vw_infocard_costo}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -306,14 +312,14 @@ ORDER BY
 			<textField pattern="#,##0.0000">
 				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="446" y="4" width="57" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{sum}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤ #,##0.000">
-				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="600" y="5" width="160" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10" isBold="true"/>
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="600" y="5" width="68" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Sumtotal}]]></textFieldExpression>
 			</textField>
@@ -324,6 +330,13 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[Totales----------------------]]></text>
 			</staticText>
+			<textField pattern="¤ #,##0.000">
+				<reportElement uuid="2082b523-3036-44f7-af4e-209a1daa5408" x="557" y="4" width="43" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{prom2}/$V{prom}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
