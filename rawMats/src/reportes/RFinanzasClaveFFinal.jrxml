@@ -37,7 +37,8 @@
      vw_infocard.`unidadMedida` AS vw_infocard_unidadMedida,
      vw_infocard.`op` AS vw_infocard_op,
      vw_infocard.`tipo` AS vw_infocard_tipo,
-     vw_infocard.`cantidad` AS vw_infocard_cantidad
+     vw_infocard.`cantidad` AS vw_infocard_cantidad,
+     vw_infocard.`cantidad` * vw_infocard.`costo` as total
 FROM
      `vw_infocard` vw_infocard
 WHERE
@@ -60,6 +61,7 @@ ORDER BY
 	<field name="vw_infocard_op" class="java.lang.String"/>
 	<field name="vw_infocard_tipo" class="java.lang.Long"/>
 	<field name="vw_infocard_cantidad" class="java.math.BigDecimal"/>
+	<field name="total" class="java.math.BigDecimal"/>
 	<variable name="sum" class="java.lang.Long" calculation="Sum">
 		<variableExpression><![CDATA[$F{vw_infocard_cantidad}]]></variableExpression>
 	</variable>
