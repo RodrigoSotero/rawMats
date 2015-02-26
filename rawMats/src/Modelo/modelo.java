@@ -999,7 +999,6 @@ public class modelo extends database{
                 +"unidadmedida='"+unidad_m+"',"
                 +"costo='"+costo+"', "
                 +"totalcosto='"+totalcosto+"', "
-                +"cantidadtemporal='"+cantidad+"', "
                 +"costopromedio='"+costo+"' where iddetalleentrada='"+identrada+"';";
         
         try{

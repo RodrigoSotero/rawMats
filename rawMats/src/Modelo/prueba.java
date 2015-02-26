@@ -33,7 +33,7 @@ public class prueba {
             descr=descr.replaceAll("\t", "");
             a.opp(id, descr);
         }*/
-        a.clavesentrada();
+        a.bd();
         
         
     }
@@ -42,37 +42,33 @@ public class prueba {
     }
     
     public void bd(){
-        mimodelo.bp("prubeapru-pppppppAAas");
+        mimodelo.bp("base_de_datos");
     }
     
-    public void consumir(String claveProducto,Double conscant,String fecha) {
-        try {
-            ResultSet existenciaactual = this.buscarExistenciaProductofecha(claveProducto, fecha);
-            while(existenciaactual.next()){
-                Double exiscant = existenciaactual.getDouble("cantidad");
-                if(conscant>exiscant){
-                    System.out.println("no hay suficiente existencia");
-                    return;
-                }else{
-                        Peps3(claveProducto,conscant);
-                        this.sumarexistencia(claveProducto);
-                        System.out.println(costoconsumo);
-                        System.out.println(entradas);
-                    }
-                }
-        } catch (SQLException ex) {
-            Logger.getLogger(prueba.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
     
     public void clavesentrada(){
-        String q = "select distinct (claveproducto) from detalleentrada";
+        String q = "select distinct (clave) from vw_infocard";
         try {
                 PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
                 while (res.next()){
-                    this.sumarexistencia(res.getString(1));
-                    mimodelo.costoprom(res.getString(1));
+                    String  q2 ="select sum(cantidad) from vw_infocard where clave='"+res.getString(1)+"'";
+                    PreparedStatement pstm2 = mimodelo.getConexion().prepareStatement(q2);
+                    ResultSet res2 = pstm2.executeQuery();
+                    while(res2.next()){
+                        String query=" UPDATE  inventario  SET  cantidad =  '"+res2.getString(1)+"' WHERE claveProducto =  '"+res.getString(1)+"' ;";
+                        System.out.println(query);
+                        try{
+                            PreparedStatement pstm3 = mimodelo.getConexion().prepareStatement(query);
+                            pstm3.execute();
+                            pstm3.close();
+                        }catch(SQLException e){
+                            
+                        }
+                    }
+                    
+                    
                 }
                 return;
             }catch(SQLException e){
@@ -83,116 +79,4 @@ public class prueba {
     
     
     
-    Double newtemcant,costoconsumo;
-    String entradas;
-    public void Peps3(String claveProducto, Double conscant) {
-        try {
-            ResultSet primeraentrada = primeraentrada(claveProducto);
-            while(primeraentrada.next()){
-                int identrada= primeraentrada.getInt("id");
-                Double canttemp = primeraentrada.getDouble("canttemp");
-                Double costoentrada = primeraentrada.getDouble("costo");
-                newtemcant = canttemp-conscant;
-                if(newtemcant<0){
-                    //falta consumo
-                    this.updateteporalde(0, identrada);
-                    newtemcant=newtemcant*-1;
-                    costoconsumo = costoconsumo +(costoentrada *canttemp);
-                    Peps3(claveProducto,newtemcant);
-                    entradas+=identrada+","+canttemp+",/";
-                }else{
-                    costoconsumo = costoconsumo +(costoentrada *conscant);
-                    entradas+=identrada+","+conscant+",/";
-                    this.updateteporalde(newtemcant, identrada);
-                    return;
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(prueba.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
-    
-    public ResultSet primeraentrada(String claveProducto) {
-        String q = "select iddetalleentrada as id, cantidadtemporal as canttemp,costo from detalleentrada where claveProducto = '"+claveProducto+"' and cantidadTemporal>0 limit 1";
-        try {
-                PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q);
-                ResultSet res = pstm.executeQuery();
-                return res;
-            }catch(SQLException e){
-                
-                return null;
-            }
-    }  
-    
-    public ResultSet buscaentrada(int identrada) {
-        String q = "select id_detalleentrada as id, cantidadtemporal as canttemp  from detalleentrada where iddetalleentrada='"+identrada+"' and total_temporal>0 limit 1";
-        try {
-                PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q);
-                ResultSet res = pstm.executeQuery();
-                return res;
-            }catch(SQLException e){
-                
-                return null;
-            }
-    }  
-   
-    public boolean updateteporalde(double cantidadtemporal,int id) {
-        String q=" UPDATE  `detalleentrada` SET  `cantidadtemporal` =  '"+cantidadtemporal+"' WHERE `identrada` =  '"+id+"' ;";
-        try{
-            PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q);
-            pstm.execute();
-            pstm.close();
-            return true;
-        }catch(SQLException e){
-            System.err.println(e.getMessage() + "------");
-            return false;
-        }
-    }
-    
-    public ResultSet buscarExistenciaProductofecha(String claveProducto,String fecha) {
-        String q = "call sumaxistencia_fecha('"+claveProducto+"','"+fecha+"');";
-        try {
-                PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q);
-                ResultSet res = pstm.executeQuery();
-                return res;
-            }catch(SQLException e){
-                
-                return null;
-            }
-    }
-    
-    public boolean sumarexistencia(String claveproducto) {
-        String q1="CALL sumaexistencia('"+claveproducto+"')";//aqui es sumaexistenca ....
-        System.out.println(q1);
-         try{
-            PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q1);
-            pstm.execute();
-            pstm.close();
-            return true;
-        }catch(SQLException e){
-            System.err.println(e.getMessage());
-            return false;
-        }
-    }
-    
-    public void antipeps3(String entradas){
-        String entrada[] = entradas.split("/");
-        for(int i=0;i<entrada.length;i++){
-            try {
-                System.out.println(entrada[i]);
-                String detalleentrada[]=entrada[i].split(",");
-                int identrada= Integer.parseInt(detalleentrada[0]);
-                Double cant= Double.parseDouble(detalleentrada[1]);
-                Double temcant=0.0;
-                ResultSet buscaentrada = this.buscaentrada(identrada);
-                while(buscaentrada.next()){
-                    temcant=buscaentrada.getDouble("canttemp");
-                }
-                Double newtemcant = temcant+cant;
-                this.updateteporalde(newtemcant, identrada);
-            } catch (SQLException ex) {
-                Logger.getLogger(prueba.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-}

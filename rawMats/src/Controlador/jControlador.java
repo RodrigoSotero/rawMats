@@ -2641,6 +2641,7 @@ public class jControlador implements ActionListener {
                     consulta.setEnabled(true);
                     movimientos.setEnabled(true);
                     fecha.setVisible(false);
+                    this.reporte.setEnabled(false);
                      Calendar Cal= Calendar.getInstance();                                                  
                                String hora=Cal.get(Cal.HOUR_OF_DAY)<10 ? "0"+Cal.get(Cal.HOUR_OF_DAY) : ""+Cal.get(Cal.HOUR_OF_DAY);
                                String minute=Cal.get(Cal.MINUTE)<10 ? "0"+Cal.get(Cal.MINUTE) : ""+Cal.get(Cal.MINUTE);
@@ -3369,7 +3370,7 @@ public class jControlador implements ActionListener {
                                 movimientos.__tablaEntrada.setValueAt(detalleentrada.getString("claveProducto"), d, 0);
                                 movimientos.__tablaEntrada.setValueAt(detalleentrada.getString("descripcion"), d, 1);
                                 movimientos.__tablaEntrada.setValueAt(detalleentrada.getString("ubicacion"), d, 2);
-                                movimientos.__tablaEntrada.setValueAt(detalleentrada.getInt("cantidad"), d, 3);
+                                movimientos.__tablaEntrada.setValueAt(Double.parseDouble(detalleentrada.getString("cantidad")), d, 3);
                                 movimientos.__tablaEntrada.setValueAt(detalleentrada.getString("unidadMedida"), d, 4);
                                 movimientos.__tablaEntrada.setValueAt(Double.parseDouble(detalleentrada.getString("costo")), d, 5);
                                 movimientos.__tablaEntrada.setValueAt(Double.parseDouble(detalleentrada.getString("totalcosto")), d, 6);
