@@ -283,16 +283,17 @@ public class Movimientos extends javax.swing.JFrame {
         __tablaEntrada.setRowHeight(25);
         jScrollPane1.setViewportView(__tablaEntrada);
         if (__tablaEntrada.getColumnModel().getColumnCount() > 0) {
-            __tablaEntrada.getColumnModel().getColumn(0).setPreferredWidth(180);
+            __tablaEntrada.getColumnModel().getColumn(0).setPreferredWidth(100);
             __tablaEntrada.getColumnModel().getColumn(0).setCellEditor(new javax.swing.DefaultCellEditor(_claveProducto));
-            __tablaEntrada.getColumnModel().getColumn(1).setPreferredWidth(242);
+            __tablaEntrada.getColumnModel().getColumn(1).setPreferredWidth(467);
             __tablaEntrada.getColumnModel().getColumn(1).setCellEditor(new javax.swing.DefaultCellEditor(_descripcionProducto));
-            __tablaEntrada.getColumnModel().getColumn(2).setPreferredWidth(110);
+            __tablaEntrada.getColumnModel().getColumn(2).setPreferredWidth(70);
             __tablaEntrada.getColumnModel().getColumn(2).setCellEditor(new javax.swing.DefaultCellEditor(_ubicacion));
-            __tablaEntrada.getColumnModel().getColumn(3).setPreferredWidth(120);
-            __tablaEntrada.getColumnModel().getColumn(4).setPreferredWidth(110);
+            __tablaEntrada.getColumnModel().getColumn(3).setPreferredWidth(90);
+            __tablaEntrada.getColumnModel().getColumn(4).setPreferredWidth(80);
             __tablaEntrada.getColumnModel().getColumn(4).setCellEditor(new javax.swing.DefaultCellEditor(_UnidadMedida));
-            __tablaEntrada.getColumnModel().getColumn(6).setPreferredWidth(130);
+            __tablaEntrada.getColumnModel().getColumn(5).setPreferredWidth(70);
+            __tablaEntrada.getColumnModel().getColumn(6).setPreferredWidth(90);
         }
 
         __ACEPTARENTRADA.setText("Aceptar");
@@ -799,14 +800,14 @@ public class Movimientos extends javax.swing.JFrame {
         __tablaSalida.setRowHeight(25);
         jScrollPane2.setViewportView(__tablaSalida);
         if (__tablaSalida.getColumnModel().getColumnCount() > 0) {
-            __tablaSalida.getColumnModel().getColumn(0).setPreferredWidth(180);
+            __tablaSalida.getColumnModel().getColumn(0).setPreferredWidth(100);
             __tablaSalida.getColumnModel().getColumn(0).setCellEditor(new javax.swing.DefaultCellEditor(__claveProductoSalida));
-            __tablaSalida.getColumnModel().getColumn(1).setPreferredWidth(242);
+            __tablaSalida.getColumnModel().getColumn(1).setPreferredWidth(410);
             __tablaSalida.getColumnModel().getColumn(1).setCellEditor(new javax.swing.DefaultCellEditor(__descripcionProductoSalida));
-            __tablaSalida.getColumnModel().getColumn(2).setPreferredWidth(110);
+            __tablaSalida.getColumnModel().getColumn(2).setPreferredWidth(80);
             __tablaSalida.getColumnModel().getColumn(2).setCellEditor(new javax.swing.DefaultCellEditor(_ubicacionsalida));
-            __tablaSalida.getColumnModel().getColumn(3).setPreferredWidth(120);
-            __tablaSalida.getColumnModel().getColumn(4).setPreferredWidth(110);
+            __tablaSalida.getColumnModel().getColumn(3).setPreferredWidth(90);
+            __tablaSalida.getColumnModel().getColumn(4).setPreferredWidth(80);
             __tablaSalida.getColumnModel().getColumn(4).setCellEditor(new javax.swing.DefaultCellEditor(_UnidadMedida));
         }
 
