@@ -2276,7 +2276,7 @@ public class jControlador implements ActionListener {
         Com_DescripcionRFin.setMode(0);//infijo
         this.Finanzas.__descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                KeyTipedLetrasNum(evt);
+                KeyTipedLetrasNumCar(evt);
             }
             public void keyPressed(java.awt.event.KeyEvent evt){
                 int evento=evt.getKeyCode();               
