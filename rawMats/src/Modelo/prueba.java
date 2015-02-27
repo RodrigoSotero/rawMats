@@ -33,7 +33,7 @@ public class prueba {
             descr=descr.replaceAll("\t", "");
             a.opp(id, descr);
         }*/
-        a.bd();
+        a.clavesentrada();
         
         
     }
@@ -48,32 +48,14 @@ public class prueba {
     
     
     public void clavesentrada(){
-        String q = "select distinct (clave) from vw_infocard";
+        String q = "select distinct (claveProducto) from inventario";
         try {
-                PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q);
-                ResultSet res = pstm.executeQuery();
-                while (res.next()){
-                    String  q2 ="select sum(cantidad) from vw_infocard where clave='"+res.getString(1)+"'";
-                    PreparedStatement pstm2 = mimodelo.getConexion().prepareStatement(q2);
-                    ResultSet res2 = pstm2.executeQuery();
-                    while(res2.next()){
-                        String query=" UPDATE  inventario  SET  cantidad =  '"+res2.getString(1)+"' WHERE claveProducto =  '"+res.getString(1)+"' ;";
-                        System.out.println(query);
-                        try{
-                            PreparedStatement pstm3 = mimodelo.getConexion().prepareStatement(query);
-                            pstm3.execute();
-                            pstm3.close();
-                        }catch(SQLException e){
-                            
-                        }
-                    }
-                    
-                    
-                }
-                return;
+            PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q);
+            ResultSet res = pstm.executeQuery();
+            while (res.next()){
+                mimodelo.sumarexistencia(res.getString(1));
+            }
             }catch(SQLException e){
-                
-                return;
             }
     }
     

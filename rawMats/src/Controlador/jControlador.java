@@ -3374,8 +3374,8 @@ public class jControlador implements ActionListener {
                                 movimientos.__tablaEntrada.setValueAt(detalleentrada.getString("unidadMedida"), d, 4);
                                 movimientos.__tablaEntrada.setValueAt(Double.parseDouble(detalleentrada.getString("costo")), d, 5);
                                 movimientos.__tablaEntrada.setValueAt(Double.parseDouble(detalleentrada.getString("totalcosto")), d, 6);
-                                mimodelo.updateteporalde(0,identradas[d]);
-                                mimodelo.sumarexistencia(detalleentrada.getString("claveproducto"));
+                                //mimodelo.updateteporalde(0,identradas[d]);
+                                //mimodelo.sumarexistencia(detalleentrada.getString("claveproducto"));
                                 ResultSetMetaData metaData = detalleentrada.getMetaData();
                                 int numcol = metaData.getColumnCount();
                                 nombrecolumnas = new String[numcol];
@@ -5497,8 +5497,8 @@ public class jControlador implements ActionListener {
                     confir=mensajeConfirmacion("Estas seguro de modificar la entrada","Aceptar");
                     //String folioentrada,String t1, String t2, String t3,String ordenProduccion,String ordenCompra,String documentoEntrada,int propietario,int proveedor, int responsable,String fecha,int tipoentrada,String Observaciones,int cliente){
                     if (confir==JOptionPane.OK_OPTION){
-                        String fechaentrada=fec.replaceAll("-", "");
-                        mimodelo.modifEntrada(FolioE,t1,t2,t3,OrdenProducionE,OrdenCompraE,DocumentoE,propietario+"",proveedor+"",id_responsable+"", fechaentrada,tipoentrada+"",Obs,cliente+"" );
+                        //String fechaentrada=fec.replaceAll("-", "");
+                        mimodelo.modifEntrada(FolioE,t1,t2,t3,OrdenProducionE,OrdenCompraE,DocumentoE,propietario+"",proveedor+"",id_responsable+"", fec,tipoentrada+"",Obs,cliente+"" );
                         for(int i=0;i<movimientos.__tablaEntrada.getRowCount();i++){
                             try {                            
                                 claveproducto=movimientos.__tablaEntrada.getValueAt(i, 0).toString();
@@ -5609,6 +5609,10 @@ public class jControlador implements ActionListener {
                 if(existencia.next()){
                     existencia.beforeFirst();
                     while(existencia.next()){
+                        if(existencia.getString("cantidadalafecha")==null||existencia.getString("cantidadalafecha").isEmpty()){
+                            mensaje(3,"No hay suficiente existencia en la bd para realizar la salida #" +(i+1)+" hay "+cantidadbd);
+                            return;
+                        }    
                         cantidadbd = Double.parseDouble(existencia.getString("cantidadalafecha"));
                     }
                     if(cantidadbd<cantidad_salida){

@@ -515,6 +515,7 @@ public class modelo extends database{
 
     public boolean sumarexistencia(String claveproducto) {
         String q1="CALL sumaexistencia('"+claveproducto+"')";//aqui es sumaexistenca ....
+        System.out.println(q1);
          try{
             PreparedStatement pstm = this.getConexion().prepareStatement(q1);
             pstm.execute();
@@ -1041,11 +1042,13 @@ public class modelo extends database{
     }
     
     public ResultSet buscarExistenciaProductofecha(String claveProducto,String fecha) {
+        
         String q = "select sum(cantidadtemporal) as cantidadalafecha" +
 "  from detalleentrada d,entrada e " +
 "    where d.identrada=e.identrada " +
 "      and claveProducto ='"+claveProducto+"' " +
 "        and fecha <='"+fecha+"'";
+        System.out.println(q);
         try {
                 PreparedStatement pstm = this.getConexion().prepareStatement(q);
                 ResultSet res = pstm.executeQuery();
