@@ -41,10 +41,7 @@ FROM
 WHERE
      vw_infocard.`clave` = $P{clave}
 ORDER BY
-     vw_infocard.`fecha` ASC,
-     vw_infocard.`folio` ASC,
-     vw_infocard.`tipo` ASC,
-     vw_infocard.`clave` ASC]]>
+     vw_infocard.`fecha` ASC]]>
 	</queryString>
 	<field name="total" class="java.math.BigDecimal"/>
 	<field name="vw_infocard_folio" class="java.lang.String"/>
