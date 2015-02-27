@@ -2691,6 +2691,7 @@ public class jControlador implements ActionListener {
                 menumaster.dispose();
                 this.addItems("consultas");
                 consulta.setVisible(true);
+                consulta.__optNinguno.requestFocus();
                 consulta.setLocationRelativeTo(null);
                 consulta.setTitle("Consultas");
                 break;
@@ -4071,7 +4072,7 @@ public class jControlador implements ActionListener {
                         if (confir==JOptionPane.OK_OPTION){
                             consulta.dispose();
                             menumaster.setVisible(true);
-                            borrarFormularioConsultas();
+//                            borrarFormularioConsultas();
                         }
                 break;
                 case __REGRESAR:
@@ -4766,11 +4767,11 @@ public class jControlador implements ActionListener {
                                     this.newP.dispose();
                                     conEP.dispose();
                                     reporte.dispose();                                    
-                                    borrarFormularioNewUser();
-                                    borrarFormularioConEP();
-                                    borrarFormularioAltaProducto();
-//                                    borrarFormularioMovimientosPapel();
-                                    borrarFormularioProveedor();
+//                                    borrarFormularioNewUser();
+//                                    borrarFormularioConEP();
+//                                    borrarFormularioAltaProducto();
+//                                    borrarFormularioMovimientos();
+//                                    borrarFormularioProveedor();
 //                                    borrarFormularioConsultas();
 //                                    borrarFormularioEmergente();
                                 }
@@ -4785,11 +4786,11 @@ public class jControlador implements ActionListener {
                                     newP.dispose();
                                     conEP.dispose();
                                     reporte.dispose();                                    
-                                    borrarFormularioNewUser();
-                                    borrarFormularioConEP();
-                                    borrarFormularioAltaProducto();
-//                                    borrarFormularioMovimientosPapel();
-                                    borrarFormularioProveedor();
+//                                    borrarFormularioNewUser();
+//                                    borrarFormularioConEP();
+//                                    borrarFormularioAltaProducto();
+//                                    borrarFormularioMovimientos();
+//                                    borrarFormularioProveedor();
 //                                    borrarFormularioConsultas();
 //                                    borrarFormularioEmergente();
                                 }
@@ -4806,10 +4807,10 @@ public class jControlador implements ActionListener {
                                 newP.dispose();
                                 conEP.dispose();
                                 reporte.dispose();
-                                borrarFormularioNewUser();
-                                borrarFormularioAltaProducto();
-//                                borrarFormularioMovimientosPapel();
-                                borrarFormularioProveedor();
+//                                borrarFormularioNewUser();
+//                                borrarFormularioAltaProducto();
+//                                borrarFormularioMovimientos();
+//                                borrarFormularioProveedor();
 //                                borrarFormularioConsultas();
 //                                borrarFormularioEmergente();
                                 }                                                   

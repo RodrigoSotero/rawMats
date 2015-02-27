@@ -139,15 +139,18 @@ public class Consultas extends javax.swing.JFrame {
         grpbtn.add(__optSalida);
         __optSalida.setForeground(new java.awt.Color(255, 255, 255));
         __optSalida.setText("Salida");
+        __optSalida.setNextFocusableComponent(__chkDescripcion);
 
         grpbtn.add(__optNinguno);
         __optNinguno.setForeground(new java.awt.Color(255, 255, 255));
         __optNinguno.setSelected(true);
         __optNinguno.setText("Ninguno");
+        __optNinguno.setNextFocusableComponent(__optEntrada);
 
         grpbtn.add(__optEntrada);
         __optEntrada.setForeground(new java.awt.Color(255, 255, 255));
         __optEntrada.setText("Entrada");
+        __optEntrada.setNextFocusableComponent(__optSalida);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -179,18 +182,22 @@ public class Consultas extends javax.swing.JFrame {
         __chkFechaIni.setSelected(true);
         __chkFechaIni.setText("Fecha Inicial:");
         __chkFechaIni.setEnabled(false);
+        __chkFechaIni.setNextFocusableComponent(__dateIni);
 
         __dateIni.setDateFormatString("yyyy-MM-d");
         __dateIni.setEnabled(false);
+        __dateIni.setNextFocusableComponent(__chkFechaFin);
 
         __chkFechaFin.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkFechaFin.setForeground(new java.awt.Color(255, 255, 255));
         __chkFechaFin.setSelected(true);
         __chkFechaFin.setText("Fecha Final:");
         __chkFechaFin.setEnabled(false);
+        __chkFechaFin.setNextFocusableComponent(__datefin);
 
         __datefin.setDateFormatString("yyyy-MM-d");
         __datefin.setEnabled(false);
+        __datefin.setNextFocusableComponent(__chkArea);
 
         __etqFechaConMov.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         __etqFechaConMov.setForeground(new java.awt.Color(255, 255, 255));
@@ -205,6 +212,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkDescripcion.setSelected(true);
         __chkDescripcion.setText("Descripcion del Producto:");
         __chkDescripcion.setEnabled(false);
+        __chkDescripcion.setNextFocusableComponent(__Descripcion);
         __chkDescripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __chkDescripcionActionPerformed(evt);
@@ -213,33 +221,40 @@ public class Consultas extends javax.swing.JFrame {
 
         __Descripcion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Descripcion.setEnabled(false);
+        __Descripcion.setNextFocusableComponent(__chkProveedor);
 
         __chkProveedor.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkProveedor.setForeground(new java.awt.Color(255, 255, 255));
         __chkProveedor.setSelected(true);
         __chkProveedor.setText("Proveedor:");
         __chkProveedor.setEnabled(false);
+        __chkProveedor.setNextFocusableComponent(__proveedor);
 
         __chkTipoEntrada.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkTipoEntrada.setForeground(new java.awt.Color(255, 255, 255));
         __chkTipoEntrada.setSelected(true);
         __chkTipoEntrada.setText("Tipo de Entrada");
         __chkTipoEntrada.setEnabled(false);
+        __chkTipoEntrada.setNextFocusableComponent(__TipoEntrada);
 
         __chkTipoSalida.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkTipoSalida.setForeground(new java.awt.Color(255, 255, 255));
         __chkTipoSalida.setSelected(true);
         __chkTipoSalida.setText("Tipo de Salida");
         __chkTipoSalida.setEnabled(false);
+        __chkTipoSalida.setNextFocusableComponent(__TipoSalida);
 
         __proveedor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __proveedor.setEnabled(false);
+        __proveedor.setNextFocusableComponent(__chkPropietario);
 
         __Propietario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Propietario.setEnabled(false);
+        __Propietario.setNextFocusableComponent(__chkCliente);
 
         __TipoSalida.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __TipoSalida.setEnabled(false);
+        __TipoSalida.setNextFocusableComponent(__chkSolicitante);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Stock:"));
         jPanel10.setOpaque(false);
@@ -249,6 +264,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkMin.setSelected(true);
         __chkMin.setText("Minimo:");
         __chkMin.setEnabled(false);
+        __chkMin.setNextFocusableComponent(__min);
         __chkMin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __chkMinActionPerformed(evt);
@@ -257,15 +273,18 @@ public class Consultas extends javax.swing.JFrame {
 
         __min.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __min.setEnabled(false);
+        __min.setNextFocusableComponent(__chkMax);
 
         __max.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __max.setEnabled(false);
+        __max.setNextFocusableComponent(__chkTurno1);
 
         __chkMax.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkMax.setForeground(new java.awt.Color(255, 255, 255));
         __chkMax.setSelected(true);
         __chkMax.setText("Maximo");
         __chkMax.setEnabled(false);
+        __chkMax.setNextFocusableComponent(__max);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -301,6 +320,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkFolio.setSelected(true);
         __chkFolio.setText("Folio Desde:");
         __chkFolio.setEnabled(false);
+        __chkFolio.setNextFocusableComponent(__folio);
         __chkFolio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __chkFolioActionPerformed(evt);
@@ -309,6 +329,7 @@ public class Consultas extends javax.swing.JFrame {
 
         __folio.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __folio.setEnabled(false);
+        __folio.setNextFocusableComponent(__foliohasta);
 
         jLabel1.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -316,6 +337,7 @@ public class Consultas extends javax.swing.JFrame {
 
         __foliohasta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __foliohasta.setEnabled(false);
+        __foliohasta.setNextFocusableComponent(__chkDocumento);
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Turno:"));
         jPanel11.setOpaque(false);
@@ -323,6 +345,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkTurno1.setForeground(new java.awt.Color(255, 255, 255));
         __chkTurno1.setText("Turno 1");
         __chkTurno1.setEnabled(false);
+        __chkTurno1.setNextFocusableComponent(__chkTurno2);
         __chkTurno1.setOpaque(false);
         __chkTurno1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -333,6 +356,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkTurno2.setForeground(new java.awt.Color(255, 255, 255));
         __chkTurno2.setText("Turno 2");
         __chkTurno2.setEnabled(false);
+        __chkTurno2.setNextFocusableComponent(__chkTurno3);
         __chkTurno2.setOpaque(false);
         __chkTurno2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,6 +367,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkTurno3.setForeground(new java.awt.Color(255, 255, 255));
         __chkTurno3.setText("Turno 3");
         __chkTurno3.setEnabled(false);
+        __chkTurno3.setNextFocusableComponent(__ACEPTARCONSULTA);
         __chkTurno3.setOpaque(false);
         __chkTurno3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,12 +402,15 @@ public class Consultas extends javax.swing.JFrame {
         __chkOrdenC.setSelected(true);
         __chkOrdenC.setText("Orden de Compra:");
         __chkOrdenC.setEnabled(false);
+        __chkOrdenC.setNextFocusableComponent(__OrdenC);
 
         __OrdenC.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __OrdenC.setEnabled(false);
+        __OrdenC.setNextFocusableComponent(__chkUbicacion);
 
         __OrdenP.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __OrdenP.setEnabled(false);
+        __OrdenP.setNextFocusableComponent(__chkOrdenC);
         __OrdenP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __OrdenPActionPerformed(evt);
@@ -394,12 +422,14 @@ public class Consultas extends javax.swing.JFrame {
         __chkOrdenP.setSelected(true);
         __chkOrdenP.setText("Orden de Produccion:");
         __chkOrdenP.setEnabled(false);
+        __chkOrdenP.setNextFocusableComponent(__OrdenP);
 
         __chkDocumento.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkDocumento.setForeground(new java.awt.Color(255, 255, 255));
         __chkDocumento.setSelected(true);
         __chkDocumento.setText("Documento:");
         __chkDocumento.setEnabled(false);
+        __chkDocumento.setNextFocusableComponent(__documento);
         __chkDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __chkDocumentoActionPerformed(evt);
@@ -408,12 +438,14 @@ public class Consultas extends javax.swing.JFrame {
 
         __documento.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __documento.setEnabled(false);
+        __documento.setNextFocusableComponent(__chkOrdenP);
 
         __chkArea.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkArea.setForeground(new java.awt.Color(255, 255, 255));
         __chkArea.setSelected(true);
         __chkArea.setText("Area:");
         __chkArea.setEnabled(false);
+        __chkArea.setNextFocusableComponent(__Area);
         __chkArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __chkAreaActionPerformed(evt);
@@ -422,12 +454,14 @@ public class Consultas extends javax.swing.JFrame {
 
         __Area.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Area.setEnabled(false);
+        __Area.setNextFocusableComponent(__chkMaquina);
 
         __chkMaquina.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkMaquina.setForeground(new java.awt.Color(255, 255, 255));
         __chkMaquina.setSelected(true);
         __chkMaquina.setText("Sección:");
         __chkMaquina.setEnabled(false);
+        __chkMaquina.setNextFocusableComponent(__Secion);
         __chkMaquina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __chkMaquinaActionPerformed(evt);
@@ -436,26 +470,32 @@ public class Consultas extends javax.swing.JFrame {
 
         __Secion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Secion.setEnabled(false);
+        __Secion.setNextFocusableComponent(__chkTipoEntrada);
 
         __chkPropietario.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkPropietario.setForeground(new java.awt.Color(255, 255, 255));
         __chkPropietario.setSelected(true);
         __chkPropietario.setText("Propietario:");
         __chkPropietario.setEnabled(false);
+        __chkPropietario.setNextFocusableComponent(__Propietario);
 
         __TipoEntrada.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __TipoEntrada.setEnabled(false);
+        __TipoEntrada.setNextFocusableComponent(__chkTipoSalida);
 
         __chkCliente.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkCliente.setForeground(new java.awt.Color(255, 255, 255));
         __chkCliente.setSelected(true);
         __chkCliente.setText("Cliente:");
         __chkCliente.setEnabled(false);
+        __chkCliente.setNextFocusableComponent(__Cliente);
 
         __Cliente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Cliente.setEnabled(false);
+        __Cliente.setNextFocusableComponent(__chkFolio);
 
         __SALIRCONSULTA.setText("CANCELAR");
+        __SALIRCONSULTA.setNextFocusableComponent(__optNinguno);
         __SALIRCONSULTA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __SALIRCONSULTAActionPerformed(evt);
@@ -463,21 +503,25 @@ public class Consultas extends javax.swing.JFrame {
         });
 
         __ACEPTARCONSULTA.setText("ACEPTAR");
+        __ACEPTARCONSULTA.setNextFocusableComponent(__SALIRCONSULTA);
 
         __chkUbicacion.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkUbicacion.setForeground(new java.awt.Color(255, 255, 255));
         __chkUbicacion.setSelected(true);
         __chkUbicacion.setText("Ubicacion:");
         __chkUbicacion.setEnabled(false);
+        __chkUbicacion.setNextFocusableComponent(__Ubicacion);
 
         __Ubicacion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Ubicacion.setEnabled(false);
+        __Ubicacion.setNextFocusableComponent(__chkClave);
 
         __chkClave.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkClave.setForeground(new java.awt.Color(255, 255, 255));
         __chkClave.setSelected(true);
         __chkClave.setText("Clave de Producto:");
         __chkClave.setEnabled(false);
+        __chkClave.setNextFocusableComponent(__clave);
         __chkClave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __chkClaveActionPerformed(evt);
@@ -486,6 +530,7 @@ public class Consultas extends javax.swing.JFrame {
 
         __clave.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __clave.setEnabled(false);
+        __clave.setNextFocusableComponent(__chkUnidad);
         __clave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __claveActionPerformed(evt);
@@ -497,6 +542,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkCantidad.setSelected(true);
         __chkCantidad.setText("Cantidad:");
         __chkCantidad.setEnabled(false);
+        __chkCantidad.setNextFocusableComponent(__Cantidad);
         __chkCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __chkCantidadActionPerformed(evt);
@@ -505,12 +551,14 @@ public class Consultas extends javax.swing.JFrame {
 
         __Cantidad.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Cantidad.setEnabled(false);
+        __Cantidad.setNextFocusableComponent(__chkCosto);
 
         __chkUnidad.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkUnidad.setForeground(new java.awt.Color(255, 255, 255));
         __chkUnidad.setSelected(true);
         __chkUnidad.setText("Unidad de Medida:");
         __chkUnidad.setEnabled(false);
+        __chkUnidad.setNextFocusableComponent(__cmbUnidad);
         __chkUnidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __chkUnidadActionPerformed(evt);
@@ -522,6 +570,7 @@ public class Consultas extends javax.swing.JFrame {
         __chkCosto.setSelected(true);
         __chkCosto.setText("Costo:");
         __chkCosto.setEnabled(false);
+        __chkCosto.setNextFocusableComponent(__costo);
         __chkCosto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 __chkCostoActionPerformed(evt);
@@ -530,26 +579,32 @@ public class Consultas extends javax.swing.JFrame {
 
         __costo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __costo.setEnabled(false);
+        __costo.setNextFocusableComponent(__chkFechaIni);
 
         __cmbUnidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona..." }));
+        __cmbUnidad.setNextFocusableComponent(__chkCantidad);
 
         __chkSolicitante.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkSolicitante.setForeground(new java.awt.Color(255, 255, 255));
         __chkSolicitante.setSelected(true);
         __chkSolicitante.setText("Solicitante:");
         __chkSolicitante.setEnabled(false);
+        __chkSolicitante.setNextFocusableComponent(__Solicitante);
 
         __Solicitante.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Solicitante.setEnabled(false);
+        __Solicitante.setNextFocusableComponent(__chkObservaciones);
 
         __chkObservaciones.setFont(new java.awt.Font("Papyrus", 0, 14)); // NOI18N
         __chkObservaciones.setForeground(new java.awt.Color(255, 255, 255));
         __chkObservaciones.setSelected(true);
         __chkObservaciones.setText("Observaciones:");
         __chkObservaciones.setEnabled(false);
+        __chkObservaciones.setNextFocusableComponent(__Observaciones);
 
         __Observaciones.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         __Observaciones.setEnabled(false);
+        __Observaciones.setNextFocusableComponent(__chkMin);
 
         __Archivo.setText("Archivo");
 
@@ -692,13 +747,11 @@ public class Consultas extends javax.swing.JFrame {
                                         .addGap(1, 1, 1)
                                         .addComponent(__Propietario, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(__Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(65, 65, 65)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(72, 72, 72)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(__chkCantidad)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(__chkCosto)))
-                                .addGap(7, 7, 7)
+                                    .addComponent(__chkCosto))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(__Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(__costo, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -845,13 +898,13 @@ public class Consultas extends javax.swing.JFrame {
                         .addGap(11, 11, 11)
                         .addComponent(__Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(__chkCantidad)
-                        .addGap(9, 9, 9)
-                        .addComponent(__chkCosto))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(__Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(__Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(__chkCantidad))
                         .addGap(7, 7, 7)
-                        .addComponent(__costo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(__costo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(__chkCosto)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(__TipoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
