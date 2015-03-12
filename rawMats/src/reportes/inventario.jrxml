@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="800" pageHeight="595" orientation="Landscape" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="472c8a9f-2450-49a6-8dae-06879dd8d436">
-	<property name="ireport.zoom" value="1.9487171000000025"/>
-	<property name="ireport.x" value="301"/>
+	<property name="ireport.zoom" value="1.4641000000000017"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
@@ -33,8 +33,9 @@ FROM
 WHERE
      vw_infoproducto.`cantidad` > 0
 ORDER BY
-     vw_infoproducto.`clave` ASC,
-     vw_infoproducto.`descripcion` ASC]]>
+     vw_infoproducto.`ubicacion` ASC,
+     vw_infoproducto.`descripcion` ASC,
+     vw_infoproducto.`clave` ASC]]>
 	</queryString>
 	<field name="total" class="java.math.BigDecimal"/>
 	<field name="vw_infoproducto_idinventario" class="java.lang.Integer"/>
@@ -209,70 +210,63 @@ ORDER BY
 				<textField isStretchWithOverflow="true" pattern="¤ #,##0.0000">
 					<reportElement uuid="d2880205-839b-4c36-b75e-3258b3ff2ea1" style="Detail" positionType="Float" x="699" y="0" width="61" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.0000">
 					<reportElement uuid="1ff22870-e103-4f22-9f01-708e9665205d" style="Detail" positionType="Float" x="494" y="0" width="40" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_max}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="346" y="0" width="70" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_area}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.0000">
 					<reportElement uuid="a71ceb75-b645-4d2f-89ed-424471b88131" style="Detail" positionType="Float" x="573" y="0" width="45" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_cantidad}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="e4fb2237-e9cf-4d0c-85a5-fd9429ae9b3d" style="Detail" positionType="Float" x="1" y="0" width="80" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_clave}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="73b23dc8-8565-41c6-967e-42df813fa482" x="230" y="0" width="116" height="18"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_ubicacion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="88485793-7b08-4a19-8383-560fdc473884" style="Detail" positionType="Float" x="81" y="0" width="149" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_descripcion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="416" y="0" width="54" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_maquina}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.0000">
 					<reportElement uuid="304b10b3-f083-4654-859d-64cfbb4997a2" style="Detail" positionType="Float" x="534" y="0" width="39" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_min}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="¤ #,##0.0000">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="645" y="0" width="54" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_costopromedio}]]></textFieldExpression>
 				</textField>
@@ -282,16 +276,23 @@ ORDER BY
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="470" y="0" width="24" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_op}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="619" y="0" width="26" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="5"/>
+						<font fontName="Arial" size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{vw_infoproducto_unidadM}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="230" y="1" width="116" height="17"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vw_infoproducto_ubicacion}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
