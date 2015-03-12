@@ -1199,6 +1199,24 @@ public class modelo extends database{
         }   
     }
      
+     public boolean updateProducto(String clave,String descripcion) {
+        String q = "update detallesalida set descripcion='"+descripcion+"'  where claveproduto ='"+clave+"';";                 
+        String q2 = "update detalleentrada set descripcion='"+descripcion+"'  where claveproducto ='"+clave+"';";  
+        try{
+            PreparedStatement pstm = this.getConexion().prepareStatement(q);
+            PreparedStatement pstm2 = this.getConexion().prepareStatement(q2);
+            pstm.execute();
+            pstm.close();
+            pstm2.execute();
+            pstm2.close();
+            return true;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }   
+    }
+     
+     
      public ResultSet algo() {
         String q = "select * from vw_descripcionproductos";
         try {

@@ -3291,11 +3291,10 @@ public class jControlador implements ActionListener {
                             }
                         }
                     }else{
-                        if(mimodelo.updateProducto(areaid, maquinaid, clave,DesP, Max, Min,ubicacion1,um)){
-                                mensaje(1,"Modificacion de producto correcta");
-                                borrarFormularioAltaProducto();
-                                
-                        }
+                        mimodelo.updateProducto(areaid, maquinaid, clave,DesP, Max, Min,ubicacion1,um);
+                        mimodelo.updateProducto(clave, DesP);
+                        mensaje(1,"Modificacion de producto correcta");
+                        borrarFormularioAltaProducto();
                     }
                 }
                 break;

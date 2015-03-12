@@ -48,16 +48,36 @@ public class prueba {
     
     
     public void clavesentrada(){
-        String q = "select distinct (claveProducto) from inventario";
         try {
+            String q = "select distinct(clave) from vw_infocard";
+            
             PreparedStatement pstm = mimodelo.getConexion().prepareStatement(q);
             ResultSet res = pstm.executeQuery();
             while (res.next()){
-                mimodelo.sumarexistencia(res.getString(1));
+                String q1 = "select sum(cantidad) from vw_infocard where clave='"+res.getString(1)+"'";
+                PreparedStatement pstm1 = mimodelo.getConexion().prepareStatement(q1);
+                ResultSet res1 = pstm1.executeQuery();
+                while (res1.next()){
+                    String q2 = "select cantidad from inventario where claveProducto='"+res.getString(1)+"'";
+                    PreparedStatement pstm2 = mimodelo.getConexion().prepareStatement(q2);
+                    ResultSet res2 = pstm2.executeQuery();
+                    while (res2.next()){
+                        //System.out.println(res.getString(1)+" - "+res1.getString(1)+" - "+res2.getString(1));
+                        if(!res2.getString(1).equals(res1.getString(1))){
+                            System.out.println(res.getString(1)+"---"+res1.getString(1) );
+                        }
+                    }
+                    
+                }
+                
             }
-            }catch(SQLException e){
-            }
+        } catch (SQLException ex) {
+            Logger.getLogger(prueba.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
     }
+    
+    
     
     
     
