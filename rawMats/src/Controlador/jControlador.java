@@ -5331,12 +5331,14 @@ public class jControlador implements ActionListener {
             movimientos.__TipoEntrada.requestFocus();
             return;
         } 
+        System.out.println(tipoentrada+" --tipoentarda");
         propietario = this.busquedaid(movimientos.__PropietarioEntr);
         if(propietario==0){
             mensaje(3,"Verifica el Propietario");
             movimientos.__PropietarioEntr.requestFocus();
             return;
         }
+        System.out.println(propietario+" --propietario");
         String ClienteE=movimientos.__ClientEntr.getText();
         if(ClienteE.isEmpty()){
             mensaje(3,"Debe Especificar un Cliente");
@@ -5344,17 +5346,19 @@ public class jControlador implements ActionListener {
             return;
         }
         cliente = this.busquedaid(movimientos.__ClientEntr);
-        if(propietario==0){
+        if(cliente==0){
             mensaje(3,"Verifica el Cliente");
             movimientos.__ClientEntr.requestFocus();
             return;
         }
+        System.out.println(cliente+" --cliente");
         proveedor = this.busquedaid(movimientos.__ProvEntr);
         if(proveedor==0){
             mensaje(3,"Verifica el Proveedor");
             movimientos.__ProvEntr.requestFocus();
             return;
         }
+        System.out.println(proveedor+" --proveedor");
         String OrdenProducionE=movimientos.__OrdenProduccionEntr.getText();                        
         String OrdenCompraE=movimientos.__OrdenCompraEntr.getText();                                
         
@@ -5530,12 +5534,6 @@ public class jControlador implements ActionListener {
     }
     public void SalidaAceptarModificar(){
         String FolioS=movimientos.__FolioSalida.getText();
-        String DocumentoS=movimientos.__documentoSalida.getText();
-        if(DocumentoS.isEmpty()){
-            mensaje(3,"Debe Especificar el Documento de Salida");
-            movimientos.__documentoSalida.requestFocus();
-            return;
-        }
         String TipoS=movimientos.__TipoSalida.getText();
         if(TipoS.isEmpty()){
             mensaje(3,"Debe Especificar un Tipo de Salida");
@@ -5543,10 +5541,41 @@ public class jControlador implements ActionListener {
             return;
         }
         int idTipoSal = this.busquedaid(movimientos.__TipoSalida);
-        String OrdenProducionS=movimientos.__OrdenProduccionSalida.getText();                        
-        String Solicitante=movimientos.__SolicitanteSalida.getText();   
+        if(idTipoSal==0){
+            mensaje(3,"Verifica el  Tipo de Salida");
+            movimientos.__TipoSalida.requestFocus();
+            return;
+        }
+        String DocumentoS=movimientos.__documentoSalida.getText();
+        if(DocumentoS.isEmpty()){
+            mensaje(3,"Debe Especificar el Documento de Salida");
+            movimientos.__documentoSalida.requestFocus();
+            return;
+        }
+        String OrdenProducionS=movimientos.__OrdenProduccionSalida.getText(); 
+        if( OrdenProducionS.isEmpty()){
+            mensaje(3,"Debe Especificar una Orden de Produccion");
+            movimientos.__OrdenProduccionSalida.requestFocus();
+            return;
+        }
+        String Solicitantee=movimientos.__SolicitanteSalida.getText();
+        if(Solicitantee.isEmpty()){
+            mensaje(3,"Debe Especificar el Solicitante");
+            movimientos.__SolicitanteSalida.requestFocus();
+            return;
+        }
         String AreaSalida=movimientos.__AreaSalida.getText();
+        if(AreaSalida.isEmpty()){
+            mensaje(3,"Debe Especificar el Area");
+            movimientos.__AreaSalida.requestFocus();
+            return;
+        }
         int idAreaSal = this.busquedaid(movimientos.__AreaSalida);
+        if(idAreaSal==0){
+            mensaje(3,"Verifica el Area");
+            movimientos.__AreaSalida.requestFocus();
+            return;
+        }
          if(movimientos.__chkTurno1Salida.isSelected()){
            t1="t1";
         }else
@@ -5680,7 +5709,7 @@ public class jControlador implements ActionListener {
                             } 
                         }
                         String fechaentrada=fec.replaceAll("-", "");
-                        boolean altaSalida = mimodelo.altaSalida(FolioS,DocumentoS,idTipoSal,OrdenProducionS,Solicitante,idAreaSal,t1,t2,t3,fechaentrada,Obs,id_responsable);
+                        boolean altaSalida = mimodelo.altaSalida(FolioS,DocumentoS,idTipoSal,OrdenProducionS,Solicitantee,idAreaSal,t1,t2,t3,fechaentrada,Obs,id_responsable);
                         if(altaSalida==true && detallesalida==true){
                             mensaje(1,"Salida agregada correctamente");
                             this.borrarFormularioMovimientos();
@@ -5715,7 +5744,7 @@ public class jControlador implements ActionListener {
                         } 
                     }
                     String fechaentrada=fec.replaceAll("-", "");
-                        boolean altaSalida = mimodelo.modifSalida(FolioS,DocumentoS,idTipoSal,OrdenProducionS,Solicitante,idAreaSal,t1,t2,t3,fechaentrada,Obs,id_responsable);
+                        boolean altaSalida = mimodelo.modifSalida(FolioS,DocumentoS,idTipoSal,OrdenProducionS,Solicitantee,idAreaSal,t1,t2,t3,fechaentrada,Obs,id_responsable);
                         if(altaSalida==true && modifsalida==true){
                             mensaje(1,"Salida modificada correctamente");
                             this.borrarFormularioMovimientos();
