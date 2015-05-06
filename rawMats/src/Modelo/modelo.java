@@ -1580,5 +1580,18 @@ public class modelo extends database{
                 return null;
             }
     }  
+
+    public ResultSet buscacantidadesentrada(String FolioE,String clave) {
+        String q = "select iddetalleentrada,cantidad,cantidadtemporal from detalleentrada d, entrada e where e.identrada=d.identrada and e.folioe='"+FolioE+"' and d.claveProducto= '"+clave+"'";
+        System.out.println(q);
+        try {
+                PreparedStatement pstm = this.getConexion().prepareStatement(q);
+                ResultSet res = pstm.executeQuery();
+                return res;
+            }catch(SQLException e){
+                
+                return null;
+            }
+    }
 }
 

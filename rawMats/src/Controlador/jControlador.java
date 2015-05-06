@@ -5502,18 +5502,34 @@ public class jControlador implements ActionListener {
                     //String folioentrada,String t1, String t2, String t3,String ordenProduccion,String ordenCompra,String documentoEntrada,int propietario,int proveedor, int responsable,String fecha,int tipoentrada,String Observaciones,int cliente){
                     if (confir==JOptionPane.OK_OPTION){
                         //String fechaentrada=fec.replaceAll("-", "");
-                        mimodelo.modifEntrada(FolioE,t1,t2,t3,OrdenProducionE,OrdenCompraE,DocumentoE,propietario+"",proveedor+"",id_responsable+"", fec,tipoentrada+"",Obs,cliente+"" );
+                        
+                        ResultSet cantidades;
+                        Double newcanttem , valorcant;
+                        int detalleentrada;
                         for(int i=0;i<movimientos.__tablaEntrada.getRowCount();i++){
-                            try {                            
+                            try {
                                 claveproducto=movimientos.__tablaEntrada.getValueAt(i, 0).toString();
+                                cantidades=mimodelo.buscacantidadesentrada(FolioE,claveproducto); 
                                 String descripcion =movimientos.__tablaEntrada.getValueAt(i, 1).toString();
                                 String ubicacion = movimientos.__tablaEntrada.getValueAt(i, 2).toString();
-                                Double cantidadentrada=Double.parseDouble(movimientos.__tablaEntrada.getValueAt(i, 3).toString());
+                                Double nuevacantidadentrada=Double.parseDouble(movimientos.__tablaEntrada.getValueAt(i, 3).toString());
+                                while(cantidades.next()){
+                                    detalleentrada = cantidades.getInt("iddetalleentrada");
+                                    Double cant1=cantidades.getDouble("cantidad");
+                                    Double canttem=cantidades.getDouble("cantidadtemporal");
+                                    valorcant=cant1-canttem;
+                                    if(valorcant>nuevacantidadentrada){
+                                        mensaje(3,"no se puede actualizar la entrada, ya se hicieron salidas de esa entrada");
+                                        return;
+                                    }else{
+                                        Double nuevotemporal=nuevacantidadentrada-valorcant; 
+                                        mimodelo.updateteporalde( nuevotemporal,detalleentrada );
+                                    }
+                                }
                                 String unidad_m = movimientos.__tablaEntrada.getValueAt(i, 4).toString();
                                 String costo=movimientos.__tablaEntrada.getValueAt(i, 5).toString();
                                 String totalcosto=movimientos.__tablaEntrada.getValueAt(i, 6).toString();
-                                ResultSet existenciaPapel = mimodelo.buscarExistenciaProducto(claveproducto);
-                                mimodelo.modifDetalleEntrada(Integer.parseInt(identradas[i]),claveproducto,descripcion,ubicacion,cantidadentrada+"",unidad_m,costo,totalcosto);
+                                mimodelo.modifDetalleEntrada(Integer.parseInt(identradas[i]),claveproducto,descripcion,ubicacion,nuevacantidadentrada+"",unidad_m,costo,totalcosto);
                                 mimodelo.costopromedio(claveproducto);
                                 mimodelo.sumarexistencia(claveproducto);
                                 mimodelo.ubicacion(claveproducto, ubicacion);
@@ -5521,7 +5537,8 @@ public class jControlador implements ActionListener {
                             } catch (Exception ex) {
                                 //Logger.getLogger(jControlador.class.getName()).log(Level.SEVERE, null, ex);
                                 
-                            }   
+                            }
+                            
                         }
                         mensaje(1,"modificacion de entrada correcta");
                         this.borrarFormularioMovimientos();
