@@ -2457,6 +2457,9 @@ public class jControlador implements ActionListener {
         this.reporte.__RInventario.setActionCommand("__INVENTARIO");
         this.reporte.__RInventario.setMnemonic('I');
         this.reporte.__RInventario.addActionListener(this);
+        this.reporte.__RInventario1.setActionCommand("__INVENTARIO1");
+        this.reporte.__RInventario1.setMnemonic('N');
+        this.reporte.__RInventario1.addActionListener(this);
         this.reporte.__Salida.setActionCommand("__SALIDA");
         this.reporte.__Salida.setMnemonic('S');
         this.reporte.__Salida.addActionListener(this); 
@@ -2591,6 +2594,7 @@ public class jControlador implements ActionListener {
         __MODIFICACION_SALIDA,
         //REPORTES
         __INVENTARIO,
+        __INVENTARIO1,
         __SALIDA,
         __ENTRADA,
         __STOCK_ARRIBA,
@@ -3463,8 +3467,12 @@ public class jControlador implements ActionListener {
                 break;
             case __INVENTARIO:
                 
-                this.mimodelo.abrirReporte("inventario.jrxml",new HashMap());
-                break;              
+                this.mimodelo.abrirReporte("inventariomp.jrxml",new HashMap());
+                break;    
+            case __INVENTARIO1:
+                
+                this.mimodelo.abrirReporte("inventariorf.jrxml",new HashMap());
+                break;   
             case __SALIDA:
                 String SL = JOptionPane.showInputDialog(null,"Ingresa la Fecha Inicial(aaaa-mm-dd)");
                 map.put("ingresa", SL);

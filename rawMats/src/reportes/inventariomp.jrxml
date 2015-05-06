@@ -15,46 +15,46 @@
 	</style>
 	<queryString>
 		<![CDATA[SELECT
-     vw_infoproducto.`cantidad`*vw_infoproducto.`costopromedio` AS total,
-     vw_infoproducto.`idinventario` AS vw_infoproducto_idinventario,
-     vw_infoproducto.`costopromedio` AS vw_infoproducto_costopromedio,
-     vw_infoproducto.`ubicacion` AS vw_infoproducto_ubicacion,
-     vw_infoproducto.`area` AS vw_infoproducto_area,
-     vw_infoproducto.`maquina` AS vw_infoproducto_maquina,
-     vw_infoproducto.`max` AS vw_infoproducto_max,
-     vw_infoproducto.`min` AS vw_infoproducto_min,
-     vw_infoproducto.`descripcion` AS vw_infoproducto_descripcion,
-     vw_infoproducto.`clave` AS vw_infoproducto_clave,
-     vw_infoproducto.`op` AS vw_infoproducto_op,
-     vw_infoproducto.`unidadM` AS vw_infoproducto_unidadM,
-     vw_infoproducto.`cantidad` AS vw_infoproducto_cantidad
+     vw_infoproductomp.`cantidad`*vw_infoproductomp.`costopromedio` AS total,
+     vw_infoproductomp.`idinventario` AS vw_infoproductomp_idinventario,
+     vw_infoproductomp.`costopromedio` AS vw_infoproductomp_costopromedio,
+     vw_infoproductomp.`ubicacion` AS vw_infoproductomp_ubicacion,
+     vw_infoproductomp.`area` AS vw_infoproductomp_area,
+     vw_infoproductomp.`maquina` AS vw_infoproductomp_maquina,
+     vw_infoproductomp.`max` AS vw_infoproductomp_max,
+     vw_infoproductomp.`min` AS vw_infoproductomp_min,
+     vw_infoproductomp.`descripcion` AS vw_infoproductomp_descripcion,
+     vw_infoproductomp.`clave` AS vw_infoproductomp_clave,
+     vw_infoproductomp.`op` AS vw_infoproductomp_op,
+     vw_infoproductomp.`unidadM` AS vw_infoproductomp_unidadM,
+     vw_infoproductomp.`cantidad` AS vw_infoproductomp_cantidad
 FROM
-     `vw_infoproducto` vw_infoproducto
+     `vw_infoproductomp` vw_infoproductomp
 WHERE
-     vw_infoproducto.`cantidad` > 0
+     vw_infoproductomp.`cantidad` > 0
 ORDER BY
-     vw_infoproducto.`ubicacion` ASC,
-     vw_infoproducto.`descripcion` ASC,
-     vw_infoproducto.`clave` ASC]]>
+     vw_infoproductomp.`ubicacion` ASC,
+     vw_infoproductomp.`descripcion` ASC,
+     vw_infoproductomp.`clave` ASC]]>
 	</queryString>
 	<field name="total" class="java.math.BigDecimal"/>
-	<field name="vw_infoproducto_idinventario" class="java.lang.Integer"/>
-	<field name="vw_infoproducto_costopromedio" class="java.math.BigDecimal"/>
-	<field name="vw_infoproducto_ubicacion" class="java.lang.String"/>
-	<field name="vw_infoproducto_area" class="java.lang.String"/>
-	<field name="vw_infoproducto_maquina" class="java.lang.String"/>
-	<field name="vw_infoproducto_max" class="java.math.BigDecimal"/>
-	<field name="vw_infoproducto_min" class="java.math.BigDecimal"/>
-	<field name="vw_infoproducto_descripcion" class="java.lang.String"/>
-	<field name="vw_infoproducto_clave" class="java.lang.String"/>
-	<field name="vw_infoproducto_op" class="java.lang.String"/>
-	<field name="vw_infoproducto_unidadM" class="java.lang.String"/>
-	<field name="vw_infoproducto_cantidad" class="java.math.BigDecimal"/>
+	<field name="vw_infoproductomp_idinventario" class="java.lang.Integer"/>
+	<field name="vw_infoproductomp_costopromedio" class="java.math.BigDecimal"/>
+	<field name="vw_infoproductomp_ubicacion" class="java.lang.String"/>
+	<field name="vw_infoproductomp_area" class="java.lang.String"/>
+	<field name="vw_infoproductomp_maquina" class="java.lang.String"/>
+	<field name="vw_infoproductomp_max" class="java.math.BigDecimal"/>
+	<field name="vw_infoproductomp_min" class="java.math.BigDecimal"/>
+	<field name="vw_infoproductomp_descripcion" class="java.lang.String"/>
+	<field name="vw_infoproductomp_clave" class="java.lang.String"/>
+	<field name="vw_infoproductomp_op" class="java.lang.String"/>
+	<field name="vw_infoproductomp_unidadM" class="java.lang.String"/>
+	<field name="vw_infoproductomp_cantidad" class="java.math.BigDecimal"/>
 	<variable name="cantidad" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[$F{vw_infoproducto_cantidad}]]></variableExpression>
+		<variableExpression><![CDATA[$F{vw_infoproductomp_cantidad}]]></variableExpression>
 	</variable>
 	<variable name="costo" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{vw_infoproducto_costopromedio}]]></variableExpression>
+		<variableExpression><![CDATA[$F{vw_infoproductomp_costopromedio}]]></variableExpression>
 	</variable>
 	<variable name="total" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{total}]]></variableExpression>
@@ -219,56 +219,56 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_max}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_max}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="346" y="0" width="70" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_area}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_area}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.0000">
 					<reportElement uuid="a71ceb75-b645-4d2f-89ed-424471b88131" style="Detail" positionType="Float" x="573" y="0" width="45" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_cantidad}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_cantidad}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="e4fb2237-e9cf-4d0c-85a5-fd9429ae9b3d" style="Detail" positionType="Float" x="1" y="0" width="80" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_clave}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_clave}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="88485793-7b08-4a19-8383-560fdc473884" style="Detail" positionType="Float" x="81" y="0" width="149" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_descripcion}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_descripcion}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="416" y="0" width="54" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_maquina}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_maquina}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.0000">
 					<reportElement uuid="304b10b3-f083-4654-859d-64cfbb4997a2" style="Detail" positionType="Float" x="534" y="0" width="39" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_min}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_min}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="¤ #,##0.0000">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="645" y="0" width="54" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_costopromedio}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_costopromedio}]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement uuid="89c716d2-b33c-49af-9718-01b7d06d610d" x="1" y="0" width="759" height="1" forecolor="#CCCCCC"/>
@@ -278,21 +278,21 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_op}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_op}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="619" y="0" width="26" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_unidadM}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_unidadM}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="ea58e21e-861c-48e7-a76e-00da2636cc05" style="Detail" positionType="Float" x="230" y="1" width="116" height="17"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vw_infoproducto_ubicacion}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infoproductomp_ubicacion}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
