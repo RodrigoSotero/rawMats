@@ -38,14 +38,16 @@
      vw_infocard.`descripcion` AS vw_infocard_descripcion,
      vw_infocard.`unidadMedida` AS vw_infocard_unidadMedida,
      vw_infocard.`op` AS vw_infocard_op,
-     vw_infocard.`cantidad` AS vw_infocard_cantidad
+     vw_infocard.`cantidad` AS vw_infocard_cantidad,
+     vw_infocard.`costototal` AS vw_infocard_costototal,
+      vw_infocard.`costototal` / vw_infocard.`cantidad` as costo
 FROM
      `vw_infocard` vw_infocard
 WHERE
      vw_infocard.`fecha` >= $P{inicial}
  AND vw_infocard.`descripcion` = $P{descripcion}
 ORDER BY
-     vw_infocard.`fecha` ASC    ]]>
+     vw_infocard.`fecha` ASC]]>
 	</queryString>
 	<field name="total" class="java.math.BigDecimal"/>
 	<field name="vw_infocard_folio" class="java.lang.String"/>
@@ -59,11 +61,13 @@ ORDER BY
 	<field name="vw_infocard_unidadMedida" class="java.lang.String"/>
 	<field name="vw_infocard_op" class="java.lang.String"/>
 	<field name="vw_infocard_cantidad" class="java.math.BigDecimal"/>
+	<field name="vw_infocard_costototal" class="java.math.BigDecimal"/>
+	<field name="costo" class="java.math.BigDecimal"/>
 	<variable name="sum" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{vw_infocard_cantidad}]]></variableExpression>
 	</variable>
 	<variable name="Sumtotal" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<variableExpression><![CDATA[$F{vw_infocard_costototal}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -260,7 +264,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vw_infocard_costototal}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.0">
 					<reportElement uuid="1c67b6a2-434f-4b6a-a68c-8149c2ea9a9e" x="668" y="0" width="92" height="18"/>
@@ -330,7 +334,7 @@ ORDER BY
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{Sumtotal}/$V{sum}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
